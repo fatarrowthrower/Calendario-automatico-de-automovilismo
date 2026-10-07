@@ -12242,7 +12242,7 @@ UID:actc-tc-pick-up-2026-09
 DTSTART;TZID=America/Argentina/Buenos_Aires:20261018T120000
 DTEND;TZID=America/Argentina/Buenos_Aires:20261018T235900
 SUMMARY:TC Pick Up - Carrera
-LOCATION:A CONFIRMAR — A CONFIRMAR Faltan 12 días Próximamente a la venta Autódromo A CONFIRMAR A CONFIRMAR d
+LOCATION:A CONFIRMAR — A CONFIRMAR Faltan 11 días Próximamente a la venta Autódromo A CONFIRMAR A CONFIRMAR d
 DESCRIPTION:TC Pick Up - Fecha 9
 END:VEVENT
 BEGIN:VEVENT
@@ -12250,7 +12250,7 @@ UID:actc-tc-2026-13
 DTSTART;TZID=America/Argentina/Buenos_Aires:20261025T120000
 DTEND;TZID=America/Argentina/Buenos_Aires:20261025T235900
 SUMMARY:TC - Carrera
-LOCATION:Juan Manuel Fangio-ROSARIO — Rosario\, Santa Fe Faltan 19 días Próximamente a la venta Autódromo Juan
+LOCATION:Juan Manuel Fangio-ROSARIO — Rosario\, Santa Fe Faltan 18 días Próximamente a la venta Autódromo Juan
 DESCRIPTION:TC - Fecha 13
 END:VEVENT
 BEGIN:VEVENT
@@ -12258,7 +12258,7 @@ UID:actc-tc-pista-2026-13
 DTSTART;TZID=America/Argentina/Buenos_Aires:20261025T120000
 DTEND;TZID=America/Argentina/Buenos_Aires:20261025T235900
 SUMMARY:TC Pista - Carrera
-LOCATION:Juan Manuel Fangio-ROSARIO — Rosario\, Santa Fe Faltan 19 días Próximamente a la venta Autódromo Juan
+LOCATION:Juan Manuel Fangio-ROSARIO — Rosario\, Santa Fe Faltan 18 días Próximamente a la venta Autódromo Juan
 DESCRIPTION:TC Pista - Fecha 13
 END:VEVENT
 BEGIN:VEVENT
@@ -12290,7 +12290,7 @@ UID:actc-tc-2026-15
 DTSTART;TZID=America/Argentina/Buenos_Aires:20261206T120000
 DTEND;TZID=America/Argentina/Buenos_Aires:20261206T235900
 SUMMARY:TC - Carrera
-LOCATION:Roberto José Mouras — La Plata\, Buenos Aires Próximamente a la venta (self.__next_f=self.__next_f||[
+LOCATION:Roberto José Mouras — La Plata\, Buenos Aires Próximamente a la venta $RC=function(b\,c\,e){c=document.
 DESCRIPTION:TC - Fecha 15
 END:VEVENT
 BEGIN:VEVENT
