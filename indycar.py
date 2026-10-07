@@ -59,13 +59,6 @@ def get_page(url):
 
 
 def parse_day_header(text):
-    """
-    Ejemplos:
-      Friday, Mar 6
-      Saturday, Mar 7
-      Sunday, Mar 8
-    """
-
     text = clean(text)
 
     match = re.match(
@@ -89,14 +82,6 @@ def parse_day_header(text):
 
 
 def parse_time_et(text):
-    """
-    Acepta:
-      10:00AM ET
-      2:00PM ET
-      4:30PM ET
-      10:00 AM ET
-    """
-
     text = clean(text)
 
     match = re.match(
@@ -123,10 +108,6 @@ def parse_time_et(text):
 
 
 def is_session_name(text):
-    """
-    Determina si una línea parece ser una sesión deportiva.
-    """
-
     text = clean(text)
 
     if not text:
@@ -151,11 +132,28 @@ def is_session_name(text):
         "pit stop competition",
     ]
 
+    # Non-sporting promotional activity.
+    excluded = [
+        "pre-race show",
+        "pre race show",
+    ]
+
+    if any(item in lower for item in excluded):
+        return False
+
     return any(keyword in lower for keyword in keywords)
 
 
 def normalize_session_name(text):
     text = clean(text)
+
+    # Eliminamos el prefijo que agrega IndyCar.
+    text = re.sub(
+        r"^NTT INDYCAR SERIES\s*-\s*",
+        "",
+        text,
+        flags=re.IGNORECASE,
+    )
 
     replacements = {
         "Qualifying": "Qualifications",
@@ -171,78 +169,64 @@ def normalize_session_name(text):
     return text
 
 
-def extract_event_info(soup, url):
+def extract_event_info(soup):
     """
-    Busca nombre de evento y circuito sin depender
-    de que la página de calendario tenga un título limpio.
+    Obtiene el nombre del evento desde H1.
+
+    Para el circuito busca el primer H3 que aparece
+    después de 'Event Details'.
     """
 
-    title = ""
+    event_title = ""
 
     h1 = soup.find("h1")
-    if h1:
-        title = clean(h1.get_text(" ", strip=True))
 
-    if not title:
+    if h1:
+        event_title = clean(
+            h1.get_text(" ", strip=True)
+        )
+
+    if not event_title:
         page_title = soup.find("title")
+
         if page_title:
-            title = clean(page_title.get_text(" ", strip=True))
+            event_title = clean(
+                page_title.get_text(" ", strip=True)
+            )
 
     circuit = ""
 
-    lines = [
-        clean(line)
-        for line in soup.get_text("\n").splitlines()
-        if clean(line)
-    ]
+    # Buscar el encabezado Event Details.
+    details_heading = None
 
-    try:
-        details_index = next(
-            i for i, line in enumerate(lines)
-            if line.lower() == "event details"
+    for tag in soup.find_all(
+        ["h2", "h3", "div", "span", "button"]
+    ):
+        text = clean(
+            tag.get_text(" ", strip=True)
         )
 
-        for line in lines[details_index + 1:details_index + 30]:
-            lower = line.lower()
+        if text.lower() == "event details":
+            details_heading = tag
+            break
 
-            if "raceway" in lower:
-                circuit = line
+    if details_heading:
+        # Primero intentamos encontrar el siguiente H3.
+        for element in details_heading.find_all_next("h3"):
+            candidate = clean(
+                element.get_text(" ", strip=True)
+            )
+
+            if candidate and candidate.lower() != "toggle event details":
+                circuit = candidate
                 break
 
-            if "speedway" in lower:
-                circuit = line
-                break
-
-            if "street" in lower and len(line) < 100:
-                circuit = line
-                break
-
-            if "park" in lower and len(line) < 100:
-                circuit = line
-                break
-
-            if "circuit" in lower and len(line) < 100:
-                circuit = line
-                break
-
-    except StopIteration:
-        pass
-
-    return title, circuit
+    return event_title, circuit
 
 
 def extract_schedule(soup):
     """
-    Lee exclusivamente el bloque situado entre:
-
-      Schedule
-
-    y
-
-      Event Details
-
-    Esto evita contaminar las sesiones con fechas de noticias,
-    resultados o contenido de otras carreras.
+    Lee exclusivamente el bloque Schedule -> Event Details.
     """
 
     lines = [
@@ -270,7 +254,9 @@ def extract_schedule(soup):
     if details_index is None:
         details_index = len(lines)
 
-    schedule_lines = lines[schedule_index + 1:details_index]
+    schedule_lines = lines[
+        schedule_index + 1:details_index
+    ]
 
     sessions = []
     current_date = None
@@ -292,22 +278,22 @@ def extract_schedule(soup):
         if parsed_time and current_date:
             session_name = None
 
-            # Buscamos las siguientes líneas para encontrar
-            # el nombre real de la sesión.
-            for j in range(i + 1, min(i + 5, len(schedule_lines))):
+            for j in range(
+                i + 1,
+                min(i + 5, len(schedule_lines)),
+            ):
                 candidate = schedule_lines[j]
 
-                # Si aparece otro día antes del nombre,
-                # esta hora quedó sin sesión.
                 if parse_day_header(candidate):
                     break
 
-                # No queremos tomar otra hora.
                 if parse_time_et(candidate):
                     continue
 
                 if is_session_name(candidate):
-                    session_name = normalize_session_name(candidate)
+                    session_name = normalize_session_name(
+                        candidate
+                    )
                     break
 
             if session_name:
@@ -335,12 +321,14 @@ def extract_schedule(soup):
 
 def discover_races(soup):
     """
-    Descubre dinámicamente las carreras desde la página oficial.
-    No hay fechas ni carreras hardcodeadas.
+    Descubre dinámicamente las carreras del año.
+
+    Caso especial:
+    Milwaukee tiene Race1 y Race2 como URLs separadas,
+    pero Race1 contiene el calendario completo del dobleheader.
     """
 
-    races = []
-    seen = set()
+    discovered = {}
 
     for link in soup.find_all("a", href=True):
         href = link.get("href", "")
@@ -354,19 +342,21 @@ def discover_races(soup):
         if not match:
             continue
 
+        slug = match.group(1)
         url = urljoin(BASE_URL, href)
 
-        if url in seen:
+        # Milwaukee:
+        # si existe Race1 usamos esa como página canónica.
+        if slug.lower() == "milwaukee-race2":
             continue
 
-        seen.add(url)
-
-        races.append(
-            {
+        if url not in discovered:
+            discovered[url] = {
                 "url": url,
-                "slug": match.group(1),
+                "slug": slug,
             }
-        )
+
+    races = list(discovered.values())
 
     return races
 
@@ -377,12 +367,18 @@ def make_event(race, session, event_title, circuit):
 
     slug = race["slug"]
 
+    clean_title = re.sub(
+        r"[^a-z0-9]+",
+        "-",
+        session["title"].lower(),
+    ).strip("-")
+
     uid = (
         f"indycar-{YEAR}-"
         f"{slug.lower()}-"
         f"{session_date}-"
         f"{session_time.replace(':', '')}-"
-        f"{re.sub(r'[^a-z0-9]+', '-', session['title'].lower()).strip('-')}"
+        f"{clean_title}"
     )
 
     return {
@@ -408,6 +404,7 @@ def main():
     print(f"INDYCAR - {YEAR}")
     print("=" * 60)
     print()
+
     print("Consultando calendario oficial:")
     print(SCHEDULE_URL)
     print()
@@ -429,8 +426,7 @@ def main():
             soup = get_page(race["url"])
 
             event_title, circuit = extract_event_info(
-                soup,
-                race["url"],
+                soup
             )
 
             sessions = extract_schedule(soup)
@@ -460,7 +456,7 @@ def main():
 
         print()
 
-    # Eliminar duplicados exactos.
+    # Duplicados exactos.
     unique = {}
 
     for event in all_events:
@@ -483,9 +479,15 @@ def main():
         )
     )
 
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
 
-    with OUTPUT.open("w", encoding="utf-8") as f:
+    with OUTPUT.open(
+        "w",
+        encoding="utf-8",
+    ) as f:
         json.dump(
             events,
             f,
