@@ -168,17 +168,20 @@ def search_aptp(year):
                 "",
             )
 
-            title = (
-                item.get(
-                    "title",
-                    {},
-                )
-                .get(
-                    "rendered",
-                    "",
-                )
-            )
+            title_data = item.get(
+    "title",
+    "",
+)
 
+if isinstance(title_data, dict):
+    title = title_data.get(
+        "rendered",
+        "",
+    )
+else:
+    title = str(
+        title_data
+    )
             title = clean_html(
                 title
             )
