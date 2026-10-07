@@ -115,6 +115,14 @@ def is_session_name(text):
 
     lower = text.lower()
 
+    excluded = [
+        "pre-race show",
+        "pre race show",
+    ]
+
+    if any(item in lower for item in excluded):
+        return False
+
     keywords = [
         "practice",
         "qualifications",
@@ -132,22 +140,12 @@ def is_session_name(text):
         "pit stop competition",
     ]
 
-    # Non-sporting promotional activity.
-    excluded = [
-        "pre-race show",
-        "pre race show",
-    ]
-
-    if any(item in lower for item in excluded):
-        return False
-
     return any(keyword in lower for keyword in keywords)
 
 
 def normalize_session_name(text):
     text = clean(text)
 
-    # Eliminamos el prefijo que agrega IndyCar.
     text = re.sub(
         r"^NTT INDYCAR SERIES\s*-\s*",
         "",
@@ -170,13 +168,6 @@ def normalize_session_name(text):
 
 
 def extract_event_info(soup):
-    """
-    Obtiene el nombre del evento desde H1.
-
-    Para el circuito busca el primer H3 que aparece
-    después de 'Event Details'.
-    """
-
     event_title = ""
 
     h1 = soup.find("h1")
@@ -196,7 +187,6 @@ def extract_event_info(soup):
 
     circuit = ""
 
-    # Buscar el encabezado Event Details.
     details_heading = None
 
     for tag in soup.find_all(
@@ -211,7 +201,6 @@ def extract_event_info(soup):
             break
 
     if details_heading:
-        # Primero intentamos encontrar el siguiente H3.
         for element in details_heading.find_all_next("h3"):
             candidate = clean(
                 element.get_text(" ", strip=True)
@@ -225,10 +214,6 @@ def extract_event_info(soup):
 
 
 def extract_schedule(soup):
-    """
-    Lee exclusivamente el bloque Schedule -> Event Details.
-    """
-
     lines = [
         clean(line)
         for line in soup.get_text("\n").splitlines()
@@ -278,23 +263,33 @@ def extract_schedule(soup):
         if parsed_time and current_date:
             session_name = None
 
-            for j in range(
-                i + 1,
-                min(i + 5, len(schedule_lines)),
-            ):
+            # IMPORTANTE:
+            # La sesión debe ser la primera línea útil
+            # inmediatamente después de la hora.
+            j = i + 1
+
+            while j < len(schedule_lines):
                 candidate = schedule_lines[j]
 
                 if parse_day_header(candidate):
                     break
 
                 if parse_time_et(candidate):
+                    break
+
+                if candidate.lower() in [
+                    "highlights",
+                    "results",
+                ]:
+                    j += 1
                     continue
 
                 if is_session_name(candidate):
                     session_name = normalize_session_name(
                         candidate
                     )
-                    break
+
+                break
 
             if session_name:
                 dt_et = datetime.combine(
@@ -320,14 +315,6 @@ def extract_schedule(soup):
 
 
 def discover_races(soup):
-    """
-    Descubre dinámicamente las carreras del año.
-
-    Caso especial:
-    Milwaukee tiene Race1 y Race2 como URLs separadas,
-    pero Race1 contiene el calendario completo del dobleheader.
-    """
-
     discovered = {}
 
     for link in soup.find_all("a", href=True):
@@ -345,8 +332,8 @@ def discover_races(soup):
         slug = match.group(1)
         url = urljoin(BASE_URL, href)
 
-        # Milwaukee:
-        # si existe Race1 usamos esa como página canónica.
+        # Milwaukee Race 2 se excluye como página separada
+        # porque Race 1 contiene el dobleheader completo.
         if slug.lower() == "milwaukee-race2":
             continue
 
@@ -356,9 +343,7 @@ def discover_races(soup):
                 "slug": slug,
             }
 
-    races = list(discovered.values())
-
-    return races
+    return list(discovered.values())
 
 
 def make_event(race, session, event_title, circuit):
@@ -456,7 +441,6 @@ def main():
 
         print()
 
-    # Duplicados exactos.
     unique = {}
 
     for event in all_events:
