@@ -10,6 +10,7 @@ from urllib.request import Request, urlopen
 OUTPUT = Path("data/turismo_pista_events.json")
 
 BASE_URL = "https://aptpweb.com.ar"
+
 WP_SEARCH_URL = (
     BASE_URL
     + "/wp-json/wp/v2/search"
@@ -140,6 +141,7 @@ def search_aptp(year):
     results = []
 
     for query in queries:
+
         url = (
             WP_SEARCH_URL
             + "?search="
@@ -155,33 +157,46 @@ def search_aptp(year):
             data = json.loads(
                 fetch(url)
             )
-
         except Exception as exc:
             print(
                 f"  ERROR búsqueda: {exc}"
             )
             continue
 
+        if not isinstance(data, list):
+            continue
+
         for item in data:
+
+            if not isinstance(
+                item,
+                dict,
+            ):
+                continue
+
             link = item.get(
                 "url",
                 "",
             )
 
             title_data = item.get(
-    "title",
-    "",
-)
+                "title",
+                "",
+            )
 
-if isinstance(title_data, dict):
-    title = title_data.get(
-        "rendered",
-        "",
-    )
-else:
-    title = str(
-        title_data
-    )
+            if isinstance(
+                title_data,
+                dict,
+            ):
+                title = title_data.get(
+                    "rendered",
+                    "",
+                )
+            else:
+                title = str(
+                    title_data
+                )
+
             title = clean_html(
                 title
             )
@@ -195,12 +210,9 @@ else:
                 + link
             )
 
-            # El año debe estar realmente
-            # asociado a la publicación.
             if str(year) not in combined:
                 continue
 
-            # Tiene que tratarse de Turismo Pista.
             if "turismo pista" not in combined:
                 continue
 
@@ -259,12 +271,11 @@ def score_article(article, year):
 
 
 def extract_events(text, year):
+
     normalized = normalize(
         text
     )
 
-    # Buscamos explícitamente "FECHA"
-    # seguida de día + mes.
     pattern = re.compile(
         r"(\d{1,2})\s*"
         r"fecha"
@@ -315,8 +326,6 @@ def extract_events(text, year):
             location,
         )
 
-        # Evitar que texto posterior
-        # del artículo sea tomado como sede.
         location = re.split(
             r"\b(?:fecha|carrera|calendario|"
             r"turismo pista)\b",
@@ -366,6 +375,7 @@ def extract_events(text, year):
 
 
 def main():
+
     year = current_year()
 
     print(
@@ -383,8 +393,9 @@ def main():
     )
 
     if not articles:
+
         print(
-            f"APT P todavía no publicó "
+            f"APTP todavía no publicó "
             f"un calendario detectable "
             f"para {year}."
         )
@@ -412,11 +423,13 @@ def main():
     all_events = []
 
     for article in articles:
+
         print()
         print(
             f"Analizando: "
             f"{article['title']}"
         )
+
         print(
             article["url"]
         )
@@ -425,7 +438,6 @@ def main():
             html = fetch(
                 article["url"]
             )
-
         except Exception as exc:
             print(
                 f"  ERROR: {exc}"
@@ -450,8 +462,6 @@ def main():
             events
         )
 
-        # Un artículo con 10 fechas
-        # es nuestro calendario completo.
         if len(events) >= 10:
             break
 
@@ -485,12 +495,14 @@ def main():
     )
 
     print()
+
     print(
         f"Turismo Pista: "
         f"{len(events)} eventos encontrados."
     )
 
     for event in events:
+
         print(
             f"  {event['uid']} | "
             f"{event['fecha_inicio']} | "
@@ -498,6 +510,7 @@ def main():
         )
 
     if not events:
+
         print(
             f"No se encontraron fechas "
             f"para {year}."
