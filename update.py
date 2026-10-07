@@ -250,14 +250,6 @@ def write_json(events):
 
 def main():
 
-        import subprocess
-
-    print("Actualizando calendarios ACTC...")
-    subprocess.run(
-        ["python", "actc.py"],
-        check=True,
-    )
-
     print(
         "Ejecutando: motocal generate 2026 --refresh"
     )
