@@ -457,7 +457,7 @@
     "tipo": "Carrera",
     "fecha_inicio": "2026-12-06T12:00:00",
     "fecha_fin": "2026-12-06T23:59:00",
-    "ubicacion": "Roberto José Mouras — La Plata, Buenos Aires Próximamente a la venta (self.__next_f=self.__next_f||[",
+    "ubicacion": "Roberto José Mouras — La Plata, Buenos Aires Próximamente a la venta $RC=function(b,c,e){c=document.",
     "descripcion": "TC - Fecha 15",
     "prioridad": "alta"
   },
@@ -468,7 +468,7 @@
     "tipo": "Carrera",
     "fecha_inicio": "2026-12-06T12:00:00",
     "fecha_fin": "2026-12-06T23:59:00",
-    "ubicacion": "Roberto José Mouras — La Plata, Buenos Aires Próximamente a la venta (self.__next_f=self.__next_f||[",
+    "ubicacion": "Roberto José Mouras — La Plata, Buenos Aires Próximamente a la venta $RC=function(b,c,e){c=document.",
     "descripcion": "TC Pista - Fecha 15",
     "prioridad": "alta"
   },
@@ -573,8 +573,8 @@
   },
   {
     "uid": "openf1-meeting-1304@motorsport-calendar-FREE_PRACTICE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Evento",
     "fecha_inicio": "20260211T070000Z",
     "fecha_fin": "20260211T160000Z",
@@ -584,8 +584,8 @@
   },
   {
     "uid": "openf1-meeting-1304@motorsport-calendar-FREE_PRACTICE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Evento",
     "fecha_inicio": "20260212T070000Z",
     "fecha_fin": "20260212T160000Z",
@@ -639,8 +639,8 @@
   },
   {
     "uid": "openf1-meeting-1304@motorsport-calendar-FREE_PRACTICE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Evento",
     "fecha_inicio": "20260213T070000Z",
     "fecha_fin": "20260213T160000Z",
@@ -738,8 +738,8 @@
   },
   {
     "uid": "openf1-meeting-1305@motorsport-calendar-FREE_PRACTICE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Evento",
     "fecha_inicio": "20260218T070000Z",
     "fecha_fin": "20260218T160000Z",
@@ -749,8 +749,8 @@
   },
   {
     "uid": "openf1-meeting-1305@motorsport-calendar-FREE_PRACTICE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Evento",
     "fecha_inicio": "20260219T070000Z",
     "fecha_fin": "20260219T160000Z",
@@ -760,8 +760,8 @@
   },
   {
     "uid": "openf1-meeting-1305@motorsport-calendar-FREE_PRACTICE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Evento",
     "fecha_inicio": "20260220T070000Z",
     "fecha_fin": "20260220T160000Z",
@@ -1029,8 +1029,8 @@
   },
   {
     "uid": "openf1-meeting-1279@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260306T013000Z",
     "fecha_fin": "20260306T023000Z",
@@ -1062,8 +1062,8 @@
   },
   {
     "uid": "openf1-meeting-1279@motorsport-calendar-FP2",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260306T050000Z",
     "fecha_fin": "20260306T060000Z",
@@ -1120,8 +1120,8 @@
   },
   {
     "uid": "openf1-meeting-1279@motorsport-calendar-FP3",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260307T013000Z",
     "fecha_fin": "20260307T023000Z",
@@ -1142,8 +1142,8 @@
   },
   {
     "uid": "openf1-meeting-1279@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20260307T050000Z",
     "fecha_fin": "20260307T060000Z",
@@ -1187,14 +1187,14 @@
   },
   {
     "uid": "openf1-meeting-1279@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20260308T040000Z",
     "fecha_fin": "20260308T060000Z",
     "ubicacion": "Melbourne\\, Australia",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "f1calendar-f1-academy-2026-1@motorsport-calendar-FP1",
@@ -1209,8 +1209,8 @@
   },
   {
     "uid": "openf1-meeting-1280@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260313T033000Z",
     "fecha_fin": "20260313T043000Z",
@@ -1231,8 +1231,8 @@
   },
   {
     "uid": "openf1-meeting-1280@motorsport-calendar-SPRINT_QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Sprint",
     "fecha_inicio": "20260313T073000Z",
     "fecha_fin": "20260313T081400Z",
@@ -1254,8 +1254,8 @@
   },
   {
     "uid": "openf1-meeting-1280@motorsport-calendar-SPRINT",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Sprint",
     "fecha_inicio": "20260314T030000Z",
     "fecha_fin": "20260314T040000Z",
@@ -1276,8 +1276,8 @@
   },
   {
     "uid": "openf1-meeting-1280@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20260314T070000Z",
     "fecha_fin": "20260314T080000Z",
@@ -1322,14 +1322,14 @@
   },
   {
     "uid": "openf1-meeting-1280@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20260315T070000Z",
     "fecha_fin": "20260315T090000Z",
     "ubicacion": "Shanghai\\, China",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "indycar-2026-arlington-2026-03-15-1030-warmup",
@@ -1577,8 +1577,8 @@
   },
   {
     "uid": "openf1-meeting-1281@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260327T023000Z",
     "fecha_fin": "20260327T033000Z",
@@ -1588,8 +1588,8 @@
   },
   {
     "uid": "openf1-meeting-1281@motorsport-calendar-FP2",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260327T060000Z",
     "fecha_fin": "20260327T070000Z",
@@ -1688,8 +1688,8 @@
   },
   {
     "uid": "openf1-meeting-1281@motorsport-calendar-FP3",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260328T023000Z",
     "fecha_fin": "20260328T033000Z",
@@ -1699,8 +1699,8 @@
   },
   {
     "uid": "openf1-meeting-1281@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20260328T060000Z",
     "fecha_fin": "20260328T070000Z",
@@ -1833,14 +1833,14 @@
   },
   {
     "uid": "openf1-meeting-1281@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20260329T050000Z",
     "fecha_fin": "20260329T070000Z",
     "ubicacion": "Suzuka\\, Japan",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "indycar-2026-barber-2026-03-29-1100-warmup",
@@ -2000,8 +2000,8 @@
   },
   {
     "uid": "openf1-meeting-1282@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260410T113000Z",
     "fecha_fin": "20260410T123000Z",
@@ -2044,8 +2044,8 @@
   },
   {
     "uid": "openf1-meeting-1282@motorsport-calendar-FP2",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260410T150000Z",
     "fecha_fin": "20260410T160000Z",
@@ -2110,8 +2110,8 @@
   },
   {
     "uid": "openf1-meeting-1282@motorsport-calendar-FP3",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260411T123000Z",
     "fecha_fin": "20260411T133000Z",
@@ -2132,8 +2132,8 @@
   },
   {
     "uid": "openf1-meeting-1282@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20260411T160000Z",
     "fecha_fin": "20260411T170000Z",
@@ -2176,14 +2176,14 @@
   },
   {
     "uid": "openf1-meeting-1282@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20260412T150000Z",
     "fecha_fin": "20260412T170000Z",
     "ubicacion": "Sakhir\\, Bahrain",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "wec-2026-1@motorsport-calendar-FP1",
@@ -2209,8 +2209,8 @@
   },
   {
     "uid": "openf1-meeting-1283@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260417T133000Z",
     "fecha_fin": "20260417T143000Z",
@@ -2220,8 +2220,8 @@
   },
   {
     "uid": "openf1-meeting-1283@motorsport-calendar-FP2",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260417T170000Z",
     "fecha_fin": "20260417T180000Z",
@@ -2276,8 +2276,8 @@
   },
   {
     "uid": "openf1-meeting-1283@motorsport-calendar-FP3",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260418T133000Z",
     "fecha_fin": "20260418T143000Z",
@@ -2299,8 +2299,8 @@
   },
   {
     "uid": "openf1-meeting-1283@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20260418T170000Z",
     "fecha_fin": "20260418T180000Z",
@@ -2345,14 +2345,14 @@
   },
   {
     "uid": "openf1-meeting-1283@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20260419T170000Z",
     "fecha_fin": "20260419T190000Z",
     "ubicacion": "Jeddah\\, Saudi Arabia",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "indycar-2026-long-beach-2026-04-19-1830-race",
@@ -2676,8 +2676,8 @@
   },
   {
     "uid": "openf1-meeting-1284@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260501T160000Z",
     "fecha_fin": "20260501T173000Z",
@@ -2709,8 +2709,8 @@
   },
   {
     "uid": "openf1-meeting-1284@motorsport-calendar-SPRINT_QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Sprint",
     "fecha_inicio": "20260501T203000Z",
     "fecha_fin": "20260501T211400Z",
@@ -2852,8 +2852,8 @@
   },
   {
     "uid": "openf1-meeting-1284@motorsport-calendar-SPRINT",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Sprint",
     "fecha_inicio": "20260502T160000Z",
     "fecha_fin": "20260502T170000Z",
@@ -2874,8 +2874,8 @@
   },
   {
     "uid": "openf1-meeting-1284@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20260502T200000Z",
     "fecha_fin": "20260502T210000Z",
@@ -2973,14 +2973,14 @@
   },
   {
     "uid": "openf1-meeting-1284@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20260503T170000Z",
     "fecha_fin": "20260503T190000Z",
     "ubicacion": "Miami\\, United States",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "wec-2026-2@motorsport-calendar-FP1",
@@ -3819,8 +3819,8 @@
   },
   {
     "uid": "openf1-meeting-1285@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260522T163000Z",
     "fecha_fin": "20260522T173000Z",
@@ -3841,8 +3841,8 @@
   },
   {
     "uid": "openf1-meeting-1285@motorsport-calendar-SPRINT_QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Sprint",
     "fecha_inicio": "20260522T203000Z",
     "fecha_fin": "20260522T211400Z",
@@ -3874,8 +3874,8 @@
   },
   {
     "uid": "openf1-meeting-1285@motorsport-calendar-SPRINT",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Sprint",
     "fecha_inicio": "20260523T160000Z",
     "fecha_fin": "20260523T170000Z",
@@ -3896,8 +3896,8 @@
   },
   {
     "uid": "openf1-meeting-1285@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20260523T200000Z",
     "fecha_fin": "20260523T210000Z",
@@ -3964,14 +3964,14 @@
   },
   {
     "uid": "openf1-meeting-1285@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20260524T200000Z",
     "fecha_fin": "20260524T220000Z",
     "ubicacion": "Montreal\\, Canada",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "moto3-2026-bf2104f9-f5cc-4a99-a993-cb5d01bccd24@motorsport-calendar-FP",
@@ -4332,8 +4332,8 @@
   },
   {
     "uid": "openf1-meeting-1286@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260605T113000Z",
     "fecha_fin": "20260605T123000Z",
@@ -4376,8 +4376,8 @@
   },
   {
     "uid": "openf1-meeting-1286@motorsport-calendar-FP2",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260605T150000Z",
     "fecha_fin": "20260605T160000Z",
@@ -4442,8 +4442,8 @@
   },
   {
     "uid": "openf1-meeting-1286@motorsport-calendar-FP3",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260606T103000Z",
     "fecha_fin": "20260606T113000Z",
@@ -4509,8 +4509,8 @@
   },
   {
     "uid": "openf1-meeting-1286@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20260606T140000Z",
     "fecha_fin": "20260606T150000Z",
@@ -4599,14 +4599,14 @@
   },
   {
     "uid": "openf1-meeting-1286@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20260607T130000Z",
     "fecha_fin": "20260607T150000Z",
     "ubicacion": "Monte Carlo\\, Monaco",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "indycar-2026-wwtr-2026-06-07-2200-race",
@@ -4754,8 +4754,8 @@
   },
   {
     "uid": "openf1-meeting-1287@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260612T113000Z",
     "fecha_fin": "20260612T123000Z",
@@ -4787,8 +4787,8 @@
   },
   {
     "uid": "openf1-meeting-1287@motorsport-calendar-FP2",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260612T150000Z",
     "fecha_fin": "20260612T160000Z",
@@ -4831,8 +4831,8 @@
   },
   {
     "uid": "openf1-meeting-1287@motorsport-calendar-FP3",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260613T103000Z",
     "fecha_fin": "20260613T113000Z",
@@ -4864,8 +4864,8 @@
   },
   {
     "uid": "openf1-meeting-1287@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20260613T140000Z",
     "fecha_fin": "20260613T150000Z",
@@ -4930,14 +4930,14 @@
   },
   {
     "uid": "openf1-meeting-1287@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20260614T130000Z",
     "fecha_fin": "20260614T150000Z",
     "ubicacion": "Catalunya\\, Spain",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "gtwc-america-2026-road-atlanta@motorsport-calendar-RACE",
@@ -5386,8 +5386,8 @@
   },
   {
     "uid": "openf1-meeting-1288@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260626T113000Z",
     "fecha_fin": "20260626T123000Z",
@@ -5452,8 +5452,8 @@
   },
   {
     "uid": "openf1-meeting-1288@motorsport-calendar-FP2",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260626T150000Z",
     "fecha_fin": "20260626T160000Z",
@@ -5518,8 +5518,8 @@
   },
   {
     "uid": "openf1-meeting-1288@motorsport-calendar-FP3",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260627T103000Z",
     "fecha_fin": "20260627T113000Z",
@@ -5573,8 +5573,8 @@
   },
   {
     "uid": "openf1-meeting-1288@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20260627T140000Z",
     "fecha_fin": "20260627T150000Z",
@@ -5661,14 +5661,14 @@
   },
   {
     "uid": "openf1-meeting-1288@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20260628T130000Z",
     "fecha_fin": "20260628T150000Z",
     "ubicacion": "Spielberg\\, Austria",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "f1calendar-f1-academy-2026-3@motorsport-calendar-FP1",
@@ -5727,8 +5727,8 @@
   },
   {
     "uid": "openf1-meeting-1289@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260703T113000Z",
     "fecha_fin": "20260703T123000Z",
@@ -5771,8 +5771,8 @@
   },
   {
     "uid": "openf1-meeting-1289@motorsport-calendar-SPRINT_QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Sprint",
     "fecha_inicio": "20260703T153000Z",
     "fecha_fin": "20260703T161400Z",
@@ -5872,8 +5872,8 @@
   },
   {
     "uid": "openf1-meeting-1289@motorsport-calendar-SPRINT",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Sprint",
     "fecha_inicio": "20260704T110000Z",
     "fecha_fin": "20260704T120000Z",
@@ -5905,8 +5905,8 @@
   },
   {
     "uid": "openf1-meeting-1289@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20260704T150000Z",
     "fecha_fin": "20260704T160000Z",
@@ -6040,14 +6040,14 @@
   },
   {
     "uid": "openf1-meeting-1289@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20260705T140000Z",
     "fecha_fin": "20260705T160000Z",
     "ubicacion": "Silverstone\\, United Kingdom",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "gtwc-asia-2026-fuji-international-speedway@motorsport-calendar-FP1",
@@ -6370,8 +6370,8 @@
   },
   {
     "uid": "openf1-meeting-1290@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260717T113000Z",
     "fecha_fin": "20260717T123000Z",
@@ -6414,8 +6414,8 @@
   },
   {
     "uid": "openf1-meeting-1290@motorsport-calendar-FP2",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260717T150000Z",
     "fecha_fin": "20260717T160000Z",
@@ -6447,8 +6447,8 @@
   },
   {
     "uid": "openf1-meeting-1290@motorsport-calendar-FP3",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260718T103000Z",
     "fecha_fin": "20260718T113000Z",
@@ -6492,8 +6492,8 @@
   },
   {
     "uid": "openf1-meeting-1290@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20260718T140000Z",
     "fecha_fin": "20260718T150000Z",
@@ -6582,14 +6582,14 @@
   },
   {
     "uid": "openf1-meeting-1290@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20260719T130000Z",
     "fecha_fin": "20260719T150000Z",
     "ubicacion": "Spa-Francorchamps\\, Belgium",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "indycar-2026-nashville-2026-07-20-1600-race",
@@ -6638,8 +6638,8 @@
   },
   {
     "uid": "openf1-meeting-1291@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260724T113000Z",
     "fecha_fin": "20260724T123000Z",
@@ -6671,8 +6671,8 @@
   },
   {
     "uid": "openf1-meeting-1291@motorsport-calendar-FP2",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260724T150000Z",
     "fecha_fin": "20260724T160000Z",
@@ -6715,8 +6715,8 @@
   },
   {
     "uid": "openf1-meeting-1291@motorsport-calendar-FP3",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260725T103000Z",
     "fecha_fin": "20260725T113000Z",
@@ -6748,8 +6748,8 @@
   },
   {
     "uid": "openf1-meeting-1291@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20260725T140000Z",
     "fecha_fin": "20260725T150000Z",
@@ -6814,14 +6814,14 @@
   },
   {
     "uid": "openf1-meeting-1291@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20260726T130000Z",
     "fecha_fin": "20260726T150000Z",
     "ubicacion": "Hungaroring\\, Hungary",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "gtwc-europe-2026-magny-cours@motorsport-calendar-FP1",
@@ -7298,8 +7298,8 @@
   },
   {
     "uid": "openf1-meeting-1292@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260821T103000Z",
     "fecha_fin": "20260821T113000Z",
@@ -7353,8 +7353,8 @@
   },
   {
     "uid": "openf1-meeting-1292@motorsport-calendar-SPRINT_QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Sprint",
     "fecha_inicio": "20260821T143000Z",
     "fecha_fin": "20260821T151400Z",
@@ -7409,8 +7409,8 @@
   },
   {
     "uid": "openf1-meeting-1292@motorsport-calendar-SPRINT",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Sprint",
     "fecha_inicio": "20260822T100000Z",
     "fecha_fin": "20260822T110000Z",
@@ -7465,8 +7465,8 @@
   },
   {
     "uid": "openf1-meeting-1292@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20260822T140000Z",
     "fecha_fin": "20260822T150000Z",
@@ -7522,14 +7522,14 @@
   },
   {
     "uid": "openf1-meeting-1292@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20260823T130000Z",
     "fecha_fin": "20260823T150000Z",
     "ubicacion": "Zandvoort\\, Netherlands",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "indycar-2026-washington-dc-2026-08-23-1400-race",
@@ -7956,8 +7956,8 @@
   },
   {
     "uid": "openf1-meeting-1293@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260904T103000Z",
     "fecha_fin": "20260904T113000Z",
@@ -8000,8 +8000,8 @@
   },
   {
     "uid": "openf1-meeting-1293@motorsport-calendar-FP2",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260904T140000Z",
     "fecha_fin": "20260904T150000Z",
@@ -8045,8 +8045,8 @@
   },
   {
     "uid": "openf1-meeting-1293@motorsport-calendar-FP3",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260905T103000Z",
     "fecha_fin": "20260905T113000Z",
@@ -8101,8 +8101,8 @@
   },
   {
     "uid": "openf1-meeting-1293@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20260905T140000Z",
     "fecha_fin": "20260905T150000Z",
@@ -8169,14 +8169,14 @@
   },
   {
     "uid": "openf1-meeting-1293@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20260906T130000Z",
     "fecha_fin": "20260906T150000Z",
     "ubicacion": "Monza\\, Italy",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "indycar-2026-laguna-seca-2026-09-06-1530-race",
@@ -8291,8 +8291,8 @@
   },
   {
     "uid": "openf1-meeting-1294@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260911T113000Z",
     "fecha_fin": "20260911T123000Z",
@@ -8357,8 +8357,8 @@
   },
   {
     "uid": "openf1-meeting-1294@motorsport-calendar-FP2",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260911T150000Z",
     "fecha_fin": "20260911T160000Z",
@@ -8478,8 +8478,8 @@
   },
   {
     "uid": "openf1-meeting-1294@motorsport-calendar-FP3",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260912T103000Z",
     "fecha_fin": "20260912T113000Z",
@@ -8544,8 +8544,8 @@
   },
   {
     "uid": "openf1-meeting-1294@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20260912T140000Z",
     "fecha_fin": "20260912T150000Z",
@@ -8643,14 +8643,14 @@
   },
   {
     "uid": "openf1-meeting-1294@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20260913T130000Z",
     "fecha_fin": "20260913T150000Z",
     "ubicacion": "Madring\\, Spain",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "gtwc-europe-2026-zandvoort@motorsport-calendar-FP1",
@@ -8907,8 +8907,8 @@
   },
   {
     "uid": "openf1-meeting-1295@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260924T083000Z",
     "fecha_fin": "20260924T093000Z",
@@ -8929,8 +8929,8 @@
   },
   {
     "uid": "openf1-meeting-1295@motorsport-calendar-FP2",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260924T120000Z",
     "fecha_fin": "20260924T130000Z",
@@ -8962,8 +8962,8 @@
   },
   {
     "uid": "openf1-meeting-1295@motorsport-calendar-FP3",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20260925T083000Z",
     "fecha_fin": "20260925T093000Z",
@@ -8973,8 +8973,8 @@
   },
   {
     "uid": "openf1-meeting-1295@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20260925T120000Z",
     "fecha_fin": "20260925T130000Z",
@@ -9028,14 +9028,14 @@
   },
   {
     "uid": "openf1-meeting-1295@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20260926T110000Z",
     "fecha_fin": "20260926T130000Z",
     "ubicacion": "Baku\\, Azerbaijan",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "wec-2026-6@motorsport-calendar-QUALIFYING",
@@ -9160,8 +9160,8 @@
   },
   {
     "uid": "openf1-meeting-1308@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20261002T043000Z",
     "fecha_fin": "20261002T053000Z",
@@ -9215,8 +9215,8 @@
   },
   {
     "uid": "openf1-meeting-1308@motorsport-calendar-FP2",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20261002T080000Z",
     "fecha_fin": "20261002T090000Z",
@@ -9314,8 +9314,8 @@
   },
   {
     "uid": "openf1-meeting-1308@motorsport-calendar-FP3",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20261003T043000Z",
     "fecha_fin": "20261003T053000Z",
@@ -9369,8 +9369,8 @@
   },
   {
     "uid": "openf1-meeting-1308@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20261003T080000Z",
     "fecha_fin": "20261003T090000Z",
@@ -9435,14 +9435,14 @@
   },
   {
     "uid": "openf1-meeting-1308@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20261004T070000Z",
     "fecha_fin": "20261004T090000Z",
     "ubicacion": "Kuala Lumpur\\, Bahrain",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "gtwc-europe-2026-barcelona@motorsport-calendar-RACE",
@@ -9611,8 +9611,8 @@
   },
   {
     "uid": "openf1-meeting-1296@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20261009T083000Z",
     "fecha_fin": "20261009T093000Z",
@@ -9633,8 +9633,8 @@
   },
   {
     "uid": "openf1-meeting-1296@motorsport-calendar-SPRINT_QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Sprint",
     "fecha_inicio": "20261009T123000Z",
     "fecha_fin": "20261009T131400Z",
@@ -9765,8 +9765,8 @@
   },
   {
     "uid": "openf1-meeting-1296@motorsport-calendar-SPRINT",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Sprint",
     "fecha_inicio": "20261010T090000Z",
     "fecha_fin": "20261010T100000Z",
@@ -9787,8 +9787,8 @@
   },
   {
     "uid": "openf1-meeting-1296@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20261010T130000Z",
     "fecha_fin": "20261010T140000Z",
@@ -9853,14 +9853,14 @@
   },
   {
     "uid": "openf1-meeting-1296@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20261011T120000Z",
     "fecha_fin": "20261011T140000Z",
     "ubicacion": "Singapore\\, Singapore",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "gtwc-europe-2026-portimao@motorsport-calendar-FP1",
@@ -10051,8 +10051,8 @@
   },
   {
     "uid": "openf1-meeting-1297@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20261023T173000Z",
     "fecha_fin": "20261023T183000Z",
@@ -10062,8 +10062,8 @@
   },
   {
     "uid": "openf1-meeting-1297@motorsport-calendar-FP2",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20261023T210000Z",
     "fecha_fin": "20261023T220000Z",
@@ -10161,8 +10161,8 @@
   },
   {
     "uid": "openf1-meeting-1297@motorsport-calendar-FP3",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20261024T173000Z",
     "fecha_fin": "20261024T183000Z",
@@ -10172,8 +10172,8 @@
   },
   {
     "uid": "openf1-meeting-1297@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20261024T210000Z",
     "fecha_fin": "20261024T220000Z",
@@ -10227,14 +10227,14 @@
   },
   {
     "uid": "openf1-meeting-1297@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20261025T200000Z",
     "fecha_fin": "20261025T220000Z",
     "ubicacion": "Austin\\, United States",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "moto3-2026-d1aedfce-d7c8-4d4a-9532-99c82547baad@motorsport-calendar-FP",
@@ -10304,8 +10304,8 @@
   },
   {
     "uid": "openf1-meeting-1298@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20261030T183000Z",
     "fecha_fin": "20261030T193000Z",
@@ -10315,8 +10315,8 @@
   },
   {
     "uid": "openf1-meeting-1298@motorsport-calendar-FP2",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20261030T220000Z",
     "fecha_fin": "20261030T230000Z",
@@ -10403,8 +10403,8 @@
   },
   {
     "uid": "openf1-meeting-1298@motorsport-calendar-FP3",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20261031T173000Z",
     "fecha_fin": "20261031T183000Z",
@@ -10414,8 +10414,8 @@
   },
   {
     "uid": "openf1-meeting-1298@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20261031T210000Z",
     "fecha_fin": "20261031T220000Z",
@@ -10458,14 +10458,14 @@
   },
   {
     "uid": "openf1-meeting-1298@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20261101T200000Z",
     "fecha_fin": "20261101T220000Z",
     "ubicacion": "Mexico City\\, Mexico",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "wec-2026-8@motorsport-calendar-FP1",
@@ -10535,8 +10535,8 @@
   },
   {
     "uid": "openf1-meeting-1299@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20261106T153000Z",
     "fecha_fin": "20261106T163000Z",
@@ -10568,8 +10568,8 @@
   },
   {
     "uid": "openf1-meeting-1299@motorsport-calendar-FP2",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20261106T190000Z",
     "fecha_fin": "20261106T200000Z",
@@ -10656,8 +10656,8 @@
   },
   {
     "uid": "openf1-meeting-1299@motorsport-calendar-FP3",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20261107T143000Z",
     "fecha_fin": "20261107T153000Z",
@@ -10700,8 +10700,8 @@
   },
   {
     "uid": "openf1-meeting-1299@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20261107T180000Z",
     "fecha_fin": "20261107T190000Z",
@@ -10755,14 +10755,14 @@
   },
   {
     "uid": "openf1-meeting-1299@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20261108T170000Z",
     "fecha_fin": "20261108T190000Z",
     "ubicacion": "Interlagos\\, Brazil",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "f1calendar-f1-academy-2026-6@motorsport-calendar-FP1",
@@ -10788,8 +10788,8 @@
   },
   {
     "uid": "openf1-meeting-1300@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20261120T003000Z",
     "fecha_fin": "20261120T013000Z",
@@ -10799,8 +10799,8 @@
   },
   {
     "uid": "openf1-meeting-1300@motorsport-calendar-FP2",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20261120T040000Z",
     "fecha_fin": "20261120T050000Z",
@@ -10887,8 +10887,8 @@
   },
   {
     "uid": "openf1-meeting-1300@motorsport-calendar-FP3",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20261121T003000Z",
     "fecha_fin": "20261121T013000Z",
@@ -10898,8 +10898,8 @@
   },
   {
     "uid": "openf1-meeting-1300@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20261121T040000Z",
     "fecha_fin": "20261121T050000Z",
@@ -10997,14 +10997,14 @@
   },
   {
     "uid": "openf1-meeting-1300@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20261122T040000Z",
     "fecha_fin": "20261122T060000Z",
     "ubicacion": "Las Vegas\\, United States",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "moto2-2026-c7f7626b-807f-4a6f-813e-7ad2c68302a3@motorsport-calendar-RA",
@@ -11118,8 +11118,8 @@
   },
   {
     "uid": "openf1-meeting-1301@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20261127T133000Z",
     "fecha_fin": "20261127T143000Z",
@@ -11140,8 +11140,8 @@
   },
   {
     "uid": "openf1-meeting-1301@motorsport-calendar-FP2",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20261127T170000Z",
     "fecha_fin": "20261127T180000Z",
@@ -11239,8 +11239,8 @@
   },
   {
     "uid": "openf1-meeting-1301@motorsport-calendar-FP3",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20261128T143000Z",
     "fecha_fin": "20261128T153000Z",
@@ -11250,8 +11250,8 @@
   },
   {
     "uid": "openf1-meeting-1301@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20261128T180000Z",
     "fecha_fin": "20261128T190000Z",
@@ -11305,14 +11305,14 @@
   },
   {
     "uid": "openf1-meeting-1301@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20261129T160000Z",
     "fecha_fin": "20261129T180000Z",
     "ubicacion": "Lusail\\, Qatar",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   },
   {
     "uid": "f1calendar-f2-2026-14@motorsport-calendar-FP1",
@@ -11327,8 +11327,8 @@
   },
   {
     "uid": "openf1-meeting-1302@motorsport-calendar-FP1",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20261204T093000Z",
     "fecha_fin": "20261204T103000Z",
@@ -11349,8 +11349,8 @@
   },
   {
     "uid": "openf1-meeting-1302@motorsport-calendar-FP2",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20261204T130000Z",
     "fecha_fin": "20261204T140000Z",
@@ -11371,8 +11371,8 @@
   },
   {
     "uid": "openf1-meeting-1302@motorsport-calendar-FP3",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Entrenamiento",
     "fecha_inicio": "20261205T103000Z",
     "fecha_fin": "20261205T113000Z",
@@ -11382,8 +11382,8 @@
   },
   {
     "uid": "openf1-meeting-1302@motorsport-calendar-QUALIFYING",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Clasificación",
     "fecha_inicio": "20261205T140000Z",
     "fecha_fin": "20261205T150000Z",
@@ -11404,13 +11404,13 @@
   },
   {
     "uid": "openf1-meeting-1302@motorsport-calendar-RACE",
-    "categoria": "Otros",
-    "campeonato": "Otros",
+    "categoria": "Fórmula",
+    "campeonato": "F1",
     "tipo": "Carrera",
     "fecha_inicio": "20261206T130000Z",
     "fecha_fin": "20261206T150000Z",
     "ubicacion": "Yas Marina Circuit\\, United Arab Emirates",
     "descripcion": "Reminder",
-    "prioridad": ""
+    "prioridad": "alta"
   }
 ]

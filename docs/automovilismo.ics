@@ -338,7 +338,7 @@ UID:actc-tc-2026-15
 DTSTART:20261206T120000
 DTEND:20261206T235900
 SUMMARY:TC - Fecha 15
-LOCATION:Roberto José Mouras — La Plata\, Buenos Aires Próximamente a la venta (self.__next_f=self.__next_f||[
+LOCATION:Roberto José Mouras — La Plata\, Buenos Aires Próximamente a la venta $RC=function(b\,c\,e){c=document.
 DESCRIPTION:TC - Fecha 15
 END:VEVENT
 BEGIN:VEVENT
@@ -346,7 +346,7 @@ UID:actc-tc-pista-2026-15
 DTSTART:20261206T120000
 DTEND:20261206T235900
 SUMMARY:TC Pista - Fecha 15
-LOCATION:Roberto José Mouras — La Plata\, Buenos Aires Próximamente a la venta (self.__next_f=self.__next_f||[
+LOCATION:Roberto José Mouras — La Plata\, Buenos Aires Próximamente a la venta $RC=function(b\,c\,e){c=document.
 DESCRIPTION:TC Pista - Fecha 15
 END:VEVENT
 BEGIN:VEVENT
@@ -425,7 +425,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1304@motorsport-calendar-FREE_PRACTICE
 DTSTART:20260211T070000Z
 DTEND:20260211T160000Z
-SUMMARY:Otros - Evento
+SUMMARY:F1 - Evento
 LOCATION:Sakhir\\\, Bahrain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -433,7 +433,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1304@motorsport-calendar-FREE_PRACTICE
 DTSTART:20260212T070000Z
 DTEND:20260212T160000Z
-SUMMARY:Otros - Evento
+SUMMARY:F1 - Evento
 LOCATION:Sakhir\\\, Bahrain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -473,7 +473,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1304@motorsport-calendar-FREE_PRACTICE
 DTSTART:20260213T070000Z
 DTEND:20260213T160000Z
-SUMMARY:Otros - Evento
+SUMMARY:F1 - Evento
 LOCATION:Sakhir\\\, Bahrain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -545,7 +545,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1305@motorsport-calendar-FREE_PRACTICE
 DTSTART:20260218T070000Z
 DTEND:20260218T160000Z
-SUMMARY:Otros - Evento
+SUMMARY:F1 - Evento
 LOCATION:Sakhir\\\, Bahrain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -553,7 +553,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1305@motorsport-calendar-FREE_PRACTICE
 DTSTART:20260219T070000Z
 DTEND:20260219T160000Z
-SUMMARY:Otros - Evento
+SUMMARY:F1 - Evento
 LOCATION:Sakhir\\\, Bahrain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -561,7 +561,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1305@motorsport-calendar-FREE_PRACTICE
 DTSTART:20260220T070000Z
 DTEND:20260220T160000Z
-SUMMARY:Otros - Evento
+SUMMARY:F1 - Evento
 LOCATION:Sakhir\\\, Bahrain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -753,7 +753,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1279@motorsport-calendar-FP1
 DTSTART:20260306T013000Z
 DTEND:20260306T023000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Melbourne\\\, Australia
 DESCRIPTION:Reminder
 END:VEVENT
@@ -777,7 +777,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1279@motorsport-calendar-FP2
 DTSTART:20260306T050000Z
 DTEND:20260306T060000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Melbourne\\\, Australia
 DESCRIPTION:Reminder
 END:VEVENT
@@ -817,7 +817,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1279@motorsport-calendar-FP3
 DTSTART:20260307T013000Z
 DTEND:20260307T023000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Melbourne\\\, Australia
 DESCRIPTION:Reminder
 END:VEVENT
@@ -833,7 +833,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1279@motorsport-calendar-QUALIFYING
 DTSTART:20260307T050000Z
 DTEND:20260307T060000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Melbourne\\\, Australia
 DESCRIPTION:Reminder
 END:VEVENT
@@ -865,7 +865,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1279@motorsport-calendar-RACE
 DTSTART:20260308T040000Z
 DTEND:20260308T060000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Melbourne\\\, Australia
 DESCRIPTION:Reminder
 END:VEVENT
@@ -881,7 +881,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1280@motorsport-calendar-FP1
 DTSTART:20260313T033000Z
 DTEND:20260313T043000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Shanghai\\\, China
 DESCRIPTION:Reminder
 END:VEVENT
@@ -897,7 +897,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1280@motorsport-calendar-SPRINT_QUALIFYING
 DTSTART:20260313T073000Z
 DTEND:20260313T081400Z
-SUMMARY:Otros - Sprint
+SUMMARY:F1 - Sprint
 LOCATION:Shanghai\\\, China
 DESCRIPTION:Reminder
 END:VEVENT
@@ -913,7 +913,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1280@motorsport-calendar-SPRINT
 DTSTART:20260314T030000Z
 DTEND:20260314T040000Z
-SUMMARY:Otros - Sprint
+SUMMARY:F1 - Sprint
 LOCATION:Shanghai\\\, China
 DESCRIPTION:Reminder
 END:VEVENT
@@ -929,7 +929,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1280@motorsport-calendar-QUALIFYING
 DTSTART:20260314T070000Z
 DTEND:20260314T080000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Shanghai\\\, China
 DESCRIPTION:Reminder
 END:VEVENT
@@ -961,7 +961,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1280@motorsport-calendar-RACE
 DTSTART:20260315T070000Z
 DTEND:20260315T090000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Shanghai\\\, China
 DESCRIPTION:Reminder
 END:VEVENT
@@ -1145,7 +1145,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1281@motorsport-calendar-FP1
 DTSTART:20260327T023000Z
 DTEND:20260327T033000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Suzuka\\\, Japan
 DESCRIPTION:Reminder
 END:VEVENT
@@ -1153,7 +1153,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1281@motorsport-calendar-FP2
 DTSTART:20260327T060000Z
 DTEND:20260327T070000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Suzuka\\\, Japan
 DESCRIPTION:Reminder
 END:VEVENT
@@ -1225,7 +1225,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1281@motorsport-calendar-FP3
 DTSTART:20260328T023000Z
 DTEND:20260328T033000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Suzuka\\\, Japan
 DESCRIPTION:Reminder
 END:VEVENT
@@ -1233,7 +1233,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1281@motorsport-calendar-QUALIFYING
 DTSTART:20260328T060000Z
 DTEND:20260328T070000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Suzuka\\\, Japan
 DESCRIPTION:Reminder
 END:VEVENT
@@ -1329,7 +1329,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1281@motorsport-calendar-RACE
 DTSTART:20260329T050000Z
 DTEND:20260329T070000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Suzuka\\\, Japan
 DESCRIPTION:Reminder
 END:VEVENT
@@ -1449,7 +1449,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1282@motorsport-calendar-FP1
 DTSTART:20260410T113000Z
 DTEND:20260410T123000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Sakhir\\\, Bahrain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -1481,7 +1481,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1282@motorsport-calendar-FP2
 DTSTART:20260410T150000Z
 DTEND:20260410T160000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Sakhir\\\, Bahrain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -1529,7 +1529,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1282@motorsport-calendar-FP3
 DTSTART:20260411T123000Z
 DTEND:20260411T133000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Sakhir\\\, Bahrain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -1545,7 +1545,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1282@motorsport-calendar-QUALIFYING
 DTSTART:20260411T160000Z
 DTEND:20260411T170000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Sakhir\\\, Bahrain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -1577,7 +1577,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1282@motorsport-calendar-RACE
 DTSTART:20260412T150000Z
 DTEND:20260412T170000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Sakhir\\\, Bahrain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -1601,7 +1601,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1283@motorsport-calendar-FP1
 DTSTART:20260417T133000Z
 DTEND:20260417T143000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Jeddah\\\, Saudi Arabia
 DESCRIPTION:Reminder
 END:VEVENT
@@ -1609,7 +1609,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1283@motorsport-calendar-FP2
 DTSTART:20260417T170000Z
 DTEND:20260417T180000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Jeddah\\\, Saudi Arabia
 DESCRIPTION:Reminder
 END:VEVENT
@@ -1649,7 +1649,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1283@motorsport-calendar-FP3
 DTSTART:20260418T133000Z
 DTEND:20260418T143000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Jeddah\\\, Saudi Arabia
 DESCRIPTION:Reminder
 END:VEVENT
@@ -1665,7 +1665,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1283@motorsport-calendar-QUALIFYING
 DTSTART:20260418T170000Z
 DTEND:20260418T180000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Jeddah\\\, Saudi Arabia
 DESCRIPTION:Reminder
 END:VEVENT
@@ -1697,7 +1697,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1283@motorsport-calendar-RACE
 DTSTART:20260419T170000Z
 DTEND:20260419T190000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Jeddah\\\, Saudi Arabia
 DESCRIPTION:Reminder
 END:VEVENT
@@ -1937,7 +1937,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1284@motorsport-calendar-FP1
 DTSTART:20260501T160000Z
 DTEND:20260501T173000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Miami\\\, United States
 DESCRIPTION:Reminder
 END:VEVENT
@@ -1961,7 +1961,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1284@motorsport-calendar-SPRINT_QUALIFYING
 DTSTART:20260501T203000Z
 DTEND:20260501T211400Z
-SUMMARY:Otros - Sprint
+SUMMARY:F1 - Sprint
 LOCATION:Miami\\\, United States
 DESCRIPTION:Reminder
 END:VEVENT
@@ -2065,7 +2065,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1284@motorsport-calendar-SPRINT
 DTSTART:20260502T160000Z
 DTEND:20260502T170000Z
-SUMMARY:Otros - Sprint
+SUMMARY:F1 - Sprint
 LOCATION:Miami\\\, United States
 DESCRIPTION:Reminder
 END:VEVENT
@@ -2081,7 +2081,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1284@motorsport-calendar-QUALIFYING
 DTSTART:20260502T200000Z
 DTEND:20260502T210000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Miami\\\, United States
 DESCRIPTION:Reminder
 END:VEVENT
@@ -2153,7 +2153,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1284@motorsport-calendar-RACE
 DTSTART:20260503T170000Z
 DTEND:20260503T190000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Miami\\\, United States
 DESCRIPTION:Reminder
 END:VEVENT
@@ -2753,7 +2753,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1285@motorsport-calendar-FP1
 DTSTART:20260522T163000Z
 DTEND:20260522T173000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Montreal\\\, Canada
 DESCRIPTION:Reminder
 END:VEVENT
@@ -2769,7 +2769,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1285@motorsport-calendar-SPRINT_QUALIFYING
 DTSTART:20260522T203000Z
 DTEND:20260522T211400Z
-SUMMARY:Otros - Sprint
+SUMMARY:F1 - Sprint
 LOCATION:Montreal\\\, Canada
 DESCRIPTION:Reminder
 END:VEVENT
@@ -2793,7 +2793,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1285@motorsport-calendar-SPRINT
 DTSTART:20260523T160000Z
 DTEND:20260523T170000Z
-SUMMARY:Otros - Sprint
+SUMMARY:F1 - Sprint
 LOCATION:Montreal\\\, Canada
 DESCRIPTION:Reminder
 END:VEVENT
@@ -2809,7 +2809,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1285@motorsport-calendar-QUALIFYING
 DTSTART:20260523T200000Z
 DTEND:20260523T210000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Montreal\\\, Canada
 DESCRIPTION:Reminder
 END:VEVENT
@@ -2857,7 +2857,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1285@motorsport-calendar-RACE
 DTSTART:20260524T200000Z
 DTEND:20260524T220000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Montreal\\\, Canada
 DESCRIPTION:Reminder
 END:VEVENT
@@ -3121,7 +3121,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1286@motorsport-calendar-FP1
 DTSTART:20260605T113000Z
 DTEND:20260605T123000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Monte Carlo\\\, Monaco
 DESCRIPTION:Reminder
 END:VEVENT
@@ -3153,7 +3153,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1286@motorsport-calendar-FP2
 DTSTART:20260605T150000Z
 DTEND:20260605T160000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Monte Carlo\\\, Monaco
 DESCRIPTION:Reminder
 END:VEVENT
@@ -3201,7 +3201,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1286@motorsport-calendar-FP3
 DTSTART:20260606T103000Z
 DTEND:20260606T113000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Monte Carlo\\\, Monaco
 DESCRIPTION:Reminder
 END:VEVENT
@@ -3249,7 +3249,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1286@motorsport-calendar-QUALIFYING
 DTSTART:20260606T140000Z
 DTEND:20260606T150000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Monte Carlo\\\, Monaco
 DESCRIPTION:Reminder
 END:VEVENT
@@ -3313,7 +3313,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1286@motorsport-calendar-RACE
 DTSTART:20260607T130000Z
 DTEND:20260607T150000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Monte Carlo\\\, Monaco
 DESCRIPTION:Reminder
 END:VEVENT
@@ -3425,7 +3425,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1287@motorsport-calendar-FP1
 DTSTART:20260612T113000Z
 DTEND:20260612T123000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Catalunya\\\, Spain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -3449,7 +3449,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1287@motorsport-calendar-FP2
 DTSTART:20260612T150000Z
 DTEND:20260612T160000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Catalunya\\\, Spain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -3481,7 +3481,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1287@motorsport-calendar-FP3
 DTSTART:20260613T103000Z
 DTEND:20260613T113000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Catalunya\\\, Spain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -3505,7 +3505,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1287@motorsport-calendar-QUALIFYING
 DTSTART:20260613T140000Z
 DTEND:20260613T150000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Catalunya\\\, Spain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -3553,7 +3553,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1287@motorsport-calendar-RACE
 DTSTART:20260614T130000Z
 DTEND:20260614T150000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Catalunya\\\, Spain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -3881,7 +3881,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1288@motorsport-calendar-FP1
 DTSTART:20260626T113000Z
 DTEND:20260626T123000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Spielberg\\\, Austria
 DESCRIPTION:Reminder
 END:VEVENT
@@ -3929,7 +3929,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1288@motorsport-calendar-FP2
 DTSTART:20260626T150000Z
 DTEND:20260626T160000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Spielberg\\\, Austria
 DESCRIPTION:Reminder
 END:VEVENT
@@ -3977,7 +3977,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1288@motorsport-calendar-FP3
 DTSTART:20260627T103000Z
 DTEND:20260627T113000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Spielberg\\\, Austria
 DESCRIPTION:Reminder
 END:VEVENT
@@ -4017,7 +4017,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1288@motorsport-calendar-QUALIFYING
 DTSTART:20260627T140000Z
 DTEND:20260627T150000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Spielberg\\\, Austria
 DESCRIPTION:Reminder
 END:VEVENT
@@ -4081,7 +4081,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1288@motorsport-calendar-RACE
 DTSTART:20260628T130000Z
 DTEND:20260628T150000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Spielberg\\\, Austria
 DESCRIPTION:Reminder
 END:VEVENT
@@ -4129,7 +4129,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1289@motorsport-calendar-FP1
 DTSTART:20260703T113000Z
 DTEND:20260703T123000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Silverstone\\\, United Kingdom
 DESCRIPTION:Reminder
 END:VEVENT
@@ -4161,7 +4161,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1289@motorsport-calendar-SPRINT_QUALIFYING
 DTSTART:20260703T153000Z
 DTEND:20260703T161400Z
-SUMMARY:Otros - Sprint
+SUMMARY:F1 - Sprint
 LOCATION:Silverstone\\\, United Kingdom
 DESCRIPTION:Reminder
 END:VEVENT
@@ -4233,7 +4233,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1289@motorsport-calendar-SPRINT
 DTSTART:20260704T110000Z
 DTEND:20260704T120000Z
-SUMMARY:Otros - Sprint
+SUMMARY:F1 - Sprint
 LOCATION:Silverstone\\\, United Kingdom
 DESCRIPTION:Reminder
 END:VEVENT
@@ -4257,7 +4257,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1289@motorsport-calendar-QUALIFYING
 DTSTART:20260704T150000Z
 DTEND:20260704T160000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Silverstone\\\, United Kingdom
 DESCRIPTION:Reminder
 END:VEVENT
@@ -4353,7 +4353,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1289@motorsport-calendar-RACE
 DTSTART:20260705T140000Z
 DTEND:20260705T160000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Silverstone\\\, United Kingdom
 DESCRIPTION:Reminder
 END:VEVENT
@@ -4593,7 +4593,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1290@motorsport-calendar-FP1
 DTSTART:20260717T113000Z
 DTEND:20260717T123000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Spa-Francorchamps\\\, Belgium
 DESCRIPTION:Reminder
 END:VEVENT
@@ -4625,7 +4625,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1290@motorsport-calendar-FP2
 DTSTART:20260717T150000Z
 DTEND:20260717T160000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Spa-Francorchamps\\\, Belgium
 DESCRIPTION:Reminder
 END:VEVENT
@@ -4649,7 +4649,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1290@motorsport-calendar-FP3
 DTSTART:20260718T103000Z
 DTEND:20260718T113000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Spa-Francorchamps\\\, Belgium
 DESCRIPTION:Reminder
 END:VEVENT
@@ -4681,7 +4681,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1290@motorsport-calendar-QUALIFYING
 DTSTART:20260718T140000Z
 DTEND:20260718T150000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Spa-Francorchamps\\\, Belgium
 DESCRIPTION:Reminder
 END:VEVENT
@@ -4745,7 +4745,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1290@motorsport-calendar-RACE
 DTSTART:20260719T130000Z
 DTEND:20260719T150000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Spa-Francorchamps\\\, Belgium
 DESCRIPTION:Reminder
 END:VEVENT
@@ -4785,7 +4785,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1291@motorsport-calendar-FP1
 DTSTART:20260724T113000Z
 DTEND:20260724T123000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Hungaroring\\\, Hungary
 DESCRIPTION:Reminder
 END:VEVENT
@@ -4809,7 +4809,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1291@motorsport-calendar-FP2
 DTSTART:20260724T150000Z
 DTEND:20260724T160000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Hungaroring\\\, Hungary
 DESCRIPTION:Reminder
 END:VEVENT
@@ -4841,7 +4841,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1291@motorsport-calendar-FP3
 DTSTART:20260725T103000Z
 DTEND:20260725T113000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Hungaroring\\\, Hungary
 DESCRIPTION:Reminder
 END:VEVENT
@@ -4865,7 +4865,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1291@motorsport-calendar-QUALIFYING
 DTSTART:20260725T140000Z
 DTEND:20260725T150000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Hungaroring\\\, Hungary
 DESCRIPTION:Reminder
 END:VEVENT
@@ -4913,7 +4913,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1291@motorsport-calendar-RACE
 DTSTART:20260726T130000Z
 DTEND:20260726T150000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Hungaroring\\\, Hungary
 DESCRIPTION:Reminder
 END:VEVENT
@@ -5257,7 +5257,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1292@motorsport-calendar-FP1
 DTSTART:20260821T103000Z
 DTEND:20260821T113000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Zandvoort\\\, Netherlands
 DESCRIPTION:Reminder
 END:VEVENT
@@ -5297,7 +5297,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1292@motorsport-calendar-SPRINT_QUALIFYING
 DTSTART:20260821T143000Z
 DTEND:20260821T151400Z
-SUMMARY:Otros - Sprint
+SUMMARY:F1 - Sprint
 LOCATION:Zandvoort\\\, Netherlands
 DESCRIPTION:Reminder
 END:VEVENT
@@ -5337,7 +5337,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1292@motorsport-calendar-SPRINT
 DTSTART:20260822T100000Z
 DTEND:20260822T110000Z
-SUMMARY:Otros - Sprint
+SUMMARY:F1 - Sprint
 LOCATION:Zandvoort\\\, Netherlands
 DESCRIPTION:Reminder
 END:VEVENT
@@ -5377,7 +5377,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1292@motorsport-calendar-QUALIFYING
 DTSTART:20260822T140000Z
 DTEND:20260822T150000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Zandvoort\\\, Netherlands
 DESCRIPTION:Reminder
 END:VEVENT
@@ -5417,7 +5417,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1292@motorsport-calendar-RACE
 DTSTART:20260823T130000Z
 DTEND:20260823T150000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Zandvoort\\\, Netherlands
 DESCRIPTION:Reminder
 END:VEVENT
@@ -5729,7 +5729,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1293@motorsport-calendar-FP1
 DTSTART:20260904T103000Z
 DTEND:20260904T113000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Monza\\\, Italy
 DESCRIPTION:Reminder
 END:VEVENT
@@ -5761,7 +5761,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1293@motorsport-calendar-FP2
 DTSTART:20260904T140000Z
 DTEND:20260904T150000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Monza\\\, Italy
 DESCRIPTION:Reminder
 END:VEVENT
@@ -5793,7 +5793,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1293@motorsport-calendar-FP3
 DTSTART:20260905T103000Z
 DTEND:20260905T113000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Monza\\\, Italy
 DESCRIPTION:Reminder
 END:VEVENT
@@ -5833,7 +5833,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1293@motorsport-calendar-QUALIFYING
 DTSTART:20260905T140000Z
 DTEND:20260905T150000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Monza\\\, Italy
 DESCRIPTION:Reminder
 END:VEVENT
@@ -5881,7 +5881,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1293@motorsport-calendar-RACE
 DTSTART:20260906T130000Z
 DTEND:20260906T150000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Monza\\\, Italy
 DESCRIPTION:Reminder
 END:VEVENT
@@ -5969,7 +5969,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1294@motorsport-calendar-FP1
 DTSTART:20260911T113000Z
 DTEND:20260911T123000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Madring\\\, Spain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -6017,7 +6017,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1294@motorsport-calendar-FP2
 DTSTART:20260911T150000Z
 DTEND:20260911T160000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Madring\\\, Spain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -6105,7 +6105,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1294@motorsport-calendar-FP3
 DTSTART:20260912T103000Z
 DTEND:20260912T113000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Madring\\\, Spain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -6153,7 +6153,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1294@motorsport-calendar-QUALIFYING
 DTSTART:20260912T140000Z
 DTEND:20260912T150000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Madring\\\, Spain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -6225,7 +6225,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1294@motorsport-calendar-RACE
 DTSTART:20260913T130000Z
 DTEND:20260913T150000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Madring\\\, Spain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -6417,7 +6417,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1295@motorsport-calendar-FP1
 DTSTART:20260924T083000Z
 DTEND:20260924T093000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Baku\\\, Azerbaijan
 DESCRIPTION:Reminder
 END:VEVENT
@@ -6433,7 +6433,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1295@motorsport-calendar-FP2
 DTSTART:20260924T120000Z
 DTEND:20260924T130000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Baku\\\, Azerbaijan
 DESCRIPTION:Reminder
 END:VEVENT
@@ -6457,7 +6457,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1295@motorsport-calendar-FP3
 DTSTART:20260925T083000Z
 DTEND:20260925T093000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Baku\\\, Azerbaijan
 DESCRIPTION:Reminder
 END:VEVENT
@@ -6465,7 +6465,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1295@motorsport-calendar-QUALIFYING
 DTSTART:20260925T120000Z
 DTEND:20260925T130000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Baku\\\, Azerbaijan
 DESCRIPTION:Reminder
 END:VEVENT
@@ -6505,7 +6505,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1295@motorsport-calendar-RACE
 DTSTART:20260926T110000Z
 DTEND:20260926T130000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Baku\\\, Azerbaijan
 DESCRIPTION:Reminder
 END:VEVENT
@@ -6601,7 +6601,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1308@motorsport-calendar-FP1
 DTSTART:20261002T043000Z
 DTEND:20261002T053000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Kuala Lumpur\\\, Bahrain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -6641,7 +6641,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1308@motorsport-calendar-FP2
 DTSTART:20261002T080000Z
 DTEND:20261002T090000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Kuala Lumpur\\\, Bahrain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -6713,7 +6713,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1308@motorsport-calendar-FP3
 DTSTART:20261003T043000Z
 DTEND:20261003T053000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Kuala Lumpur\\\, Bahrain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -6753,7 +6753,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1308@motorsport-calendar-QUALIFYING
 DTSTART:20261003T080000Z
 DTEND:20261003T090000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Kuala Lumpur\\\, Bahrain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -6801,7 +6801,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1308@motorsport-calendar-RACE
 DTSTART:20261004T070000Z
 DTEND:20261004T090000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Kuala Lumpur\\\, Bahrain
 DESCRIPTION:Reminder
 END:VEVENT
@@ -6929,7 +6929,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1296@motorsport-calendar-FP1
 DTSTART:20261009T083000Z
 DTEND:20261009T093000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Singapore\\\, Singapore
 DESCRIPTION:Reminder
 END:VEVENT
@@ -6945,7 +6945,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1296@motorsport-calendar-SPRINT_QUALIFYING
 DTSTART:20261009T123000Z
 DTEND:20261009T131400Z
-SUMMARY:Otros - Sprint
+SUMMARY:F1 - Sprint
 LOCATION:Singapore\\\, Singapore
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7041,7 +7041,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1296@motorsport-calendar-SPRINT
 DTSTART:20261010T090000Z
 DTEND:20261010T100000Z
-SUMMARY:Otros - Sprint
+SUMMARY:F1 - Sprint
 LOCATION:Singapore\\\, Singapore
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7057,7 +7057,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1296@motorsport-calendar-QUALIFYING
 DTSTART:20261010T130000Z
 DTEND:20261010T140000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Singapore\\\, Singapore
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7105,7 +7105,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1296@motorsport-calendar-RACE
 DTSTART:20261011T120000Z
 DTEND:20261011T140000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Singapore\\\, Singapore
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7249,7 +7249,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1297@motorsport-calendar-FP1
 DTSTART:20261023T173000Z
 DTEND:20261023T183000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Austin\\\, United States
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7257,7 +7257,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1297@motorsport-calendar-FP2
 DTSTART:20261023T210000Z
 DTEND:20261023T220000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Austin\\\, United States
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7329,7 +7329,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1297@motorsport-calendar-FP3
 DTSTART:20261024T173000Z
 DTEND:20261024T183000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Austin\\\, United States
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7337,7 +7337,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1297@motorsport-calendar-QUALIFYING
 DTSTART:20261024T210000Z
 DTEND:20261024T220000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Austin\\\, United States
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7377,7 +7377,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1297@motorsport-calendar-RACE
 DTSTART:20261025T200000Z
 DTEND:20261025T220000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Austin\\\, United States
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7433,7 +7433,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1298@motorsport-calendar-FP1
 DTSTART:20261030T183000Z
 DTEND:20261030T193000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Mexico City\\\, Mexico
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7441,7 +7441,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1298@motorsport-calendar-FP2
 DTSTART:20261030T220000Z
 DTEND:20261030T230000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Mexico City\\\, Mexico
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7505,7 +7505,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1298@motorsport-calendar-FP3
 DTSTART:20261031T173000Z
 DTEND:20261031T183000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Mexico City\\\, Mexico
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7513,7 +7513,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1298@motorsport-calendar-QUALIFYING
 DTSTART:20261031T210000Z
 DTEND:20261031T220000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Mexico City\\\, Mexico
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7545,7 +7545,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1298@motorsport-calendar-RACE
 DTSTART:20261101T200000Z
 DTEND:20261101T220000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Mexico City\\\, Mexico
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7601,7 +7601,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1299@motorsport-calendar-FP1
 DTSTART:20261106T153000Z
 DTEND:20261106T163000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Interlagos\\\, Brazil
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7625,7 +7625,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1299@motorsport-calendar-FP2
 DTSTART:20261106T190000Z
 DTEND:20261106T200000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Interlagos\\\, Brazil
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7689,7 +7689,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1299@motorsport-calendar-FP3
 DTSTART:20261107T143000Z
 DTEND:20261107T153000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Interlagos\\\, Brazil
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7721,7 +7721,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1299@motorsport-calendar-QUALIFYING
 DTSTART:20261107T180000Z
 DTEND:20261107T190000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Interlagos\\\, Brazil
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7761,7 +7761,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1299@motorsport-calendar-RACE
 DTSTART:20261108T170000Z
 DTEND:20261108T190000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Interlagos\\\, Brazil
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7785,7 +7785,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1300@motorsport-calendar-FP1
 DTSTART:20261120T003000Z
 DTEND:20261120T013000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Las Vegas\\\, United States
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7793,7 +7793,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1300@motorsport-calendar-FP2
 DTSTART:20261120T040000Z
 DTEND:20261120T050000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Las Vegas\\\, United States
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7857,7 +7857,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1300@motorsport-calendar-FP3
 DTSTART:20261121T003000Z
 DTEND:20261121T013000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Las Vegas\\\, United States
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7865,7 +7865,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1300@motorsport-calendar-QUALIFYING
 DTSTART:20261121T040000Z
 DTEND:20261121T050000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Las Vegas\\\, United States
 DESCRIPTION:Reminder
 END:VEVENT
@@ -7937,7 +7937,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1300@motorsport-calendar-RACE
 DTSTART:20261122T040000Z
 DTEND:20261122T060000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Las Vegas\\\, United States
 DESCRIPTION:Reminder
 END:VEVENT
@@ -8025,7 +8025,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1301@motorsport-calendar-FP1
 DTSTART:20261127T133000Z
 DTEND:20261127T143000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Lusail\\\, Qatar
 DESCRIPTION:Reminder
 END:VEVENT
@@ -8041,7 +8041,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1301@motorsport-calendar-FP2
 DTSTART:20261127T170000Z
 DTEND:20261127T180000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Lusail\\\, Qatar
 DESCRIPTION:Reminder
 END:VEVENT
@@ -8113,7 +8113,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1301@motorsport-calendar-FP3
 DTSTART:20261128T143000Z
 DTEND:20261128T153000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Lusail\\\, Qatar
 DESCRIPTION:Reminder
 END:VEVENT
@@ -8121,7 +8121,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1301@motorsport-calendar-QUALIFYING
 DTSTART:20261128T180000Z
 DTEND:20261128T190000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Lusail\\\, Qatar
 DESCRIPTION:Reminder
 END:VEVENT
@@ -8161,7 +8161,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1301@motorsport-calendar-RACE
 DTSTART:20261129T160000Z
 DTEND:20261129T180000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Lusail\\\, Qatar
 DESCRIPTION:Reminder
 END:VEVENT
@@ -8177,7 +8177,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1302@motorsport-calendar-FP1
 DTSTART:20261204T093000Z
 DTEND:20261204T103000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Yas Marina Circuit\\\, United Arab Emirates
 DESCRIPTION:Reminder
 END:VEVENT
@@ -8193,7 +8193,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1302@motorsport-calendar-FP2
 DTSTART:20261204T130000Z
 DTEND:20261204T140000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Yas Marina Circuit\\\, United Arab Emirates
 DESCRIPTION:Reminder
 END:VEVENT
@@ -8209,7 +8209,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1302@motorsport-calendar-FP3
 DTSTART:20261205T103000Z
 DTEND:20261205T113000Z
-SUMMARY:Otros - Entrenamiento
+SUMMARY:F1 - Entrenamiento
 LOCATION:Yas Marina Circuit\\\, United Arab Emirates
 DESCRIPTION:Reminder
 END:VEVENT
@@ -8217,7 +8217,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1302@motorsport-calendar-QUALIFYING
 DTSTART:20261205T140000Z
 DTEND:20261205T150000Z
-SUMMARY:Otros - Clasificación
+SUMMARY:F1 - Clasificación
 LOCATION:Yas Marina Circuit\\\, United Arab Emirates
 DESCRIPTION:Reminder
 END:VEVENT
@@ -8233,7 +8233,7 @@ BEGIN:VEVENT
 UID:openf1-meeting-1302@motorsport-calendar-RACE
 DTSTART:20261206T130000Z
 DTEND:20261206T150000Z
-SUMMARY:Otros - Carrera
+SUMMARY:F1 - Carrera
 LOCATION:Yas Marina Circuit\\\, United Arab Emirates
 DESCRIPTION:Reminder
 END:VEVENT
