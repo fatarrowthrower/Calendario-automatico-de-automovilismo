@@ -30,6 +30,9 @@ jobs:
       - name: Actualizar ACTC
         run: python actc.py
 
+      - name: Probar TC2000
+        run: python tc2000.py
+
       - name: Actualizar calendarios
         run: python update.py
 
