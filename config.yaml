@@ -1,0 +1,21 @@
+timezone: America/Argentina/Buenos_Aires
+year: 2026
+refresh_hours: 24
+
+# Built-in providers from motorsport-calendar.
+# Argentine series are intentionally left as CSV/manual sources until
+# a stable structured endpoint is available.
+providers:
+  - f1
+  - f2
+  - f3
+  - wec
+  - elms
+  - mlmc
+  - motogp
+  - moto2
+  - moto3
+  - gtwc-europe
+  - gtwc-america
+  - gtwc-asia
+  - igtc
