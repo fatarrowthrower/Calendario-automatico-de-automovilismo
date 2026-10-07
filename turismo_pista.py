@@ -177,7 +177,9 @@ def search_aptp(year):
         )
 
         try:
-            data = json.loads(fetch(url))
+            data = json.loads(
+                fetch(url)
+            )
         except Exception as exc:
             print(
                 f"  ERROR búsqueda: {exc}"
@@ -209,7 +211,9 @@ def search_aptp(year):
             else:
                 title = str(title_data)
 
-            title = clean_html(title)
+            title = clean_html(
+                title
+            )
 
             if not link:
                 continue
@@ -238,7 +242,9 @@ def search_aptp(year):
     for result in results:
         unique[result["url"]] = result
 
-    return list(unique.values())
+    return list(
+        unique.values()
+    )
 
 
 def score_article(article, year):
@@ -270,33 +276,23 @@ def score_article(article, year):
 
 
 def extract_calendar_section(text, year):
-    """
-    Extrae únicamente la sección que comienza
-    con CALENDARIO YYYY y termina antes de
-    la siguiente sección/noticia.
-    """
-
     normalized = normalize(text)
 
     marker = f"calendario {year}"
 
-    start = normalized.find(marker)
+    start = normalized.find(
+        marker
+    )
 
     if start == -1:
         return ""
 
     section = normalized[start:]
 
-    # El calendario de APTP actualmente tiene
-    # exactamente 10 fechas.
-    #
-    # Cortamos antes de "Compartir en:" si aparece.
+    # Cortamos antes de las noticias
+    # que aparecen debajo del calendario.
     end_markers = [
         "compartir en:",
-        "compartir",
-        "clase 3",
-        "clase 2",
-        "clase 1",
     ]
 
     end_positions = []
@@ -339,20 +335,23 @@ def extract_events(text, year):
 
     events = []
 
-    # Cada fila actualmente aparece así:
+    # APTP publica actualmente:
     #
-    # 1° FECHA | 1° febrero – La Plata
-    # 2° FECHA | 1° marzo
+    # 1° FECHA 1° febrero – La Plata
+    # 2° FECHA 1° marzo
+    # 3° FECHA 12 de abril
     #
-    # Buscamos exclusivamente dentro
-    # de la sección del calendario.
+    # Importante:
+    # el día también puede llevar °
+    # o º, por ejemplo 1° febrero.
 
     pattern = re.compile(
         r"(?P<round>\d{1,2})"
         r"\s*(?:°|º|o)?"
         r"\s*fecha"
-        r"\s*\|?\s*"
+        r"\s*(?:\||:)?\s*"
         r"(?P<day>\d{1,2})"
+        r"\s*(?:°|º|o)?"
         r"\s*(?:de\s+)?"
         r"(?P<month>"
         r"enero|febrero|marzo|abril|mayo|junio|"
@@ -360,7 +359,9 @@ def extract_events(text, year):
         r"octubre|noviembre|diciembre"
         r")"
         r"(?:\s*[-–—|]\s*"
-        r"(?P<location>[a-záéíóúüñ0-9 .,'()\-]+))?",
+        r"(?P<location>"
+        r"[a-záéíóúüñ0-9 .,'()\-]+"
+        r"))?",
         re.I,
     )
 
@@ -413,7 +414,7 @@ def extract_events(text, year):
             " ",
             location,
         ).strip(
-            " -–—|:;,."
+            " -–—|:;,.\"'"
         )
 
         events.append(
@@ -441,7 +442,6 @@ def extract_events(text, year):
             }
         )
 
-    # Eliminar duplicados.
     unique = {}
 
     for event in events:
@@ -541,13 +541,9 @@ def main():
             f"{len(candidate_events)}"
         )
 
-        # Nos quedamos con el artículo que
-        # contenga más fechas de calendario.
         if len(candidate_events) > len(events):
             events = candidate_events
 
-        # Si encontramos las 10,
-        # ya tenemos el calendario completo.
         if len(events) >= 10:
             break
 
