@@ -10,11 +10,8 @@ from urllib.request import Request, urlopen
 OUTPUT = Path("data/turismo_pista_events.json")
 
 BASE_URL = "https://aptpweb.com.ar"
+WP_SEARCH_URL = BASE_URL + "/wp-json/wp/v2/search"
 
-WP_SEARCH_URL = (
-    BASE_URL
-    + "/wp-json/wp/v2/search"
-)
 
 MONTHS = {
     "enero": 1,
@@ -43,16 +40,12 @@ def fetch(url):
         headers={
             "User-Agent": (
                 "Mozilla/5.0 "
-                "(compatible; "
-                "AutomovilismoCalendar/1.0)"
+                "(compatible; AutomovilismoCalendar/1.0)"
             )
         },
     )
 
-    with urlopen(
-        request,
-        timeout=30,
-    ) as response:
+    with urlopen(request, timeout=30) as response:
         return response.read().decode(
             "utf-8",
             errors="ignore",
@@ -89,6 +82,13 @@ def clean_html(html):
     )
 
     html = re.sub(
+        r"</li\s*>",
+        "\n",
+        html,
+        flags=re.I,
+    )
+
+    html = re.sub(
         r"<[^>]+>",
         " ",
         html,
@@ -96,14 +96,17 @@ def clean_html(html):
 
     html = unescape(html)
 
-    html = html.replace(
-        "\xa0",
+    html = html.replace("\xa0", " ")
+
+    html = re.sub(
+        r"[ \t]+",
         " ",
+        html,
     )
 
     html = re.sub(
-        r"\s+",
-        " ",
+        r"\n+",
+        "\n",
         html,
     )
 
@@ -118,15 +121,16 @@ def normalize(text):
         "ó": "o",
         "ú": "u",
         "ü": "u",
-        "°": "",
-        "º": "",
+        "Á": "a",
+        "É": "e",
+        "Í": "i",
+        "Ó": "o",
+        "Ú": "u",
+        "Ü": "u",
     }
 
     for old, new in replacements.items():
-        text = text.replace(
-            old,
-            new,
-        )
+        text = text.replace(old, new)
 
     return text.lower()
 
@@ -141,7 +145,6 @@ def search_aptp(year):
     results = []
 
     for query in queries:
-
         url = (
             WP_SEARCH_URL
             + "?search="
@@ -154,9 +157,7 @@ def search_aptp(year):
         )
 
         try:
-            data = json.loads(
-                fetch(url)
-            )
+            data = json.loads(fetch(url))
         except Exception as exc:
             print(
                 f"  ERROR búsqueda: {exc}"
@@ -167,39 +168,25 @@ def search_aptp(year):
             continue
 
         for item in data:
-
-            if not isinstance(
-                item,
-                dict,
-            ):
+            if not isinstance(item, dict):
                 continue
 
-            link = item.get(
-                "url",
-                "",
-            )
+            link = item.get("url", "")
 
             title_data = item.get(
                 "title",
                 "",
             )
 
-            if isinstance(
-                title_data,
-                dict,
-            ):
+            if isinstance(title_data, dict):
                 title = title_data.get(
                     "rendered",
                     "",
                 )
             else:
-                title = str(
-                    title_data
-                )
+                title = str(title_data)
 
-            title = clean_html(
-                title
-            )
+            title = clean_html(title)
 
             if not link:
                 continue
@@ -228,154 +215,251 @@ def search_aptp(year):
     for result in results:
         unique[result["url"]] = result
 
-    return list(
-        unique.values()
-    )
+    return list(unique.values())
 
 
 def score_article(article, year):
-    title = normalize(
-        article["title"]
-    )
+    title = normalize(article["title"])
 
     score = 0
 
     if "calendario" in title:
-        score += 10
-
-    if str(year) in title:
-        score += 10
-
-    if "turismo pista" in title:
-        score += 5
-
-    if (
-        "presentaron el calendario"
-        in title
-    ):
         score += 20
 
-    if (
-        "recorrido completo"
-        in title
-    ):
-        score += 15
+    if str(year) in title:
+        score += 20
 
-    if (
-        "calendario completo"
-        in title
-    ):
-        score += 15
+    if "turismo pista" in title:
+        score += 10
+
+    if "presentaron el calendario" in title:
+        score += 30
+
+    if "recorrido completo" in title:
+        score += 25
+
+    if "calendario completo" in title:
+        score += 25
 
     return score
 
 
-def extract_events(text, year):
+def find_calendar_blocks(text, year):
+    """
+    Busca bloques de texto alrededor de expresiones como:
 
-    normalized = normalize(
-        text
+    1° Fecha: 1 de febrero - La Plata
+    2° Fecha: 1 de marzo - Toay
+
+    También acepta variantes como:
+
+    1 Fecha
+    1º Fecha
+    1° FECHA
+    Fecha 1
+    """
+
+    text = text.replace("\r", "\n")
+
+    # Mantener una copia normalizada para las búsquedas.
+    normalized = normalize(text)
+
+    blocks = []
+
+    # Caso habitual:
+    # 1 Fecha ... 1 de febrero ... La Plata
+    pattern_a = re.compile(
+        r"(?P<round>\d{1,2})"
+        r"\s*(?:°|º|o)?"
+        r"\s*fecha"
+        r".{0,250}?"
+        r"(?P<day>\d{1,2})"
+        r"\s*(?:de\s+)?"
+        r"(?P<month>"
+        r"enero|febrero|marzo|abril|mayo|junio|"
+        r"julio|agosto|septiembre|setiembre|"
+        r"octubre|noviembre|diciembre"
+        r")"
+        r"(?P<after>.{0,180})",
+        re.I | re.S,
     )
 
-    pattern = re.compile(
-        r"(\d{1,2})\s*"
+    for match in pattern_a.finditer(normalized):
+        blocks.append(match)
+
+    # Variante:
+    # Fecha 1 ... 1 de febrero ... La Plata
+    pattern_b = re.compile(
         r"fecha"
-        r".{0,120}?"
-        r"(\d{1,2})\s*"
-        r"(?:de\s+)?"
-        r"(enero|febrero|marzo|abril|mayo|"
-        r"junio|julio|agosto|septiembre|"
-        r"setiembre|octubre|noviembre|"
-        r"diciembre)"
-        r"(?:.{0,100}?"
-        r"[-–—|]\s*"
-        r"([a-záéíóúñ0-9().,' ]+))?",
-        re.I,
+        r"\s*(?P<round>\d{1,2})"
+        r".{0,250}?"
+        r"(?P<day>\d{1,2})"
+        r"\s*(?:de\s+)?"
+        r"(?P<month>"
+        r"enero|febrero|marzo|abril|mayo|junio|"
+        r"julio|agosto|septiembre|setiembre|"
+        r"octubre|noviembre|diciembre"
+        r")"
+        r"(?P<after>.{0,180})",
+        re.I | re.S,
     )
 
+    for match in pattern_b.finditer(normalized):
+        blocks.append(match)
+
+    return blocks
+
+
+def extract_location(after):
+    """
+    Intenta obtener la localidad que aparece después de la fecha.
+    """
+
+    text = after
+
+    # Separadores típicos usados en calendarios.
+    text = re.sub(
+        r"^[\s\-–—|:;,]+",
+        "",
+        text,
+    )
+
+    # Cortar cuando empieza otra fecha/fecha siguiente.
+    text = re.split(
+        r"\b\d{1,2}\s*(?:°|º|o)?\s*fecha\b",
+        text,
+        maxsplit=1,
+        flags=re.I,
+    )[0]
+
+    text = re.split(
+        r"\bfecha\s+\d{1,2}\b",
+        text,
+        maxsplit=1,
+        flags=re.I,
+    )[0]
+
+    # Cortar frases que claramente no son una localidad.
+    text = re.split(
+        r"\b(?:la temporada|el calendario|"
+        r"turismo pista|clase uno|clase dos|"
+        r"clase tres|actc|autodromo|autódromo)\b",
+        text,
+        maxsplit=1,
+        flags=re.I,
+    )[0]
+
+    text = re.sub(
+        r"\s+",
+        " ",
+        text,
+    ).strip(
+        " -–—|:;,.\"'"
+    )
+
+    # Evitar capturar párrafos completos.
+    if len(text) > 70:
+        text = text[:70]
+
+    # Si quedó algo demasiado genérico, no inventamos.
+    if not text:
+        return "Argentina"
+
+    return text
+
+
+def extract_events(text, year):
     events = []
 
-    for match in pattern.finditer(
-        normalized
-    ):
+    matches = find_calendar_blocks(
+        text,
+        year,
+    )
 
-        round_number = int(
-            match.group(1)
-        )
+    seen_rounds = set()
 
-        day = int(
-            match.group(2)
-        )
+    for match in matches:
+        try:
+            round_number = int(
+                match.group("round")
+            )
 
-        month_name = match.group(3)
+            day = int(
+                match.group("day")
+            )
 
-        month = MONTHS.get(
-            month_name
-        )
+            month_name = (
+                match.group("month")
+            ).lower()
 
-        if not month:
+            month = MONTHS.get(
+                month_name
+            )
+
+            if not month:
+                continue
+
+            if round_number in seen_rounds:
+                continue
+
+            if day < 1 or day > 31:
+                continue
+
+            date = (
+                f"{year:04d}-"
+                f"{month:02d}-"
+                f"{day:02d}"
+            )
+
+            # Validación real de la fecha.
+            try:
+                datetime.strptime(
+                    date,
+                    "%Y-%m-%d",
+                )
+            except ValueError:
+                continue
+
+            location = extract_location(
+                match.group("after")
+            )
+
+            events.append(
+                {
+                    "uid": (
+                        f"turismo-pista-"
+                        f"{year}-"
+                        f"{round_number:02d}"
+                    ),
+                    "categoria": "Argentina",
+                    "campeonato": "Turismo Pista",
+                    "tipo": "Carrera",
+                    "fecha_inicio": (
+                        f"{date}T12:00:00"
+                    ),
+                    "fecha_fin": (
+                        f"{date}T23:59:00"
+                    ),
+                    "ubicacion": location,
+                    "descripcion": (
+                        f"Turismo Pista - "
+                        f"Fecha {round_number}"
+                    ),
+                    "prioridad": "",
+                }
+            )
+
+            seen_rounds.add(
+                round_number
+            )
+
+        except Exception:
             continue
-
-        location = (
-            match.group(4)
-            or ""
-        ).strip()
-
-        location = re.sub(
-            r"\s+",
-            " ",
-            location,
-        )
-
-        location = re.split(
-            r"\b(?:fecha|carrera|calendario|"
-            r"turismo pista)\b",
-            location,
-            maxsplit=1,
-            flags=re.I,
-        )[0].strip()
-
-        if len(location) > 80:
-            location = location[:80].strip()
-
-        if not location:
-            location = "Argentina"
-
-        date = (
-            f"{year:04d}-"
-            f"{month:02d}-"
-            f"{day:02d}"
-        )
-
-        events.append(
-            {
-                "uid": (
-                    f"turismo-pista-"
-                    f"{year}-"
-                    f"{round_number:02d}"
-                ),
-                "categoria": "Argentina",
-                "campeonato": "Turismo Pista",
-                "tipo": "Carrera",
-                "fecha_inicio": (
-                    f"{date}T12:00:00"
-                ),
-                "fecha_fin": (
-                    f"{date}T23:59:00"
-                ),
-                "ubicacion": location,
-                "descripcion": (
-                    f"Turismo Pista - "
-                    f"Fecha {round_number}"
-                ),
-                "prioridad": "",
-            }
-        )
 
     return events
 
 
 def main():
-
     year = current_year()
 
     print(
@@ -383,9 +467,7 @@ def main():
         f"para {year}..."
     )
 
-    articles = search_aptp(
-        year
-    )
+    articles = search_aptp(year)
 
     print(
         f"Artículos candidatos: "
@@ -393,7 +475,6 @@ def main():
     )
 
     if not articles:
-
         print(
             f"APTP todavía no publicó "
             f"un calendario detectable "
@@ -423,16 +504,13 @@ def main():
     all_events = []
 
     for article in articles:
-
         print()
         print(
             f"Analizando: "
             f"{article['title']}"
         )
 
-        print(
-            article["url"]
-        )
+        print(article["url"])
 
         try:
             html = fetch(
@@ -444,9 +522,7 @@ def main():
             )
             continue
 
-        text = clean_html(
-            html
-        )
+        text = clean_html(html)
 
         events = extract_events(
             text,
@@ -458,11 +534,17 @@ def main():
             f"{len(events)}"
         )
 
-        all_events.extend(
-            events
-        )
+        all_events.extend(events)
 
-        if len(events) >= 10:
+        # Si ya tenemos las 10 fechas,
+        # no necesitamos seguir analizando
+        # artículos secundarios.
+        if len(
+            {
+                event["uid"]
+                for event in all_events
+            }
+        ) >= 10:
             break
 
     unique = {}
@@ -470,9 +552,7 @@ def main():
     for event in all_events:
         unique[event["uid"]] = event
 
-    events = list(
-        unique.values()
-    )
+    events = list(unique.values())
 
     events.sort(
         key=lambda event: event[
@@ -495,14 +575,12 @@ def main():
     )
 
     print()
-
     print(
         f"Turismo Pista: "
         f"{len(events)} eventos encontrados."
     )
 
     for event in events:
-
         print(
             f"  {event['uid']} | "
             f"{event['fecha_inicio']} | "
@@ -510,7 +588,6 @@ def main():
         )
 
     if not events:
-
         print(
             f"No se encontraron fechas "
             f"para {year}."
