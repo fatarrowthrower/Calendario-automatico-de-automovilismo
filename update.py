@@ -2,7 +2,6 @@ from pathlib import Path
 import csv
 import re
 import subprocess
-from datetime import datetime
 
 ROOT = Path(__file__).resolve().parent
 DATA = ROOT / "data"
@@ -16,174 +15,242 @@ DATA.mkdir(exist_ok=True)
 OUTPUT.mkdir(exist_ok=True)
 
 
-def classify(name):
-    """Clasifica automáticamente cada evento."""
+def classify(uid, name, location):
+    """Clasifica el evento usando principalmente su UID."""
 
+    u = uid.lower()
     n = name.lower()
+    l = location.lower()
 
-    # Motos
-    if any(x in n for x in [
-        "motogp", "moto2", "moto3", "worldsbk",
-        "superbike", "superbike world"
-    ]):
-        categoria = "Motos"
-        if "motogp" in n:
-            campeonato = "MotoGP"
-        elif "moto2" in n:
-            campeonato = "Moto2"
-        elif "moto3" in n:
-            campeonato = "Moto3"
-        else:
-            campeonato = "WorldSBK"
+    # =========================
+    # FÓRMULA
+    # =========================
 
-    # Fórmula
-    elif any(x in n for x in [
-        "formula 1", "formula1", "f1 ", "grand prix",
-        "formula 2", "formula2", "f2 ",
-        "formula 3", "formula3", "f3 ",
-        "formula e", "f1 academy", "formula academy"
-    ]):
+    if "f1-academy" in u:
         categoria = "Fórmula"
+        campeonato = "F1 Academy"
 
-        if "formula 1" in n or "formula1" in n or "f1 " in n or "grand prix" in n:
-            campeonato = "F1"
-        elif "formula 2" in n or "formula2" in n or "f2 " in n:
-            campeonato = "F2"
-        elif "formula 3" in n or "formula3" in n or "f3 " in n:
-            campeonato = "F3"
-        elif "formula e" in n:
-            campeonato = "Formula E"
-        else:
-            campeonato = "F1 Academy"
+    elif "formula-e" in u or "f1calendar-fe" in u:
+        categoria = "Fórmula"
+        campeonato = "Formula E"
 
-    # Endurance
-    elif any(x in n for x in [
-        "wec", "world endurance", "le mans",
-        "elms", "le mans cup", "mlmc",
-        "imsa", "nürburgring", "nurburgring",
-        "nls", "24h", "24 hours", "endurance"
-    ]):
+    elif "f1calendar-f1-" in u:
+        categoria = "Fórmula"
+        campeonato = "F1"
+
+    elif "f1calendar-f2-" in u:
+        categoria = "Fórmula"
+        campeonato = "F2"
+
+    elif "f1calendar-f3-" in u:
+        categoria = "Fórmula"
+        campeonato = "F3"
+
+    # =========================
+    # MOTOS
+    # =========================
+
+    elif u.startswith("motogp-"):
+        categoria = "Motos"
+        campeonato = "MotoGP"
+
+    elif u.startswith("moto2-"):
+        categoria = "Motos"
+        campeonato = "Moto2"
+
+    elif u.startswith("moto3-"):
+        categoria = "Motos"
+        campeonato = "Moto3"
+
+    elif "worldsbk" in u:
+        categoria = "Motos"
+        campeonato = "WorldSBK"
+
+    # =========================
+    # ENDURANCE
+    # =========================
+
+    elif u.startswith("wec-"):
         categoria = "Endurance"
+        campeonato = "WEC"
 
-        if "imsa" in n:
-            campeonato = "IMSA"
-        elif "wec" in n or "world endurance" in n:
-            campeonato = "WEC"
-        elif "le mans" in n:
-            campeonato = "Le Mans"
-        elif "elms" in n:
-            campeonato = "ELMS"
-        elif "nürburgring" in n or "nurburgring" in n:
-            campeonato = "Nürburgring"
-        else:
-            campeonato = "Endurance"
+    elif "elms" in u:
+        categoria = "Endurance"
+        campeonato = "ELMS"
 
+    elif "mlmc" in u or "le-mans-cup" in u:
+        categoria = "Endurance"
+        campeonato = "Le Mans Cup"
+
+    elif "imsa" in u:
+        categoria = "Endurance"
+        campeonato = "IMSA"
+
+    # =========================
     # GT
-    elif any(x in n for x in [
-        "gt world", "gtwc", "gt3", "igtc",
-        "intercontinental gt", "super gt"
-    ]):
+    # =========================
+
+    elif "gtwc-europe" in u:
         categoria = "GT"
+        campeonato = "GT World Challenge Europe"
 
-        if "super gt" in n:
-            campeonato = "Super GT"
-        elif "igtc" in n or "intercontinental gt" in n:
-            campeonato = "IGTC"
-        else:
-            campeonato = "GT World Challenge"
+    elif "gtwc-america" in u:
+        categoria = "GT"
+        campeonato = "GT World Challenge America"
 
-    # IndyCar
-    elif any(x in n for x in [
-        "indycar", "indy 500", "indianapolis 500"
-    ]):
-        categoria = "IndyCar"
-        campeonato = "IndyCar"
+    elif "gtwc-asia" in u:
+        categoria = "GT"
+        campeonato = "GT World Challenge Asia"
 
-    # NASCAR
-    elif any(x in n for x in [
-        "nascar", "cup series", "xfinity", "truck series"
-    ]):
-        categoria = "NASCAR"
+    elif "igtc" in u:
+        categoria = "GT"
+        campeonato = "IGTC"
 
-        if "xfinity" in n:
-            campeonato = "NASCAR Xfinity"
-        elif "truck" in n:
-            campeonato = "NASCAR Truck"
-        else:
-            campeonato = "NASCAR Cup"
+    elif "super-gt" in u:
+        categoria = "GT"
+        campeonato = "Super GT"
 
-    # Rally
-    elif any(x in n for x in [
-        "wrc", "world rally", "rally",
-        "dakar", "rallycross"
-    ]):
-        categoria = "Rally"
+    # =========================
+    # ARGENTINA
+    # =========================
 
-        if "dakar" in n:
-            campeonato = "Dakar"
-        elif "wrc" in n or "world rally" in n:
-            campeonato = "WRC"
-        else:
-            campeonato = "Rally"
-
-    # Argentina
-    elif any(x in n for x in [
-        "turismo carretera", "tc pista", "tc pick",
-        "tc2000", "turismo nacional", "turismo pista",
-        "top race", "rally argentino", "formula nacional",
-        "formula uno argentina"
+    elif any(x in u or x in n for x in [
+        "turismo-carretera",
+        "tc-pista",
+        "tc-pick",
+        "tc2000",
+        "turismo-nacional",
+        "turismo-pista",
+        "top-race",
+        "rally-argentino",
+        "formula-nacional",
     ]):
         categoria = "Argentina"
 
-        if "turismo carretera" in n:
+        if "turismo-carretera" in u or "turismo carretera" in n:
             campeonato = "Turismo Carretera"
-        elif "tc pista" in n:
+        elif "tc-pista" in u or "tc pista" in n:
             campeonato = "TC Pista"
-        elif "tc pick" in n:
+        elif "tc-pick" in u or "tc pick" in n:
             campeonato = "TC Pick Up"
-        elif "tc2000" in n:
+        elif "tc2000" in u or "tc2000" in n:
             campeonato = "TC2000"
-        elif "turismo nacional" in n:
+        elif "turismo-nacional" in u or "turismo nacional" in n:
             campeonato = "Turismo Nacional"
-        elif "turismo pista" in n:
+        elif "turismo-pista" in u or "turismo pista" in n:
             campeonato = "Turismo Pista"
-        elif "top race" in n:
+        elif "top-race" in u or "top race" in n:
             campeonato = "Top Race"
-        elif "rally argentino" in n:
+        elif "rally-argentino" in u or "rally argentino" in n:
             campeonato = "Rally Argentino"
         else:
             campeonato = "Fórmula Argentina"
 
-    # Drift
-    elif any(x in n for x in [
-        "formula drift", "drift"
-    ]):
+    # =========================
+    # NASCAR
+    # =========================
+
+    elif "nascar" in u or "nascar" in n:
+        categoria = "NASCAR"
+
+        if "xfinity" in u or "xfinity" in n:
+            campeonato = "NASCAR Xfinity"
+        elif "truck" in u or "truck" in n:
+            campeonato = "NASCAR Truck"
+        else:
+            campeonato = "NASCAR Cup"
+
+    # =========================
+    # INDYCAR
+    # =========================
+
+    elif "indycar" in u or "indycar" in n or "indy-500" in u:
+        categoria = "IndyCar"
+        campeonato = "IndyCar"
+
+    # =========================
+    # RALLY
+    # =========================
+
+    elif "wrc" in u or "wrc" in n:
+        categoria = "Rally"
+        campeonato = "WRC"
+
+    elif "dakar" in u or "dakar" in n:
+        categoria = "Rally"
+        campeonato = "Dakar"
+
+    elif "rallycross" in u or "rallycross" in n:
+        categoria = "Rally"
+        campeonato = "Rallycross"
+
+    # =========================
+    # DRIFT
+    # =========================
+
+    elif "drift" in u or "drift" in n:
         categoria = "Drift"
         campeonato = "Formula Drift"
+
+    # =========================
+    # RESPALDO
+    # =========================
 
     else:
         categoria = "Otros"
         campeonato = "Otros"
 
-    # Tipo de sesión
-    if any(x in n for x in ["race", "carrera", "grand prix", "24h", "24 hours"]):
+    # =========================
+    # TIPO DE SESIÓN
+    # =========================
+
+    if any(x in n for x in [
+        "race",
+        "carrera",
+    ]):
         tipo = "Carrera"
-    elif any(x in n for x in ["qualifying", "qualification", "clasificación"]):
+
+    elif any(x in n for x in [
+        "qualifying",
+        "qualification",
+        "clasificación",
+    ]):
         tipo = "Clasificación"
+
     elif "sprint" in n:
         tipo = "Sprint"
-    elif any(x in n for x in ["practice", "entrenamiento", "free practice"]):
+
+    elif any(x in n for x in [
+        "practice",
+        "free practice",
+        "entrenamiento",
+        "fp1",
+        "fp2",
+        "fp3",
+    ]):
         tipo = "Entrenamiento"
+
     else:
         tipo = "Evento"
 
-    # Prioridad
-    if any(x in n for x in [
-        "formula 1", "formula1", "f1 ",
-        "motogp", "wec", "le mans",
-        "indy 500", "indianapolis 500",
-        "dakar", "24h", "24 hours"
-    ]):
+    # =========================
+    # IMPERDIBLES
+    # =========================
+
+    if (
+        campeonato in [
+            "F1",
+            "MotoGP",
+            "WEC",
+            "Le Mans Cup",
+            "Formula E",
+            "IndyCar",
+            "NASCAR Cup",
+            "WRC",
+            "Dakar",
+        ]
+        and tipo == "Carrera"
+    ):
         prioridad = "Imperdible"
     else:
         prioridad = "Normal"
@@ -192,8 +259,6 @@ def classify(name):
 
 
 def parse_ics(path):
-    """Lee eventos del archivo ICS generado por motocal."""
-
     text = path.read_text(encoding="utf-8")
 
     # Unfold de líneas ICS
@@ -203,6 +268,7 @@ def parse_ics(path):
     blocks = re.findall(r"BEGIN:VEVENT(.*?)END:VEVENT", text, re.S)
 
     for block in blocks:
+
         def get_field(field):
             match = re.search(
                 rf"^{field}(?:;[^:]*)?:(.*)$",
@@ -218,7 +284,11 @@ def parse_ics(path):
         location = get_field("LOCATION")
         description = get_field("DESCRIPTION")
 
-        categoria, campeonato, tipo, prioridad = classify(summary)
+        categoria, campeonato, tipo, prioridad = classify(
+            uid,
+            summary,
+            location
+        )
 
         events.append({
             "uid": uid,
@@ -250,13 +320,18 @@ def write_csv(events):
         "descripcion",
     ]
 
-    with EVENTS_CSV.open("w", newline="", encoding="utf-8") as f:
+    with EVENTS_CSV.open(
+        "w",
+        newline="",
+        encoding="utf-8"
+    ) as f:
         writer = csv.DictWriter(f, fieldnames=fields)
         writer.writeheader()
         writer.writerows(events)
 
 
 def main():
+
     print("Ejecutando: motocal generate 2026 --refresh")
 
     result = subprocess.run(
@@ -271,19 +346,26 @@ def main():
     )
 
     if result.returncode != 0:
-        raise SystemExit("ERROR: motocal no pudo generar el calendario.")
+        raise SystemExit(
+            "ERROR: motocal no pudo generar el calendario."
+        )
 
     if not MOTOCAL_ICS.exists():
-        raise SystemExit("ERROR: no se creó data/motorsport.ics")
+        raise SystemExit(
+            "ERROR: no se creó data/motorsport.ics"
+        )
 
     events = parse_ics(MOTOCAL_ICS)
 
     if not events:
-        raise SystemExit("ERROR: no se encontraron eventos.")
+        raise SystemExit(
+            "ERROR: no se encontraron eventos."
+        )
 
-    # Copiamos el ICS original como calendario final.
     FINAL_ICS.write_text(
-        MOTOCAL_ICS.read_text(encoding="utf-8"),
+        MOTOCAL_ICS.read_text(
+            encoding="utf-8"
+        ),
         encoding="utf-8"
     )
 
@@ -294,17 +376,35 @@ def main():
     print(f"CSV: {EVENTS_CSV}")
     print(f"ICS: {FINAL_ICS}")
 
-    # Resumen de categorías
     categories = {}
+
+    championships = {}
+
     for event in events:
-        categories[event["categoria"]] = categories.get(
-            event["categoria"], 0
-        ) + 1
+        category = event["categoria"]
+        championship = event["campeonato"]
+
+        categories[category] = (
+            categories.get(category, 0) + 1
+        )
+
+        championships[championship] = (
+            championships.get(championship, 0) + 1
+        )
 
     print()
     print("Categorías:")
+
     for category, count in sorted(categories.items()):
         print(f"  {category}: {count}")
+
+    print()
+    print("Campeonatos:")
+
+    for championship, count in sorted(
+        championships.items()
+    ):
+        print(f"  {championship}: {count}")
 
 
 if __name__ == "__main__":
