@@ -27,11 +27,11 @@ jobs:
       - name: Verificar motocal
         run: motocal version
 
-      - name: Actualizar calendarios
-        run: python update.py
-
       - name: Actualizar ACTC
         run: python actc.py
+
+      - name: Actualizar calendarios
+        run: python update.py
 
       - name: Publicar calendario
         run: |
