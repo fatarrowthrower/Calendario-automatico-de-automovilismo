@@ -4,10 +4,32 @@
     "categoria": "Argentina",
     "campeonato": "Turismo Pista",
     "tipo": "Carrera",
-    "fecha_inicio": "2026-02-01T12:00:00",
-    "fecha_fin": "2026-02-01T23:59:00",
-    "ubicacion": "la plata 2",
+    "fecha_inicio": "2026-04-12T12:00:00",
+    "fecha_fin": "2026-04-12T23:59:00",
+    "ubicacion": "Argentina",
     "descripcion": "Turismo Pista - Fecha 1",
+    "prioridad": ""
+  },
+  {
+    "uid": "turismo-pista-2026-22",
+    "categoria": "Argentina",
+    "campeonato": "Turismo Pista",
+    "tipo": "Carrera",
+    "fecha_inicio": "2026-10-01T12:00:00",
+    "fecha_fin": "2026-10-01T23:59:00",
+    "ubicacion": "2026 lucas yerobi tiene continuidad en la",
+    "descripcion": "Turismo Pista - Fecha 22",
+    "prioridad": ""
+  },
+  {
+    "uid": "turismo-pista-2026-10",
+    "categoria": "Argentina",
+    "campeonato": "Turismo Pista",
+    "tipo": "Carrera",
+    "fecha_inicio": "2026-11-22T12:00:00",
+    "fecha_fin": "2026-11-22T23:59:00",
+    "ubicacion": "compartir en: julian martinez se enfoca en la",
+    "descripcion": "Turismo Pista - Fecha 10",
     "prioridad": ""
   }
 ]
