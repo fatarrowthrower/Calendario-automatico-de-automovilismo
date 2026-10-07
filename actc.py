@@ -4,6 +4,7 @@ from datetime import datetime
 from pathlib import Path
 from urllib.request import Request, urlopen
 
+
 ACTC_SOURCES = {
     "TC": "https://actc.org.ar/tc/calendario",
     "TC Pista": "https://actc.org.ar/tcp/calendario",
@@ -13,6 +14,10 @@ ACTC_SOURCES = {
 OUTPUT = Path("data/actc_events.json")
 
 
+def current_year():
+    return datetime.now().year
+
+
 def fetch(url):
     req = Request(
         url,
@@ -20,12 +25,23 @@ def fetch(url):
             "User-Agent": "Mozilla/5.0"
         },
     )
-    with urlopen(req, timeout=30) as response:
-        return response.read().decode("utf-8", errors="ignore")
+
+    with urlopen(
+        req,
+        timeout=30,
+    ) as response:
+        return response.read().decode(
+            "utf-8",
+            errors="ignore",
+        )
 
 
 def clean(text):
-    return re.sub(r"\s+", " ", text).strip()
+    return re.sub(
+        r"\s+",
+        " ",
+        text,
+    ).strip()
 
 
 def parse_date(text):
@@ -56,16 +72,31 @@ def parse_date(text):
     month_name = match.group(2)[:3]
     year = int(match.group(3))
 
-    month = months.get(month_name)
+    month = months.get(
+        month_name
+    )
 
     if not month:
         return None
 
-    return f"{year:04d}-{month:02d}-{day:02d}"
+    return (
+        f"{year:04d}-"
+        f"{month:02d}-"
+        f"{day:02d}"
+    )
 
 
-def parse_calendar(html, championship):
-    text = clean(re.sub(r"<[^>]+>", " ", html))
+def parse_calendar(
+    html,
+    championship,
+):
+    text = clean(
+        re.sub(
+            r"<[^>]+>",
+            " ",
+            html,
+        )
+    )
 
     events = []
 
@@ -75,19 +106,30 @@ def parse_calendar(html, championship):
         re.IGNORECASE,
     )
 
-    matches = list(pattern.finditer(text))
+    matches = list(
+        pattern.finditer(text)
+    )
 
     for match in matches:
-        round_number = int(match.group(1))
+
+        round_number = int(
+            match.group(1)
+        )
+
         date_text = match.group(2)
 
-        date = parse_date(date_text)
+        date = parse_date(
+            date_text
+        )
 
         if not date:
             continue
 
         start = match.end()
-        fragment = text[start:start + 250]
+
+        fragment = text[
+            start:start + 250
+        ]
 
         fragment = re.sub(
             r"\s+",
@@ -95,7 +137,11 @@ def parse_calendar(html, championship):
             fragment,
         ).strip()
 
-        location = fragment.split("Fecha")[0].strip()
+        location = (
+            fragment
+            .split("Fecha")[0]
+            .strip()
+        )
 
         if not location:
             location = "Argentina"
@@ -104,19 +150,34 @@ def parse_calendar(html, championship):
 
         events.append(
             {
-                "uid": f"actc-{championship.lower().replace(' ', '-')}-2026-{round_number:02d}",
+                "uid": (
+                    f"actc-"
+                    f"{championship.lower().replace(' ', '-')}-"
+                    f"{date[:4]}-"
+                    f"{round_number:02d}"
+                ),
                 "categoria": "Argentina",
                 "campeonato": championship,
                 "tipo": "Carrera",
-                "fecha_inicio": f"{date}T12:00:00",
-                "fecha_fin": f"{date}T23:59:00",
+                "fecha_inicio": (
+                    f"{date}T12:00:00"
+                ),
+                "fecha_fin": (
+                    f"{date}T23:59:00"
+                ),
                 "ubicacion": location,
-                "descripcion": f"{championship} - Fecha {round_number}",
-                "imperdible": championship in [
-                    "TC",
-                    "TC Pista",
-                    "TC Pick Up",
-                ],
+                "descripcion": (
+                    f"{championship} - "
+                    f"Fecha {round_number}"
+                ),
+                "imperdible": (
+                    championship
+                    in [
+                        "TC",
+                        "TC Pista",
+                        "TC Pick Up",
+                    ]
+                ),
             }
         )
 
@@ -124,33 +185,62 @@ def parse_calendar(html, championship):
 
 
 def main():
+    year = current_year()
+
+    print(
+        f"Consultando ACTC para {year}..."
+    )
+
     all_events = []
 
     for championship, url in ACTC_SOURCES.items():
-        print(f"Consultando ACTC: {championship}")
+
+        print(
+            f"Consultando ACTC: "
+            f"{championship}"
+        )
 
         try:
             html = fetch(url)
-            events = parse_calendar(html, championship)
 
-            print(f"  Encontrados: {len(events)}")
+            events = parse_calendar(
+                html,
+                championship,
+            )
 
-            all_events.extend(events)
+            print(
+                f"  Encontrados: "
+                f"{len(events)}"
+            )
+
+            all_events.extend(
+                events
+            )
 
         except Exception as exc:
-            print(f"  ERROR: {exc}")
+            print(
+                f"  ERROR: {exc}"
+            )
 
-    # Eliminar duplicados por UID
     unique = {}
 
     for event in all_events:
         unique[event["uid"]] = event
 
-    events = list(unique.values())
+    events = list(
+        unique.values()
+    )
 
-    events.sort(key=lambda x: x["fecha_inicio"])
+    events.sort(
+        key=lambda x: x[
+            "fecha_inicio"
+        ]
+    )
 
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
 
     OUTPUT.write_text(
         json.dumps(
@@ -162,7 +252,10 @@ def main():
     )
 
     print()
-    print(f"ACTC: {len(events)} eventos guardados en {OUTPUT}")
+    print(
+        f"ACTC: {len(events)} "
+        f"eventos guardados en {OUTPUT}"
+    )
 
 
 if __name__ == "__main__":
