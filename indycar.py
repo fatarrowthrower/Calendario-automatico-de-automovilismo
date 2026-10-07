@@ -1,6 +1,6 @@
 import json
 import re
-from datetime import datetime
+from datetime import datetime, date, time
 from pathlib import Path
 from zoneinfo import ZoneInfo
 from urllib.parse import urljoin
@@ -9,178 +9,98 @@ import requests
 from bs4 import BeautifulSoup
 
 
+BASE_URL = "https://www.indycar.com"
 YEAR = datetime.now().year
 
-BASE_URL = "https://www.indycar.com"
 SCHEDULE_URL = f"{BASE_URL}/Schedule?year={YEAR}"
-
-OUTPUT = Path("data/indycar_events.json")
 
 ET_ZONE = ZoneInfo("America/New_York")
 ARG_ZONE = ZoneInfo("America/Argentina/Buenos_Aires")
 
+OUTPUT = Path("data/indycar_events.json")
+
 HEADERS = {
     "User-Agent": (
-        "Mozilla/5.0 (X11; Linux x86_64) "
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/131.0 Safari/537.36"
-    ),
-    "Accept": (
-        "text/html,application/xhtml+xml,"
-        "application/xml;q=0.9,*/*;q=0.8"
-    ),
-    "Accept-Language": "en-US,en;q=0.9",
+    )
 }
 
 
 MONTHS = {
-    "JAN": 1,
-    "JANUARY": 1,
-    "FEB": 2,
-    "FEBRUARY": 2,
-    "MAR": 3,
-    "MARCH": 3,
-    "APR": 4,
-    "APRIL": 4,
-    "MAY": 5,
-    "JUN": 6,
-    "JUNE": 6,
-    "JUL": 7,
-    "JULY": 7,
-    "AUG": 8,
-    "AUGUST": 8,
-    "SEP": 9,
-    "SEPT": 9,
-    "SEPTEMBER": 9,
-    "OCT": 10,
-    "OCTOBER": 10,
-    "NOV": 11,
-    "NOVEMBER": 11,
-    "DEC": 12,
-    "DECEMBER": 12,
+    "Jan": 1,
+    "Feb": 2,
+    "Mar": 3,
+    "Apr": 4,
+    "May": 5,
+    "Jun": 6,
+    "Jul": 7,
+    "Aug": 8,
+    "Sep": 9,
+    "Oct": 10,
+    "Nov": 11,
+    "Dec": 12,
 }
 
 
-def get(url):
-    try:
-        response = requests.get(
-            url,
-            headers=HEADERS,
-            timeout=30,
-            allow_redirects=True,
-        )
-
-        if response.status_code == 200:
-            return response
-
-        print(
-            f"    HTTP {response.status_code}: {url}"
-        )
-
-    except requests.RequestException as exc:
-        print(
-            f"    Error: {exc}"
-        )
-
-    return None
-
-
 def clean(text):
-    return re.sub(
-        r"\s+",
-        " ",
-        text or "",
-    ).strip()
+    return re.sub(r"\s+", " ", text).strip()
 
 
-def normalize(text):
-    replacements = {
-        "á": "a",
-        "é": "e",
-        "í": "i",
-        "ó": "o",
-        "ú": "u",
-        "Á": "A",
-        "É": "E",
-        "Í": "I",
-        "Ó": "O",
-        "Ú": "U",
-    }
-
-    for old, new in replacements.items():
-        text = text.replace(
-            old,
-            new,
-        )
-
-    return text.upper()
-
-
-def parse_date(text):
-    pattern = re.compile(
-        r"\b("
-        r"Jan(?:uary)?|"
-        r"Feb(?:ruary)?|"
-        r"Mar(?:ch)?|"
-        r"Apr(?:il)?|"
-        r"May|"
-        r"Jun(?:e)?|"
-        r"Jul(?:y)?|"
-        r"Aug(?:ust)?|"
-        r"Sep(?:t(?:ember)?)?|"
-        r"Oct(?:ober)?|"
-        r"Nov(?:ember)?|"
-        r"Dec(?:ember)?"
-        r")"
-        r"\.?\s+"
-        r"(\d{1,2})"
-        r"(?:st|nd|rd|th)?"
-        r"(?:,?\s+(\d{4}))?"
-        r"\b",
-        re.IGNORECASE,
+def get_page(url):
+    response = requests.get(
+        url,
+        headers=HEADERS,
+        timeout=30,
     )
+    response.raise_for_status()
+    return BeautifulSoup(response.text, "html.parser")
 
-    match = pattern.search(text)
+
+def parse_day_header(text):
+    """
+    Ejemplos:
+      Friday, Mar 6
+      Saturday, Mar 7
+      Sunday, Mar 8
+    """
+
+    text = clean(text)
+
+    match = re.match(
+        r"^(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),\s+"
+        r"([A-Z][a-z]{2})\s+(\d{1,2})$",
+        text,
+    )
 
     if not match:
         return None
 
-    month = MONTHS.get(
-        normalize(match.group(1))
-    )
+    month_name = match.group(1)
+    day = int(match.group(2))
+
+    month = MONTHS.get(month_name)
 
     if not month:
         return None
 
-    day = int(
-        match.group(2)
-    )
-
-    year = match.group(3)
-
-    if year:
-        year = int(year)
-    else:
-        year = YEAR
-
-    if year != YEAR:
-        return None
-
-    try:
-        return datetime(
-            year,
-            month,
-            day,
-        ).strftime("%Y-%m-%d")
-
-    except ValueError:
-        return None
+    return date(YEAR, month, day)
 
 
-def parse_time(text):
-    match = re.search(
-        r"\b(\d{1,2}):(\d{2})\s*(AM|PM)"
-        r"(?:\s*ET)?\b",
+def parse_time_et(text):
+    """
+    Acepta:
+      10:00AM ET
+      2:00PM ET
+      4:30PM ET
+      10:00 AM ET
+    """
+
+    text = clean(text)
+
+    match = re.match(
+        r"^(\d{1,2}):(\d{2})\s*(AM|PM)\s*ET$",
         text,
         re.IGNORECASE,
     )
@@ -188,552 +108,395 @@ def parse_time(text):
     if not match:
         return None
 
-    hour = int(
-        match.group(1)
-    )
-
-    minute = int(
-        match.group(2)
-    )
-
+    hour = int(match.group(1))
+    minute = int(match.group(2))
     ampm = match.group(3).upper()
 
-    if ampm == "PM" and hour != 12:
-        hour += 12
+    if ampm == "AM":
+        if hour == 12:
+            hour = 0
+    else:
+        if hour != 12:
+            hour += 12
 
-    if ampm == "AM" and hour == 12:
-        hour = 0
-
-    return hour, minute
-
-
-def convert_to_argentina(
-    date_text,
-    time_text,
-):
-    parsed = parse_time(
-        time_text
-    )
-
-    if not parsed:
-        return date_text, None
-
-    hour, minute = parsed
-
-    dt_et = datetime(
-        int(date_text[0:4]),
-        int(date_text[5:7]),
-        int(date_text[8:10]),
-        hour,
-        minute,
-        tzinfo=ET_ZONE,
-    )
-
-    dt_arg = dt_et.astimezone(
-        ARG_ZONE
-    )
-
-    return (
-        dt_arg.strftime("%Y-%m-%d"),
-        dt_arg.strftime("%H:%M"),
-    )
+    return time(hour, minute)
 
 
-def session_type(text):
-    value = normalize(text)
+def is_session_name(text):
+    """
+    Determina si una línea parece ser una sesión deportiva.
+    """
 
-    if "FAST FRIDAY" in value:
-        return "Entrenamiento"
+    text = clean(text)
 
-    if "PRACTICE" in value:
-        return "Entrenamiento"
+    if not text:
+        return False
 
-    if "QUALIFICATION" in value:
-        return "Clasificación"
+    lower = text.lower()
 
-    if "QUALIFYING" in value:
-        return "Clasificación"
-
-    if "WARMUP" in value:
-        return "Warm-up"
-
-    if "WARM-UP" in value:
-        return "Warm-up"
-
-    if "PRE-RACE" in value:
-        return "Pre-carrera"
-
-    if "RACE" in value:
-        return "Carrera"
-
-    return None
-
-
-def extract_races(html):
-    soup = BeautifulSoup(
-        html,
-        "html.parser",
-    )
-
-    races = {}
-
-    for link in soup.find_all(
-        "a",
-        href=True,
-    ):
-        href = link.get(
-            "href",
-            "",
-        ).strip()
-
-        full_url = urljoin(
-            BASE_URL,
-            href,
-        )
-
-        if not re.search(
-            rf"/Schedule/{YEAR}/",
-            full_url,
-            re.IGNORECASE,
-        ):
-            continue
-
-        text = clean(
-            link.get_text(
-                " ",
-                strip=True,
-            )
-        )
-
-        if not text:
-            continue
-
-        parent = link
-
-        for _ in range(5):
-            if parent.parent:
-                parent = parent.parent
-
-        context = clean(
-            parent.get_text(
-                " ",
-                strip=True,
-            )
-        )
-
-        combined = clean(
-            f"{text} {context}"
-        )
-
-        date = parse_date(
-            combined
-        )
-
-        if not date:
-            continue
-
-        if date in races:
-            continue
-
-        races[date] = {
-            "fecha": date,
-            "titulo": text,
-            "url": full_url,
-        }
-
-    result = list(
-        races.values()
-    )
-
-    result.sort(
-        key=lambda item: item["fecha"]
-    )
-
-    return result
-
-
-def extract_circuit(soup, fallback):
-    selectors = [
-        "[class*='track']",
-        "[class*='venue']",
-        "[class*='location']",
-        "[class*='circuit']",
+    keywords = [
+        "practice",
+        "qualifications",
+        "qualification",
+        "qualifying",
+        "warmup",
+        "warm-up",
+        "race",
+        "fast friday",
+        "final practice",
+        "high line",
+        "pre-race",
+        "pre race",
+        "carb day",
+        "pit stop competition",
     ]
 
-    candidates = []
+    return any(keyword in lower for keyword in keywords)
 
-    for selector in selectors:
-        for element in soup.select(selector):
-            text = clean(
-                element.get_text(
-                    " ",
-                    strip=True,
-                )
-            )
 
-            if text:
-                candidates.append(text)
+def normalize_session_name(text):
+    text = clean(text)
 
-    for candidate in candidates:
-        normalized = normalize(
-            candidate
+    replacements = {
+        "Qualifying": "Qualifications",
+        "Qualification": "Qualifications",
+        "Warm-up": "Warmup",
+        "Warm Up": "Warmup",
+    }
+
+    for old, new in replacements.items():
+        if text.lower() == old.lower():
+            return new
+
+    return text
+
+
+def extract_event_info(soup, url):
+    """
+    Busca nombre de evento y circuito sin depender
+    de que la página de calendario tenga un título limpio.
+    """
+
+    title = ""
+
+    h1 = soup.find("h1")
+    if h1:
+        title = clean(h1.get_text(" ", strip=True))
+
+    if not title:
+        page_title = soup.find("title")
+        if page_title:
+            title = clean(page_title.get_text(" ", strip=True))
+
+    circuit = ""
+
+    lines = [
+        clean(line)
+        for line in soup.get_text("\n").splitlines()
+        if clean(line)
+    ]
+
+    try:
+        details_index = next(
+            i for i, line in enumerate(lines)
+            if line.lower() == "event details"
         )
 
-        if "RACE RECAP" in normalized:
-            continue
+        for line in lines[details_index + 1:details_index + 30]:
+            lower = line.lower()
 
-        if "INDYCAR" in normalized:
-            continue
+            if "raceway" in lower:
+                circuit = line
+                break
 
-        if len(candidate) > 100:
-            continue
+            if "speedway" in lower:
+                circuit = line
+                break
 
-        return candidate
+            if "street" in lower and len(line) < 100:
+                circuit = line
+                break
 
-    return fallback
+            if "park" in lower and len(line) < 100:
+                circuit = line
+                break
+
+            if "circuit" in lower and len(line) < 100:
+                circuit = line
+                break
+
+    except StopIteration:
+        pass
+
+    return title, circuit
 
 
-def extract_schedule_rows(
-    soup,
-    race,
-):
-    schedule_heading = None
+def extract_schedule(soup):
+    """
+    Lee exclusivamente el bloque situado entre:
 
-    for element in soup.find_all(
-        string=re.compile(
-            r"^\s*Schedule\s*$",
-            re.IGNORECASE,
-        )
-    ):
-        schedule_heading = element.parent
-        break
+      Schedule
 
-    if not schedule_heading:
+    y
+
+      Event Details
+
+    Esto evita contaminar las sesiones con fechas de noticias,
+    resultados o contenido de otras carreras.
+    """
+
+    lines = [
+        clean(line)
+        for line in soup.get_text("\n").splitlines()
+        if clean(line)
+    ]
+
+    schedule_index = None
+    details_index = None
+
+    for i, line in enumerate(lines):
+        if line.lower() == "schedule":
+            schedule_index = i
+            break
+
+    if schedule_index is None:
         return []
 
-    container = schedule_heading
-
-    for _ in range(6):
-        if not container.parent:
+    for i in range(schedule_index + 1, len(lines)):
+        if lines[i].lower() == "event details":
+            details_index = i
             break
 
-        text = clean(
-            container.get_text(
-                " ",
-                strip=True,
-            )
-        )
+    if details_index is None:
+        details_index = len(lines)
 
-        if "Practice" in text or "Race" in text:
-            break
-
-        container = container.parent
-
-    rows = []
-
-    for element in container.find_all(
-        ["tr", "li", "div"],
-    ):
-        text = clean(
-            element.get_text(
-                " ",
-                strip=True,
-            )
-        )
-
-        if not text:
-            continue
-
-        if not parse_time(text):
-            continue
-
-        tipo = session_type(
-            text
-        )
-
-        if not tipo:
-            continue
-
-        if "HIGHLIGHTS" in normalize(
-            text
-        ):
-            continue
-
-        if "RESULTS" in normalize(
-            text
-        ):
-            continue
-
-        rows.append(text)
-
-    return rows
-
-
-def extract_sessions(
-    html,
-    race,
-):
-    soup = BeautifulSoup(
-        html,
-        "html.parser",
-    )
-
-    circuit = extract_circuit(
-        soup,
-        race["titulo"],
-    )
-
-    rows = extract_schedule_rows(
-        soup,
-        race,
-    )
+    schedule_lines = lines[schedule_index + 1:details_index]
 
     sessions = []
+    current_date = None
 
-    for row in rows:
+    i = 0
 
-        parsed_time = parse_time(
-            row
-        )
+    while i < len(schedule_lines):
+        line = schedule_lines[i]
 
-        if not parsed_time:
+        parsed_date = parse_day_header(line)
+
+        if parsed_date:
+            current_date = parsed_date
+            i += 1
             continue
 
-        tipo = session_type(
-            row
+        parsed_time = parse_time_et(line)
+
+        if parsed_time and current_date:
+            session_name = None
+
+            # Buscamos las siguientes líneas para encontrar
+            # el nombre real de la sesión.
+            for j in range(i + 1, min(i + 5, len(schedule_lines))):
+                candidate = schedule_lines[j]
+
+                # Si aparece otro día antes del nombre,
+                # esta hora quedó sin sesión.
+                if parse_day_header(candidate):
+                    break
+
+                # No queremos tomar otra hora.
+                if parse_time_et(candidate):
+                    continue
+
+                if is_session_name(candidate):
+                    session_name = normalize_session_name(candidate)
+                    break
+
+            if session_name:
+                dt_et = datetime.combine(
+                    current_date,
+                    parsed_time,
+                ).replace(tzinfo=ET_ZONE)
+
+                dt_arg = dt_et.astimezone(ARG_ZONE)
+
+                sessions.append(
+                    {
+                        "date": dt_arg.date().isoformat(),
+                        "time": dt_arg.strftime("%H:%M"),
+                        "datetime": dt_arg.isoformat(),
+                        "title": session_name,
+                        "timezone": "America/Argentina/Buenos_Aires",
+                    }
+                )
+
+        i += 1
+
+    return sessions
+
+
+def discover_races(soup):
+    """
+    Descubre dinámicamente las carreras desde la página oficial.
+    No hay fechas ni carreras hardcodeadas.
+    """
+
+    races = []
+    seen = set()
+
+    for link in soup.find_all("a", href=True):
+        href = link.get("href", "")
+
+        match = re.search(
+            rf"/Schedule/{YEAR}/([^/?#]+)",
+            href,
+            re.IGNORECASE,
         )
 
-        if not tipo:
+        if not match:
             continue
 
-        fecha_arg, hora_arg = (
-            convert_to_argentina(
-                race["fecha"],
-                row,
-            )
-        )
+        url = urljoin(BASE_URL, href)
 
-        if not hora_arg:
+        if url in seen:
             continue
 
-        titulo = clean(
-            row
-        )
+        seen.add(url)
 
-        if not titulo.upper().startswith(
-            "NTT INDYCAR SERIES"
-        ):
-            titulo = (
-                "NTT INDYCAR SERIES - "
-                + titulo
-            )
-
-        slug = re.sub(
-            r"[^a-z0-9]+",
-            "-",
-            normalize(
-                titulo
-            ).lower(),
-        ).strip("-")
-
-        uid = (
-            f"indycar-"
-            f"{fecha_arg}-"
-            f"{hora_arg.replace(':', '')}-"
-            f"{slug[:70]}"
-        )
-
-        sessions.append(
+        races.append(
             {
-                "uid": uid,
-                "fecha": fecha_arg,
-                "hora_inicio": hora_arg,
-                "hora_fin": None,
-                "titulo": titulo,
-                "campeonato": "IndyCar",
-                "categoria": "IndyCar",
-                "disciplina": "IndyCar",
-                "tipo": tipo,
-                "ronda": race["ronda"],
-                "circuito": circuit,
-                "timezone": (
-                    "America/Argentina/"
-                    "Buenos_Aires"
-                ),
-                "fuente": race["url"],
+                "url": url,
+                "slug": match.group(1),
             }
         )
 
-    unique = {}
+    return races
 
-    for event in sessions:
-        key = (
-            event["fecha"],
-            event["hora_inicio"],
-            event["titulo"],
-        )
 
-        unique[key] = event
+def make_event(race, session, event_title, circuit):
+    session_date = session["date"]
+    session_time = session["time"]
 
-    return list(
-        unique.values()
+    slug = race["slug"]
+
+    uid = (
+        f"indycar-{YEAR}-"
+        f"{slug.lower()}-"
+        f"{session_date}-"
+        f"{session_time.replace(':', '')}-"
+        f"{re.sub(r'[^a-z0-9]+', '-', session['title'].lower()).strip('-')}"
     )
+
+    return {
+        "uid": uid,
+        "date": session_date,
+        "time": session_time,
+        "datetime": session["datetime"],
+        "title": session["title"],
+        "category": "IndyCar",
+        "championship": "IndyCar",
+        "location": circuit,
+        "event": event_title,
+        "source": race["url"],
+        "timezone": "America/Argentina/Buenos_Aires",
+        "prioridad": False,
+        "imperdible": False,
+    }
 
 
 def main():
     print()
-    print("=" * 50)
-    print(
-        f"INDYCAR - {YEAR}"
-    )
-    print("=" * 50)
-
+    print("=" * 60)
+    print(f"INDYCAR - {YEAR}")
+    print("=" * 60)
     print()
-    print(
-        "Consultando calendario oficial:"
-    )
-    print(
-        SCHEDULE_URL
-    )
-
-    schedule = get(
-        SCHEDULE_URL
-    )
-
-    if not schedule:
-        print()
-        print(
-            "ERROR: no se pudo acceder "
-            "al calendario oficial."
-        )
-        return
-
-    races = extract_races(
-        schedule.text
-    )
-
+    print("Consultando calendario oficial:")
+    print(SCHEDULE_URL)
     print()
-    print(
-        f"Carreras detectadas: "
-        f"{len(races)}"
-    )
 
-    if not races:
-        print()
-        print(
-            "ERROR: no se detectaron "
-            "carreras."
-        )
-        return
+    schedule_soup = get_page(SCHEDULE_URL)
 
-    for index, race in enumerate(
-        races,
-        start=1,
-    ):
-        race["ronda"] = index
+    races = discover_races(schedule_soup)
 
-    all_sessions = []
+    print(f"Carreras detectadas: {len(races)}")
+    print()
 
-    for race in races:
+    all_events = []
 
-        print()
-        print(
-            f"Fecha {race['ronda']}: "
-            f"{race['fecha']}"
-        )
+    for index, race in enumerate(races, start=1):
+        print(f"Carrera {index}:")
+        print(f"URL: {race['url']}")
 
-        print(
-            f"Evento: "
-            f"{race['titulo']}"
-        )
+        try:
+            soup = get_page(race["url"])
 
-        print(
-            f"URL: "
-            f"{race['url']}"
-        )
-
-        page = get(
-            race["url"]
-        )
-
-        if not page:
-            print(
-                "No se pudo acceder."
-            )
-            continue
-
-        sessions = extract_sessions(
-            page.text,
-            race,
-        )
-
-        print(
-            f"Sesiones encontradas: "
-            f"{len(sessions)}"
-        )
-
-        for session in sessions:
-            print(
-                f"  {session['fecha']} "
-                f"{session['hora_inicio']} "
-                f"- {session['tipo']} "
-                f"- {session['titulo']}"
+            event_title, circuit = extract_event_info(
+                soup,
+                race["url"],
             )
 
-        all_sessions.extend(
-            sessions
-        )
+            sessions = extract_schedule(soup)
 
+            print(f"Evento: {event_title}")
+            print(f"Circuito: {circuit}")
+            print(f"Sesiones encontradas: {len(sessions)}")
+
+            for session in sessions:
+                event = make_event(
+                    race,
+                    session,
+                    event_title,
+                    circuit,
+                )
+
+                all_events.append(event)
+
+                print(
+                    f"  {session['date']} "
+                    f"{session['time']} "
+                    f"{session['title']}"
+                )
+
+        except Exception as exc:
+            print(f"ERROR: {exc}")
+
+        print()
+
+    # Eliminar duplicados exactos.
     unique = {}
 
-    for event in all_sessions:
+    for event in all_events:
         key = (
-            event["fecha"],
-            event["hora_inicio"],
-            event["titulo"],
+            event["date"],
+            event["time"],
+            event["title"],
+            event["source"],
         )
 
         unique[key] = event
 
-    all_sessions = list(
-        unique.values()
-    )
+    events = list(unique.values())
 
-    all_sessions.sort(
+    events.sort(
         key=lambda event: (
-            event["fecha"],
-            event["hora_inicio"],
-            event["titulo"],
+            event["date"],
+            event["time"],
+            event["title"],
         )
     )
 
-    OUTPUT.parent.mkdir(
-        parents=True,
-        exist_ok=True,
-    )
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
 
-    OUTPUT.write_text(
-        json.dumps(
-            all_sessions,
+    with OUTPUT.open("w", encoding="utf-8") as f:
+        json.dump(
+            events,
+            f,
             ensure_ascii=False,
             indent=2,
-        ),
-        encoding="utf-8",
-    )
+        )
 
-    print()
-    print("=" * 50)
-    print(
-        f"SESIONES INDYCAR: "
-        f"{len(all_sessions)}"
-    )
-    print("=" * 50)
-
-    print()
-    print(
-        f"Archivo generado: "
-        f"{OUTPUT}"
-    )
+    print("=" * 60)
+    print(f"SESIONES INDYCAR: {len(events)}")
+    print(f"Archivo generado: {OUTPUT}")
+    print("=" * 60)
 
 
 if __name__ == "__main__":
