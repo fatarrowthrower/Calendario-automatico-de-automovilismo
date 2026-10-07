@@ -1,20 +1,13 @@
-python
-from __future__ import annotations
-
 import json
 import re
 from datetime import datetime
 from pathlib import Path
-from urllib.parse import urljoin
 
 import requests
 from bs4 import BeautifulSoup
 
 
 YEAR = datetime.now().year
-
-BASE_URL = "https://www.indycar.com"
-SCHEDULE_URL = f"{BASE_URL}/schedule"
 
 OUTPUT = Path("data/indycar_events.json")
 
@@ -24,17 +17,12 @@ HEADERS = {
         "AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/131.0 Safari/537.36"
     ),
-    "Accept": (
-        "text/html,application/xhtml+xml,"
-        "application/xml;q=0.9,*/*;q=0.8"
-    ),
+    "Accept": "text/html,application/xhtml+xml,"
+              "application/xml;q=0.9,*/*;q=0.8",
     "Accept-Language": "en-US,en;q=0.9",
 }
 
 
-# Calendario oficial IndyCar 2026.
-# Lo usamos como respaldo porque la página /schedule
-# puede cargar parte de su contenido mediante JavaScript.
 RACES_2026 = [
     {
         "ronda": 1,
@@ -141,22 +129,21 @@ RACES_2026 = [
 ]
 
 
-def get(url, timeout=25):
+def get(url):
     try:
         response = requests.get(
             url,
             headers=HEADERS,
-            timeout=timeout,
-            allow_redirects=True,
+            timeout=30,
         )
 
         if response.status_code == 200:
             return response
 
-        print(f"    HTTP {response.status_code}: {url}")
+        print(f"HTTP {response.status_code}: {url}")
 
     except requests.RequestException as exc:
-        print(f"    Error: {exc}")
+        print(f"Error: {exc}")
 
     return None
 
@@ -187,9 +174,9 @@ def normalize(text):
 
 def parse_time(text):
     match = re.search(
-        r"\b(\d{1,2}):(\d{2})\s*(AM|PM)\s*(?:ET)?\b",
+        r"\b(\d{1,2}):(\d{2})\s*(AM|PM)",
         text,
-        flags=re.IGNORECASE,
+        re.IGNORECASE,
     )
 
     if not match:
@@ -209,67 +196,43 @@ def parse_time(text):
 
 
 def session_type(text):
-    n = normalize(text)
+    text = normalize(text)
 
-    if "FAST FRIDAY" in n:
+    if "FAST FRIDAY" in text:
         return "Entrenamiento"
 
-    if "PRACTICE" in n:
+    if "PRACTICE" in text:
         return "Entrenamiento"
 
-    if "QUALIFYING" in n:
+    if "QUALIFYING" in text:
         return "Clasificación"
 
-    if "WARMUP" in n or "WARM-UP" in n:
+    if "WARMUP" in text or "WARM-UP" in text:
         return "Warm-up"
 
-    if re.search(r"\bRACE\b", n):
+    if re.search(r"\bRACE\b", text):
         return "Carrera"
 
     return None
 
 
-def is_indycar_session(text):
-    n = normalize(text)
-
-    if "INDYCAR" not in n:
-        return False
-
-    keywords = (
-        "PRACTICE",
-        "QUALIFYING",
-        "WARMUP",
-        "WARM-UP",
-        "RACE",
-        "FAST FRIDAY",
-    )
-
-    return any(
-        keyword in n
-        for keyword in keywords
-    )
-
-
 def extract_sessions(html, race):
-    soup = BeautifulSoup(
-        html,
-        "html.parser",
-    )
+    soup = BeautifulSoup(html, "html.parser")
 
-    lines = [
-        clean(line)
-        for line in soup.get_text(
-            "\n",
-            strip=True,
-        ).splitlines()
-        if clean(line)
-    ]
+    lines = []
+
+    for line in soup.get_text("\n").splitlines():
+        line = clean(line)
+
+        if line:
+            lines.append(line)
 
     sessions = []
 
     for index, line in enumerate(lines):
+        normalized = normalize(line)
 
-        if not is_indycar_session(line):
+        if "INDYCAR" not in normalized:
             continue
 
         tipo = session_type(line)
@@ -280,13 +243,13 @@ def extract_sessions(html, race):
         hora = parse_time(line)
 
         if not hora:
-            # A veces el horario está en una línea cercana.
             nearby = " ".join(
                 lines[
                     max(0, index - 2):
                     min(len(lines), index + 3)
                 ]
             )
+
             hora = parse_time(nearby)
 
         if not hora:
@@ -297,10 +260,7 @@ def extract_sessions(html, race):
         if not titulo.upper().startswith(
             "NTT INDYCAR SERIES"
         ):
-            titulo = (
-                f"NTT INDYCAR SERIES - "
-                f"{titulo}"
-            )
+            titulo = "NTT INDYCAR SERIES - " + titulo
 
         slug = re.sub(
             r"[^a-z0-9]+",
@@ -312,7 +272,7 @@ def extract_sessions(html, race):
             f"indycar-{YEAR}-"
             f"{race['fecha']}-"
             f"{hora.replace(':', '')}-"
-            f"{slug[:70]}"
+            f"{slug[:60]}"
         )
 
         sessions.append(
@@ -341,87 +301,56 @@ def extract_sessions(html, race):
             event["hora_inicio"],
             event["titulo"],
         )
+
         unique[key] = event
 
     return list(unique.values())
 
 
 def main():
-
     print()
     print("=" * 50)
     print(f"INDYCAR - {YEAR}")
     print("=" * 50)
 
-    if YEAR != 2026:
-        print()
-        print(
-            "ATENCION: esta prueba utiliza "
-            "el calendario base de 2026."
-        )
-
     print()
-    print("Consultando calendario oficial:")
-    print(SCHEDULE_URL)
-
-    schedule = get(SCHEDULE_URL)
-
-    if schedule:
-        print("Calendario oficial accesible: OK")
-    else:
-        print(
-            "No se pudo leer la página general, "
-            "pero continuamos con las páginas "
-            "individuales oficiales."
-        )
-
-    races = RACES_2026
-
-    print()
-    print(
-        f"Carreras a comprobar: {len(races)}"
-    )
+    print("Carreras a comprobar:")
+    print(len(RACES_2026))
 
     all_sessions = []
 
-    for race in races:
-
+    for race in RACES_2026:
         print()
         print(
             f"Fecha {race['ronda']}: "
             f"{race['fecha']}"
         )
         print(
-            f"  Circuito: "
-            f"{race['circuito']}"
+            f"Circuito: {race['circuito']}"
         )
         print(
-            f"  URL: "
-            f"{race['url']}"
+            f"URL: {race['url']}"
         )
 
-        page = get(race["url"])
+        response = get(race["url"])
 
-        if not page:
-            print(
-                "  No se pudo acceder "
-                "a esta página."
-            )
+        if not response:
+            print("No se pudo acceder.")
             continue
 
         sessions = extract_sessions(
-            page.text,
+            response.text,
             race,
         )
 
         print(
-            f"  Sesiones encontradas: "
+            f"Sesiones encontradas: "
             f"{len(sessions)}"
         )
 
         for session in sessions:
             print(
-                f"    {session['fecha']} "
+                f"  {session['fecha']} "
                 f"{session['hora_inicio']} "
                 f"- {session['tipo']} "
                 f"- {session['titulo']}"
@@ -437,11 +366,10 @@ def main():
             event["hora_inicio"],
             event["titulo"],
         )
+
         unique[key] = event
 
-    all_sessions = list(
-        unique.values()
-    )
+    all_sessions = list(unique.values())
 
     all_sessions.sort(
         key=lambda event: (
