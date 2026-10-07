@@ -30,6 +30,9 @@ jobs:
       - name: Actualizar ACTC
         run: python actc.py
 
+      - name: Actualizar Turismo Pista
+        run: python turismo_pista.py
+
       - name: Actualizar calendarios
         run: python update.py
 
