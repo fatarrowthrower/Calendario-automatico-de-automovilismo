@@ -3,12 +3,17 @@ import re
 from datetime import datetime
 from html import unescape
 from pathlib import Path
+from urllib.parse import quote
 from urllib.request import Request, urlopen
 
 
 OUTPUT = Path("data/turismo_pista_events.json")
 
 BASE_URL = "https://aptpweb.com.ar"
+WP_SEARCH_URL = (
+    BASE_URL
+    + "/wp-json/wp/v2/search"
+)
 
 MONTHS = {
     "enero": 1,
@@ -35,7 +40,11 @@ def fetch(url):
     request = Request(
         url,
         headers={
-            "User-Agent": "Mozilla/5.0"
+            "User-Agent": (
+                "Mozilla/5.0 "
+                "(compatible; "
+                "AutomovilismoCalendar/1.0)"
+            )
         },
     )
 
@@ -51,17 +60,31 @@ def fetch(url):
 
 def clean_html(html):
     html = re.sub(
-        r"<script.*?</script>",
+        r"<script\b[^>]*>.*?</script>",
         " ",
         html,
         flags=re.I | re.S,
     )
 
     html = re.sub(
-        r"<style.*?</style>",
+        r"<style\b[^>]*>.*?</style>",
         " ",
         html,
         flags=re.I | re.S,
+    )
+
+    html = re.sub(
+        r"<br\s*/?>",
+        "\n",
+        html,
+        flags=re.I,
+    )
+
+    html = re.sub(
+        r"</p\s*>",
+        "\n",
+        html,
+        flags=re.I,
     )
 
     html = re.sub(
@@ -94,7 +117,8 @@ def normalize(text):
         "ó": "o",
         "ú": "u",
         "ü": "u",
-        "º": "°",
+        "°": "",
+        "º": "",
     }
 
     for old, new in replacements.items():
@@ -106,34 +130,151 @@ def normalize(text):
     return text.lower()
 
 
-def month_number(name):
-    return MONTHS.get(
-        normalize(name)
+def search_aptp(year):
+    queries = [
+        f"calendario {year}",
+        f"turismo pista calendario {year}",
+        f"calendario turismo pista {year}",
+    ]
+
+    results = []
+
+    for query in queries:
+        url = (
+            WP_SEARCH_URL
+            + "?search="
+            + quote(query)
+            + "&per_page=20"
+        )
+
+        print(
+            f"Buscando en APTP: {query}"
+        )
+
+        try:
+            data = json.loads(
+                fetch(url)
+            )
+
+        except Exception as exc:
+            print(
+                f"  ERROR búsqueda: {exc}"
+            )
+            continue
+
+        for item in data:
+            link = item.get(
+                "url",
+                "",
+            )
+
+            title = (
+                item.get(
+                    "title",
+                    {},
+                )
+                .get(
+                    "rendered",
+                    "",
+                )
+            )
+
+            title = clean_html(
+                title
+            )
+
+            if not link:
+                continue
+
+            combined = normalize(
+                title
+                + " "
+                + link
+            )
+
+            # El año debe estar realmente
+            # asociado a la publicación.
+            if str(year) not in combined:
+                continue
+
+            # Tiene que tratarse de Turismo Pista.
+            if "turismo pista" not in combined:
+                continue
+
+            results.append(
+                {
+                    "url": link,
+                    "title": title,
+                }
+            )
+
+    unique = {}
+
+    for result in results:
+        unique[result["url"]] = result
+
+    return list(
+        unique.values()
     )
 
 
+def score_article(article, year):
+    title = normalize(
+        article["title"]
+    )
+
+    score = 0
+
+    if "calendario" in title:
+        score += 10
+
+    if str(year) in title:
+        score += 10
+
+    if "turismo pista" in title:
+        score += 5
+
+    if (
+        "presentaron el calendario"
+        in title
+    ):
+        score += 20
+
+    if (
+        "recorrido completo"
+        in title
+    ):
+        score += 15
+
+    if (
+        "calendario completo"
+        in title
+    ):
+        score += 15
+
+    return score
+
+
 def extract_events(text, year):
-    """
-    Busca directamente estructuras del tipo:
+    normalized = normalize(
+        text
+    )
 
-    1° FECHA | 1° febrero – La Plata
-    2° FECHA | 1° marzo
-    3° FECHA | 12 de abril
-    """
-
-    normalized = normalize(text)
-
+    # Buscamos explícitamente "FECHA"
+    # seguida de día + mes.
     pattern = re.compile(
-        r"(\d{1,2})\s*°?\s*fecha"
-        r".{0,80}?"
-        r"(\d{1,2})\s*°?\s*"
+        r"(\d{1,2})\s*"
+        r"fecha"
+        r".{0,120}?"
+        r"(\d{1,2})\s*"
         r"(?:de\s+)?"
-        r"(enero|febrero|marzo|abril|mayo|junio|"
-        r"julio|agosto|septiembre|setiembre|octubre|"
-        r"noviembre|diciembre)"
+        r"(enero|febrero|marzo|abril|mayo|"
+        r"junio|julio|agosto|septiembre|"
+        r"setiembre|octubre|noviembre|"
+        r"diciembre)"
         r"(?:.{0,100}?"
-        r"[-–—]\s*"
-        r"([A-Za-zÁÉÍÓÚáéíóúÑñ(). ]+))?",
+        r"[-–—|]\s*"
+        r"([a-záéíóúñ0-9().,' ]+))?",
         re.I,
     )
 
@@ -153,7 +294,7 @@ def extract_events(text, year):
 
         month_name = match.group(3)
 
-        month = month_number(
+        month = MONTHS.get(
             month_name
         )
 
@@ -161,7 +302,8 @@ def extract_events(text, year):
             continue
 
         location = (
-            match.group(4) or ""
+            match.group(4)
+            or ""
         ).strip()
 
         location = re.sub(
@@ -170,13 +312,18 @@ def extract_events(text, year):
             location,
         )
 
-        # Limpiar restos típicos del HTML/texto.
-        location = re.sub(
-            r"\s+(calendario|fecha|carrera).*",
-            "",
+        # Evitar que texto posterior
+        # del artículo sea tomado como sede.
+        location = re.split(
+            r"\b(?:fecha|carrera|calendario|"
+            r"turismo pista)\b",
             location,
+            maxsplit=1,
             flags=re.I,
-        ).strip()
+        )[0].strip()
+
+        if len(location) > 80:
+            location = location[:80].strip()
 
         if not location:
             location = "Argentina"
@@ -215,21 +362,6 @@ def extract_events(text, year):
     return events
 
 
-def get_calendar_urls(year):
-    return [
-        (
-            f"{BASE_URL}/"
-            f"turismo-pista-y-actc-presentaron-"
-            f"el-calendario-{year}-en-la-tv-publica/"
-        ),
-        (
-            f"{BASE_URL}/"
-            f"recorrido-completo-para-el-"
-            f"calendario-{year}/"
-        ),
-    ]
-
-
 def main():
     year = current_year()
 
@@ -238,22 +370,62 @@ def main():
         f"para {year}..."
     )
 
+    articles = search_aptp(
+        year
+    )
+
+    print(
+        f"Artículos candidatos: "
+        f"{len(articles)}"
+    )
+
+    if not articles:
+        print(
+            f"APT P todavía no publicó "
+            f"un calendario detectable "
+            f"para {year}."
+        )
+
+        OUTPUT.parent.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
+
+        OUTPUT.write_text(
+            "[]",
+            encoding="utf-8",
+        )
+
+        return
+
+    articles.sort(
+        key=lambda article: score_article(
+            article,
+            year,
+        ),
+        reverse=True,
+    )
+
     all_events = []
 
-    for url in get_calendar_urls(
-        year
-    ):
-
+    for article in articles:
+        print()
         print(
-            f"Consultando: {url}"
+            f"Analizando: "
+            f"{article['title']}"
+        )
+        print(
+            article["url"]
         )
 
         try:
-            html = fetch(url)
+            html = fetch(
+                article["url"]
+            )
 
         except Exception as exc:
             print(
-                f"ERROR: {exc}"
+                f"  ERROR: {exc}"
             )
             continue
 
@@ -275,6 +447,8 @@ def main():
             events
         )
 
+        # Un artículo con 10 fechas
+        # es nuestro calendario completo.
         if len(events) >= 10:
             break
 
@@ -322,8 +496,8 @@ def main():
 
     if not events:
         print(
-            "No se encontraron fechas "
-            f"de Turismo Pista para {year}."
+            f"No se encontraron fechas "
+            f"para {year}."
         )
 
 
