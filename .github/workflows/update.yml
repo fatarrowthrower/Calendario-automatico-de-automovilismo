@@ -27,9 +27,6 @@ jobs:
       - name: Verificar motocal
         run: motocal version
 
-      - name: Probar Turismo Pista
-        run: python turismo_pista.py
-
       - name: Actualizar ACTC
         run: python actc.py
 
