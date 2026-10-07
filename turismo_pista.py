@@ -6,11 +6,27 @@ from pathlib import Path
 from urllib.parse import quote
 from urllib.request import Request, urlopen
 
+try:
+    from pypdf import PdfReader
+except ImportError:
+    PdfReader = None
+
 
 OUTPUT = Path("data/turismo_pista_events.json")
 
 BASE_URL = "https://aptpweb.com.ar"
 WP_SEARCH_URL = BASE_URL + "/wp-json/wp/v2/search"
+
+# PDF oficial de prueba:
+# Fecha 5 - Rosario - 2026
+TEST_PDF_URL = (
+    "https://aptpweb.com.ar/wp-content/uploads/2026/06/"
+    "cronograma_fecha_5_aptp_.pdf"
+)
+
+TEST_YEAR = 2026
+TEST_ROUND = 5
+TEST_LOCATION = "Rosario"
 
 
 MONTHS = {
@@ -30,10 +46,6 @@ MONTHS = {
 }
 
 
-def current_year():
-    return datetime.now().year
-
-
 def fetch(url):
     request = Request(
         url,
@@ -46,18 +58,29 @@ def fetch(url):
     )
 
     with urlopen(request, timeout=30) as response:
-        return response.read().decode(
-            "utf-8",
-            errors="ignore",
-        )
+        return response.read()
 
 
-def clean_cell(html):
+def fetch_text(url):
+    return fetch(url).decode(
+        "utf-8",
+        errors="ignore",
+    )
+
+
+def clean_html(html):
     html = re.sub(
-        r"<br\s*/?>",
+        r"<script\b[^>]*>.*?</script>",
         " ",
         html,
-        flags=re.I,
+        flags=re.I | re.S,
+    )
+
+    html = re.sub(
+        r"<style\b[^>]*>.*?</style>",
+        " ",
+        html,
+        flags=re.I | re.S,
     )
 
     html = re.sub(
@@ -107,442 +130,409 @@ def normalize(text):
     return text.lower()
 
 
-def search_aptp(year):
-    queries = [
-        f"calendario {year}",
-        f"turismo pista calendario {year}",
-        f"calendario turismo pista {year}",
+def extract_pdf_text(pdf_bytes):
+    if PdfReader is None:
+        raise RuntimeError(
+            "Falta instalar pypdf."
+        )
+
+    import io
+
+    reader = PdfReader(
+        io.BytesIO(pdf_bytes)
+    )
+
+    pages = []
+
+    for page in reader.pages:
+        text = page.extract_text()
+
+        if text:
+            pages.append(text)
+
+    return "\n".join(pages)
+
+
+def clean_pdf_text(text):
+    text = text.replace(
+        "\xa0",
+        " ",
+    )
+
+    text = text.replace(
+        "\r",
+        "\n",
+    )
+
+    # Unificar espacios, pero conservar saltos
+    # de línea porque ayudan a separar sesiones.
+    text = re.sub(
+        r"[ \t]+",
+        " ",
+        text,
+    )
+
+    text = re.sub(
+        r"\n+",
+        "\n",
+        text,
+    )
+
+    return text.strip()
+
+
+def is_sporting_activity(text):
+    normalized = normalize(text)
+
+    keywords = [
+        "entrenamiento",
+        "clasificacion",
+        "clasificación",
+        "serie",
+        "final",
     ]
 
-    results = []
-
-    for query in queries:
-        url = (
-            WP_SEARCH_URL
-            + "?search="
-            + quote(query)
-            + "&per_page=20"
-        )
-
-        print(
-            f"Buscando en APTP: {query}"
-        )
-
-        try:
-            data = json.loads(
-                fetch(url)
-            )
-        except Exception as exc:
-            print(
-                f"  ERROR búsqueda: {exc}"
-            )
-            continue
-
-        if not isinstance(data, list):
-            continue
-
-        for item in data:
-            if not isinstance(item, dict):
-                continue
-
-            link = item.get(
-                "url",
-                "",
-            )
-
-            title_data = item.get(
-                "title",
-                "",
-            )
-
-            if isinstance(title_data, dict):
-                title = title_data.get(
-                    "rendered",
-                    "",
-                )
-            else:
-                title = str(title_data)
-
-            title = clean_cell(title)
-
-            if not link:
-                continue
-
-            combined = normalize(
-                title
-                + " "
-                + link
-            )
-
-            if str(year) not in combined:
-                continue
-
-            if "turismo pista" not in combined:
-                continue
-
-            results.append(
-                {
-                    "url": link,
-                    "title": title,
-                }
-            )
-
-    unique = {}
-
-    for result in results:
-        unique[result["url"]] = result
-
-    return list(
-        unique.values()
+    return any(
+        keyword in normalized
+        for keyword in keywords
     )
 
 
-def score_article(article, year):
-    title = normalize(
-        article["title"]
+def is_turismo_pista_class(text):
+    normalized = normalize(text)
+
+    return (
+        "turismo pista clase 1" in normalized
+        or "turismo pista clase 2" in normalized
+        or "turismo pista clase 3" in normalized
     )
 
-    score = 0
 
-    if "calendario" in title:
-        score += 20
+def extract_date_from_line(line, year):
+    normalized = normalize(line)
 
-    if str(year) in title:
-        score += 20
+    # Ejemplo:
+    # VIERNES 12 DE JUNIO DE 2026
+    pattern = re.search(
+        r"(\d{1,2})\s+de\s+"
+        r"(enero|febrero|marzo|abril|mayo|"
+        r"junio|julio|agosto|septiembre|"
+        r"setiembre|octubre|noviembre|diciembre)"
+        r"(?:\s+de\s+(\d{4}))?",
+        normalized,
+        re.I,
+    )
 
-    if "turismo pista" in title:
-        score += 10
+    if not pattern:
+        return None
 
-    if "presentaron el calendario" in title:
-        score += 30
+    day = int(
+        pattern.group(1)
+    )
 
-    if "recorrido completo" in title:
-        score += 25
+    month = MONTHS.get(
+        pattern.group(2)
+    )
 
-    if "calendario completo" in title:
-        score += 25
+    detected_year = pattern.group(3)
 
-    return score
+    if detected_year:
+        year = int(
+            detected_year
+        )
+
+    if not month:
+        return None
+
+    try:
+        return datetime(
+            year,
+            month,
+            day,
+        )
+    except ValueError:
+        return None
 
 
-def extract_calendar_table(html, year):
+def parse_time_range(text):
     """
-    Busca una tabla HTML que contenga:
-
-        CALENDARIO YYYY
-        Carrera
-        Fecha
-
-    y extrae exclusivamente sus filas.
+    Acepta:
+    10:50 a 11:05
+    14:30 a 14:40
+    17:30
     """
 
-    # Buscar todas las tablas de la página.
-    tables = re.findall(
-        r"<table\b[^>]*>.*?</table>",
-        html,
-        flags=re.I | re.S,
+    text = text.strip()
+
+    match = re.match(
+        r"(?P<start>\d{1,2}:\d{2})"
+        r"(?:\s*[aA]\s*"
+        r"(?P<end>\d{1,2}:\d{2}))?",
+        text,
     )
 
-    print(
-        f"  Tablas HTML encontradas: "
-        f"{len(tables)}"
+    if not match:
+        return None
+
+    return (
+        match.group("start"),
+        match.group("end"),
     )
 
-    for table in tables:
-        table_text = normalize(
-            clean_cell(table)
+
+def extract_sessions(pdf_text):
+    """
+    Extrae actividades deportivas del PDF.
+
+    En esta primera versión procesamos el
+    cronograma oficial de prueba y mostramos
+    las sesiones detectadas.
+    """
+
+    text = clean_pdf_text(
+        pdf_text
+    )
+
+    lines = [
+        line.strip()
+        for line in text.split("\n")
+        if line.strip()
+    ]
+
+    sessions = []
+
+    current_date = None
+
+    for line in lines:
+
+        detected_date = extract_date_from_line(
+            line,
+            TEST_YEAR,
         )
 
-        if (
-            f"calendario {year}" not in table_text
-            and "carrera" not in table_text
+        if detected_date:
+            current_date = detected_date
+
+        if not current_date:
+            continue
+
+        if not is_sporting_activity(
+            line
         ):
             continue
 
-        rows = re.findall(
-            r"<tr\b[^>]*>(.*?)</tr>",
-            table,
-            flags=re.I | re.S,
+        if not is_turismo_pista_class(
+            line
+        ):
+            continue
+
+        # Buscar horario al comienzo de la línea.
+        time_match = re.match(
+            r"(?P<time>\d{1,2}:\d{2}"
+            r"(?:\s*[aA]\s*\d{1,2}:\d{2})?)",
+            line,
         )
 
-        events = []
+        if not time_match:
+            continue
 
-        for row in rows:
-            cells = re.findall(
-                r"<t[dh]\b[^>]*>(.*?)</t[dh]>",
-                row,
-                flags=re.I | re.S,
+        time_text = time_match.group(
+            "time"
+        )
+
+        parsed_time = parse_time_range(
+            time_text
+        )
+
+        if not parsed_time:
+            continue
+
+        start_time, end_time = (
+            parsed_time
+        )
+
+        normalized = normalize(
+            line
+        )
+
+        if "entrenamiento" in normalized:
+            activity_type = "Entrenamiento"
+
+        elif "clasificacion" in normalized:
+            activity_type = "Clasificación"
+
+        elif "serie" in normalized:
+            activity_type = "Serie"
+
+        elif "final" in normalized:
+            activity_type = "Final"
+
+        else:
+            continue
+
+        class_match = re.search(
+            r"turismo pista "
+            r"(clase [123])",
+            normalized,
+            re.I,
+        )
+
+        if class_match:
+            category_class = (
+                class_match.group(1)
+                .title()
+            )
+        else:
+            category_class = ""
+
+        group_match = re.search(
+            r"grupo\s+([a-z])",
+            normalized,
+            re.I,
+        )
+
+        group = ""
+
+        if group_match:
+            group = (
+                "Grupo "
+                + group_match.group(1).upper()
             )
 
-            cells = [
-                clean_cell(cell)
-                for cell in cells
-            ]
+        sessions.append(
+            {
+                "fecha": current_date.strftime(
+                    "%Y-%m-%d"
+                ),
+                "hora_inicio": start_time,
+                "hora_fin": end_time or "",
+                "actividad": activity_type,
+                "clase": category_class,
+                "grupo": group,
+                "texto_original": line,
+            }
+        )
 
-            if len(cells) < 2:
-                continue
-
-            first = normalize(
-                cells[0]
-            )
-
-            second = normalize(
-                cells[1]
-            )
-
-            # Ignorar encabezado.
-            if (
-                "carrera" in first
-                or "fecha" in second
-            ):
-                continue
-
-            round_match = re.search(
-                r"(\d{1,2})"
-                r"\s*(?:°|º|o)?"
-                r"\s*fecha",
-                first,
-                flags=re.I,
-            )
-
-            if not round_match:
-                continue
-
-            round_number = int(
-                round_match.group(1)
-            )
-
-            date_match = re.search(
-                r"(\d{1,2})"
-                r"\s*(?:°|º|o)?"
-                r"\s*(?:de\s+)?"
-                r"(enero|febrero|marzo|abril|"
-                r"mayo|junio|julio|agosto|"
-                r"septiembre|setiembre|octubre|"
-                r"noviembre|diciembre)",
-                second,
-                flags=re.I,
-            )
-
-            if not date_match:
-                continue
-
-            day = int(
-                date_match.group(1)
-            )
-
-            month_name = (
-                date_match.group(2)
-            ).lower()
-
-            month = MONTHS.get(
-                month_name
-            )
-
-            if not month:
-                continue
-
-            date = (
-                f"{year:04d}-"
-                f"{month:02d}-"
-                f"{day:02d}"
-            )
-
-            try:
-                datetime.strptime(
-                    date,
-                    "%Y-%m-%d",
-                )
-            except ValueError:
-                continue
-
-            # La localidad puede venir después
-            # de un guion en la misma celda.
-            location = ""
-
-            location_match = re.search(
-                r"[-–—]\s*(.+)$",
-                cells[1],
-            )
-
-            if location_match:
-                location = (
-                    location_match.group(1)
-                    .strip()
-                )
-
-            if not location:
-                location = "Argentina"
-
-            events.append(
-                {
-                    "uid": (
-                        f"turismo-pista-"
-                        f"{year}-"
-                        f"{round_number:02d}"
-                    ),
-                    "categoria": "Argentina",
-                    "campeonato": "Turismo Pista",
-                    "tipo": "Carrera",
-                    "fecha_inicio": (
-                        f"{date}T12:00:00"
-                    ),
-                    "fecha_fin": (
-                        f"{date}T23:59:00"
-                    ),
-                    "ubicacion": location,
-                    "descripcion": (
-                        f"Turismo Pista - "
-                        f"Fecha {round_number}"
-                    ),
-                    "prioridad": "",
-                }
-            )
-
-        if len(events) >= 1:
-            unique = {}
-
-            for event in events:
-                unique[event["uid"]] = event
-
-            events = list(
-                unique.values()
-            )
-
-            events.sort(
-                key=lambda event: event[
-                    "fecha_inicio"
-                ]
-            )
-
-            return events
-
-    return []
+    return sessions
 
 
 def main():
-    year = current_year()
 
     print(
-        f"Buscando Turismo Pista "
-        f"para {year}..."
+        "======================================"
     )
+    print(
+        "PRUEBA CRONOGRAMA TURISMO PISTA"
+    )
+    print(
+        "======================================"
+    )
+    print()
 
-    articles = search_aptp(
-        year
+    print(
+        f"Fecha de prueba: "
+        f"{TEST_ROUND}"
     )
 
     print(
-        f"Artículos candidatos: "
-        f"{len(articles)}"
-    )
-
-    if not articles:
-        print(
-            f"APTP todavía no publicó "
-            f"un calendario detectable "
-            f"para {year}."
-        )
-
-        OUTPUT.parent.mkdir(
-            parents=True,
-            exist_ok=True,
-        )
-
-        OUTPUT.write_text(
-            "[]",
-            encoding="utf-8",
-        )
-
-        return
-
-    articles.sort(
-        key=lambda article: score_article(
-            article,
-            year,
-        ),
-        reverse=True,
-    )
-
-    best_events = []
-
-    for article in articles:
-        print()
-        print(
-            f"Analizando: "
-            f"{article['title']}"
-        )
-
-        print(
-            article["url"]
-        )
-
-        try:
-            html = fetch(
-                article["url"]
-            )
-        except Exception as exc:
-            print(
-                f"  ERROR: {exc}"
-            )
-            continue
-
-        events = extract_calendar_table(
-            html,
-            year,
-        )
-
-        print(
-            f"  Fechas encontradas: "
-            f"{len(events)}"
-        )
-
-        if len(events) > len(best_events):
-            best_events = events
-
-        if len(best_events) >= 10:
-            break
-
-    best_events.sort(
-        key=lambda event: event[
-            "fecha_inicio"
-        ]
-    )
-
-    OUTPUT.parent.mkdir(
-        parents=True,
-        exist_ok=True,
-    )
-
-    OUTPUT.write_text(
-        json.dumps(
-            best_events,
-            ensure_ascii=False,
-            indent=2,
-        ),
-        encoding="utf-8",
+        f"Circuito: "
+        f"{TEST_LOCATION}"
     )
 
     print()
+
     print(
-        f"Turismo Pista: "
-        f"{len(best_events)} eventos encontrados."
+        "Descargando PDF oficial..."
     )
 
-    for event in best_events:
-        print(
-            f"  {event['uid']} | "
-            f"{event['fecha_inicio']} | "
-            f"{event['ubicacion']}"
-        )
+    print(TEST_PDF_URL)
 
-    if len(best_events) != 10:
+    try:
+        pdf_bytes = fetch(
+            TEST_PDF_URL
+        )
+    except Exception as exc:
         print()
         print(
-            "ADVERTENCIA: "
-            f"se esperaban 10 fechas y "
-            f"se encontraron {len(best_events)}."
+            f"ERROR descargando PDF: "
+            f"{exc}"
         )
+        return
+
+    print(
+        f"PDF descargado: "
+        f"{len(pdf_bytes)} bytes"
+    )
+
+    print()
+
+    if PdfReader is None:
+        print(
+            "ERROR: falta pypdf."
+        )
+        print(
+            "Agregá pypdf a requirements.txt"
+        )
+        return
+
+    try:
+        pdf_text = extract_pdf_text(
+            pdf_bytes
+        )
+    except Exception as exc:
+        print()
+        print(
+            f"ERROR leyendo PDF: "
+            f"{exc}"
+        )
+        return
+
+    print(
+        f"Texto extraído: "
+        f"{len(pdf_text)} caracteres"
+    )
+
+    print()
+
+    sessions = extract_sessions(
+        pdf_text
+    )
+
+    print(
+        f"Actividades deportivas "
+        f"detectadas: {len(sessions)}"
+    )
+
+    print()
+
+    for number, session in enumerate(
+        sessions,
+        start=1,
+    ):
+        print(
+            f"{number:02d}. "
+            f"{session['fecha']} "
+            f"{session['hora_inicio']}"
+            f"{' - ' + session['hora_fin'] if session['hora_fin'] else ''}"
+            f" | "
+            f"{session['actividad']}"
+            f" | "
+            f"{session['clase']}"
+            f" | "
+            f"{session['grupo']}"
+        )
+
+    print()
+
+    print(
+        "======================================"
+    )
+    print(
+        "FIN DE LA PRUEBA"
+    )
+    print(
+        "======================================"
+    )
 
 
 if __name__ == "__main__":
