@@ -410,11 +410,20 @@ def main():
 
     added_actc = 0
 
-    for event in actc_events:
-        if event["uid"] not in existing_uids:
-            events.append(event)
-            existing_uids.add(event["uid"])
-            added_actc += 1
+for event in actc_events:
+    if event["uid"] not in existing_uids:
+
+        # ACTC usa "imperdible"; el calendario general usa "prioridad"
+        if "imperdible" in event:
+            event["prioridad"] = (
+                "Imperdible"
+                if event.pop("imperdible")
+                else "Normal"
+            )
+
+        events.append(event)
+        existing_uids.add(event["uid"])
+        added_actc += 1
 
     events.sort(
         key=lambda event: event["fecha_inicio"]
