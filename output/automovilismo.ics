@@ -614,6 +614,14 @@ LOCATION:Chang International Circuit\\\, Thailand
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-st-petersburg-2026-02-27-1530-practice-1
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260227T153000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260227T163000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Streets of St. Petersburg
+DESCRIPTION:Firestone Grand Prix of St. Petersburg - Practice 1\nFuente oficial: https://www.indycar.com/Schedule/2026/St-Petersburg
+END:VEVENT
+BEGIN:VEVENT
 UID:moto3-2026-364a0bd9-d3c2-4ab3-a4cd-211ff469953e@motorsport-calendar-FP
 DTSTART:20260228T014000Z
 DTEND:20260228T021000Z
@@ -670,6 +678,22 @@ LOCATION:Chang International Circuit\\\, Thailand
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-st-petersburg-2026-02-28-1130-practice-2
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260228T113000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260228T123000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Streets of St. Petersburg
+DESCRIPTION:Firestone Grand Prix of St. Petersburg - Practice 2\nFuente oficial: https://www.indycar.com/Schedule/2026/St-Petersburg
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-st-petersburg-2026-02-28-1830-qualifications
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260228T183000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260228T193000
+SUMMARY:IndyCar - Clasificación
+LOCATION:Streets of St. Petersburg
+DESCRIPTION:Firestone Grand Prix of St. Petersburg - Qualifications\nFuente oficial: https://www.indycar.com/Schedule/2026/St-Petersburg
+END:VEVENT
+BEGIN:VEVENT
 UID:moto3-2026-364a0bd9-d3c2-4ab3-a4cd-211ff469953e@motorsport-calendar-RA
 DTSTART:20260301T050000Z
 DTEND:20260301T053500Z
@@ -692,6 +716,22 @@ DTEND:20260301T084500Z
 SUMMARY:MotoGP - Evento
 LOCATION:Chang International Circuit\\\, Thailand
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-st-petersburg-2026-03-01-1100-warmup
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260301T110000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260301T120000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Streets of St. Petersburg
+DESCRIPTION:Firestone Grand Prix of St. Petersburg - Warmup\nFuente oficial: https://www.indycar.com/Schedule/2026/St-Petersburg
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-st-petersburg-2026-03-01-1400-race
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260301T140000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260301T160000
+SUMMARY:IndyCar - Carrera
+LOCATION:Streets of St. Petersburg
+DESCRIPTION:Firestone Grand Prix of St. Petersburg - Race\nFuente oficial: https://www.indycar.com/Schedule/2026/St-Petersburg
 END:VEVENT
 BEGIN:VEVENT
 UID:f1calendar-f3-2026-1@motorsport-calendar-FP1
@@ -742,6 +782,30 @@ LOCATION:Melbourne\\\, Australia
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-phoenix-2026-03-06-1200-practice-1
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260306T120000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260306T130000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Phoenix Raceway
+DESCRIPTION:Good Ranchers 250 - Practice 1\nFuente oficial: https://www.indycar.com/Schedule/2026/Phoenix
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-phoenix-2026-03-06-1600-qualifications
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260306T160000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260306T170000
+SUMMARY:IndyCar - Clasificación
+LOCATION:Phoenix Raceway
+DESCRIPTION:Good Ranchers 250 - Qualifications\nFuente oficial: https://www.indycar.com/Schedule/2026/Phoenix
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-phoenix-2026-03-06-1830-high-line-final-practice
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260306T183000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260306T193000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Phoenix Raceway
+DESCRIPTION:Good Ranchers 250 - High Line & Final Practice\nFuente oficial: https://www.indycar.com/Schedule/2026/Phoenix
+END:VEVENT
+BEGIN:VEVENT
 UID:f1calendar-f3-2026-1@motorsport-calendar-SPRINT
 DTSTART:20260307T001500Z
 DTEND:20260307T004500Z
@@ -772,6 +836,14 @@ DTEND:20260307T060000Z
 SUMMARY:Otros - Clasificación
 LOCATION:Melbourne\\\, Australia
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-phoenix-2026-03-07-1700-race
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260307T170000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260307T190000
+SUMMARY:IndyCar - Carrera
+LOCATION:Phoenix Raceway
+DESCRIPTION:Good Ranchers 250 - Race\nFuente oficial: https://www.indycar.com/Schedule/2026/Phoenix
 END:VEVENT
 BEGIN:VEVENT
 UID:f1calendar-f3-2026-1@motorsport-calendar-RACE
@@ -830,6 +902,14 @@ LOCATION:Shanghai\\\, China
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-arlington-2026-03-13-1700-practice-1
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260313T170000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260313T180000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Streets of Arlington
+DESCRIPTION:Java House Grand Prix of Arlington - Practice 1\nFuente oficial: https://www.indycar.com/Schedule/2026/Arlington
+END:VEVENT
+BEGIN:VEVENT
 UID:openf1-meeting-1280@motorsport-calendar-SPRINT
 DTSTART:20260314T030000Z
 DTEND:20260314T040000Z
@@ -854,6 +934,22 @@ LOCATION:Shanghai\\\, China
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-arlington-2026-03-14-1030-practice-2
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260314T103000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260314T113000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Streets of Arlington
+DESCRIPTION:Java House Grand Prix of Arlington - Practice 2\nFuente oficial: https://www.indycar.com/Schedule/2026/Arlington
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-arlington-2026-03-14-1530-qualifications
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260314T153000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260314T163000
+SUMMARY:IndyCar - Clasificación
+LOCATION:Streets of Arlington
+DESCRIPTION:Java House Grand Prix of Arlington - Qualifications\nFuente oficial: https://www.indycar.com/Schedule/2026/Arlington
+END:VEVENT
+BEGIN:VEVENT
 UID:f1calendar-f1-academy-2026-1@motorsport-calendar-FP3
 DTSTART:20260315T024000Z
 DTEND:20260315T031000Z
@@ -868,6 +964,22 @@ DTEND:20260315T090000Z
 SUMMARY:Otros - Carrera
 LOCATION:Shanghai\\\, China
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-arlington-2026-03-15-1030-warmup
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260315T103000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260315T113000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Streets of Arlington
+DESCRIPTION:Java House Grand Prix of Arlington - Warmup\nFuente oficial: https://www.indycar.com/Schedule/2026/Arlington
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-arlington-2026-03-15-1230-race
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260315T123000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260315T143000
+SUMMARY:IndyCar - Carrera
+LOCATION:Streets of Arlington
+DESCRIPTION:Java House Grand Prix of Arlington - Race\nFuente oficial: https://www.indycar.com/Schedule/2026/Arlington
 END:VEVENT
 BEGIN:VEVENT
 UID:moto3-2026-11588b5a-f76c-4c8e-ae06-acba82ff1303@motorsport-calendar-FP
@@ -1070,6 +1182,14 @@ LOCATION:Circuit Of The Americas\\\, United States
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-barber-2026-03-27-1630-practice-1
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260327T163000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260327T173000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Barber Motorsports Park
+DESCRIPTION:Children's of Alabama Indy Grand Prix - Practice 1\nFuente oficial: https://www.indycar.com/Schedule/2026/Barber
+END:VEVENT
+BEGIN:VEVENT
 UID:moto3-2026-8c83648e-8ec9-40f1-9ba0-b0f19883e7d7@motorsport-calendar-FP
 DTSTART:20260327T181500Z
 DTEND:20260327T185000Z
@@ -1118,6 +1238,14 @@ LOCATION:Suzuka\\\, Japan
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-barber-2026-03-28-1200-practice-2
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260328T120000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260328T130000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Barber Motorsports Park
+DESCRIPTION:Children's of Alabama Indy Grand Prix - Practice 2\nFuente oficial: https://www.indycar.com/Schedule/2026/Barber
+END:VEVENT
+BEGIN:VEVENT
 UID:moto3-2026-8c83648e-8ec9-40f1-9ba0-b0f19883e7d7@motorsport-calendar-FP
 DTSTART:20260328T134000Z
 DTEND:20260328T141000Z
@@ -1140,6 +1268,14 @@ DTEND:20260328T154000Z
 SUMMARY:MotoGP - Entrenamiento
 LOCATION:Circuit Of The Americas\\\, United States
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-barber-2026-03-28-1530-qualifications
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260328T153000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260328T163000
+SUMMARY:IndyCar - Clasificación
+LOCATION:Barber Motorsports Park
+DESCRIPTION:Children's of Alabama Indy Grand Prix - Qualifications\nFuente oficial: https://www.indycar.com/Schedule/2026/Barber
 END:VEVENT
 BEGIN:VEVENT
 UID:motogp-2026-8c83648e-8ec9-40f1-9ba0-b0f19883e7d7@motorsport-calendar-Q
@@ -1196,6 +1332,22 @@ DTEND:20260329T070000Z
 SUMMARY:Otros - Carrera
 LOCATION:Suzuka\\\, Japan
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-barber-2026-03-29-1100-warmup
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260329T110000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260329T120000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Barber Motorsports Park
+DESCRIPTION:Children's of Alabama Indy Grand Prix - Warmup\nFuente oficial: https://www.indycar.com/Schedule/2026/Barber
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-barber-2026-03-29-1400-race
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260329T140000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260329T160000
+SUMMARY:IndyCar - Carrera
+LOCATION:Barber Motorsports Park
+DESCRIPTION:Children's of Alabama Indy Grand Prix - Race\nFuente oficial: https://www.indycar.com/Schedule/2026/Barber
 END:VEVENT
 BEGIN:VEVENT
 UID:gtwc-america-2026-sonoma-raceway@motorsport-calendar-QUALIFYING
@@ -1462,6 +1614,14 @@ LOCATION:Jeddah\\\, Saudi Arabia
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-long-beach-2026-04-17-1900-practice-1
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260417T190000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260417T200000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Streets of Long Beach
+DESCRIPTION:Acura Grand Prix of Long Beach - Practice 1\nFuente oficial: https://www.indycar.com/Schedule/2026/Long-Beach
+END:VEVENT
+BEGIN:VEVENT
 UID:wec-2026-1@motorsport-calendar-FP3
 DTSTART:20260418T083000Z
 DTEND:20260418T094500Z
@@ -1494,12 +1654,28 @@ LOCATION:Jeddah\\\, Saudi Arabia
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-long-beach-2026-04-18-1430-practice-2
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260418T143000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260418T153000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Streets of Long Beach
+DESCRIPTION:Acura Grand Prix of Long Beach - Practice 2\nFuente oficial: https://www.indycar.com/Schedule/2026/Long-Beach
+END:VEVENT
+BEGIN:VEVENT
 UID:openf1-meeting-1283@motorsport-calendar-QUALIFYING
 DTSTART:20260418T170000Z
 DTEND:20260418T180000Z
 SUMMARY:Otros - Clasificación
 LOCATION:Jeddah\\\, Saudi Arabia
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-long-beach-2026-04-18-1930-qualifications
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260418T193000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260418T203000
+SUMMARY:IndyCar - Clasificación
+LOCATION:Streets of Long Beach
+DESCRIPTION:Acura Grand Prix of Long Beach - Qualifications\nFuente oficial: https://www.indycar.com/Schedule/2026/Long-Beach
 END:VEVENT
 BEGIN:VEVENT
 UID:wec-2026-1@motorsport-calendar-RACE
@@ -1510,12 +1686,28 @@ LOCATION:Imola\\\, Italy
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-long-beach-2026-04-19-1400-warmup
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260419T140000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260419T150000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Streets of Long Beach
+DESCRIPTION:Acura Grand Prix of Long Beach - Warmup\nFuente oficial: https://www.indycar.com/Schedule/2026/Long-Beach
+END:VEVENT
+BEGIN:VEVENT
 UID:openf1-meeting-1283@motorsport-calendar-RACE
 DTSTART:20260419T170000Z
 DTEND:20260419T190000Z
 SUMMARY:Otros - Carrera
 LOCATION:Jeddah\\\, Saudi Arabia
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-long-beach-2026-04-19-1830-race
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260419T183000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260419T203000
+SUMMARY:IndyCar - Carrera
+LOCATION:Streets of Long Beach
+DESCRIPTION:Acura Grand Prix of Long Beach - Race\nFuente oficial: https://www.indycar.com/Schedule/2026/Long-Beach
 END:VEVENT
 BEGIN:VEVENT
 UID:moto3-2026-a24be69b-8472-4aa4-9e83-d3610e0f1d98@motorsport-calendar-FP
@@ -2014,6 +2206,14 @@ LOCATION:Le Mans\\\, France
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-indianapolis-2026-05-08-1000-practice-1
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260508T100000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260508T110000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:IMS Road Course
+DESCRIPTION:Sonsio Grand Prix - Practice 1\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis
+END:VEVENT
+BEGIN:VEVENT
 UID:moto3-2026-4237f175-c6a4-4d1e-b658-82962baf3fa3@motorsport-calendar-FP
 DTSTART:20260508T111500Z
 DTEND:20260508T115000Z
@@ -2052,6 +2252,14 @@ DTEND:20260508T140000Z
 SUMMARY:MotoGP - Entrenamiento
 LOCATION:Le Mans\\\, France
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-indianapolis-2026-05-08-1400-practice-2
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260508T140000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260508T150000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:IMS Road Course
+DESCRIPTION:Sonsio Grand Prix - Practice 2\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis
 END:VEVENT
 BEGIN:VEVENT
 UID:gtwc-america-2026-sebring-international-raceway@motorsport-calendar-FP
@@ -2102,6 +2310,14 @@ LOCATION:Le Mans\\\, France
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-indianapolis-2026-05-09-1130-qualifications
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260509T113000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260509T123000
+SUMMARY:IndyCar - Clasificación
+LOCATION:IMS Road Course
+DESCRIPTION:Sonsio Grand Prix - Qualifications\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis
+END:VEVENT
+BEGIN:VEVENT
 UID:moto2-2026-4237f175-c6a4-4d1e-b658-82962baf3fa3@motorsport-calendar-QU
 DTSTART:20260509T114000Z
 DTEND:20260509T122000Z
@@ -2118,6 +2334,14 @@ LOCATION:Spa-Francorchamps\\\, Belgium
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-indianapolis-2026-05-09-1230-qualifications
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260509T123000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260509T133000
+SUMMARY:IndyCar - Clasificación
+LOCATION:IMS Road Course
+DESCRIPTION:Sonsio Grand Prix - Qualifications\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis
+END:VEVENT
+BEGIN:VEVENT
 UID:gtwc-america-2026-sebring-international-raceway@motorsport-calendar-FP
 DTSTART:20260509T125000Z
 DTEND:20260509T135000Z
@@ -2132,6 +2356,14 @@ DTEND:20260509T133000Z
 SUMMARY:MotoGP - Sprint
 LOCATION:Le Mans\\\, France
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-indianapolis-2026-05-09-1730-race
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260509T173000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260509T193000
+SUMMARY:IndyCar - Carrera
+LOCATION:IMS Road Course
+DESCRIPTION:Sonsio Grand Prix - Race\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis
 END:VEVENT
 BEGIN:VEVENT
 UID:gtwc-america-2026-sebring-international-raceway@motorsport-calendar-QU
@@ -2174,12 +2406,60 @@ LOCATION:Le Mans\\\, France
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-indianapolis-500-2026-05-12-1300-practice-1
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260512T130000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260512T140000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Indianapolis Motor Speedway
+DESCRIPTION:110th Running of the Indianapolis 500 - Practice 1\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis-500
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-indianapolis-500-2026-05-12-1700-practice-1
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260512T170000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260512T180000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Indianapolis Motor Speedway
+DESCRIPTION:110th Running of the Indianapolis 500 - Practice 1\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis-500
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-indianapolis-500-2026-05-13-1300-practice-2
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260513T130000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260513T140000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Indianapolis Motor Speedway
+DESCRIPTION:110th Running of the Indianapolis 500 - Practice 2\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis-500
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-indianapolis-500-2026-05-13-1700-practice-2
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260513T170000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260513T180000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Indianapolis Motor Speedway
+DESCRIPTION:110th Running of the Indianapolis 500 - Practice 2\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis-500
+END:VEVENT
+BEGIN:VEVENT
 UID:igtc-2026-adac-ravenol-24h-nuerburgring@motorsport-calendar-QUALIFYING
 DTSTART:20260514T111500Z
 DTEND:20260515T123500Z
 SUMMARY:IGTC - Clasificación
 LOCATION:Nürburgring Nordschleife\\\, Germany
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-indianapolis-500-2026-05-14-1300-practice-3
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260514T130000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260514T140000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Indianapolis Motor Speedway
+DESCRIPTION:110th Running of the Indianapolis 500 - Practice 3\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis-500
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-indianapolis-500-2026-05-14-1700-practice-3
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260514T170000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260514T180000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Indianapolis Motor Speedway
+DESCRIPTION:110th Running of the Indianapolis 500 - Practice 3\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis-500
 END:VEVENT
 BEGIN:VEVENT
 UID:moto3-2026-200bf59d-3db2-4e17-a903-4be204fa3496@motorsport-calendar-FP
@@ -2228,6 +2508,30 @@ DTEND:20260515T140000Z
 SUMMARY:MotoGP - Entrenamiento
 LOCATION:Circuit de Barcelona-Catalunya\\\, Spain
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-indianapolis-500-2026-05-15-1530-fast-friday
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260515T153000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260515T163000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Indianapolis Motor Speedway
+DESCRIPTION:110th Running of the Indianapolis 500 - Fast Friday\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis-500
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-indianapolis-500-2026-05-15-1600-fast-friday
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260515T160000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260515T170000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Indianapolis Motor Speedway
+DESCRIPTION:110th Running of the Indianapolis 500 - Fast Friday\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis-500
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-indianapolis-500-2026-05-15-1800-fast-friday
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260515T180000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260515T190000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Indianapolis Motor Speedway
+DESCRIPTION:110th Running of the Indianapolis 500 - Fast Friday\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis-500
 END:VEVENT
 BEGIN:VEVENT
 UID:f1calendar-fe-2026-9@motorsport-calendar-FP1
@@ -2358,6 +2662,14 @@ LOCATION:Circuit de Barcelona-Catalunya\\\, Spain
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-indianapolis-500-2026-05-17-1030-practice-6
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260517T103000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260517T113000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Indianapolis Motor Speedway
+DESCRIPTION:110th Running of the Indianapolis 500 - Practice 6\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis-500
+END:VEVENT
+BEGIN:VEVENT
 UID:motogp-2026-200bf59d-3db2-4e17-a903-4be204fa3496@motorsport-calendar-R
 DTSTART:20260517T120000Z
 DTEND:20260517T124500Z
@@ -2366,12 +2678,52 @@ LOCATION:Circuit de Barcelona-Catalunya\\\, Spain
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-indianapolis-500-2026-05-17-1300-qualifying-all-cars
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260517T130000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260517T140000
+SUMMARY:IndyCar - Clasificación
+LOCATION:Indianapolis Motor Speedway
+DESCRIPTION:110th Running of the Indianapolis 500 - Qualifying (All Cars)\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis-500
+END:VEVENT
+BEGIN:VEVENT
 UID:f1calendar-fe-2026-10@motorsport-calendar-RACE
 DTSTART:20260517T130500Z
 DTEND:20260517T135000Z
 SUMMARY:Formula E - Carrera
 LOCATION:Monaco ePrix\\\, Monaco
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-indianapolis-500-2026-05-17-1700-qualifying-top-12
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260517T170000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260517T180000
+SUMMARY:IndyCar - Clasificación
+LOCATION:Indianapolis Motor Speedway
+DESCRIPTION:110th Running of the Indianapolis 500 - Qualifying (Top-12)\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis-500
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-indianapolis-500-2026-05-17-1900-qualifying-firestone-fast-6
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260517T190000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260517T200000
+SUMMARY:IndyCar - Clasificación
+LOCATION:Indianapolis Motor Speedway
+DESCRIPTION:110th Running of the Indianapolis 500 - Qualifying (Firestone Fast 6)\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis-500
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-indianapolis-500-2026-05-18-1400-practice-7
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260518T140000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260518T150000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Indianapolis Motor Speedway
+DESCRIPTION:110th Running of the Indianapolis 500 - Practice 7\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis-500
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-indianapolis-500-2026-05-22-1200-carb-day-final-practice
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260522T120000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260522T130000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Indianapolis Motor Speedway
+DESCRIPTION:110th Running of the Indianapolis 500 - Carb Day Final Practice\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis-500
 END:VEVENT
 BEGIN:VEVENT
 UID:f1calendar-f1-academy-2026-2@motorsport-calendar-FP1
@@ -2388,6 +2740,14 @@ DTEND:20260522T145000Z
 SUMMARY:F2 - Entrenamiento
 LOCATION:Canada\\\, Unknown
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-indianapolis-500-2026-05-22-1530-pit-stop-competition
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260522T153000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260522T163000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Indianapolis Motor Speedway
+DESCRIPTION:110th Running of the Indianapolis 500 - Pit Stop Competition\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis-500
 END:VEVENT
 BEGIN:VEVENT
 UID:openf1-meeting-1285@motorsport-calendar-FP1
@@ -2462,6 +2822,22 @@ LOCATION:Canadian\\\, Canada
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-indianapolis-500-2026-05-24-1100-pre-race
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260524T110000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260524T130000
+SUMMARY:IndyCar - Carrera
+LOCATION:Indianapolis Motor Speedway
+DESCRIPTION:110th Running of the Indianapolis 500 - Pre-Race\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis-500
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-indianapolis-500-2026-05-24-1330-race
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260524T133000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260524T153000
+SUMMARY:IndyCar - Carrera
+LOCATION:Indianapolis Motor Speedway
+DESCRIPTION:110th Running of the Indianapolis 500 - Race\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis-500
+END:VEVENT
+BEGIN:VEVENT
 UID:f1calendar-f1-academy-2026-2@motorsport-calendar-FP3
 DTSTART:20260524T144500Z
 DTEND:20260524T151500Z
@@ -2534,6 +2910,14 @@ LOCATION:Autodromo Internazionale del Mugello\\\, Italy
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-detroit-2026-05-29-1600-practice-1
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260529T160000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260529T170000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Streets of Detroit
+DESCRIPTION:Chevrolet Detroit Grand Prix - Practice 1\nFuente oficial: https://www.indycar.com/Schedule/2026/Detroit
+END:VEVENT
+BEGIN:VEVENT
 UID:moto3-2026-bf2104f9-f5cc-4a99-a993-cb5d01bccd24@motorsport-calendar-FP
 DTSTART:20260530T064000Z
 DTEND:20260530T071000Z
@@ -2574,6 +2958,14 @@ LOCATION:Autodromo Internazionale del Mugello\\\, Italy
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-detroit-2026-05-30-1000-practice-2
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260530T100000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260530T110000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Streets of Detroit
+DESCRIPTION:Chevrolet Detroit Grand Prix - Practice 2\nFuente oficial: https://www.indycar.com/Schedule/2026/Detroit
+END:VEVENT
+BEGIN:VEVENT
 UID:moto3-2026-bf2104f9-f5cc-4a99-a993-cb5d01bccd24@motorsport-calendar-QU
 DTSTART:20260530T104500Z
 DTEND:20260530T112500Z
@@ -2606,6 +2998,14 @@ LOCATION:Autodromo Internazionale del Mugello\\\, Italy
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-detroit-2026-05-30-1400-qualifications
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260530T140000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260530T150000
+SUMMARY:IndyCar - Clasificación
+LOCATION:Streets of Detroit
+DESCRIPTION:Chevrolet Detroit Grand Prix - Qualifications\nFuente oficial: https://www.indycar.com/Schedule/2026/Detroit
+END:VEVENT
+BEGIN:VEVENT
 UID:gtwc-europe-2026-monza@motorsport-calendar-QUALIFYING
 DTSTART:20260531T075000Z
 DTEND:20260531T093000Z
@@ -2630,12 +3030,28 @@ LOCATION:Autodromo Internazionale del Mugello\\\, Italy
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-detroit-2026-05-31-1030-warmup
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260531T103000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260531T113000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Streets of Detroit
+DESCRIPTION:Chevrolet Detroit Grand Prix - Warmup\nFuente oficial: https://www.indycar.com/Schedule/2026/Detroit
+END:VEVENT
+BEGIN:VEVENT
 UID:motogp-2026-bf2104f9-f5cc-4a99-a993-cb5d01bccd24@motorsport-calendar-R
 DTSTART:20260531T120000Z
 DTEND:20260531T124500Z
 SUMMARY:MotoGP - Evento
 LOCATION:Autodromo Internazionale del Mugello\\\, Italy
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-detroit-2026-05-31-1330-race
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260531T133000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260531T153000
+SUMMARY:IndyCar - Carrera
+LOCATION:Streets of Detroit
+DESCRIPTION:Chevrolet Detroit Grand Prix - Race\nFuente oficial: https://www.indycar.com/Schedule/2026/Detroit
 END:VEVENT
 BEGIN:VEVENT
 UID:gtwc-europe-2026-monza@motorsport-calendar-RACE
@@ -2822,12 +3238,36 @@ LOCATION:Balaton Park\\\, Hungary
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-wwtr-2026-06-06-1330-practice-1
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260606T133000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260606T143000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:World Wide Technology Raceway
+DESCRIPTION:Bommarito Automotive Group 500 - Practice 1\nFuente oficial: https://www.indycar.com/Schedule/2026/WWTR
+END:VEVENT
+BEGIN:VEVENT
 UID:openf1-meeting-1286@motorsport-calendar-QUALIFYING
 DTSTART:20260606T140000Z
 DTEND:20260606T150000Z
 SUMMARY:Otros - Clasificación
 LOCATION:Monte Carlo\\\, Monaco
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-wwtr-2026-06-06-1730-qualifications
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260606T173000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260606T183000
+SUMMARY:IndyCar - Clasificación
+LOCATION:World Wide Technology Raceway
+DESCRIPTION:Bommarito Automotive Group 500 - Qualifications\nFuente oficial: https://www.indycar.com/Schedule/2026/WWTR
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-wwtr-2026-06-06-2200-final-practice
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260606T220000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260606T230000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:World Wide Technology Raceway
+DESCRIPTION:Bommarito Automotive Group 500 - Final Practice\nFuente oficial: https://www.indycar.com/Schedule/2026/WWTR
 END:VEVENT
 BEGIN:VEVENT
 UID:f1calendar-f3-2026-2@motorsport-calendar-RACE
@@ -2876,6 +3316,14 @@ DTEND:20260607T150000Z
 SUMMARY:Otros - Carrera
 LOCATION:Monte Carlo\\\, Monaco
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-wwtr-2026-06-07-2200-race
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260607T220000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260608T000000
+SUMMARY:IndyCar - Carrera
+LOCATION:World Wide Technology Raceway
+DESCRIPTION:Bommarito Automotive Group 500 - Race\nFuente oficial: https://www.indycar.com/Schedule/2026/WWTR
 END:VEVENT
 BEGIN:VEVENT
 UID:mlmc-2026-3@motorsport-calendar-FP1
@@ -3025,7 +3473,7 @@ BEGIN:VEVENT
 UID:wec-2026-3@motorsport-calendar-TEST
 DTSTART:20260613T100000Z
 DTEND:20260613T104000Z
-SUMMARY:WEC - Evento
+SUMMARY:WEC - Entrenamiento
 LOCATION:24 Heures du Mans\\\, France
 DESCRIPTION:Reminder
 END:VEVENT
@@ -3174,6 +3622,14 @@ LOCATION:CREDITAS Autodrom Brno\\\, Czechia
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-road-america-2026-06-19-1700-practice-1
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260619T170000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260619T180000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Road America
+DESCRIPTION:XPEL Grand Prix at Road America - Practice 1\nFuente oficial: https://www.indycar.com/Schedule/2026/Road-America
+END:VEVENT
+BEGIN:VEVENT
 UID:f1calendar-fe-2026-11@motorsport-calendar-FP2
 DTSTART:20260620T003000Z
 DTEND:20260620T010000Z
@@ -3246,12 +3702,28 @@ LOCATION:CREDITAS Autodrom Brno\\\, Czechia
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-road-america-2026-06-20-1200-practice-2
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260620T120000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260620T130000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Road America
+DESCRIPTION:XPEL Grand Prix at Road America - Practice 2\nFuente oficial: https://www.indycar.com/Schedule/2026/Road-America
+END:VEVENT
+BEGIN:VEVENT
 UID:motogp-2026-c2018c5e-fb82-4058-b359-1b7d9769e703@motorsport-calendar-S
 DTSTART:20260620T130000Z
 DTEND:20260620T133000Z
 SUMMARY:MotoGP - Sprint
 LOCATION:CREDITAS Autodrom Brno\\\, Czechia
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-road-america-2026-06-20-1500-qualifications
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260620T150000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260620T160000
+SUMMARY:IndyCar - Clasificación
+LOCATION:Road America
+DESCRIPTION:XPEL Grand Prix at Road America - Qualifications\nFuente oficial: https://www.indycar.com/Schedule/2026/Road-America
 END:VEVENT
 BEGIN:VEVENT
 UID:moto3-2026-c2018c5e-fb82-4058-b359-1b7d9769e703@motorsport-calendar-RA
@@ -3270,12 +3742,28 @@ LOCATION:CREDITAS Autodrom Brno\\\, Czechia
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-road-america-2026-06-21-1200-warmup
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260621T120000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260621T130000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Road America
+DESCRIPTION:XPEL Grand Prix at Road America - Warmup\nFuente oficial: https://www.indycar.com/Schedule/2026/Road-America
+END:VEVENT
+BEGIN:VEVENT
 UID:motogp-2026-c2018c5e-fb82-4058-b359-1b7d9769e703@motorsport-calendar-R
 DTSTART:20260621T120000Z
 DTEND:20260621T124500Z
 SUMMARY:MotoGP - Evento
 LOCATION:CREDITAS Autodrom Brno\\\, Czechia
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-road-america-2026-06-21-1500-race
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260621T150000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260621T170000
+SUMMARY:IndyCar - Carrera
+LOCATION:Road America
+DESCRIPTION:XPEL Grand Prix at Road America - Race\nFuente oficial: https://www.indycar.com/Schedule/2026/Road-America
 END:VEVENT
 BEGIN:VEVENT
 UID:gtwc-europe-2026-crowdstrike-24-hours-of-spa@motorsport-calendar-FP1
@@ -3678,6 +4166,14 @@ LOCATION:Silverstone\\\, United Kingdom
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-mid-ohio-2026-07-03-1600-practice-1
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260703T160000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260703T170000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Mid-Ohio Sports Car Course
+DESCRIPTION:Honda Indy 200 at Mid-Ohio - Practice 1\nFuente oficial: https://www.indycar.com/Schedule/2026/Mid-Ohio
+END:VEVENT
+BEGIN:VEVENT
 UID:f1calendar-f1-academy-2026-3@motorsport-calendar-QUALIFYING
 DTSTART:20260703T170000Z
 DTEND:20260703T173000Z
@@ -3726,6 +4222,14 @@ LOCATION:Imola\\\, Italy
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-mid-ohio-2026-07-04-1100-practice-2
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260704T110000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260704T120000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Mid-Ohio Sports Car Course
+DESCRIPTION:Honda Indy 200 at Mid-Ohio - Practice 2\nFuente oficial: https://www.indycar.com/Schedule/2026/Mid-Ohio
+END:VEVENT
+BEGIN:VEVENT
 UID:openf1-meeting-1289@motorsport-calendar-SPRINT
 DTSTART:20260704T110000Z
 DTEND:20260704T120000Z
@@ -3764,6 +4268,14 @@ DTEND:20260704T173500Z
 SUMMARY:F1 Academy - Carrera
 LOCATION:British\\\, Unknown
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-mid-ohio-2026-07-04-1815-qualifications
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260704T181500
+DTEND;TZID=America/Argentina/Buenos_Aires:20260704T191500
+SUMMARY:IndyCar - Clasificación
+LOCATION:Mid-Ohio Sports Car Course
+DESCRIPTION:Honda Indy 200 at Mid-Ohio - Qualifications\nFuente oficial: https://www.indycar.com/Schedule/2026/Mid-Ohio
 END:VEVENT
 BEGIN:VEVENT
 UID:f1calendar-fe-2026-13@motorsport-calendar-FP3
@@ -3806,6 +4318,14 @@ LOCATION:British\\\, Unknown
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-mid-ohio-2026-07-05-1000-warmup
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260705T100000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260705T110000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Mid-Ohio Sports Car Course
+DESCRIPTION:Honda Indy 200 at Mid-Ohio - Warmup\nFuente oficial: https://www.indycar.com/Schedule/2026/Mid-Ohio
+END:VEVENT
+BEGIN:VEVENT
 UID:f1calendar-f2-2026-7@motorsport-calendar-RACE
 DTSTART:20260705T101500Z
 DTEND:20260705T112000Z
@@ -3820,6 +4340,14 @@ DTEND:20260705T140000Z
 SUMMARY:ELMS - Carrera
 LOCATION:Imola\\\, Italy
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-mid-ohio-2026-07-05-1330-race
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260705T133000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260705T153000
+SUMMARY:IndyCar - Carrera
+LOCATION:Mid-Ohio Sports Car Course
+DESCRIPTION:Honda Indy 200 at Mid-Ohio - Race\nFuente oficial: https://www.indycar.com/Schedule/2026/Mid-Ohio
 END:VEVENT
 BEGIN:VEVENT
 UID:openf1-meeting-1289@motorsport-calendar-RACE
@@ -4126,6 +4654,14 @@ LOCATION:Spa-Francorchamps\\\, Belgium
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-nashville-2026-07-18-1100-practice-1
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260718T110000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260718T120000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Nashville Superspeedway
+DESCRIPTION:Borchetta Bourbon Music City Grand Prix - Practice 1\nFuente oficial: https://www.indycar.com/Schedule/2026/Nashville
+END:VEVENT
+BEGIN:VEVENT
 UID:gtwc-europe-2026-misano@motorsport-calendar-SPRINT_QUALIFYING
 DTSTART:20260718T110500Z
 DTEND:20260718T122000Z
@@ -4150,12 +4686,28 @@ LOCATION:Spa-Francorchamps\\\, Belgium
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-nashville-2026-07-18-1600-qualifications
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260718T160000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260718T170000
+SUMMARY:IndyCar - Clasificación
+LOCATION:Nashville Superspeedway
+DESCRIPTION:Borchetta Bourbon Music City Grand Prix - Qualifications\nFuente oficial: https://www.indycar.com/Schedule/2026/Nashville
+END:VEVENT
+BEGIN:VEVENT
 UID:gtwc-europe-2026-misano@motorsport-calendar-SPRINT
 DTSTART:20260718T183000Z
 DTEND:20260718T193000Z
 SUMMARY:GT World Challenge Europe - Carrera
 LOCATION:Misano World Circuit\\\, Italy
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-nashville-2026-07-18-1900-final-practice
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260718T190000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260718T200000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Nashville Superspeedway
+DESCRIPTION:Borchetta Bourbon Music City Grand Prix - Final Practice\nFuente oficial: https://www.indycar.com/Schedule/2026/Nashville
 END:VEVENT
 BEGIN:VEVENT
 UID:f1calendar-f3-2026-6@motorsport-calendar-RACE
@@ -4196,6 +4748,14 @@ DTEND:20260719T150000Z
 SUMMARY:Otros - Carrera
 LOCATION:Spa-Francorchamps\\\, Belgium
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-nashville-2026-07-20-1600-race
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260720T160000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260720T180000
+SUMMARY:IndyCar - Carrera
+LOCATION:Nashville Superspeedway
+DESCRIPTION:Borchetta Bourbon Music City Grand Prix - Race\nFuente oficial: https://www.indycar.com/Schedule/2026/Nashville
 END:VEVENT
 BEGIN:VEVENT
 UID:f1calendar-f3-2026-7@motorsport-calendar-FP1
@@ -4454,6 +5014,14 @@ LOCATION:Silverstone Circuit\\\, United Kingdom
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-portland-2026-08-07-1830-practice-1
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260807T183000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260807T193000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Portland International Raceway
+DESCRIPTION:OnlyBulls Grand Prix of Portland - Practice 1\nFuente oficial: https://www.indycar.com/Schedule/2026/Portland
+END:VEVENT
+BEGIN:VEVENT
 UID:moto3-2026-41aa319a-8ec5-49d6-aa99-4e2059c88098@motorsport-calendar-FP
 DTSTART:20260808T084000Z
 DTEND:20260808T091000Z
@@ -4502,12 +5070,28 @@ LOCATION:Silverstone Circuit\\\, United Kingdom
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-portland-2026-08-08-1400-practice-2
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260808T140000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260808T150000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Portland International Raceway
+DESCRIPTION:OnlyBulls Grand Prix of Portland - Practice 2\nFuente oficial: https://www.indycar.com/Schedule/2026/Portland
+END:VEVENT
+BEGIN:VEVENT
 UID:motogp-2026-41aa319a-8ec5-49d6-aa99-4e2059c88098@motorsport-calendar-S
 DTSTART:20260808T150500Z
 DTEND:20260808T153500Z
 SUMMARY:MotoGP - Sprint
 LOCATION:Silverstone Circuit\\\, United Kingdom
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-portland-2026-08-08-2000-qualifications
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260808T200000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260808T210000
+SUMMARY:IndyCar - Clasificación
+LOCATION:Portland International Raceway
+DESCRIPTION:OnlyBulls Grand Prix of Portland - Qualifications\nFuente oficial: https://www.indycar.com/Schedule/2026/Portland
 END:VEVENT
 BEGIN:VEVENT
 UID:moto2-2026-41aa319a-8ec5-49d6-aa99-4e2059c88098@motorsport-calendar-RA
@@ -4534,6 +5118,22 @@ LOCATION:Silverstone Circuit\\\, United Kingdom
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-portland-2026-08-09-1400-warmup
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260809T140000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260809T150000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Portland International Raceway
+DESCRIPTION:OnlyBulls Grand Prix of Portland - Warmup\nFuente oficial: https://www.indycar.com/Schedule/2026/Portland
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-portland-2026-08-09-1700-race
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260809T170000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260809T190000
+SUMMARY:IndyCar - Carrera
+LOCATION:Portland International Raceway
+DESCRIPTION:OnlyBulls Grand Prix of Portland - Race\nFuente oficial: https://www.indycar.com/Schedule/2026/Portland
+END:VEVENT
+BEGIN:VEVENT
 UID:f1calendar-fe-2026-16@motorsport-calendar-FP1
 DTSTART:20260814T150000Z
 DTEND:20260814T153000Z
@@ -4558,12 +5158,44 @@ LOCATION:London ePrix\\\, United Kingdom
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-markham-2026-08-15-1100-practice-1
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260815T110000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260815T120000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Streets of Markham
+DESCRIPTION:Ontario Honda Dealers Indy at Markham - Practice 1\nFuente oficial: https://www.indycar.com/Schedule/2026/Markham
+END:VEVENT
+BEGIN:VEVENT
 UID:f1calendar-fe-2026-16@motorsport-calendar-RACE
 DTSTART:20260815T140500Z
 DTEND:20260815T145000Z
 SUMMARY:Formula E - Carrera
 LOCATION:London ePrix\\\, United Kingdom
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-markham-2026-08-15-1530-practice-2
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260815T153000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260815T163000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Streets of Markham
+DESCRIPTION:Ontario Honda Dealers Indy at Markham - Practice 2\nFuente oficial: https://www.indycar.com/Schedule/2026/Markham
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-markham-2026-08-15-1930-qualifications
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260815T193000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260815T203000
+SUMMARY:IndyCar - Clasificación
+LOCATION:Streets of Markham
+DESCRIPTION:Ontario Honda Dealers Indy at Markham - Qualifications\nFuente oficial: https://www.indycar.com/Schedule/2026/Markham
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-markham-2026-08-15-2000-qualifications
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260815T200000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260815T210000
+SUMMARY:IndyCar - Clasificación
+LOCATION:Streets of Markham
+DESCRIPTION:Ontario Honda Dealers Indy at Markham - Qualifications\nFuente oficial: https://www.indycar.com/Schedule/2026/Markham
 END:VEVENT
 BEGIN:VEVENT
 UID:f1calendar-fe-2026-17@motorsport-calendar-FP3
@@ -4574,12 +5206,28 @@ LOCATION:London ePrix\\\, United Kingdom
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-markham-2026-08-16-0930-warmup
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260816T093000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260816T103000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Streets of Markham
+DESCRIPTION:Ontario Honda Dealers Indy at Markham - Warmup\nFuente oficial: https://www.indycar.com/Schedule/2026/Markham
+END:VEVENT
+BEGIN:VEVENT
 UID:f1calendar-fe-2026-17@motorsport-calendar-QUALIFYING
 DTSTART:20260816T094000Z
 DTEND:20260816T104000Z
 SUMMARY:Formula E - Clasificación
 LOCATION:London ePrix\\\, United Kingdom
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-markham-2026-08-16-1300-race
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260816T130000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260816T150000
+SUMMARY:IndyCar - Carrera
+LOCATION:Streets of Markham
+DESCRIPTION:Ontario Honda Dealers Indy at Markham - Race\nFuente oficial: https://www.indycar.com/Schedule/2026/Markham
 END:VEVENT
 BEGIN:VEVENT
 UID:f1calendar-fe-2026-17@motorsport-calendar-RACE
@@ -4678,6 +5326,14 @@ LOCATION:Spa-Francorchamps\\\, Belgium
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-washington-dc-2026-08-22-1000-practice-1
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260822T100000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260822T110000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Streets of Washington
+DESCRIPTION:Freedom 250 Grand Prix of Washington DC - Practice 1\nFuente oficial: https://www.indycar.com/Schedule/2026/Washington-DC
+END:VEVENT
+BEGIN:VEVENT
 UID:openf1-meeting-1292@motorsport-calendar-SPRINT
 DTSTART:20260822T100000Z
 DTEND:20260822T110000Z
@@ -4710,6 +5366,14 @@ LOCATION:Spa-Francorchamps\\\, Belgium
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-washington-dc-2026-08-22-1400-practice-2
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260822T140000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260822T150000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Streets of Washington
+DESCRIPTION:Freedom 250 Grand Prix of Washington DC - Practice 2\nFuente oficial: https://www.indycar.com/Schedule/2026/Washington-DC
+END:VEVENT
+BEGIN:VEVENT
 UID:openf1-meeting-1292@motorsport-calendar-QUALIFYING
 DTSTART:20260822T140000Z
 DTEND:20260822T150000Z
@@ -4718,12 +5382,28 @@ LOCATION:Zandvoort\\\, Netherlands
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-washington-dc-2026-08-22-1800-qualifications
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260822T180000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260822T190000
+SUMMARY:IndyCar - Clasificación
+LOCATION:Streets of Washington
+DESCRIPTION:Freedom 250 Grand Prix of Washington DC - Qualifications\nFuente oficial: https://www.indycar.com/Schedule/2026/Washington-DC
+END:VEVENT
+BEGIN:VEVENT
 UID:f1calendar-f1-academy-2026-4@motorsport-calendar-FP3
 DTSTART:20260823T083000Z
 DTEND:20260823T090000Z
 SUMMARY:F1 Academy - Carrera
 LOCATION:Zandvoort\\\, Netherlands
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-washington-dc-2026-08-23-1000-warmup
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260823T100000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260823T110000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Streets of Washington
+DESCRIPTION:Freedom 250 Grand Prix of Washington DC - Warmup\nFuente oficial: https://www.indycar.com/Schedule/2026/Washington-DC
 END:VEVENT
 BEGIN:VEVENT
 UID:elms-2026-4@motorsport-calendar-RACE
@@ -4740,6 +5420,14 @@ DTEND:20260823T150000Z
 SUMMARY:Otros - Carrera
 LOCATION:Zandvoort\\\, Netherlands
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-washington-dc-2026-08-23-1400-race
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260823T140000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260823T160000
+SUMMARY:IndyCar - Carrera
+LOCATION:Streets of Washington
+DESCRIPTION:Freedom 250 Grand Prix of Washington DC - Race\nFuente oficial: https://www.indycar.com/Schedule/2026/Washington-DC
 END:VEVENT
 BEGIN:VEVENT
 UID:gtwc-asia-2026-okayama-international-circuit@motorsport-calendar-FP1
@@ -4804,6 +5492,14 @@ DTEND:20260828T140000Z
 SUMMARY:MotoGP - Entrenamiento
 LOCATION:MotorLand Aragón\\\, Spain
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-milwaukee-race1-2026-08-28-1900-practice
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260828T190000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260828T200000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:Milwaukee Mile
+DESCRIPTION:Snap-on Makers and Fixers 250 - Practice\nFuente oficial: https://www.indycar.com/Schedule/2026/Milwaukee-Race1
 END:VEVENT
 BEGIN:VEVENT
 UID:gtwc-america-2026-road-america@motorsport-calendar-FP1
@@ -4886,6 +5582,14 @@ LOCATION:MotorLand Aragón\\\, Spain
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-milwaukee-race1-2026-08-29-1200-qualifications
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260829T120000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260829T130000
+SUMMARY:IndyCar - Clasificación
+LOCATION:Milwaukee Mile
+DESCRIPTION:Snap-on Makers and Fixers 250 - Qualifications\nFuente oficial: https://www.indycar.com/Schedule/2026/Milwaukee-Race1
+END:VEVENT
+BEGIN:VEVENT
 UID:motogp-2026-86abdbde-5e3d-45b1-a1f0-f74044a90eb3@motorsport-calendar-S
 DTSTART:20260829T130000Z
 DTEND:20260829T133000Z
@@ -4966,12 +5670,28 @@ LOCATION:Nürburgring\\\, Germany
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-milwaukee-race1-2026-08-30-1400-race-2
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260830T140000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260830T160000
+SUMMARY:IndyCar - Carrera
+LOCATION:Milwaukee Mile
+DESCRIPTION:Snap-on Makers and Fixers 250 - Race 2\nFuente oficial: https://www.indycar.com/Schedule/2026/Milwaukee-Race1
+END:VEVENT
+BEGIN:VEVENT
 UID:gtwc-america-2026-road-america@motorsport-calendar-QUALIFYING
 DTSTART:20260830T141000Z
 DTEND:20260830T153000Z
 SUMMARY:GT World Challenge America - Clasificación
 LOCATION:Road America\\\, United States of America
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-milwaukee-race1-2026-08-30-1900-race-1
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260830T190000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260830T210000
+SUMMARY:IndyCar - Carrera
+LOCATION:Milwaukee Mile
+DESCRIPTION:Snap-on Makers and Fixers 250 - Race 1\nFuente oficial: https://www.indycar.com/Schedule/2026/Milwaukee-Race1
 END:VEVENT
 BEGIN:VEVENT
 UID:gtwc-america-2026-road-america@motorsport-calendar-RACE
@@ -5046,6 +5766,14 @@ LOCATION:Monza\\\, Italy
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-laguna-seca-2026-09-04-1800-practice-1
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260904T180000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260904T190000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:WeatherTech Raceway Laguna Seca
+DESCRIPTION:Mission Foods Grand Prix of Monterey - Practice 1\nFuente oficial: https://www.indycar.com/Schedule/2026/Laguna-Seca
+END:VEVENT
+BEGIN:VEVENT
 UID:f1calendar-f3-2026-8@motorsport-calendar-SPRINT
 DTSTART:20260905T073000Z
 DTEND:20260905T080000Z
@@ -5094,12 +5822,36 @@ LOCATION:Circuit des Amériques\\\, USA
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:indycar-2026-laguna-seca-2026-09-05-1400-practice-2
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260905T140000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260905T150000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:WeatherTech Raceway Laguna Seca
+DESCRIPTION:Mission Foods Grand Prix of Monterey - Practice 2\nFuente oficial: https://www.indycar.com/Schedule/2026/Laguna-Seca
+END:VEVENT
+BEGIN:VEVENT
 UID:openf1-meeting-1293@motorsport-calendar-QUALIFYING
 DTSTART:20260905T140000Z
 DTEND:20260905T150000Z
 SUMMARY:Otros - Clasificación
 LOCATION:Monza\\\, Italy
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-laguna-seca-2026-09-05-1730-qualifications
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260905T173000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260905T183000
+SUMMARY:IndyCar - Clasificación
+LOCATION:WeatherTech Raceway Laguna Seca
+DESCRIPTION:Mission Foods Grand Prix of Monterey - Qualifications\nFuente oficial: https://www.indycar.com/Schedule/2026/Laguna-Seca
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-laguna-seca-2026-09-05-2100-final-practice
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260905T210000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260905T220000
+SUMMARY:IndyCar - Entrenamiento
+LOCATION:WeatherTech Raceway Laguna Seca
+DESCRIPTION:Mission Foods Grand Prix of Monterey - Final Practice\nFuente oficial: https://www.indycar.com/Schedule/2026/Laguna-Seca
 END:VEVENT
 BEGIN:VEVENT
 UID:f1calendar-f3-2026-8@motorsport-calendar-RACE
@@ -5132,6 +5884,14 @@ DTEND:20260906T150000Z
 SUMMARY:Otros - Carrera
 LOCATION:Monza\\\, Italy
 DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:indycar-2026-laguna-seca-2026-09-06-1530-race
+DTSTART;TZID=America/Argentina/Buenos_Aires:20260906T153000
+DTEND;TZID=America/Argentina/Buenos_Aires:20260906T173000
+SUMMARY:IndyCar - Carrera
+LOCATION:WeatherTech Raceway Laguna Seca
+DESCRIPTION:Mission Foods Grand Prix of Monterey - Race\nFuente oficial: https://www.indycar.com/Schedule/2026/Laguna-Seca
 END:VEVENT
 BEGIN:VEVENT
 UID:moto3-2026-537f71f7-25ea-4cb2-a259-70b0da576cc6@motorsport-calendar-FP
