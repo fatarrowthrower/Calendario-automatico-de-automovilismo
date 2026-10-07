@@ -1,3 +1,4 @@
+```python
 from __future__ import annotations
 
 import json
@@ -31,6 +32,115 @@ HEADERS = {
 }
 
 
+# Calendario oficial IndyCar 2026.
+# Lo usamos como respaldo porque la página /schedule
+# puede cargar parte de su contenido mediante JavaScript.
+RACES_2026 = [
+    {
+        "ronda": 1,
+        "fecha": "2026-03-01",
+        "circuito": "Streets of St. Petersburg",
+        "url": "https://www.indycar.com/Schedule/2026/St-Petersburg",
+    },
+    {
+        "ronda": 2,
+        "fecha": "2026-03-15",
+        "circuito": "Phoenix Raceway",
+        "url": "https://www.indycar.com/Schedule/2026/Phoenix",
+    },
+    {
+        "ronda": 3,
+        "fecha": "2026-03-29",
+        "circuito": "Streets of Arlington",
+        "url": "https://www.indycar.com/Schedule/2026/Arlington",
+    },
+    {
+        "ronda": 4,
+        "fecha": "2026-04-12",
+        "circuito": "Barber Motorsports Park",
+        "url": "https://www.indycar.com/Schedule/2026/Barber",
+    },
+    {
+        "ronda": 5,
+        "fecha": "2026-04-19",
+        "circuito": "Streets of Long Beach",
+        "url": "https://www.indycar.com/Schedule/2026/Long-Beach",
+    },
+    {
+        "ronda": 6,
+        "fecha": "2026-05-10",
+        "circuito": "Indianapolis Motor Speedway",
+        "url": "https://www.indycar.com/Schedule/2026/Indianapolis",
+    },
+    {
+        "ronda": 7,
+        "fecha": "2026-05-24",
+        "circuito": "Indianapolis Motor Speedway",
+        "url": "https://www.indycar.com/Schedule/2026/Indianapolis-500",
+    },
+    {
+        "ronda": 8,
+        "fecha": "2026-06-07",
+        "circuito": "Streets of Detroit",
+        "url": "https://www.indycar.com/Schedule/2026/Detroit",
+    },
+    {
+        "ronda": 9,
+        "fecha": "2026-06-21",
+        "circuito": "World Wide Technology Raceway",
+        "url": "https://www.indycar.com/Schedule/2026/Gateway",
+    },
+    {
+        "ronda": 10,
+        "fecha": "2026-06-28",
+        "circuito": "Road America",
+        "url": "https://www.indycar.com/Schedule/2026/Road-America",
+    },
+    {
+        "ronda": 11,
+        "fecha": "2026-07-05",
+        "circuito": "Mid-Ohio Sports Car Course",
+        "url": "https://www.indycar.com/Schedule/2026/Mid-Ohio",
+    },
+    {
+        "ronda": 12,
+        "fecha": "2026-07-19",
+        "circuito": "Nashville Superspeedway",
+        "url": "https://www.indycar.com/Schedule/2026/Nashville",
+    },
+    {
+        "ronda": 13,
+        "fecha": "2026-08-02",
+        "circuito": "Portland International Raceway",
+        "url": "https://www.indycar.com/Schedule/2026/Portland",
+    },
+    {
+        "ronda": 14,
+        "fecha": "2026-08-16",
+        "circuito": "Streets of Markham",
+        "url": "https://www.indycar.com/Schedule/2026/Markham",
+    },
+    {
+        "ronda": 15,
+        "fecha": "2026-08-23",
+        "circuito": "Streets of Washington, D.C.",
+        "url": "https://www.indycar.com/Schedule/2026/Washington-DC",
+    },
+    {
+        "ronda": 16,
+        "fecha": "2026-08-30",
+        "circuito": "Milwaukee Mile",
+        "url": "https://www.indycar.com/Schedule/2026/Milwaukee",
+    },
+    {
+        "ronda": 17,
+        "fecha": "2026-09-06",
+        "circuito": "WeatherTech Raceway Laguna Seca",
+        "url": "https://www.indycar.com/Schedule/2026/Laguna-Seca",
+    },
+]
+
+
 def get(url, timeout=25):
     try:
         response = requests.get(
@@ -43,24 +153,16 @@ def get(url, timeout=25):
         if response.status_code == 200:
             return response
 
-        print(
-            f"    HTTP {response.status_code}: {url}"
-        )
+        print(f"    HTTP {response.status_code}: {url}")
 
     except requests.RequestException as exc:
-        print(
-            f"    Error: {exc}"
-        )
+        print(f"    Error: {exc}")
 
     return None
 
 
 def clean(text):
-    return re.sub(
-        r"\s+",
-        " ",
-        text or "",
-    ).strip()
+    return re.sub(r"\s+", " ", text or "").strip()
 
 
 def normalize(text):
@@ -83,96 +185,9 @@ def normalize(text):
     return text.upper()
 
 
-def month_number(name):
-    months = {
-        "JAN": 1,
-        "JANUARY": 1,
-        "FEB": 2,
-        "FEBRUARY": 2,
-        "MAR": 3,
-        "MARCH": 3,
-        "APR": 4,
-        "APRIL": 4,
-        "MAY": 5,
-        "JUN": 6,
-        "JUNE": 6,
-        "JUL": 7,
-        "JULY": 7,
-        "AUG": 8,
-        "AUGUST": 8,
-        "SEP": 9,
-        "SEPT": 9,
-        "SEPTEMBER": 9,
-        "OCT": 10,
-        "OCTOBER": 10,
-        "NOV": 11,
-        "NOVEMBER": 11,
-        "DEC": 12,
-        "DECEMBER": 12,
-    }
-
-    return months.get(
-        normalize(name)
-    )
-
-
-def parse_date(text):
-    """
-    Detecta fechas como:
-
-    Mar 1
-    March 1
-    May 24
-    Sunday, May 24
-    """
-
-    text = clean(text)
-
-    pattern = re.compile(
-        r"\b(?:"
-        r"Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday"
-        r")?,?\s*"
-        r"(Jan|January|Feb|February|Mar|March|Apr|April|May|"
-        r"Jun|June|Jul|July|Aug|August|Sep|Sept|September|"
-        r"Oct|October|Nov|November|Dec|December)"
-        r"\s+(\d{1,2})\b",
-        re.IGNORECASE,
-    )
-
-    match = pattern.search(text)
-
-    if not match:
-        return None
-
-    month = month_number(
-        match.group(1)
-    )
-
-    day = int(
-        match.group(2)
-    )
-
-    if not month:
-        return None
-
-    return (
-        f"{YEAR:04d}-"
-        f"{month:02d}-"
-        f"{day:02d}"
-    )
-
-
 def parse_time(text):
-    """
-    Detecta:
-      12:30 PM ET
-      9:00AM ET
-      4:30 PM ET
-    """
-
     match = re.search(
-        r"\b(\d{1,2}):(\d{2})\s*"
-        r"(AM|PM)\s*(?:ET)?\b",
+        r"\b(\d{1,2}):(\d{2})\s*(AM|PM)\s*(?:ET)?\b",
         text,
         flags=re.IGNORECASE,
     )
@@ -180,14 +195,8 @@ def parse_time(text):
     if not match:
         return None
 
-    hour = int(
-        match.group(1)
-    )
-
-    minute = int(
-        match.group(2)
-    )
-
+    hour = int(match.group(1))
+    minute = int(match.group(2))
     ampm = match.group(3).upper()
 
     if ampm == "PM" and hour != 12:
@@ -199,120 +208,11 @@ def parse_time(text):
     return f"{hour:02d}:{minute:02d}"
 
 
-def extract_schedule_events(html):
-    """
-    Extrae carreras desde la página oficial.
-
-    Se buscan enlaces que apunten a:
-      /Schedule/2026/...
-    """
-
-    soup = BeautifulSoup(
-        html,
-        "html.parser",
-    )
-
-    events = {}
-
-    for a in soup.find_all(
-        "a",
-        href=True,
-    ):
-
-        href = a["href"].strip()
-
-        full_url = urljoin(
-            BASE_URL,
-            href,
-        )
-
-        if f"/Schedule/{YEAR}/" not in full_url:
-            continue
-
-        title = clean(
-            a.get_text(
-                " ",
-                strip=True,
-            )
-        )
-
-        if not title:
-            continue
-
-        parent = a.parent
-
-        context = clean(
-            parent.get_text(
-                " ",
-                strip=True,
-            )
-            if parent
-            else title
-        )
-
-        combined = (
-            title
-            + " "
-            + context
-        )
-
-        date = parse_date(
-            combined
-        )
-
-        if not date:
-            continue
-
-        # Evitamos enlaces repetidos.
-        key = full_url
-
-        events[key] = {
-            "url": full_url,
-            "titulo": title,
-            "fecha": date,
-        }
-
-    return list(
-        events.values()
-    )
-
-
-def extract_location(text):
-    """
-    Intenta encontrar el circuito dentro
-    del contexto de la carrera.
-    """
-
-    known = [
-        "Streets of St. Petersburg",
-        "Phoenix Raceway",
-        "Streets of Arlington",
-        "Barber Motorsports Park",
-        "Streets of Long Beach",
-        "Indianapolis Motor Speedway",
-        "Streets of Detroit",
-        "World Wide Technology Raceway",
-        "Road America",
-        "Mid-Ohio Sports Car Course",
-        "Nashville Superspeedway",
-        "Portland International Raceway",
-        "Streets of Markham",
-        "Streets of Washington, D.C.",
-        "Milwaukee Mile",
-        "WeatherTech Raceway Laguna Seca",
-    ]
-
-    normalized = normalize(text)
-
-    for location in known:
-        if normalize(location) in normalized:
-            return location
-
-    return "Estados Unidos"
-
-
 def session_type(text):
     n = normalize(text)
+
+    if "FAST FRIDAY" in n:
+        return "Entrenamiento"
 
     if "PRACTICE" in n:
         return "Entrenamiento"
@@ -323,19 +223,19 @@ def session_type(text):
     if "WARMUP" in n or "WARM-UP" in n:
         return "Warm-up"
 
-    if "RACE" in n:
+    if re.search(r"\bRACE\b", n):
         return "Carrera"
-
-    if "FAST FRIDAY" in n:
-        return "Entrenamiento"
 
     return None
 
 
-def is_sporting_session(text):
+def is_indycar_session(text):
     n = normalize(text)
 
-    sporting = (
+    if "INDYCAR" not in n:
+        return False
+
+    keywords = (
         "PRACTICE",
         "QUALIFYING",
         "WARMUP",
@@ -344,144 +244,106 @@ def is_sporting_session(text):
         "FAST FRIDAY",
     )
 
-    return (
-        "INDYCAR" in n
-        and any(
-            term in n
-            for term in sporting
-        )
+    return any(
+        keyword in n
+        for keyword in keywords
     )
 
 
-def extract_sessions(
-    html,
-    event,
-):
+def extract_sessions(html, race):
     soup = BeautifulSoup(
         html,
         "html.parser",
     )
 
-    text = soup.get_text(
-        "\n",
-        strip=True,
-    )
-
     lines = [
         clean(line)
-        for line in text.splitlines()
+        for line in soup.get_text(
+            "\n",
+            strip=True,
+        ).splitlines()
         if clean(line)
     ]
 
     sessions = []
 
-    for i, line in enumerate(lines):
+    for index, line in enumerate(lines):
 
-        if not is_sporting_session(
-            line
-        ):
+        if not is_indycar_session(line):
             continue
 
-        start = parse_time(
-            line
-        )
-
-        if not start:
-            continue
-
-        tipo = session_type(
-            line
-        )
+        tipo = session_type(line)
 
         if not tipo:
             continue
 
-        # Buscamos contexto cercano.
-        context = " ".join(
-            lines[
-                max(0, i - 2):
-                min(len(lines), i + 3)
-            ]
-        )
+        hora = parse_time(line)
 
-        title = clean(
-            line
-        )
+        if not hora:
+            # A veces el horario está en una línea cercana.
+            nearby = " ".join(
+                lines[
+                    max(0, index - 2):
+                    min(len(lines), index + 3)
+                ]
+            )
+            hora = parse_time(nearby)
 
-        # El texto de IndyCar a veces
-        # separa "NTT INDYCAR SERIES"
-        # de "Practice 1".
-        if title.upper().startswith(
+        if not hora:
+            continue
+
+        titulo = clean(line)
+
+        if not titulo.upper().startswith(
             "NTT INDYCAR SERIES"
         ):
-            session_title = title
-        else:
-            session_title = (
+            titulo = (
                 f"NTT INDYCAR SERIES - "
-                f"{title}"
+                f"{titulo}"
             )
 
-        uid_slug = re.sub(
+        slug = re.sub(
             r"[^a-z0-9]+",
             "-",
-            normalize(
-                session_title
-            ).lower(),
+            normalize(titulo).lower(),
         ).strip("-")
 
         uid = (
             f"indycar-{YEAR}-"
-            f"{event['fecha']}-"
-            f"{start.replace(':', '')}-"
-            f"{uid_slug[:70]}"
+            f"{race['fecha']}-"
+            f"{hora.replace(':', '')}-"
+            f"{slug[:70]}"
         )
 
         sessions.append(
             {
                 "uid": uid,
-                "fecha": event["fecha"],
-                "hora_inicio": start,
+                "fecha": race["fecha"],
+                "hora_inicio": hora,
                 "hora_fin": None,
-                "titulo": session_title,
+                "titulo": titulo,
                 "campeonato": "IndyCar",
                 "categoria": "IndyCar",
                 "disciplina": "IndyCar",
                 "tipo": tipo,
-                "ronda": event.get(
-                    "ronda"
-                ),
-                "circuito": event[
-                    "circuito"
-                ],
-                "timezone": (
-                    "America/Argentina/"
-                    "Buenos_Aires"
-                ),
-                "fuente": event[
-                    "url"
-                ],
+                "ronda": race["ronda"],
+                "circuito": race["circuito"],
+                "timezone": "America/Argentina/Buenos_Aires",
+                "fuente": race["url"],
             }
         )
 
     unique = {}
 
-    for event_data in sessions:
-
+    for event in sessions:
         key = (
-            event_data["fecha"],
-            event_data[
-                "hora_inicio"
-            ],
-            event_data[
-                "titulo"
-            ],
+            event["fecha"],
+            event["hora_inicio"],
+            event["titulo"],
         )
+        unique[key] = event
 
-        unique[key] = event_data
-
-    return list(
-        unique.values()
-    )
+    return list(unique.values())
 
 
 def main():
@@ -491,85 +353,65 @@ def main():
     print(f"INDYCAR - {YEAR}")
     print("=" * 50)
 
-    print()
-    print(
-        "Consultando calendario oficial:"
-    )
-    print(
-        SCHEDULE_URL
-    )
-
-    response = get(
-        SCHEDULE_URL
-    )
-
-    if not response:
+    if YEAR != 2026:
+        print()
         print(
-            "No se pudo acceder al "
-            "calendario oficial."
+            "ATENCION: esta prueba utiliza "
+            "el calendario base de 2026."
         )
-        return
-
-    events = extract_schedule_events(
-        response.text
-    )
 
     print()
-    print(
-        f"Eventos encontrados: "
-        f"{len(events)}"
-    )
+    print("Consultando calendario oficial:")
+    print(SCHEDULE_URL)
 
-    if not events:
+    schedule = get(SCHEDULE_URL)
+
+    if schedule:
+        print("Calendario oficial accesible: OK")
+    else:
         print(
-            "No se encontraron eventos "
-            "en la página oficial."
+            "No se pudo leer la página general, "
+            "pero continuamos con las páginas "
+            "individuales oficiales."
         )
-        return
 
-    # Ordenamos cronológicamente.
-    events.sort(
-        key=lambda x: x["fecha"]
+    races = RACES_2026
+
+    print()
+    print(
+        f"Carreras a comprobar: {len(races)}"
     )
-
-    # Asignamos ronda según orden.
-    for index, event in enumerate(
-        events,
-        start=1,
-    ):
-        event["ronda"] = index
-        event["circuito"] = (
-            extract_location(
-                event["titulo"]
-            )
-        )
 
     all_sessions = []
 
-    # No procesamos cientos de páginas.
-    # El calendario oficial nos da las páginas
-    # exactas de los eventos.
-    for event in events:
+    for race in races:
 
         print()
         print(
-            f"Fecha {event['ronda']}: "
-            f"{event['fecha']}"
+            f"Fecha {race['ronda']}: "
+            f"{race['fecha']}"
         )
         print(
-            f"  {event['url']}"
+            f"  Circuito: "
+            f"{race['circuito']}"
+        )
+        print(
+            f"  URL: "
+            f"{race['url']}"
         )
 
-        page = get(
-            event["url"]
-        )
+        page = get(race["url"])
 
         if not page:
+            print(
+                "  No se pudo acceder "
+                "a esta página."
+            )
             continue
 
         sessions = extract_sessions(
             page.text,
-            event,
+            race,
         )
 
         print(
@@ -577,21 +419,24 @@ def main():
             f"{len(sessions)}"
         )
 
-        all_sessions.extend(
-            sessions
-        )
+        for session in sessions:
+            print(
+                f"    {session['fecha']} "
+                f"{session['hora_inicio']} "
+                f"- {session['tipo']} "
+                f"- {session['titulo']}"
+            )
 
-    # Dedupe global.
+        all_sessions.extend(sessions)
+
     unique = {}
 
     for event in all_sessions:
-
         key = (
             event["fecha"],
             event["hora_inicio"],
             event["titulo"],
         )
-
         unique[key] = event
 
     all_sessions = list(
@@ -599,10 +444,10 @@ def main():
     )
 
     all_sessions.sort(
-        key=lambda x: (
-            x["fecha"],
-            x["hora_inicio"],
-            x["titulo"],
+        key=lambda event: (
+            event["fecha"],
+            event["hora_inicio"],
+            event["titulo"],
         )
     )
 
@@ -628,25 +473,12 @@ def main():
     )
     print("=" * 50)
 
-    for event in all_sessions[:30]:
-        print(
-            f"{event['fecha']} "
-            f"{event['hora_inicio']} - "
-            f"{event['titulo']}"
-        )
-
-    if len(all_sessions) > 30:
-        print(
-            f"... y "
-            f"{len(all_sessions) - 30} más"
-        )
-
     print()
     print(
-        f"Archivo generado: "
-        f"{OUTPUT}"
+        f"Archivo generado: {OUTPUT}"
     )
 
 
 if __name__ == "__main__":
     main()
+```
