@@ -16,8 +16,8 @@ SCHEDULE_URL = f"{BASE_URL}/Schedule?year={YEAR}"
 
 OUTPUT = Path("data/indycar_events.json")
 
-ARG_ZONE = ZoneInfo("America/Argentina/Buenos_Aires")
 ET_ZONE = ZoneInfo("America/New_York")
+ARG_ZONE = ZoneInfo("America/Argentina/Buenos_Aires")
 
 HEADERS = {
     "User-Agent": (
@@ -145,12 +145,8 @@ def parse_date(text):
     if not match:
         return None
 
-    month_name = normalize(
-        match.group(1)
-    )
-
     month = MONTHS.get(
-        month_name
+        normalize(match.group(1))
     )
 
     if not month:
@@ -175,9 +171,7 @@ def parse_date(text):
             year,
             month,
             day,
-        ).strftime(
-            "%Y-%m-%d"
-        )
+        ).strftime("%Y-%m-%d")
 
     except ValueError:
         return None
@@ -226,7 +220,7 @@ def convert_to_argentina(
 
     hour, minute = parsed
 
-    local_et = datetime(
+    dt_et = datetime(
         int(date_text[0:4]),
         int(date_text[5:7]),
         int(date_text[8:10]),
@@ -235,17 +229,13 @@ def convert_to_argentina(
         tzinfo=ET_ZONE,
     )
 
-    local_arg = local_et.astimezone(
+    dt_arg = dt_et.astimezone(
         ARG_ZONE
     )
 
     return (
-        local_arg.strftime(
-            "%Y-%m-%d"
-        ),
-        local_arg.strftime(
-            "%H:%M"
-        ),
+        dt_arg.strftime("%Y-%m-%d"),
+        dt_arg.strftime("%H:%M"),
     )
 
 
@@ -257,6 +247,9 @@ def session_type(text):
 
     if "PRACTICE" in value:
         return "Entrenamiento"
+
+    if "QUALIFICATION" in value:
+        return "Clasificación"
 
     if "QUALIFYING" in value:
         return "Clasificación"
@@ -274,28 +267,6 @@ def session_type(text):
         return "Carrera"
 
     return None
-
-
-def is_session_line(text):
-    value = normalize(text)
-
-    if "INDYCAR" not in value:
-        return False
-
-    keywords = (
-        "PRACTICE",
-        "QUALIFYING",
-        "WARMUP",
-        "WARM-UP",
-        "FAST FRIDAY",
-        "PRE-RACE",
-        "RACE",
-    )
-
-    return any(
-        keyword in value
-        for keyword in keywords
-    )
 
 
 def extract_races(html):
@@ -339,7 +310,7 @@ def extract_races(html):
 
         parent = link
 
-        for _ in range(4):
+        for _ in range(5):
             if parent.parent:
                 parent = parent.parent
 
@@ -381,36 +352,121 @@ def extract_races(html):
     return result
 
 
-def extract_circuit(text):
-    known = [
-        "Streets of St. Petersburg",
-        "Phoenix Raceway",
-        "Streets of Arlington",
-        "Barber Motorsports Park",
-        "Streets of Long Beach",
-        "Indianapolis Motor Speedway Road Course",
-        "Indianapolis Motor Speedway",
-        "Streets of Detroit",
-        "World Wide Technology Raceway",
-        "Road America",
-        "Mid-Ohio Sports Car Course",
-        "Nashville Superspeedway",
-        "Portland International Raceway",
-        "Streets of Markham",
-        "Streets of Washington",
-        "Milwaukee Mile",
-        "WeatherTech Raceway Laguna Seca",
+def extract_circuit(soup, fallback):
+    selectors = [
+        "[class*='track']",
+        "[class*='venue']",
+        "[class*='location']",
+        "[class*='circuit']",
     ]
 
-    normalized = normalize(
-        text
-    )
+    candidates = []
 
-    for circuit in known:
-        if normalize(circuit) in normalized:
-            return circuit
+    for selector in selectors:
+        for element in soup.select(selector):
+            text = clean(
+                element.get_text(
+                    " ",
+                    strip=True,
+                )
+            )
 
-    return text
+            if text:
+                candidates.append(text)
+
+    for candidate in candidates:
+        normalized = normalize(
+            candidate
+        )
+
+        if "RACE RECAP" in normalized:
+            continue
+
+        if "INDYCAR" in normalized:
+            continue
+
+        if len(candidate) > 100:
+            continue
+
+        return candidate
+
+    return fallback
+
+
+def extract_schedule_rows(
+    soup,
+    race,
+):
+    schedule_heading = None
+
+    for element in soup.find_all(
+        string=re.compile(
+            r"^\s*Schedule\s*$",
+            re.IGNORECASE,
+        )
+    ):
+        schedule_heading = element.parent
+        break
+
+    if not schedule_heading:
+        return []
+
+    container = schedule_heading
+
+    for _ in range(6):
+        if not container.parent:
+            break
+
+        text = clean(
+            container.get_text(
+                " ",
+                strip=True,
+            )
+        )
+
+        if "Practice" in text or "Race" in text:
+            break
+
+        container = container.parent
+
+    rows = []
+
+    for element in container.find_all(
+        ["tr", "li", "div"],
+    ):
+        text = clean(
+            element.get_text(
+                " ",
+                strip=True,
+            )
+        )
+
+        if not text:
+            continue
+
+        if not parse_time(text):
+            continue
+
+        tipo = session_type(
+            text
+        )
+
+        if not tipo:
+            continue
+
+        if "HIGHLIGHTS" in normalize(
+            text
+        ):
+            continue
+
+        if "RESULTS" in normalize(
+            text
+        ):
+            continue
+
+        rows.append(text)
+
+    return rows
 
 
 def extract_sessions(
@@ -422,96 +478,46 @@ def extract_sessions(
         "html.parser",
     )
 
-    lines = []
+    circuit = extract_circuit(
+        soup,
+        race["titulo"],
+    )
 
-    for line in soup.get_text(
-        "\n"
-    ).splitlines():
-
-        line = clean(line)
-
-        if line:
-            lines.append(line)
+    rows = extract_schedule_rows(
+        soup,
+        race,
+    )
 
     sessions = []
 
-    current_date = race["fecha"]
+    for row in rows:
 
-    for index, line in enumerate(
-        lines
-    ):
-        possible_date = parse_date(
-            line
+        parsed_time = parse_time(
+            row
         )
 
-        if possible_date:
-            current_date = possible_date
-
-        if current_date != race["fecha"]:
-            continue
-
-        if not is_session_line(
-            line
-        ):
+        if not parsed_time:
             continue
 
         tipo = session_type(
-            line
+            row
         )
 
         if not tipo:
             continue
 
-        time_match = parse_time(
-            line
-        )
-
-        if not time_match:
-            nearby = " ".join(
-                lines[
-                    max(0, index - 1):
-                    min(
-                        len(lines),
-                        index + 2,
-                    )
-                ]
-            )
-
-            time_match = parse_time(
-                nearby
-            )
-
-        if not time_match:
-            continue
-
-        hour, minute = time_match
-
-        ampm = (
-            "AM"
-            if hour < 12
-            else "PM"
-        )
-
-        display_hour = hour % 12
-
-        if display_hour == 0:
-            display_hour = 12
-
-        time_text = (
-            f"{display_hour}:"
-            f"{minute:02d} "
-            f"{ampm}"
-        )
-
         fecha_arg, hora_arg = (
             convert_to_argentina(
                 race["fecha"],
-                time_text,
+                row,
             )
         )
 
+        if not hora_arg:
+            continue
+
         titulo = clean(
-            line
+            row
         )
 
         if not titulo.upper().startswith(
@@ -549,7 +555,7 @@ def extract_sessions(
                 "disciplina": "IndyCar",
                 "tipo": tipo,
                 "ronda": race["ronda"],
-                "circuito": race["circuito"],
+                "circuito": circuit,
                 "timezone": (
                     "America/Argentina/"
                     "Buenos_Aires"
@@ -625,11 +631,6 @@ def main():
         start=1,
     ):
         race["ronda"] = index
-        race["circuito"] = (
-            extract_circuit(
-                race["titulo"]
-            )
-        )
 
     all_sessions = []
 
@@ -642,8 +643,8 @@ def main():
         )
 
         print(
-            f"Circuito: "
-            f"{race['circuito']}"
+            f"Evento: "
+            f"{race['titulo']}"
         )
 
         print(
