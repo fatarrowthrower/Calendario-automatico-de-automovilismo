@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import io
 import json
 import re
 from datetime import datetime
@@ -8,6 +9,7 @@ from urllib.parse import urljoin
 
 import requests
 from bs4 import BeautifulSoup
+from pypdf import PdfReader
 
 
 BASE_URL = "https://www.tc2000.com.ar"
@@ -17,27 +19,30 @@ OUTPUT = Path("data/tc2000_events.json")
 
 HEADERS = {
     "User-Agent": (
-        "Mozilla/5.0 (compatible; AutomovilismoCalendar/1.0; "
-        "+https://github.com/fatarrowthrower/Calendario-automatico-de-automovilismo)"
-    )
+        "Mozilla/5.0 (X11; Linux x86_64) "
+        "AppleWebKit/537.36 Chrome/131.0 Safari/537.36"
+    ),
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "es-AR,es;q=0.9,en;q=0.8",
 }
 
 
 def get(url: str, timeout: int = 20) -> requests.Response | None:
     try:
-        r = requests.get(
+        response = requests.get(
             url,
             headers=HEADERS,
             timeout=timeout,
+            allow_redirects=True,
         )
 
-        if r.status_code == 200:
-            return r
+        if response.status_code == 200:
+            return response
 
-        print(f"    HTTP {r.status_code}: {url}")
+        print(f"    HTTP {response.status_code}: {url}")
 
     except requests.RequestException as exc:
-        print(f"    Error: {exc}")
+        print(f"    Error descargando {url}: {exc}")
 
     return None
 
@@ -62,13 +67,13 @@ def normalize(text: str) -> str:
         "ü": "u",
     }
 
-    for a, b in replacements.items():
-        text = text.replace(a, b)
+    for old, new in replacements.items():
+        text = text.replace(old, new)
 
     return text.upper()
 
 
-def extract_date(text: str, year: int) -> str | None:
+def month_number(name: str) -> int | None:
     months = {
         "ENERO": 1,
         "FEBRERO": 2,
@@ -85,10 +90,26 @@ def extract_date(text: str, year: int) -> str | None:
         "DICIEMBRE": 12,
     }
 
+    return months.get(normalize(name))
+
+
+def extract_date(text: str) -> str | None:
     text = normalize(text)
 
-    # Ejemplo:
-    # 15 DE MARZO DE 2026
+    # 27/09/2026
+    match = re.search(
+        r"\b(\d{1,2})/(\d{1,2})/(\d{4})\b",
+        text,
+    )
+
+    if match:
+        day = int(match.group(1))
+        month = int(match.group(2))
+        year = int(match.group(3))
+
+        return f"{year:04d}-{month:02d}-{day:02d}"
+
+    # 27 DE SEPTIEMBRE DE 2026
     match = re.search(
         r"\b(\d{1,2})\s+DE\s+"
         r"(ENERO|FEBRERO|MARZO|ABRIL|MAYO|JUNIO|JULIO|"
@@ -99,195 +120,203 @@ def extract_date(text: str, year: int) -> str | None:
 
     if match:
         day = int(match.group(1))
-        month = months[match.group(2)]
-        found_year = int(match.group(3))
+        month = month_number(match.group(2))
+        year = int(match.group(3))
 
-        return f"{found_year:04d}-{month:02d}-{day:02d}"
-
-    # Formato 15/03/2026
-    match = re.search(
-        r"\b(\d{1,2})/(\d{1,2})/(\d{4})\b",
-        text,
-    )
-
-    if match:
-        day = int(match.group(1))
-        month = int(match.group(2))
-        found_year = int(match.group(3))
-
-        return f"{found_year:04d}-{month:02d}-{day:02d}"
+        if month:
+            return f"{year:04d}-{month:02d}-{day:02d}"
 
     return None
 
 
-def extract_calendar() -> list[dict]:
+def extract_round(text: str) -> int | None:
+    text = normalize(text)
+
+    patterns = [
+        r"\bFECHA\s+(\d{1,2})\b",
+        r"\b(\d{1,2})[°º]\s*FECHA\b",
+        r"\bCAPITULO\s+(\d{1,2})\b",
+        r"\bCAP[IÍ]TULO\s+(\d{1,2})\b",
+    ]
+
+    for pattern in patterns:
+        match = re.search(pattern, text)
+
+        if match:
+            return int(match.group(1))
+
+    return None
+
+
+def extract_location(text: str) -> str | None:
     """
-    Obtiene el calendario desde la página oficial.
+    Detecta circuitos argentinos habituales en las noticias.
     """
 
-    url = f"{BASE_URL}/carreras.php?evento=calendario"
+    normalized = normalize(text)
 
-    print(f"Consultando calendario oficial:")
-    print(url)
+    locations = [
+        ("SAN JUAN", "San Juan"),
+        ("TOAY", "Toay"),
+        ("LA PAMPA", "La Pampa"),
+        ("JUNIN", "Junín"),
+        ("JUNÍN", "Junín"),
+        ("SAN NICOLAS", "San Nicolás"),
+        ("SAN NICOLÁS", "San Nicolás"),
+        ("SALTA", "Salta"),
+        ("CONCORDIA", "Concordia"),
+        ("BUENOS AIRES", "Buenos Aires"),
+        ("BUENOS AIRES", "Buenos Aires"),
+        ("EL ZONDA", "San Juan"),
+        ("EDUARDO COPELLO", "San Juan"),
+        ("AUTODROMO DE BUENOS AIRES", "Buenos Aires"),
+    ]
 
+    for needle, value in locations:
+        if needle in normalized:
+            return value
+
+    return None
+
+
+def get_page(url: str) -> tuple[str, BeautifulSoup] | None:
     response = get(url)
 
     if not response:
-        return []
+        return None
 
-    soup = BeautifulSoup(response.text, "html.parser")
-
-    text = soup.get_text("\n", strip=True)
-
-    events = []
-
-    # El sitio puede cambiar ligeramente su HTML.
-    # Primero intentamos detectar bloques que contengan
-    # "Fecha" + fecha + circuito.
-    lines = [
-        clean(x)
-        for x in text.splitlines()
-        if clean(x)
-    ]
-
-    current_round = None
-
-    for i, line in enumerate(lines):
-
-        normalized = normalize(line)
-
-        round_match = re.search(
-            r"(?:FECHA|CAPITULO|CAPÍTULO)\s*(\d{1,2})",
-            normalized,
-        )
-
-        if round_match:
-            current_round = int(round_match.group(1))
-
-        date = extract_date(line, YEAR)
-
-        if not date:
-            continue
-
-        # Buscamos el circuito en las líneas cercanas.
-        location = None
-
-        nearby = lines[
-            max(0, i - 4): min(len(lines), i + 5)
-        ]
-
-        location_candidates = [
-            x for x in nearby
-            if len(x) < 80
-            and not re.search(
-                r"\d{1,2}/\d{1,2}/\d{4}",
-                x,
-            )
-            and "FECHA" not in normalize(x)
-            and "CAPITULO" not in normalize(x)
-            and "CALENDARIO" not in normalize(x)
-        ]
-
-        if location_candidates:
-            location = location_candidates[-1]
-
-        events.append(
-            {
-                "round": current_round or len(events) + 1,
-                "fecha": date,
-                "circuito": location or "Argentina",
-            }
-        )
-
-    # Dedupe
-    unique = {}
-
-    for event in events:
-        key = (
-            event["round"],
-            event["fecha"],
-        )
-
-        unique[key] = event
-
-    events = list(unique.values())
-
-    events.sort(
-        key=lambda x: (
-            x["fecha"],
-            x["round"],
-        )
+    soup = BeautifulSoup(
+        response.text,
+        "html.parser",
     )
 
-    return events
+    return response.text, soup
 
 
-def find_cronogram_pages() -> list[str]:
+def discover_news() -> list[dict]:
     """
-    Busca enlaces internos del sitio que apunten a carreras,
-    noticias o cronogramas.
+    Lee solamente la sección oficial de noticias.
+    No utiliza carreras.php?evento=calendario.
     """
 
-    urls = set()
+    candidates = []
 
-    pages = [
-        f"{BASE_URL}/",
+    urls = [
         f"{BASE_URL}/noticias.php",
-        f"{BASE_URL}/carreras.php?evento=calendario",
+        f"{BASE_URL}/",
     ]
 
-    for page in pages:
-        print(f"Buscando enlaces: {page}")
+    seen = set()
 
-        response = get(page)
+    for url in urls:
 
-        if not response:
+        print(f"Consultando: {url}")
+
+        result = get_page(url)
+
+        if not result:
             continue
 
-        soup = BeautifulSoup(response.text, "html.parser")
+        html, soup = result
 
         for a in soup.find_all("a", href=True):
-            href = a["href"].strip()
 
-            text = normalize(
-                a.get_text(" ", strip=True)
-            )
+            href = a.get("href", "").strip()
 
-            full_url = urljoin(
-                page,
-                href,
-            )
+            if not href:
+                continue
+
+            full_url = urljoin(url, href)
 
             if not full_url.startswith(BASE_URL):
                 continue
 
-            combined = normalize(
-                full_url + " " + text
+            title = clean(
+                a.get_text(
+                    " ",
+                    strip=True,
+                )
             )
 
-            if any(
-                term in combined
-                for term in (
-                    "CRONOGRAMA",
-                    "HORARIOS",
-                    "FECHA",
-                    "CARRERA",
-                )
-            ):
-                urls.add(full_url)
+            if not title:
+                continue
 
-    return sorted(urls)
+            combined = normalize(
+                title + " " + full_url
+            )
+
+            # Solo noticias claramente relacionadas
+            # con TC2000.
+            if "TC2000" not in combined:
+                continue
+
+            if full_url in seen:
+                continue
+
+            seen.add(full_url)
+
+            candidates.append(
+                {
+                    "url": full_url,
+                    "title": title,
+                }
+            )
+
+    return candidates
 
 
-def extract_pdf_urls(html: str, page_url: str) -> list[str]:
-    """
-    Busca PDFs directamente dentro del HTML.
-    """
+def score_news(article: dict) -> int:
+    title = normalize(article["title"])
+    url = normalize(article["url"])
+
+    score = 0
+
+    if "TC2000" in title:
+        score += 20
+
+    if str(YEAR) in title:
+        score += 20
+
+    if "HORARIOS" in title:
+        score += 100
+
+    if "CRONOGRAMA" in title:
+        score += 100
+
+    if "PRACTICA" in title:
+        score += 40
+
+    if "CLASIFICACION" in title:
+        score += 40
+
+    if "CARRERA" in title:
+        score += 30
+
+    if "FECHA" in title:
+        score += 30
+
+    if "CAPITULO" in title:
+        score += 30
+
+    if "FECHA" in url:
+        score += 20
+
+    return score
+
+
+def extract_pdf_urls(
+    html: str,
+    page_url: str,
+) -> list[str]:
 
     urls = set()
 
-    soup = BeautifulSoup(html, "html.parser")
+    soup = BeautifulSoup(
+        html,
+        "html.parser",
+    )
 
+    # Enlaces normales.
     for tag in soup.find_all(True):
 
         for attr in (
@@ -295,6 +324,7 @@ def extract_pdf_urls(html: str, page_url: str) -> list[str]:
             "src",
             "data-href",
             "data-url",
+            "data-file",
         ):
             value = tag.get(attr)
 
@@ -312,81 +342,64 @@ def extract_pdf_urls(html: str, page_url: str) -> list[str]:
             if full_url.lower().startswith("http"):
                 urls.add(full_url)
 
-    # También buscamos URLs PDF escritas en el HTML.
-    matches = re.findall(
-        r'https?://[^"\'>\s]+\.pdf(?:\?[^"\'>\s]*)?',
-        html,
-        flags=re.IGNORECASE,
-    )
+    # URLs escritas directamente en HTML/scripts.
+    patterns = [
+        r'https?://[^"\'>\s]+?\.pdf(?:\?[^"\'>\s]*)?',
+        r'//[^"\'>\s]+?\.pdf(?:\?[^"\'>\s]*)?',
+    ]
 
-    for url in matches:
-        urls.add(url)
+    for pattern in patterns:
+
+        matches = re.findall(
+            pattern,
+            html,
+            flags=re.IGNORECASE,
+        )
+
+        for value in matches:
+
+            value = value.strip()
+
+            if value.startswith("//"):
+                value = "https:" + value
+
+            if value.startswith("http"):
+                urls.add(value)
 
     return sorted(urls)
 
 
-def is_relevant_pdf(url: str) -> bool:
-    n = normalize(url)
-
-    return (
-        ".PDF" in n
-        and (
-            "TC2000" in n
-            or "CRONOGRAMA" in n
-            or "PRENSA" in n
-            or "PRESS" in n
-        )
-    )
-
-
-def parse_time(text: str) -> tuple[str | None, str | None]:
-    text = (
-        text
-        .replace("–", "-")
-        .replace("—", "-")
-    )
-
-    # 10:20 a 10:40
-    match = re.search(
-        r"\b(\d{1,2}:\d{2})\s*(?:A|-)\s*(\d{1,2}:\d{2})\b",
-        text,
-        flags=re.IGNORECASE,
-    )
-
-    if match:
-        return (
-            match.group(1),
-            match.group(2),
+def pdf_text(content: bytes) -> str:
+    try:
+        reader = PdfReader(
+            io.BytesIO(content)
         )
 
-    # 13:00
-    match = re.search(
-        r"\b(\d{1,2}:\d{2})\b",
-        text,
-    )
+        pages = []
 
-    if match:
-        return (
-            match.group(1),
-            None,
-        )
+        for page in reader.pages:
+            pages.append(
+                page.extract_text() or ""
+            )
 
-    return None, None
+        return "\n".join(pages)
+
+    except Exception as exc:
+        print(f"    Error leyendo PDF: {exc}")
+        return ""
 
 
 def is_sporting_activity(text: str) -> bool:
     n = normalize(text)
 
-    # Tiene que ser TC2000.
     if "TC2000" not in n:
         return False
 
     sporting = (
-        "PRACTICA",
-        "PRÁCTICA",
         "SHAKEDOWN",
+        "PRACTICA",
+        "PRUEBA COMUNITARIA",
         "CLASIFICACION",
-        "CLASIFICACIÓN",
         "SPRINT",
         "CARRERA",
         "FINAL",
@@ -397,60 +410,175 @@ def is_sporting_activity(text: str) -> bool:
     administrative = (
         "ACREDITACION",
         "ACREDITACIONES",
-        "VERIFICACION",
-        "VERIFICACIÓN",
-        "ADMINISTRATIVA",
+        "VERIFICACION TECNICA",
+        "VERIFICACION ADMINISTRATIVA",
+        "VERIFICACIÓN TÉCNICA",
+        "VERIFICACIÓN ADMINISTRATIVA",
+        "SORTEO",
+        "SELLADO",
         "NEUMATICOS",
         "NEUMÁTICOS",
-        "SORTEO",
-        "REUNION",
-        "REUNIÓN",
+        "REUNION DE PILOTOS",
+        "REUNIÓN DE PILOTOS",
         "BRIEFING",
+        "AUTOGRAFOS",
+        "AUTÓGRAFOS",
         "CONFERENCIA",
+        "PARQUE CERRADO",
+        "APERTURA DE BOXES",
+        "CIERRE DE BOXES",
+        "VUELTA PREVIA",
     )
 
-    return (
-        any(x in n for x in sporting)
-        and not any(x in n for x in administrative)
+    if not any(term in n for term in sporting):
+        return False
+
+    if any(term in n for term in administrative):
+        return False
+
+    return True
+
+
+def parse_time(
+    text: str,
+) -> tuple[str | None, str | None]:
+
+    text = (
+        text
+        .replace("–", "-")
+        .replace("—", "-")
     )
+
+    # 10:00 a 10:30
+    match = re.search(
+        r"\b(\d{1,2}[:.]\d{2})\s*"
+        r"(?:A|-)\s*"
+        r"(\d{1,2}[:.]\d{2})\b",
+        text,
+        flags=re.IGNORECASE,
+    )
+
+    if match:
+
+        start = match.group(1).replace(".", ":")
+        end = match.group(2).replace(".", ":")
+
+        return start, end
+
+    # 10:00 hs
+    match = re.search(
+        r"\b(\d{1,2}[:.]\d{2})\s*(?:HS)?\b",
+        text,
+        flags=re.IGNORECASE,
+    )
+
+    if match:
+
+        start = match.group(1).replace(".", ":")
+
+        return start, None
+
+    return None, None
 
 
 def session_type(text: str) -> str:
+
     n = normalize(text)
 
     if "SHAKEDOWN" in n:
         return "Shakedown"
 
-    if "PRACTICA" in n or "PRÁCTICA" in n:
-        return "Práctica"
+    if (
+        "PRACTICA" in n
+        or "PRUEBA COMUNITARIA" in n
+    ):
+        return "Entrenamiento"
 
-    if "CLASIFICACION" in n or "CLASIFICACIÓN" in n:
+    if "CLASIFICACION" in n:
         return "Clasificación"
 
     if "SPRINT" in n:
         return "Sprint"
 
-    if "WARM-UP" in n or "WARM UP" in n:
+    if (
+        "WARM-UP" in n
+        or "WARM UP" in n
+    ):
         return "Warm-up"
 
-    if "FINAL" in n or "CARRERA" in n:
+    if (
+        "CARRERA" in n
+        or "FINAL" in n
+    ):
         return "Carrera"
 
     return "Actividad"
 
 
+def extract_group(text: str) -> str | None:
+
+    n = normalize(text)
+
+    match = re.search(
+        r"GRUPO\s*[“\"']?\s*([AB])",
+        n,
+    )
+
+    if match:
+        return f"Grupo {match.group(1)}"
+
+    return None
+
+
 def extract_sessions(
     text: str,
-    event: dict,
+    article: dict,
+    fallback_event: dict | None,
 ) -> list[dict]:
 
     lines = [
-        clean(x)
-        for x in text.splitlines()
-        if clean(x)
+        clean(line)
+        for line in text.splitlines()
+        if clean(line)
     ]
 
     sessions = []
+
+    # Intentamos identificar fecha/circuito
+    # en el propio documento.
+    document_date = extract_date(text)
+
+    document_round = extract_round(
+        article["title"] + " " + text
+    )
+
+    document_location = extract_location(
+        article["title"] + " " + text
+    )
+
+    if not document_location and fallback_event:
+        document_location = fallback_event.get(
+            "circuito"
+        )
+
+    if not document_date and fallback_event:
+        document_date = fallback_event.get(
+            "fecha"
+        )
+
+    if not document_round and fallback_event:
+        document_round = fallback_event.get(
+            "round"
+        )
+
+    if not document_date:
+        return []
+
+    if not document_round:
+        return []
+
+    if not document_location:
+        document_location = "Argentina"
 
     for line in lines:
 
@@ -463,8 +591,9 @@ def extract_sessions(
             continue
 
         tipo = session_type(line)
+        group = extract_group(line)
 
-        uid_text = re.sub(
+        slug = re.sub(
             r"[^a-z0-9]+",
             "-",
             normalize(line).lower(),
@@ -472,16 +601,16 @@ def extract_sessions(
 
         uid = (
             f"tc2000-{YEAR}-"
-            f"{event['round']:02d}-"
-            f"{event['fecha']}-"
+            f"{document_round:02d}-"
+            f"{document_date}-"
             f"{start.replace(':', '')}-"
-            f"{uid_text[:80]}"
+            f"{slug[:70]}"
         )
 
         sessions.append(
             {
                 "uid": uid,
-                "fecha": event["fecha"],
+                "fecha": document_date,
                 "hora_inicio": start,
                 "hora_fin": end,
                 "titulo": line,
@@ -489,170 +618,22 @@ def extract_sessions(
                 "categoria": "Argentina",
                 "disciplina": "TC2000",
                 "tipo": tipo,
-                "ronda": event["round"],
-                "circuito": event["circuito"],
-                "timezone": "America/Argentina/Buenos_Aires",
-                "fuente": BASE_URL,
+                "grupo": group,
+                "ronda": document_round,
+                "circuito": document_location,
+                "timezone": (
+                    "America/Argentina/Buenos_Aires"
+                ),
+                "fuente": article["url"],
             }
         )
 
+    # Elimina duplicados.
     unique = {}
 
-    for event_data in sessions:
+    for event in sessions:
+
         key = (
-            event_data["fecha"],
-            event_data["hora_inicio"],
-            event_data["titulo"],
-        )
-
-        unique[key] = event_data
-
-    return list(unique.values())
-
-
-def main():
-    print()
-    print("=" * 45)
-    print(f"TC2000 - {YEAR}")
-    print("=" * 45)
-
-    calendar = extract_calendar()
-
-    print()
-    print(f"Fechas detectadas: {len(calendar)}")
-
-    for event in calendar:
-        print(
-            f"  Fecha {event['round']}: "
-            f"{event['fecha']} - "
-            f"{event['circuito']}"
-        )
-
-    if not calendar:
-        print("No se encontró el calendario.")
-        return
-
-    print()
-    print("Buscando páginas de carreras y cronogramas...")
-
-    pages = find_cronogram_pages()
-
-    print(
-        f"Páginas candidatas encontradas: {len(pages)}"
-    )
-
-    all_events = []
-
-    # Limitamos deliberadamente la cantidad de páginas.
-    # Esto evita que el workflow se quede recorriendo
-    # cientos de artículos.
-    for page in pages[:30]:
-
-        print()
-        print(f"Analizando: {page}")
-
-        response = get(page)
-
-        if not response:
-            continue
-
-        html = response.text
-
-        pdfs = [
-            url
-            for url in extract_pdf_urls(
-                html,
-                page,
-            )
-            if is_relevant_pdf(url)
-        ]
-
-        if not pdfs:
-            continue
-
-        print(
-            f"  PDFs encontrados: {len(pdfs)}"
-        )
-
-        for pdf_url in pdfs[:5]:
-
-            print(
-                f"  Probando: {pdf_url}"
-            )
-
-            pdf_response = get(
-                pdf_url,
-                timeout=40,
-            )
-
-            if not pdf_response:
-                continue
-
-            # PDF parsing sencillo.
-            try:
-                import io
-                from pypdf import PdfReader
-
-                reader = PdfReader(
-                    io.BytesIO(
-                        pdf_response.content
-                    )
-                )
-
-                text = "\n".join(
-                    page.extract_text() or ""
-                    for page in reader.pages
-                )
-
-            except Exception as exc:
-                print(
-                    f"  Error leyendo PDF: {exc}"
-                )
-                continue
-
-            if "TC2000" not in normalize(text):
-                continue
-
-            # Intentamos asociarlo a una fecha.
-            pdf_date = extract_date(
-                text,
-                YEAR,
-            )
-
-            matched_event = None
-
-            for event in calendar:
-
-                if pdf_date == event["fecha"]:
-                    matched_event = event
-                    break
-
-            if not matched_event:
-                # Si no pudimos identificar la fecha,
-                # no inventamos una asociación.
-                continue
-
-            sessions = extract_sessions(
-                text,
-                matched_event,
-            )
-
-            if sessions:
-                print(
-                    f"  Actividades encontradas: "
-                    f"{len(sessions)}"
-                )
-
-                all_events.extend(
-                    sessions
-                )
-
-    # Dedupe final.
-    unique = {}
-
-    for event in all_events:
-        key = (
-            event["uid"],
             event["fecha"],
             event["hora_inicio"],
             event["titulo"],
@@ -660,7 +641,228 @@ def main():
 
         unique[key] = event
 
-    all_events = list(unique.values())
+    return list(unique.values())
+
+
+def build_base_events(
+    articles: list[dict],
+) -> list[dict]:
+
+    events = {}
+
+    for article in articles:
+
+        title = article["title"]
+
+        round_number = extract_round(title)
+
+        date = extract_date(title)
+
+        location = extract_location(title)
+
+        if not round_number:
+            continue
+
+        if not date:
+            continue
+
+        events[round_number] = {
+            "round": round_number,
+            "fecha": date,
+            "circuito": location or "Argentina",
+        }
+
+    return list(events.values())
+
+
+def main():
+
+    print()
+    print("=" * 50)
+    print(f"TC2000 - {YEAR}")
+    print("=" * 50)
+
+    articles = discover_news()
+
+    print()
+    print(
+        f"Noticias TC2000 encontradas: "
+        f"{len(articles)}"
+    )
+
+    if not articles:
+        print(
+            "No se encontraron noticias."
+        )
+        return
+
+    # Mostramos las más relevantes.
+    ranked = sorted(
+        articles,
+        key=score_news,
+        reverse=True,
+    )
+
+    print()
+    print("Noticias candidatas:")
+
+    for article in ranked[:20]:
+
+        print(
+            f"  {article['title']}"
+        )
+        print(
+            f"    {article['url']}"
+        )
+
+    # --------------------------------------------------
+    # Procesamos únicamente noticias relevantes.
+    # --------------------------------------------------
+
+    relevant = []
+
+    for article in ranked:
+
+        score = score_news(article)
+
+        title = normalize(
+            article["title"]
+        )
+
+        # Priorizamos horarios/cronogramas
+        # y noticias específicas de fechas.
+        if (
+            score >= 30
+            or "HORARIOS" in title
+            or "CRONOGRAMA" in title
+        ):
+            relevant.append(article)
+
+    # Evita recorrer cientos de páginas.
+    relevant = relevant[:25]
+
+    print()
+    print(
+        f"Noticias que se van a analizar: "
+        f"{len(relevant)}"
+    )
+
+    all_events = []
+
+    for article in relevant:
+
+        print()
+        print(
+            f"Analizando: "
+            f"{article['title']}"
+        )
+
+        result = get_page(
+            article["url"]
+        )
+
+        if not result:
+            continue
+
+        html, soup = result
+
+        pdfs = extract_pdf_urls(
+            html,
+            article["url"],
+        )
+
+        if pdfs:
+            print(
+                f"  PDFs encontrados: "
+                f"{len(pdfs)}"
+            )
+
+        # Primero buscamos cronogramas PDF.
+        for pdf_url in pdfs[:5]:
+
+            print(
+                f"  PDF: {pdf_url}"
+            )
+
+            response = get(
+                pdf_url,
+                timeout=40,
+            )
+
+            if not response:
+                continue
+
+            text = pdf_text(
+                response.content
+            )
+
+            if not text:
+                continue
+
+            if "TC2000" not in normalize(text):
+                continue
+
+            sessions = extract_sessions(
+                text=text,
+                article=article,
+                fallback_event=None,
+            )
+
+            if sessions:
+
+                print(
+                    f"    Sesiones: "
+                    f"{len(sessions)}"
+                )
+
+                all_events.extend(
+                    sessions
+                )
+
+        # Algunas noticias actuales pueden
+        # contener los horarios directamente
+        # en HTML y no necesitar PDF.
+        page_text = soup.get_text(
+            "\n",
+            strip=True,
+        )
+
+        sessions = extract_sessions(
+            text=page_text,
+            article=article,
+            fallback_event=None,
+        )
+
+        if sessions:
+
+            print(
+                f"  Sesiones HTML: "
+                f"{len(sessions)}"
+            )
+
+            all_events.extend(
+                sessions
+            )
+
+    # --------------------------------------------------
+    # Dedupe final
+    # --------------------------------------------------
+
+    unique = {}
+
+    for event in all_events:
+
+        key = (
+            event["fecha"],
+            event["hora_inicio"],
+            event["titulo"],
+        )
+
+        unique[key] = event
+
+    all_events = list(
+        unique.values()
+    )
 
     all_events.sort(
         key=lambda x: (
@@ -685,12 +887,28 @@ def main():
     )
 
     print()
-    print("=" * 45)
+    print("=" * 50)
     print(
         f"ACTIVIDADES TC2000: "
         f"{len(all_events)}"
     )
-    print("=" * 45)
+    print("=" * 50)
+
+    for event in all_events[:30]:
+
+        print(
+            f"{event['fecha']} "
+            f"{event['hora_inicio']} - "
+            f"{event['titulo']}"
+        )
+
+    if len(all_events) > 30:
+        print(
+            f"... y "
+            f"{len(all_events) - 30} más"
+        )
+
+    print()
     print(
         f"Archivo generado: {OUTPUT}"
     )
