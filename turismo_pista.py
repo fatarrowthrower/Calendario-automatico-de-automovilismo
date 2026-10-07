@@ -17,6 +17,7 @@ OUTPUT = Path("data/turismo_pista_events.json")
 BASE_URL = "https://aptpweb.com.ar"
 WP_SEARCH_URL = BASE_URL + "/wp-json/wp/v2/search"
 
+
 MONTHS = {
     "enero": 1,
     "febrero": 2,
@@ -129,85 +130,70 @@ def normalize(text):
     return text.lower()
 
 
-def search_aptp(year):
-    queries = [
-        f"calendario {year}",
-        f"turismo pista calendario {year}",
-        f"calendario turismo pista {year}",
-    ]
+def search_aptp(query):
+    url = (
+        WP_SEARCH_URL
+        + "?search="
+        + quote(query)
+        + "&per_page=30"
+    )
+
+    try:
+        data = json.loads(
+            fetch_text(url)
+        )
+    except Exception as exc:
+        print(
+            f"  ERROR búsqueda '{query}': "
+            f"{exc}"
+        )
+        return []
+
+    if not isinstance(data, list):
+        return []
 
     results = []
 
-    for query in queries:
-        url = (
-            WP_SEARCH_URL
-            + "?search="
-            + quote(query)
-            + "&per_page=30"
-        )
-
-        print(
-            f"Buscando en APTP: {query}"
-        )
-
-        try:
-            data = json.loads(
-                fetch_text(url)
-            )
-        except Exception as exc:
-            print(
-                f"  ERROR búsqueda: {exc}"
-            )
+    for item in data:
+        if not isinstance(item, dict):
             continue
 
-        if not isinstance(data, list):
+        link = item.get(
+            "url",
+            "",
+        )
+
+        title_data = item.get(
+            "title",
+            "",
+        )
+
+        if isinstance(
+            title_data,
+            dict,
+        ):
+            title = title_data.get(
+                "rendered",
+                "",
+            )
+        else:
+            title = str(
+                title_data
+            )
+
+        title = clean_html(
+            title
+        )
+
+        if not link:
             continue
 
-        for item in data:
-            if not isinstance(item, dict):
-                continue
-
-            link = item.get(
-                "url",
-                "",
-            )
-
-            title_data = item.get(
-                "title",
-                "",
-            )
-
-            if isinstance(title_data, dict):
-                title = title_data.get(
-                    "rendered",
-                    "",
-                )
-            else:
-                title = str(title_data)
-
-            title = clean_html(title)
-
-            if not link:
-                continue
-
-            combined = normalize(
-                title
-                + " "
-                + link
-            )
-
-            if str(year) not in combined:
-                continue
-
-            if "turismo pista" not in combined:
-                continue
-
-            results.append(
-                {
-                    "url": link,
-                    "title": title,
-                }
-            )
+        results.append(
+            {
+                "url": link,
+                "title": title,
+            }
+        )
 
     unique = {}
 
@@ -219,7 +205,38 @@ def search_aptp(year):
     )
 
 
-def score_article(article, year):
+def search_calendar_articles(year):
+    queries = [
+        f"calendario {year}",
+        f"turismo pista calendario {year}",
+        f"calendario turismo pista {year}",
+    ]
+
+    results = []
+
+    for query in queries:
+        print(
+            f"Buscando en APTP: {query}"
+        )
+
+        results.extend(
+            search_aptp(query)
+        )
+
+    unique = {}
+
+    for result in results:
+        unique[result["url"]] = result
+
+    return list(
+        unique.values()
+    )
+
+
+def score_calendar_article(
+    article,
+    year,
+):
     title = normalize(
         article["title"]
     )
@@ -248,11 +265,6 @@ def extract_calendar_events(
     html,
     year,
 ):
-    """
-    Extrae las 10 fechas de la tabla
-    CALENDARIO YYYY.
-    """
-
     tables = re.findall(
         r"<table\b[^>]*>.*?</table>",
         html,
@@ -398,7 +410,7 @@ def extract_calendar_events(
                 }
             )
 
-        if len(events) >= 1:
+        if events:
             unique = {}
 
             for event in events:
@@ -419,154 +431,238 @@ def extract_calendar_events(
     return []
 
 
-def find_article_for_round(
+def find_calendar(
     articles,
-    round_number,
-    location,
     year,
 ):
-    """
-    Busca una nota de APTP relacionada
-    con una fecha concreta.
-    """
+    best = []
 
-    candidates = []
+    for article in sorted(
+        articles,
+        key=lambda item: score_calendar_article(
+            item,
+            year,
+        ),
+        reverse=True,
+    ):
 
-    location_normalized = normalize(
-        location
+        try:
+            html = fetch_text(
+                article["url"]
+            )
+        except Exception:
+            continue
+
+        events = extract_calendar_events(
+            html,
+            year,
+        )
+
+        if len(events) > len(best):
+            best = events
+
+        if len(best) >= 10:
+            break
+
+    return best
+
+
+def round_queries(
+    event,
+    year,
+):
+    round_number = event[
+        "round"
+    ]
+
+    location = event[
+        "ubicacion"
+    ]
+
+    month_name = datetime.strptime(
+        event["fecha"],
+        "%Y-%m-%d",
+    ).strftime("%B")
+
+    spanish_months = {
+        "January": "enero",
+        "February": "febrero",
+        "March": "marzo",
+        "April": "abril",
+        "May": "mayo",
+        "June": "junio",
+        "July": "julio",
+        "August": "agosto",
+        "September": "septiembre",
+        "October": "octubre",
+        "November": "noviembre",
+        "December": "diciembre",
+    }
+
+    month_name = spanish_months.get(
+        month_name,
+        month_name,
     )
 
-    for article in articles:
+    queries = [
+        f"Turismo Pista fecha {round_number} {year}",
+        f"Turismo Pista {location} {year}",
+        f"Turismo Pista {month_name} {year}",
+        f"Turismo Pista cronograma {year}",
+    ]
 
-        title = normalize(
-            article["title"]
+    return queries
+
+
+def score_round_article(
+    article,
+    event,
+    year,
+):
+    title = normalize(
+        article["title"]
+    )
+
+    url = normalize(
+        article["url"]
+    )
+
+    combined = title + " " + url
+
+    round_number = event[
+        "round"
+    ]
+
+    location = normalize(
+        event["ubicacion"]
+    )
+
+    score = 0
+
+    if "turismo pista" in combined:
+        score += 20
+
+    if str(year) in combined:
+        score += 10
+
+    if location != "argentina":
+        if location in combined:
+            score += 30
+
+    if re.search(
+        rf"\bfecha\s*{round_number}\b",
+        combined,
+    ):
+        score += 40
+
+    if re.search(
+        rf"\bfecha\s*{round_number:02d}\b",
+        combined,
+    ):
+        score += 40
+
+    if "cronograma" in combined:
+        score += 25
+
+    if "actividades" in combined:
+        score += 10
+
+    return score
+
+
+def find_round_articles(
+    event,
+    year,
+):
+    results = []
+
+    for query in round_queries(
+        event,
+        year,
+    ):
+        print(
+            f"  Buscando: {query}"
         )
 
-        combined = normalize(
-            article["title"]
-            + " "
-            + article["url"]
+        results.extend(
+            search_aptp(query)
         )
 
-        score = 0
+    unique = {}
 
-        if str(year) in combined:
-            score += 10
+    for article in results:
+        unique[article["url"]] = article
 
-        if "turismo pista" in combined:
-            score += 10
+    articles = list(
+        unique.values()
+    )
 
-        if location_normalized != "argentina":
-            if location_normalized in combined:
-                score += 30
-
-        # Buscar expresiones como:
-        # fecha 5
-        # quinta fecha
-        # carrera 5
-        if re.search(
-            rf"\bfecha\s+{round_number}\b",
-            title,
-        ):
-            score += 25
-
-        if re.search(
-            rf"\bcarrera\s+{round_number}\b",
-            title,
-        ):
-            score += 20
-
-        if score > 0:
-            candidates.append(
-                (
-                    score,
-                    article,
-                )
-            )
-
-    candidates.sort(
-        key=lambda item: item[0],
+    articles.sort(
+        key=lambda article: score_round_article(
+            article,
+            event,
+            year,
+        ),
         reverse=True,
     )
 
-    if candidates:
-        return candidates[0][1]
-
-    return None
+    return articles
 
 
-def find_pdf_links(
+def extract_pdf_urls(
     html,
     article_url,
 ):
     """
-    Busca PDFs enlazados desde una nota APTP.
-
-    Prioriza enlaces cuyo texto o URL
-    mencione cronograma.
+    Extrae URLs PDF directamente del HTML,
+    incluso cuando el PDF no está dentro
+    de un <a> convencional.
     """
 
-    links = re.findall(
-        r'<a\b[^>]*href=["\']([^"\']+)["\'][^>]*>'
-        r"(.*?)"
-        r"</a>",
-        html,
-        flags=re.I | re.S,
+    html = unescape(
+        html
     )
 
-    candidates = []
+    patterns = [
+        r'https?://[^"\']+?\.pdf(?:\?[^"\']*)?',
+        r'["\']([^"\']+?\.pdf(?:\?[^"\']*)?)["\']',
+    ]
 
-    for href, anchor in links:
+    found = []
 
-        full_url = urljoin(
-            article_url,
-            unescape(href),
+    for pattern in patterns:
+
+        matches = re.findall(
+            pattern,
+            html,
+            flags=re.I,
         )
 
-        anchor_text = clean_html(
-            anchor
-        )
+        for match in matches:
 
-        combined = normalize(
-            anchor_text
-            + " "
-            + full_url
-        )
+            if isinstance(
+                match,
+                tuple,
+            ):
+                match = match[0]
 
-        if ".pdf" not in combined:
-            continue
-
-        score = 0
-
-        if "cronograma" in combined:
-            score += 50
-
-        if "cronograma oficial" in combined:
-            score += 20
-
-        if "actividad" in combined:
-            score += 10
-
-        if "carpeta" in combined:
-            score += 5
-
-        candidates.append(
-            (
-                score,
-                full_url,
+            url = urljoin(
+                article_url,
+                match,
             )
-        )
 
-    candidates.sort(
-        key=lambda item: item[0],
-        reverse=True,
-    )
+            if ".pdf" not in url.lower():
+                continue
+
+            found.append(
+                url
+            )
 
     unique = []
 
     seen = set()
 
-    for score, url in candidates:
+    for url in found:
 
         if url in seen:
             continue
@@ -574,11 +670,16 @@ def find_pdf_links(
         seen.add(url)
 
         unique.append(
-            (
-                score,
-                url,
-            )
+            url
         )
+
+    # Priorizar URLs que mencionen cronograma.
+    unique.sort(
+        key=lambda url: (
+            "cronograma" not in normalize(url),
+            "actividad" not in normalize(url),
+        )
+    )
 
     return unique
 
@@ -588,8 +689,7 @@ def extract_pdf_text(
 ):
     if PdfReader is None:
         raise RuntimeError(
-            "Falta pypdf. "
-            "Agregalo a requirements.txt."
+            "Falta pypdf."
         )
 
     import io
@@ -638,12 +738,13 @@ def clean_pdf_text(text):
     return text.strip()
 
 
-def sporting_activity(text):
+def is_sporting_activity(
+    text,
+):
     normalized = normalize(
         text
     )
 
-    # Solo queremos actividad deportiva.
     allowed = [
         "entrenamiento",
         "clasificacion",
@@ -657,12 +758,9 @@ def sporting_activity(text):
     ):
         return False
 
-    # Asegurarnos de que pertenece
-    # al Turismo Pista.
     if "turismo pista" not in normalized:
         return False
 
-    # Excluir actividades que no queremos.
     excluded = [
         "acreditacion",
         "acreditaciones",
@@ -678,7 +776,6 @@ def sporting_activity(text):
         "neumáticos",
         "reunion",
         "reunión",
-        "notas en grilla",
         "vuelta previa",
     ]
 
@@ -695,16 +792,6 @@ def extract_sessions(
     round_number,
     location,
 ):
-    """
-    Extrae entrenamientos,
-    clasificaciones, series y finales.
-
-    Esta función es deliberadamente
-    conservadora: si una línea no tiene
-    una hora clara, no se convierte en
-    evento.
-    """
-
     text = clean_pdf_text(
         pdf_text
     )
@@ -721,13 +808,17 @@ def extract_sessions(
 
     for line in lines:
 
+        normalized_line = normalize(
+            line
+        )
+
         date_match = re.search(
             r"(\d{1,2})\s+de\s+"
             r"(enero|febrero|marzo|abril|mayo|"
             r"junio|julio|agosto|septiembre|"
             r"setiembre|octubre|noviembre|diciembre)"
             r"(?:\s+de\s+(\d{4}))?",
-            normalize(line),
+            normalized_line,
             flags=re.I,
         )
 
@@ -761,12 +852,11 @@ def extract_sessions(
         if not current_date:
             continue
 
-        if not sporting_activity(
+        if not is_sporting_activity(
             line
         ):
             continue
 
-        # Buscar hora al comienzo.
         time_match = re.search(
             r"\b(\d{1,2}:\d{2})"
             r"(?:\s*[aA]\s*(\d{1,2}:\d{2}))?",
@@ -780,46 +870,47 @@ def extract_sessions(
             1
         )
 
-        end_time = time_match.group(
-            2
-        ) or ""
-
-        normalized = normalize(
-            line
+        end_time = (
+            time_match.group(2)
+            or ""
         )
 
-        if "entrenamiento" in normalized:
+        if "entrenamiento" in normalized_line:
             activity = "Entrenamiento"
 
-        elif "clasificacion" in normalized:
+        elif "clasificacion" in normalized_line:
             activity = "Clasificación"
 
-        elif "serie" in normalized:
+        elif "serie" in normalized_line:
             activity = "Serie"
 
-        elif "final" in normalized:
+        elif "final" in normalized_line:
             activity = "Final"
 
         else:
             continue
 
         class_match = re.search(
-            r"turismo pista\s+"
-            r"(clase\s+[123])",
-            normalized,
+            r"turismo\s*pista\s*"
+            r"(clase\s*[123])",
+            normalized_line,
         )
 
         if not class_match:
             continue
 
         clase = (
-            class_match.group(1)
+            re.sub(
+                r"\s+",
+                " ",
+                class_match.group(1),
+            )
             .title()
         )
 
         group_match = re.search(
-            r"grupo\s+([a-z])",
-            normalized,
+            r"grupo\s*([a-z])",
+            normalized_line,
         )
 
         grupo = ""
@@ -845,34 +936,39 @@ def extract_sessions(
             description_parts
         )
 
+        date_string = (
+            current_date.strftime(
+                "%Y-%m-%d"
+            )
+        )
+
         start_datetime = (
-            f"{current_date.strftime('%Y-%m-%d')}"
-            f"T{start_time}:00"
+            f"{date_string}T"
+            f"{start_time}:00"
         )
 
         if end_time:
             end_datetime = (
-                f"{current_date.strftime('%Y-%m-%d')}"
-                f"T{end_time}:00"
+                f"{date_string}T"
+                f"{end_time}:00"
             )
         else:
             end_datetime = (
-                f"{current_date.strftime('%Y-%m-%d')}"
-                f"T{start_time}:00"
+                f"{date_string}T"
+                f"{start_time}:00"
             )
 
-        uid_base = (
+        uid = (
             f"turismo-pista-"
-            f"{year}-"
-            f"fecha-{round_number:02d}-"
-            f"{current_date.strftime('%Y%m%d')}-"
+            f"{year}-fecha-{round_number:02d}-"
+            f"{date_string}-"
             f"{start_time.replace(':', '')}-"
             f"{normalize(clase).replace(' ', '-')}-"
             f"{normalize(activity).replace(' ', '-')}"
         )
 
         if grupo:
-            uid_base += (
+            uid += (
                 "-"
                 + normalize(grupo)
                 .replace(" ", "-")
@@ -880,7 +976,7 @@ def extract_sessions(
 
         sessions.append(
             {
-                "uid": uid_base,
+                "uid": uid,
                 "categoria": "Argentina",
                 "campeonato": "Turismo Pista",
                 "tipo": activity,
@@ -895,7 +991,6 @@ def extract_sessions(
             }
         )
 
-    # Deduplicar.
     unique = {}
 
     for session in sessions:
@@ -923,59 +1018,24 @@ def main():
         f"para {year}..."
     )
 
-    articles = search_aptp(
+    # -----------------------------------------
+    # CALENDARIO BASE
+    # -----------------------------------------
+
+    calendar_articles = search_calendar_articles(
         year
     )
 
     print(
-        f"Artículos candidatos: "
-        f"{len(articles)}"
+        f"Artículos de calendario: "
+        f"{len(calendar_articles)}"
     )
 
-    if not articles:
-        print(
-            "No se encontraron artículos "
-            "de Turismo Pista."
-        )
-        return
+    calendar_events = find_calendar(
+        calendar_articles,
+        year,
+    )
 
-    # -------------------------------------------------
-    # 1. Encontrar el artículo que contiene
-    #    el calendario general.
-    # -------------------------------------------------
-
-    calendar_events = []
-
-    for article in sorted(
-        articles,
-        key=lambda item: score_article(
-            item,
-            year,
-        ),
-        reverse=True,
-    ):
-
-        try:
-            html = fetch_text(
-                article["url"]
-            )
-        except Exception:
-            continue
-
-        events = extract_calendar_events(
-            html,
-            year,
-        )
-
-        if len(events) > len(
-            calendar_events
-        ):
-            calendar_events = events
-
-        if len(calendar_events) >= 10:
-            break
-
-    print()
     print(
         f"Fechas del campeonato: "
         f"{len(calendar_events)}"
@@ -988,11 +1048,11 @@ def main():
         )
         return
 
-    # -------------------------------------------------
-    # 2. Para cada fecha buscar su cronograma.
-    # -------------------------------------------------
-
     all_sessions = []
+
+    # -----------------------------------------
+    # CRONOGRAMAS
+    # -----------------------------------------
 
     for event in calendar_events:
 
@@ -1000,119 +1060,120 @@ def main():
             "round"
         ]
 
-        location = event[
-            "ubicacion"
-        ]
-
         print()
         print(
-            "--------------------------------------"
+            "======================================"
         )
         print(
             f"Fecha {round_number}: "
             f"{event['fecha']} - "
-            f"{location}"
+            f"{event['ubicacion']}"
+        )
+        print(
+            "======================================"
         )
 
-        article = find_article_for_round(
-            articles,
-            round_number,
-            location,
+        articles = find_round_articles(
+            event,
             year,
         )
 
-        if not article:
-            print(
-                "  No se encontró artículo "
-                "específico."
-            )
-            continue
-
         print(
-            f"  Artículo: "
-            f"{article['title']}"
+            f"  Artículos candidatos: "
+            f"{len(articles)}"
         )
-
-        try:
-            article_html = fetch_text(
-                article["url"]
-            )
-        except Exception as exc:
-            print(
-                f"  ERROR artículo: {exc}"
-            )
-            continue
-
-        pdfs = find_pdf_links(
-            article_html,
-            article["url"],
-        )
-
-        print(
-            f"  PDFs candidatos: "
-            f"{len(pdfs)}"
-        )
-
-        if not pdfs:
-            print(
-                "  Todavía no hay "
-                "cronograma PDF detectable."
-            )
-            continue
 
         found_sessions = []
 
-        for score, pdf_url in pdfs:
+        for article in articles[:10]:
 
             print(
-                f"  Probando PDF: "
-                f"{pdf_url}"
+                f"  Analizando: "
+                f"{article['title']}"
+            )
+
+            print(
+                f"  {article['url']}"
             )
 
             try:
-                pdf_bytes = fetch(
-                    pdf_url
+                html = fetch_text(
+                    article["url"]
                 )
-
-                pdf_text = extract_pdf_text(
-                    pdf_bytes
-                )
-
-                sessions = extract_sessions(
-                    pdf_text,
-                    year,
-                    round_number,
-                    location,
-                )
-
             except Exception as exc:
                 print(
-                    f"    ERROR PDF: {exc}"
+                    f"    ERROR artículo: "
+                    f"{exc}"
                 )
                 continue
 
-            print(
-                f"    Actividades deportivas: "
-                f"{len(sessions)}"
+            pdf_urls = extract_pdf_urls(
+                html,
+                article["url"],
             )
 
-            if len(sessions) > len(
-                found_sessions
-            ):
-                found_sessions = sessions
+            print(
+                f"    PDFs encontrados: "
+                f"{len(pdf_urls)}"
+            )
 
-            # Un cronograma válido normalmente
-            # tiene varias actividades.
-            if len(found_sessions) >= 5:
+            for pdf_url in pdf_urls[:10]:
+
+                print(
+                    f"    Probando PDF: "
+                    f"{pdf_url}"
+                )
+
+                try:
+                    pdf_bytes = fetch(
+                        pdf_url
+                    )
+
+                    pdf_text = extract_pdf_text(
+                        pdf_bytes
+                    )
+
+                    sessions = extract_sessions(
+                        pdf_text,
+                        year,
+                        round_number,
+                        event["ubicacion"],
+                    )
+
+                except Exception as exc:
+                    print(
+                        f"      ERROR: {exc}"
+                    )
+                    continue
+
+                print(
+                    f"      Actividades deportivas: "
+                    f"{len(sessions)}"
+                )
+
+                if len(sessions) > len(
+                    found_sessions
+                ):
+                    found_sessions = sessions
+
+                if len(found_sessions) >= 5:
+                    break
+
+            if found_sessions:
                 break
+
+        print(
+            f"  Resultado Fecha {round_number}: "
+            f"{len(found_sessions)} actividades"
+        )
 
         all_sessions.extend(
             found_sessions
         )
 
-    # -------------------------------------------------
-    # 3. Guardar resultado.
-    # -------------------------------------------------
+    # -----------------------------------------
+    # GUARDAR
+    # -----------------------------------------
 
     unique = {}
 
@@ -1148,7 +1209,7 @@ def main():
         "======================================"
     )
     print(
-        f"Actividades deportivas encontradas: "
+        f"ACTIVIDADES DEPORTIVAS: "
         f"{len(all_sessions)}"
     )
     print(
@@ -1156,7 +1217,6 @@ def main():
     )
 
     for session in all_sessions:
-
         print(
             f"{session['fecha_inicio']} | "
             f"{session['descripcion']} | "
