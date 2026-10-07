@@ -12,14 +12,24 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.13"
+          cache: "pip"
+
       - name: Instalar dependencias
-        run: pip install -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Verificar motocal
+        run: motocal version
+
       - name: Actualizar calendarios
         run: python update.py
+
       - name: Guardar cambios
         run: |
           git config user.name "automovilismo-bot"
