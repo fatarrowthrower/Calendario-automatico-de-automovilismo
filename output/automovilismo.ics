@@ -338,7 +338,7 @@ UID:actc-tc-2026-15
 DTSTART:20261206T120000
 DTEND:20261206T235900
 SUMMARY:TC - Fecha 15
-LOCATION:Roberto José Mouras — La Plata\, Buenos Aires Próximamente a la venta $RC=function(b\,c\,e){c=document.
+LOCATION:Roberto José Mouras — La Plata\, Buenos Aires Próximamente a la venta (self.__next_f=self.__next_f||[
 DESCRIPTION:TC - Fecha 15
 END:VEVENT
 BEGIN:VEVENT
@@ -354,7 +354,7 @@ UID:actc-tc-pick-up-2026-11
 DTSTART:20261213T120000
 DTEND:20261213T235900
 SUMMARY:TC Pick Up - Fecha 11
-LOCATION:A CONFIRMAR — A CONFIRMAR Próximamente a la venta Trazado animado pendiente (self.__next_f=self.__ne
+LOCATION:A CONFIRMAR — A CONFIRMAR Próximamente a la venta Trazado animado pendiente $RC=function(b\,c\,e){c=do
 DESCRIPTION:TC Pick Up - Fecha 11
 END:VEVENT
 BEGIN:VEVENT
