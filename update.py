@@ -29,26 +29,71 @@ def current_year():
     """
     return datetime.now().year
 
-
 def classify(uid, name):
     u = uid.lower()
     n = name.lower()
 
-    if "f1-academy" in u:
+    # Fórmula
+    if "f1-academy" in u or "f1 academy" in n:
         return "Fórmula", "F1 Academy"
 
-    if "formula-e" in u or "f1calendar-fe" in u:
+    if (
+        "formula-e" in u
+        or "f1calendar-fe" in u
+        or "formula e" in n
+    ):
         return "Fórmula", "Formula E"
 
-    if "f1calendar-f1-" in u:
+    if (
+        "f1calendar-f1-" in u
+        or "formula1" in u
+        or "formula-1" in u
+        or "formula one" in n
+        or n.startswith("f1 ")
+        or "f1 - " in n
+    ):
         return "Fórmula", "F1"
 
-    if "f1calendar-f2-" in u:
+    if "f1calendar-f2-" in u or "formula2" in u:
         return "Fórmula", "F2"
 
-    if "f1calendar-f3-" in u:
+    if "f1calendar-f3-" in u or "formula3" in u:
         return "Fórmula", "F3"
 
+    # F1: eventos/circuitos que pueden llegar sin el identificador F1
+    f1_keywords = [
+        "singapore grand prix",
+        "united states grand prix",
+        "us grand prix",
+        "austin grand prix",
+        "mexico city grand prix",
+        "mexican grand prix",
+        "são paulo grand prix",
+        "sao paulo grand prix",
+        "brazilian grand prix",
+        "las vegas grand prix",
+        "abu dhabi grand prix",
+        "monaco grand prix",
+        "italian grand prix",
+        "monza",
+        "british grand prix",
+        "austrian grand prix",
+        "hungarian grand prix",
+        "belgian grand prix",
+        "dutch grand prix",
+        "spanish grand prix",
+        "canadian grand prix",
+        "emilia-romagna grand prix",
+        "japanese grand prix",
+        "chinese grand prix",
+        "australian grand prix",
+        "miami grand prix",
+    ]
+
+    if any(keyword in n for keyword in f1_keywords):
+        return "Fórmula", "F1"
+
+    # Motos
     if u.startswith("motogp-"):
         return "Motos", "MotoGP"
 
@@ -61,6 +106,7 @@ def classify(uid, name):
     if "worldsbk" in u:
         return "Motos", "WorldSBK"
 
+    # Endurance
     if u.startswith("wec-"):
         return "Endurance", "WEC"
 
@@ -73,6 +119,7 @@ def classify(uid, name):
     if "imsa" in u:
         return "Endurance", "IMSA"
 
+    # GT
     if "gtwc-europe" in u:
         return "GT", "GT World Challenge Europe"
 
@@ -88,6 +135,7 @@ def classify(uid, name):
     if "super-gt" in u:
         return "GT", "Super GT"
 
+    # Automovilismo argentino
     if any(
         x in u or x in n
         for x in [
@@ -104,6 +152,7 @@ def classify(uid, name):
     ):
         return "Argentina", "Automovilismo argentino"
 
+    # NASCAR
     if "nascar" in u or "nascar" in n:
         if "cup" in u or "cup" in n:
             return "NASCAR", "NASCAR Cup"
@@ -116,9 +165,16 @@ def classify(uid, name):
 
         return "NASCAR", "NASCAR"
 
-    if "indycar" in u or "indycar" in n or "indy-500" in u:
+    # IndyCar
+    if (
+        "indycar" in u
+        or "indycar" in n
+        or "indy-500" in u
+        or "indianapolis 500" in n
+    ):
         return "IndyCar", "IndyCar"
 
+    # Rally
     if "wrc" in u or "wrc" in n:
         return "Rally", "WRC"
 
@@ -128,11 +184,11 @@ def classify(uid, name):
     if "rallycross" in u or "rallycross" in n:
         return "Rally", "Rallycross"
 
+    # Drift
     if "drift" in u or "drift" in n:
         return "Drift", "Formula Drift"
 
     return "Otros", "Otros"
-
 
 def classify_session(name):
     text = name.lower()
