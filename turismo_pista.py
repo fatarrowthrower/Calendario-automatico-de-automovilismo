@@ -52,52 +52,10 @@ def fetch(url):
         )
 
 
-def clean_html(html):
-    html = re.sub(
-        r"<script\b[^>]*>.*?</script>",
-        " ",
-        html,
-        flags=re.I | re.S,
-    )
-
-    html = re.sub(
-        r"<style\b[^>]*>.*?</style>",
-        " ",
-        html,
-        flags=re.I | re.S,
-    )
-
+def clean_cell(html):
     html = re.sub(
         r"<br\s*/?>",
-        "\n",
-        html,
-        flags=re.I,
-    )
-
-    html = re.sub(
-        r"</p\s*>",
-        "\n",
-        html,
-        flags=re.I,
-    )
-
-    html = re.sub(
-        r"</tr\s*>",
-        "\n",
-        html,
-        flags=re.I,
-    )
-
-    html = re.sub(
-        r"</td\s*>",
-        " | ",
-        html,
-        flags=re.I,
-    )
-
-    html = re.sub(
-        r"</th\s*>",
-        " | ",
+        " ",
         html,
         flags=re.I,
     )
@@ -116,14 +74,8 @@ def clean_html(html):
     )
 
     html = re.sub(
-        r"[ \t]+",
+        r"\s+",
         " ",
-        html,
-    )
-
-    html = re.sub(
-        r"\n+",
-        "\n",
         html,
     )
 
@@ -211,9 +163,7 @@ def search_aptp(year):
             else:
                 title = str(title_data)
 
-            title = clean_html(
-                title
-            )
+            title = clean_cell(title)
 
             if not link:
                 continue
@@ -275,189 +225,199 @@ def score_article(article, year):
     return score
 
 
-def extract_calendar_section(text, year):
-    normalized = normalize(text)
+def extract_calendar_table(html, year):
+    """
+    Busca una tabla HTML que contenga:
 
-    marker = f"calendario {year}"
+        CALENDARIO YYYY
+        Carrera
+        Fecha
 
-    start = normalized.find(
-        marker
+    y extrae exclusivamente sus filas.
+    """
+
+    # Buscar todas las tablas de la página.
+    tables = re.findall(
+        r"<table\b[^>]*>.*?</table>",
+        html,
+        flags=re.I | re.S,
     )
-
-    if start == -1:
-        return ""
-
-    section = normalized[start:]
-
-    # Cortamos antes de las noticias
-    # que aparecen debajo del calendario.
-    end_markers = [
-        "compartir en:",
-    ]
-
-    end_positions = []
-
-    for marker_end in end_markers:
-        position = section.find(
-            marker_end,
-            len(marker),
-        )
-
-        if position != -1:
-            end_positions.append(
-                position
-            )
-
-    if end_positions:
-        section = section[
-            :min(end_positions)
-        ]
-
-    return section
-
-
-def extract_events(text, year):
-    section = extract_calendar_section(
-        text,
-        year,
-    )
-
-    if not section:
-        print(
-            "  No se encontró la sección "
-            f"CALENDARIO {year}."
-        )
-        return []
 
     print(
-        f"  Sección CALENDARIO {year} encontrada."
+        f"  Tablas HTML encontradas: "
+        f"{len(tables)}"
     )
 
-    events = []
-
-    # APTP publica actualmente:
-    #
-    # 1° FECHA 1° febrero – La Plata
-    # 2° FECHA 1° marzo
-    # 3° FECHA 12 de abril
-    #
-    # Importante:
-    # el día también puede llevar °
-    # o º, por ejemplo 1° febrero.
-
-    pattern = re.compile(
-        r"(?P<round>\d{1,2})"
-        r"\s*(?:°|º|o)?"
-        r"\s*fecha"
-        r"\s*(?:\||:)?\s*"
-        r"(?P<day>\d{1,2})"
-        r"\s*(?:°|º|o)?"
-        r"\s*(?:de\s+)?"
-        r"(?P<month>"
-        r"enero|febrero|marzo|abril|mayo|junio|"
-        r"julio|agosto|septiembre|setiembre|"
-        r"octubre|noviembre|diciembre"
-        r")"
-        r"(?:\s*[-–—|]\s*"
-        r"(?P<location>"
-        r"[a-záéíóúüñ0-9 .,'()\-]+"
-        r"))?",
-        re.I,
-    )
-
-    for match in pattern.finditer(
-        section
-    ):
-        round_number = int(
-            match.group("round")
+    for table in tables:
+        table_text = normalize(
+            clean_cell(table)
         )
 
-        day = int(
-            match.group("day")
-        )
-
-        month_name = (
-            match.group("month")
-        ).lower()
-
-        month = MONTHS.get(
-            month_name
-        )
-
-        if not month:
+        if (
+            f"calendario {year}" not in table_text
+            and "carrera" not in table_text
+        ):
             continue
 
-        date = (
-            f"{year:04d}-"
-            f"{month:02d}-"
-            f"{day:02d}"
+        rows = re.findall(
+            r"<tr\b[^>]*>(.*?)</tr>",
+            table,
+            flags=re.I | re.S,
         )
 
-        try:
-            datetime.strptime(
-                date,
-                "%Y-%m-%d",
+        events = []
+
+        for row in rows:
+            cells = re.findall(
+                r"<t[dh]\b[^>]*>(.*?)</t[dh]>",
+                row,
+                flags=re.I | re.S,
             )
-        except ValueError:
-            continue
 
-        location = (
-            match.group("location")
-            or ""
-        ).strip()
+            cells = [
+                clean_cell(cell)
+                for cell in cells
+            ]
 
-        if not location:
-            location = "Argentina"
+            if len(cells) < 2:
+                continue
 
-        location = re.sub(
-            r"\s+",
-            " ",
-            location,
-        ).strip(
-            " -–—|:;,.\"'"
-        )
+            first = normalize(
+                cells[0]
+            )
 
-        events.append(
-            {
-                "uid": (
-                    f"turismo-pista-"
-                    f"{year}-"
-                    f"{round_number:02d}"
-                ),
-                "categoria": "Argentina",
-                "campeonato": "Turismo Pista",
-                "tipo": "Carrera",
-                "fecha_inicio": (
-                    f"{date}T12:00:00"
-                ),
-                "fecha_fin": (
-                    f"{date}T23:59:00"
-                ),
-                "ubicacion": location,
-                "descripcion": (
-                    f"Turismo Pista - "
-                    f"Fecha {round_number}"
-                ),
-                "prioridad": "",
-            }
-        )
+            second = normalize(
+                cells[1]
+            )
 
-    unique = {}
+            # Ignorar encabezado.
+            if (
+                "carrera" in first
+                or "fecha" in second
+            ):
+                continue
 
-    for event in events:
-        unique[event["uid"]] = event
+            round_match = re.search(
+                r"(\d{1,2})"
+                r"\s*(?:°|º|o)?"
+                r"\s*fecha",
+                first,
+                flags=re.I,
+            )
 
-    events = list(
-        unique.values()
-    )
+            if not round_match:
+                continue
 
-    events.sort(
-        key=lambda event: event[
-            "fecha_inicio"
-        ]
-    )
+            round_number = int(
+                round_match.group(1)
+            )
 
-    return events
+            date_match = re.search(
+                r"(\d{1,2})"
+                r"\s*(?:°|º|o)?"
+                r"\s*(?:de\s+)?"
+                r"(enero|febrero|marzo|abril|"
+                r"mayo|junio|julio|agosto|"
+                r"septiembre|setiembre|octubre|"
+                r"noviembre|diciembre)",
+                second,
+                flags=re.I,
+            )
+
+            if not date_match:
+                continue
+
+            day = int(
+                date_match.group(1)
+            )
+
+            month_name = (
+                date_match.group(2)
+            ).lower()
+
+            month = MONTHS.get(
+                month_name
+            )
+
+            if not month:
+                continue
+
+            date = (
+                f"{year:04d}-"
+                f"{month:02d}-"
+                f"{day:02d}"
+            )
+
+            try:
+                datetime.strptime(
+                    date,
+                    "%Y-%m-%d",
+                )
+            except ValueError:
+                continue
+
+            # La localidad puede venir después
+            # de un guion en la misma celda.
+            location = ""
+
+            location_match = re.search(
+                r"[-–—]\s*(.+)$",
+                cells[1],
+            )
+
+            if location_match:
+                location = (
+                    location_match.group(1)
+                    .strip()
+                )
+
+            if not location:
+                location = "Argentina"
+
+            events.append(
+                {
+                    "uid": (
+                        f"turismo-pista-"
+                        f"{year}-"
+                        f"{round_number:02d}"
+                    ),
+                    "categoria": "Argentina",
+                    "campeonato": "Turismo Pista",
+                    "tipo": "Carrera",
+                    "fecha_inicio": (
+                        f"{date}T12:00:00"
+                    ),
+                    "fecha_fin": (
+                        f"{date}T23:59:00"
+                    ),
+                    "ubicacion": location,
+                    "descripcion": (
+                        f"Turismo Pista - "
+                        f"Fecha {round_number}"
+                    ),
+                    "prioridad": "",
+                }
+            )
+
+        if len(events) >= 1:
+            unique = {}
+
+            for event in events:
+                unique[event["uid"]] = event
+
+            events = list(
+                unique.values()
+            )
+
+            events.sort(
+                key=lambda event: event[
+                    "fecha_inicio"
+                ]
+            )
+
+            return events
+
+    return []
 
 
 def main():
@@ -504,7 +464,7 @@ def main():
         reverse=True,
     )
 
-    events = []
+    best_events = []
 
     for article in articles:
         print()
@@ -527,25 +487,27 @@ def main():
             )
             continue
 
-        text = clean_html(
-            html
-        )
-
-        candidate_events = extract_events(
-            text,
+        events = extract_calendar_table(
+            html,
             year,
         )
 
         print(
             f"  Fechas encontradas: "
-            f"{len(candidate_events)}"
+            f"{len(events)}"
         )
 
-        if len(candidate_events) > len(events):
-            events = candidate_events
+        if len(events) > len(best_events):
+            best_events = events
 
-        if len(events) >= 10:
+        if len(best_events) >= 10:
             break
+
+    best_events.sort(
+        key=lambda event: event[
+            "fecha_inicio"
+        ]
+    )
 
     OUTPUT.parent.mkdir(
         parents=True,
@@ -554,7 +516,7 @@ def main():
 
     OUTPUT.write_text(
         json.dumps(
-            events,
+            best_events,
             ensure_ascii=False,
             indent=2,
         ),
@@ -564,22 +526,22 @@ def main():
     print()
     print(
         f"Turismo Pista: "
-        f"{len(events)} eventos encontrados."
+        f"{len(best_events)} eventos encontrados."
     )
 
-    for event in events:
+    for event in best_events:
         print(
             f"  {event['uid']} | "
             f"{event['fecha_inicio']} | "
             f"{event['ubicacion']}"
         )
 
-    if len(events) != 10:
+    if len(best_events) != 10:
         print()
         print(
             "ADVERTENCIA: "
             f"se esperaban 10 fechas y "
-            f"se encontraron {len(events)}."
+            f"se encontraron {len(best_events)}."
         )
 
 
