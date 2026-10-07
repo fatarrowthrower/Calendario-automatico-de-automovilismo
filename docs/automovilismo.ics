@@ -354,7 +354,7 @@ UID:actc-tc-pick-up-2026-11
 DTSTART:20261213T120000
 DTEND:20261213T235900
 SUMMARY:TC Pick Up - Fecha 11
-LOCATION:A CONFIRMAR — A CONFIRMAR Próximamente a la venta Trazado animado pendiente (self.__next_f=self.__ne
+LOCATION:A CONFIRMAR — A CONFIRMAR Próximamente a la venta Trazado animado pendiente $RC=function(b\,c\,e){c=do
 DESCRIPTION:TC Pick Up - Fecha 11
 END:VEVENT
 BEGIN:VEVENT
