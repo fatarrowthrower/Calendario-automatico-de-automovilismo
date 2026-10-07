@@ -158,6 +158,9 @@ def main():
 
     html = fetch(URL)
 
+    print(f"HTML recibido: {len(html)} caracteres")
+    print(html[:2000])
+    
     events = parse_calendar(html)
 
     if not events:
