@@ -30,7 +30,7 @@ jobs:
       - name: Actualizar ACTC
         run: python actc.py
 
-      - name: Probar IndyCar
+      - name: Actualizar IndyCar
         run: python indycar.py
 
       - name: Actualizar calendarios
