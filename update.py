@@ -3,7 +3,7 @@ import csv
 import json
 import re
 import subprocess
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 ROOT = Path(__file__).resolve().parent
@@ -12,6 +12,8 @@ OUTPUT = ROOT / "output"
 
 MOTOCAL_ICS = DATA / "motorsport.ics"
 ACTC_JSON = DATA / "actc_events.json"
+INDYCAR_JSON = DATA / "indycar_events.json"
+
 EVENTS_CSV = DATA / "events.csv"
 EVENTS_JSON = DATA / "events.json"
 FINAL_ICS = OUTPUT / "automovilismo.ics"
@@ -105,10 +107,13 @@ def classify(uid, name):
     if "nascar" in u or "nascar" in n:
         if "cup" in u or "cup" in n:
             return "NASCAR", "NASCAR Cup"
+
         if "xfinity" in u or "xfinity" in n:
             return "NASCAR", "NASCAR Xfinity"
+
         if "truck" in u or "truck" in n:
             return "NASCAR", "NASCAR Truck"
+
         return "NASCAR", "NASCAR"
 
     if "indycar" in u or "indycar" in n or "indy-500" in u:
@@ -141,6 +146,7 @@ def classify_session(name):
             "qualifying",
             "qualification",
             "clasificación",
+            "qualifications",
         ]
     ):
         return "Clasificación"
@@ -163,6 +169,13 @@ def classify_session(name):
             "fp1",
             "fp2",
             "fp3",
+            "warmup",
+            "warm-up",
+            "final practice",
+            "fast friday",
+            "carb day",
+            "pit stop",
+            "pre-race",
         ]
     ):
         return "Entrenamiento"
@@ -213,7 +226,12 @@ def parse_ics(path):
                 block,
                 re.MULTILINE,
             )
-            return match.group(1).strip() if match else ""
+
+            return (
+                match.group(1).strip()
+                if match
+                else ""
+            )
 
         uid = get_value("UID")
         summary = get_value("SUMMARY")
@@ -267,9 +285,7 @@ def load_actc_events():
             )
         )
     except Exception as exc:
-        print(
-            f"ERROR leyendo ACTC: {exc}"
-        )
+        print(f"ERROR leyendo ACTC: {exc}")
         return []
 
     normalized = []
@@ -287,6 +303,98 @@ def load_actc_events():
             del event["imperdible"]
 
         normalized.append(event)
+
+    return normalized
+
+
+def load_indycar_events():
+    """
+    Lee los eventos generados por indycar.py
+    y los transforma al formato interno del calendario.
+    """
+
+    if not INDYCAR_JSON.exists():
+        print("IndyCar: no existe data/indycar_events.json")
+        return []
+
+    try:
+        source_events = json.loads(
+            INDYCAR_JSON.read_text(
+                encoding="utf-8",
+            )
+        )
+    except Exception as exc:
+        print(f"ERROR leyendo IndyCar: {exc}")
+        return []
+
+    normalized = []
+
+    for source in source_events:
+        uid = source.get("uid", "")
+
+        if not uid:
+            continue
+
+        title = source.get("title", "Evento")
+        event_name = source.get("event", "IndyCar")
+        location = source.get("location", "")
+        start = source.get("datetime", "")
+
+        if not start:
+            continue
+
+        try:
+            start_dt = datetime.fromisoformat(start)
+
+            # Duración razonable para mostrar el evento
+            # en calendarios. No modifica la hora de inicio.
+            tipo = classify_session(title)
+
+            if tipo == "Carrera":
+                duration = timedelta(hours=2)
+            elif tipo == "Clasificación":
+                duration = timedelta(hours=1)
+            else:
+                duration = timedelta(hours=1)
+
+            end_dt = start_dt + duration
+
+            fecha_inicio = start_dt.strftime(
+                "%Y%m%dT%H%M%S"
+            )
+
+            fecha_fin = end_dt.strftime(
+                "%Y%m%dT%H%M%S"
+            )
+
+        except Exception as exc:
+            print(
+                f"ERROR procesando IndyCar "
+                f"{uid}: {exc}"
+            )
+            continue
+
+        normalized.append(
+            {
+                "uid": uid,
+                "categoria": "IndyCar",
+                "campeonato": "IndyCar",
+                "tipo": tipo,
+                "fecha_inicio": fecha_inicio,
+                "fecha_fin": fecha_fin,
+                "ubicacion": location,
+                "descripcion": (
+                    f"{event_name} - {title}\n"
+                    f"Fuente oficial: {source.get('source', '')}"
+                ),
+                "prioridad": (
+                    "alta"
+                    if tipo == "Carrera"
+                    else ""
+                ),
+                "indycar_timezone": True,
+            }
+        )
 
     return normalized
 
@@ -360,10 +468,40 @@ def actc_to_ics(event):
     )
 
 
-def merge_actc_into_events(
-    events,
-    actc_events,
-):
+def indycar_to_ics(event):
+    """
+    Genera el evento IndyCar con zona horaria explícita
+    de Argentina.
+    """
+
+    uid = ics_escape(event["uid"])
+
+    start = event["fecha_inicio"]
+    end = event["fecha_fin"]
+
+    summary = (
+        f"{event.get('campeonato', 'IndyCar')} "
+        f"- {event.get('tipo', 'Evento')}"
+    )
+
+    location = event.get("ubicacion", "")
+    description = event.get("descripcion", "")
+
+    return "\r\n".join(
+        [
+            "BEGIN:VEVENT",
+            f"UID:{uid}",
+            f"DTSTART;TZID={TIMEZONE}:{start}",
+            f"DTEND;TZID={TIMEZONE}:{end}",
+            f"SUMMARY:{ics_escape(summary)}",
+            f"LOCATION:{ics_escape(location)}",
+            f"DESCRIPTION:{ics_escape(description)}",
+            "END:VEVENT",
+        ]
+    )
+
+
+def merge_events(events, new_events):
     existing_uids = {
         event["uid"]
         for event in events
@@ -371,7 +509,7 @@ def merge_actc_into_events(
 
     added = 0
 
-    for event in actc_events:
+    for event in new_events:
         if event["uid"] in existing_uids:
             continue
 
@@ -449,11 +587,15 @@ def build_final_ics(events, year):
 
     for event in events:
 
-        if event["uid"].startswith(
-            "actc-"
-        ):
+        if event["uid"].startswith("actc-"):
             lines.append(
                 actc_to_ics(event)
+            )
+            continue
+
+        if event.get("indycar_timezone"):
+            lines.append(
+                indycar_to_ics(event)
             )
             continue
 
@@ -561,14 +703,31 @@ def main():
         f"{len(actc_events)} eventos."
     )
 
-    added = merge_actc_into_events(
+    actc_added = merge_events(
         events,
         actc_events,
     )
 
     print(
         f"ACTC agregados al calendario: "
-        f"{added}"
+        f"{actc_added}"
+    )
+
+    indycar_events = load_indycar_events()
+
+    print(
+        f"IndyCar: incorporando "
+        f"{len(indycar_events)} eventos."
+    )
+
+    indycar_added = merge_events(
+        events,
+        indycar_events,
+    )
+
+    print(
+        f"IndyCar agregados al calendario: "
+        f"{indycar_added}"
     )
 
     events.sort(
@@ -580,6 +739,7 @@ def main():
 
     write_csv(events)
     write_json(events)
+
     build_final_ics(
         events,
         year,
