@@ -1,6 +1,6 @@
 timezone: America/Argentina/Buenos_Aires
 
-year: 2026
+year: auto
 
 refresh_hours: 24
 
