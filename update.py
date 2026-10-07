@@ -304,6 +304,11 @@ def parse_ics(path):
             summary,
         )
 
+        if "grand prix" in summary.lower():
+    print(
+        f"DEBUG F1? UID={uid} | SUMMARY={summary}"
+    )
+
         tipo = classify_session(summary)
 
         events.append(
