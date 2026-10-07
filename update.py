@@ -1,5 +1,6 @@
 from pathlib import Path
 import csv
+import json
 import re
 import subprocess
 
@@ -9,6 +10,7 @@ OUTPUT = ROOT / "output"
 
 MOTOCAL_ICS = DATA / "motorsport.ics"
 EVENTS_CSV = DATA / "events.csv"
+EVENTS_JSON = DATA / "events.json"
 FINAL_ICS = OUTPUT / "automovilismo.ics"
 
 DATA.mkdir(exist_ok=True)
@@ -16,103 +18,48 @@ OUTPUT.mkdir(exist_ok=True)
 
 
 def classify(uid, name, location):
-    """Clasifica el evento usando principalmente su UID."""
-
     u = uid.lower()
     n = name.lower()
-    l = location.lower()
-
-    # =========================
-    # FÓRMULA
-    # =========================
 
     if "f1-academy" in u:
-        categoria = "Fórmula"
-        campeonato = "F1 Academy"
-
+        categoria, campeonato = "Fórmula", "F1 Academy"
     elif "formula-e" in u or "f1calendar-fe" in u:
-        categoria = "Fórmula"
-        campeonato = "Formula E"
-
+        categoria, campeonato = "Fórmula", "Formula E"
     elif "f1calendar-f1-" in u:
-        categoria = "Fórmula"
-        campeonato = "F1"
-
+        categoria, campeonato = "Fórmula", "F1"
     elif "f1calendar-f2-" in u:
-        categoria = "Fórmula"
-        campeonato = "F2"
-
+        categoria, campeonato = "Fórmula", "F2"
     elif "f1calendar-f3-" in u:
-        categoria = "Fórmula"
-        campeonato = "F3"
-
-    # =========================
-    # MOTOS
-    # =========================
+        categoria, campeonato = "Fórmula", "F3"
 
     elif u.startswith("motogp-"):
-        categoria = "Motos"
-        campeonato = "MotoGP"
-
+        categoria, campeonato = "Motos", "MotoGP"
     elif u.startswith("moto2-"):
-        categoria = "Motos"
-        campeonato = "Moto2"
-
+        categoria, campeonato = "Motos", "Moto2"
     elif u.startswith("moto3-"):
-        categoria = "Motos"
-        campeonato = "Moto3"
-
+        categoria, campeonato = "Motos", "Moto3"
     elif "worldsbk" in u:
-        categoria = "Motos"
-        campeonato = "WorldSBK"
-
-    # =========================
-    # ENDURANCE
-    # =========================
+        categoria, campeonato = "Motos", "WorldSBK"
 
     elif u.startswith("wec-"):
-        categoria = "Endurance"
-        campeonato = "WEC"
-
+        categoria, campeonato = "Endurance", "WEC"
     elif "elms" in u:
-        categoria = "Endurance"
-        campeonato = "ELMS"
-
+        categoria, campeonato = "Endurance", "ELMS"
     elif "mlmc" in u or "le-mans-cup" in u:
-        categoria = "Endurance"
-        campeonato = "Le Mans Cup"
-
+        categoria, campeonato = "Endurance", "Le Mans Cup"
     elif "imsa" in u:
-        categoria = "Endurance"
-        campeonato = "IMSA"
-
-    # =========================
-    # GT
-    # =========================
+        categoria, campeonato = "Endurance", "IMSA"
 
     elif "gtwc-europe" in u:
-        categoria = "GT"
-        campeonato = "GT World Challenge Europe"
-
+        categoria, campeonato = "GT", "GT World Challenge Europe"
     elif "gtwc-america" in u:
-        categoria = "GT"
-        campeonato = "GT World Challenge America"
-
+        categoria, campeonato = "GT", "GT World Challenge America"
     elif "gtwc-asia" in u:
-        categoria = "GT"
-        campeonato = "GT World Challenge Asia"
-
+        categoria, campeonato = "GT", "GT World Challenge Asia"
     elif "igtc" in u:
-        categoria = "GT"
-        campeonato = "IGTC"
-
+        categoria, campeonato = "GT", "IGTC"
     elif "super-gt" in u:
-        categoria = "GT"
-        campeonato = "Super GT"
-
-    # =========================
-    # ARGENTINA
-    # =========================
+        categoria, campeonato = "GT", "Super GT"
 
     elif any(x in u or x in n for x in [
         "turismo-carretera",
@@ -146,13 +93,8 @@ def classify(uid, name, location):
         else:
             campeonato = "Fórmula Argentina"
 
-    # =========================
-    # NASCAR
-    # =========================
-
     elif "nascar" in u or "nascar" in n:
         categoria = "NASCAR"
-
         if "xfinity" in u or "xfinity" in n:
             campeonato = "NASCAR Xfinity"
         elif "truck" in u or "truck" in n:
@@ -160,66 +102,28 @@ def classify(uid, name, location):
         else:
             campeonato = "NASCAR Cup"
 
-    # =========================
-    # INDYCAR
-    # =========================
-
     elif "indycar" in u or "indycar" in n or "indy-500" in u:
-        categoria = "IndyCar"
-        campeonato = "IndyCar"
-
-    # =========================
-    # RALLY
-    # =========================
+        categoria, campeonato = "IndyCar", "IndyCar"
 
     elif "wrc" in u or "wrc" in n:
-        categoria = "Rally"
-        campeonato = "WRC"
-
+        categoria, campeonato = "Rally", "WRC"
     elif "dakar" in u or "dakar" in n:
-        categoria = "Rally"
-        campeonato = "Dakar"
-
+        categoria, campeonato = "Rally", "Dakar"
     elif "rallycross" in u or "rallycross" in n:
-        categoria = "Rally"
-        campeonato = "Rallycross"
-
-    # =========================
-    # DRIFT
-    # =========================
+        categoria, campeonato = "Rally", "Rallycross"
 
     elif "drift" in u or "drift" in n:
-        categoria = "Drift"
-        campeonato = "Formula Drift"
-
-    # =========================
-    # RESPALDO
-    # =========================
+        categoria, campeonato = "Drift", "Formula Drift"
 
     else:
-        categoria = "Otros"
-        campeonato = "Otros"
+        categoria, campeonato = "Otros", "Otros"
 
-    # =========================
-    # TIPO DE SESIÓN
-    # =========================
-
-    if any(x in n for x in [
-        "race",
-        "carrera",
-    ]):
+    if any(x in n for x in ["race", "carrera"]):
         tipo = "Carrera"
-
-    elif any(x in n for x in [
-        "qualifying",
-        "qualification",
-        "clasificación",
-    ]):
+    elif any(x in n for x in ["qualifying", "qualification", "clasificación"]):
         tipo = "Clasificación"
-
     elif "sprint" in n:
         tipo = "Sprint"
-
     elif any(x in n for x in [
         "practice",
         "free practice",
@@ -229,13 +133,8 @@ def classify(uid, name, location):
         "fp3",
     ]):
         tipo = "Entrenamiento"
-
     else:
         tipo = "Evento"
-
-    # =========================
-    # IMPERDIBLES
-    # =========================
 
     if (
         campeonato in [
@@ -260,8 +159,6 @@ def classify(uid, name, location):
 
 def parse_ics(path):
     text = path.read_text(encoding="utf-8")
-
-    # Unfold de líneas ICS
     text = re.sub(r"\r?\n[ \t]", "", text)
 
     events = []
@@ -307,6 +204,7 @@ def parse_ics(path):
 
 
 def write_csv(events):
+
     fields = [
         "uid",
         "fecha_inicio",
@@ -325,14 +223,36 @@ def write_csv(events):
         newline="",
         encoding="utf-8"
     ) as f:
-        writer = csv.DictWriter(f, fieldnames=fields)
+
+        writer = csv.DictWriter(
+            f,
+            fieldnames=fields
+        )
+
         writer.writeheader()
         writer.writerows(events)
 
 
+def write_json(events):
+
+    with EVENTS_JSON.open(
+        "w",
+        encoding="utf-8"
+    ) as f:
+
+        json.dump(
+            events,
+            f,
+            ensure_ascii=False,
+            indent=2
+        )
+
+
 def main():
 
-    print("Ejecutando: motocal generate 2026 --refresh")
+    print(
+        "Ejecutando: motocal generate 2026 --refresh"
+    )
 
     result = subprocess.run(
         [
@@ -370,17 +290,19 @@ def main():
     )
 
     write_csv(events)
+    write_json(events)
 
     print()
     print(f"OK: {len(events)} eventos.")
     print(f"CSV: {EVENTS_CSV}")
+    print(f"JSON: {EVENTS_JSON}")
     print(f"ICS: {FINAL_ICS}")
 
     categories = {}
-
     championships = {}
 
     for event in events:
+
         category = event["categoria"]
         championship = event["campeonato"]
 
