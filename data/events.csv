@@ -40,9 +40,9 @@ actc-tc-pista-2026-13,Argentina,TC Pista,Carrera,2026-10-25T12:00:00,2026-10-25T
 actc-tc-pick-up-2026-10,Argentina,TC Pick Up,Carrera,2026-11-08T12:00:00,2026-11-08T23:59:00,A CONFIRMAR — A CONFIRMAR Próximamente a la venta Trazado animado pendiente,TC Pick Up - Fecha 10,alta
 actc-tc-2026-14,Argentina,TC,Carrera,2026-11-15T12:00:00,2026-11-15T23:59:00,"Parque Ciudad de Rio Cuarto — Rio Cuarto, Cordoba Próximamente a la venta",TC - Fecha 14,alta
 actc-tc-pista-2026-14,Argentina,TC Pista,Carrera,2026-11-15T12:00:00,2026-11-15T23:59:00,"Parque Ciudad de Rio Cuarto — Rio Cuarto, Cordoba Próximamente a la venta",TC Pista - Fecha 14,alta
-actc-tc-2026-15,Argentina,TC,Carrera,2026-12-06T12:00:00,2026-12-06T23:59:00,"Roberto José Mouras — La Plata, Buenos Aires Próximamente a la venta $RC=function(b,c,e){c=document.",TC - Fecha 15,alta
-actc-tc-pista-2026-15,Argentina,TC Pista,Carrera,2026-12-06T12:00:00,2026-12-06T23:59:00,"Roberto José Mouras — La Plata, Buenos Aires Próximamente a la venta $RC=function(b,c,e){c=document.",TC Pista - Fecha 15,alta
-actc-tc-pick-up-2026-11,Argentina,TC Pick Up,Carrera,2026-12-13T12:00:00,2026-12-13T23:59:00,"A CONFIRMAR — A CONFIRMAR Próximamente a la venta Trazado animado pendiente $RC=function(b,c,e){c=do",TC Pick Up - Fecha 11,alta
+actc-tc-2026-15,Argentina,TC,Carrera,2026-12-06T12:00:00,2026-12-06T23:59:00,"Roberto José Mouras — La Plata, Buenos Aires Próximamente a la venta (self.__next_f=self.__next_f||[",TC - Fecha 15,alta
+actc-tc-pista-2026-15,Argentina,TC Pista,Carrera,2026-12-06T12:00:00,2026-12-06T23:59:00,"Roberto José Mouras — La Plata, Buenos Aires Próximamente a la venta (self.__next_f=self.__next_f||[",TC Pista - Fecha 15,alta
+actc-tc-pick-up-2026-11,Argentina,TC Pick Up,Carrera,2026-12-13T12:00:00,2026-12-13T23:59:00,A CONFIRMAR — A CONFIRMAR Próximamente a la venta Trazado animado pendiente (self.__next_f=self.__ne,TC Pick Up - Fecha 11,alta
 f1calendar-fe-2026-2@motorsport-calendar-FP1,Fórmula,Formula E,Entrenamiento,20260109T220000Z,20260109T223000Z,"Mexico City ePrix\, Mexico",Reminder,
 f1calendar-fe-2026-2@motorsport-calendar-FP2,Fórmula,Formula E,Entrenamiento,20260110T133000Z,20260110T140000Z,"Mexico City ePrix\, Mexico",Reminder,
 f1calendar-fe-2026-2@motorsport-calendar-QUALIFYING,Fórmula,Formula E,Clasificación,20260110T154000Z,20260110T164000Z,"Mexico City ePrix\, Mexico",Reminder,
