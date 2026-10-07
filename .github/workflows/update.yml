@@ -33,6 +33,7 @@ jobs:
       - name: Publicar calendario
         run: |
           cp output/automovilismo.ics docs/automovilismo.ics
+          cp data/events.csv docs/events.csv
 
       - name: Guardar cambios
         run: |
