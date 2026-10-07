@@ -660,21 +660,6 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-500-2026-05-22-1500-pit-stop-competition",
-    "date": "2026-05-22",
-    "time": "15:00",
-    "datetime": "2026-05-22T15:00:00-03:00",
-    "title": "Pit Stop Competition",
-    "category": "IndyCar",
-    "championship": "IndyCar",
-    "location": "Indianapolis Motor Speedway",
-    "event": "110th Running of the Indianapolis 500",
-    "source": "https://www.indycar.com/Schedule/2026/Indianapolis-500",
-    "timezone": "America/Argentina/Buenos_Aires",
-    "prioridad": false,
-    "imperdible": false
-  },
-  {
     "uid": "indycar-2026-indianapolis-500-2026-05-22-1530-pit-stop-competition",
     "date": "2026-05-22",
     "time": "15:30",
@@ -1280,21 +1265,6 @@
     "time": "10:00",
     "datetime": "2026-08-23T10:00:00-03:00",
     "title": "Warmup",
-    "category": "IndyCar",
-    "championship": "IndyCar",
-    "location": "Streets of Washington",
-    "event": "Freedom 250 Grand Prix of Washington DC",
-    "source": "https://www.indycar.com/Schedule/2026/Washington-DC",
-    "timezone": "America/Argentina/Buenos_Aires",
-    "prioridad": false,
-    "imperdible": false
-  },
-  {
-    "uid": "indycar-2026-washington-dc-2026-08-23-1230-race",
-    "date": "2026-08-23",
-    "time": "12:30",
-    "datetime": "2026-08-23T12:30:00-03:00",
-    "title": "Race",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Washington",

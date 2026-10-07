@@ -290,7 +290,7 @@ UID:actc-tc-pick-up-2026-09
 DTSTART:20261018T120000
 DTEND:20261018T235900
 SUMMARY:TC Pick Up - Fecha 9
-LOCATION:A CONFIRMAR — A CONFIRMAR Faltan 11 días Próximamente a la venta Autódromo A CONFIRMAR A CONFIRMAR d
+LOCATION:Roberto José Mouras — La Plata\, Buenos Aires Faltan 11 días Próximamente a la venta Autódromo Robert
 DESCRIPTION:TC Pick Up - Fecha 9
 END:VEVENT
 BEGIN:VEVENT
@@ -346,7 +346,7 @@ UID:actc-tc-pista-2026-15
 DTSTART:20261206T120000
 DTEND:20261206T235900
 SUMMARY:TC Pista - Fecha 15
-LOCATION:Roberto José Mouras — La Plata\, Buenos Aires Próximamente a la venta (self.__next_f=self.__next_f||[
+LOCATION:Roberto José Mouras — La Plata\, Buenos Aires Próximamente a la venta $RC=function(b\,c\,e){c=document.
 DESCRIPTION:TC Pista - Fecha 15
 END:VEVENT
 BEGIN:VEVENT
