@@ -6,7 +6,7 @@
     "tipo": "Carrera",
     "fecha_inicio": "2026-02-01T12:00:00",
     "fecha_fin": "2026-02-01T23:59:00",
-    "ubicacion": "la plata",
+    "ubicacion": "La Plata",
     "descripcion": "Turismo Pista - Fecha 1",
     "prioridad": ""
   },
@@ -17,8 +17,19 @@
     "tipo": "Carrera",
     "fecha_inicio": "2026-03-01T12:00:00",
     "fecha_fin": "2026-03-01T23:59:00",
-    "ubicacion": "3",
+    "ubicacion": "Argentina",
     "descripcion": "Turismo Pista - Fecha 2",
+    "prioridad": ""
+  },
+  {
+    "uid": "turismo-pista-2026-03",
+    "categoria": "Argentina",
+    "campeonato": "Turismo Pista",
+    "tipo": "Carrera",
+    "fecha_inicio": "2026-04-12T12:00:00",
+    "fecha_fin": "2026-04-12T23:59:00",
+    "ubicacion": "Argentina",
+    "descripcion": "Turismo Pista - Fecha 3",
     "prioridad": ""
   },
   {
@@ -28,8 +39,19 @@
     "tipo": "Carrera",
     "fecha_inicio": "2026-05-24T12:00:00",
     "fecha_fin": "2026-05-24T23:59:00",
-    "ubicacion": "5",
+    "ubicacion": "Argentina",
     "descripcion": "Turismo Pista - Fecha 4",
+    "prioridad": ""
+  },
+  {
+    "uid": "turismo-pista-2026-05",
+    "categoria": "Argentina",
+    "campeonato": "Turismo Pista",
+    "tipo": "Carrera",
+    "fecha_inicio": "2026-06-14T12:00:00",
+    "fecha_fin": "2026-06-14T23:59:00",
+    "ubicacion": "Argentina",
+    "descripcion": "Turismo Pista - Fecha 5",
     "prioridad": ""
   },
   {
@@ -39,8 +61,19 @@
     "tipo": "Carrera",
     "fecha_inicio": "2026-07-19T12:00:00",
     "fecha_fin": "2026-07-19T23:59:00",
-    "ubicacion": "7",
+    "ubicacion": "Argentina",
     "descripcion": "Turismo Pista - Fecha 6",
+    "prioridad": ""
+  },
+  {
+    "uid": "turismo-pista-2026-07",
+    "categoria": "Argentina",
+    "campeonato": "Turismo Pista",
+    "tipo": "Carrera",
+    "fecha_inicio": "2026-08-09T12:00:00",
+    "fecha_fin": "2026-08-09T23:59:00",
+    "ubicacion": "Argentina",
+    "descripcion": "Turismo Pista - Fecha 7",
     "prioridad": ""
   },
   {
@@ -50,8 +83,19 @@
     "tipo": "Carrera",
     "fecha_inicio": "2026-09-06T12:00:00",
     "fecha_fin": "2026-09-06T23:59:00",
-    "ubicacion": "9",
+    "ubicacion": "Argentina",
     "descripcion": "Turismo Pista - Fecha 8",
+    "prioridad": ""
+  },
+  {
+    "uid": "turismo-pista-2026-09",
+    "categoria": "Argentina",
+    "campeonato": "Turismo Pista",
+    "tipo": "Carrera",
+    "fecha_inicio": "2026-10-18T12:00:00",
+    "fecha_fin": "2026-10-18T23:59:00",
+    "ubicacion": "Argentina",
+    "descripcion": "Turismo Pista - Fecha 9",
     "prioridad": ""
   },
   {
