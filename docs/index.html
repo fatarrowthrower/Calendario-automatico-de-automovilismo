@@ -230,7 +230,7 @@
 
 <script>
 
-const CSV_URL = "events.csv";
+const JSON_URL = "events.json";
 
 let events = [];
 let currentFilter = "Todos";
@@ -638,18 +638,16 @@ async function loadCalendar() {
   try {
 
     const response = await fetch(
-      CSV_URL + "?v=" + Date.now()
+      JSON_URL + "?v=" + Date.now()
     );
 
     if (!response.ok) {
       throw new Error(
-        "No se pudo cargar events.csv"
+        "No se pudo cargar events.json"
       );
     }
 
-    const text = await response.text();
-
-    events = parseCSV(text);
+    events = await response.json();
 
     document.getElementById("status").textContent =
       `${events.length} eventos · actualizado automáticamente · horario de Argentina 🇦🇷`;
