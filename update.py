@@ -3,12 +3,14 @@ import csv
 import json
 import re
 import subprocess
+from datetime import datetime, timedelta
 
 ROOT = Path(__file__).resolve().parent
 DATA = ROOT / "data"
 OUTPUT = ROOT / "output"
 
 MOTOCAL_ICS = DATA / "motorsport.ics"
+ACTC_JSON = DATA / "actc_events.json"
 EVENTS_CSV = DATA / "events.csv"
 EVENTS_JSON = DATA / "events.json"
 FINAL_ICS = OUTPUT / "automovilismo.ics"
@@ -95,6 +97,7 @@ def classify(uid, name, location):
 
     elif "nascar" in u or "nascar" in n:
         categoria = "NASCAR"
+
         if "xfinity" in u or "xfinity" in n:
             campeonato = "NASCAR Xfinity"
         elif "truck" in u or "truck" in n:
@@ -120,7 +123,11 @@ def classify(uid, name, location):
 
     if any(x in n for x in ["race", "carrera"]):
         tipo = "Carrera"
-    elif any(x in n for x in ["qualifying", "qualification", "clasificación"]):
+    elif any(x in n for x in [
+        "qualifying",
+        "qualification",
+        "clasificación"
+    ]):
         tipo = "Clasificación"
     elif "sprint" in n:
         tipo = "Sprint"
@@ -162,7 +169,11 @@ def parse_ics(path):
     text = re.sub(r"\r?\n[ \t]", "", text)
 
     events = []
-    blocks = re.findall(r"BEGIN:VEVENT(.*?)END:VEVENT", text, re.S)
+    blocks = re.findall(
+        r"BEGIN:VEVENT(.*?)END:VEVENT",
+        text,
+        re.S
+    )
 
     for block in blocks:
 
@@ -203,8 +214,112 @@ def parse_ics(path):
     return events
 
 
-def write_csv(events):
+def load_actc_events():
+    if not ACTC_JSON.exists():
+        print("ACTC: no existe actc_events.json. Se continúa sin ACTC.")
+        return []
 
+    try:
+        events = json.loads(
+            ACTC_JSON.read_text(encoding="utf-8")
+        )
+
+        if not isinstance(events, list):
+            raise ValueError("Formato ACTC inválido.")
+
+        print(
+            f"ACTC: incorporando {len(events)} eventos."
+        )
+
+        return events
+
+    except Exception as exc:
+        raise SystemExit(
+            f"ERROR leyendo ACTC: {exc}"
+        )
+
+
+def ics_escape(value):
+    value = str(value or "")
+    value = value.replace("\\", "\\\\")
+    value = value.replace(";", "\\;")
+    value = value.replace(",", "\\,")
+    value = value.replace("\n", "\\n")
+    return value
+
+
+def actc_to_ics(event):
+    start = event["fecha_inicio"]
+    end = event["fecha_fin"]
+
+    start_dt = datetime.strptime(
+        start,
+        "%Y-%m-%dT%H:%M:%S"
+    )
+
+    end_dt = datetime.strptime(
+        end,
+        "%Y-%m-%dT%H:%M:%S"
+    )
+
+    uid = event["uid"]
+
+    summary = (
+        f'{event["campeonato"]} - '
+        f'{event["tipo"]}'
+    )
+
+    description = event.get(
+        "descripcion",
+        ""
+    )
+
+    location = event.get(
+        "ubicacion",
+        ""
+    )
+
+    lines = [
+        "BEGIN:VEVENT",
+        f"UID:{ics_escape(uid)}",
+        f"DTSTART;TZID=America/Argentina/Buenos_Aires:"
+        f"{start_dt.strftime('%Y%m%dT%H%M%S')}",
+        f"DTEND;TZID=America/Argentina/Buenos_Aires:"
+        f"{end_dt.strftime('%Y%m%dT%H%M%S')}",
+        f"SUMMARY:{ics_escape(summary)}",
+        f"LOCATION:{ics_escape(location)}",
+        f"DESCRIPTION:{ics_escape(description)}",
+        "END:VEVENT",
+    ]
+
+    return "\r\n".join(lines)
+
+
+def merge_actc_into_ics(base_ics, actc_events):
+    if not actc_events:
+        return base_ics
+
+    if "END:VCALENDAR" not in base_ics:
+        raise SystemExit(
+            "ERROR: el ICS principal no tiene END:VCALENDAR."
+        )
+
+    blocks = []
+
+    for event in actc_events:
+        blocks.append(
+            actc_to_ics(event)
+        )
+
+    addition = "\r\n".join(blocks)
+
+    return base_ics.replace(
+        "END:VCALENDAR",
+        addition + "\r\nEND:VCALENDAR"
+    )
+
+
+def write_csv(events):
     fields = [
         "uid",
         "fecha_inicio",
@@ -234,7 +349,6 @@ def write_csv(events):
 
 
 def write_json(events):
-
     with EVENTS_JSON.open(
         "w",
         encoding="utf-8"
@@ -282,18 +396,55 @@ def main():
             "ERROR: no se encontraron eventos."
         )
 
-    FINAL_ICS.write_text(
-        MOTOCAL_ICS.read_text(
-            encoding="utf-8"
-        ),
+    print(
+        f"Motocal: {len(events)} eventos."
+    )
+
+    # Incorporar eventos ACTC
+    actc_events = load_actc_events()
+
+    existing_uids = {
+        event["uid"]
+        for event in events
+    }
+
+    added_actc = 0
+
+    for event in actc_events:
+        if event["uid"] not in existing_uids:
+            events.append(event)
+            existing_uids.add(event["uid"])
+            added_actc += 1
+
+    events.sort(
+        key=lambda event: event["fecha_inicio"]
+    )
+
+    print(
+        f"ACTC agregados al calendario: {added_actc}"
+    )
+
+    # Crear ICS final
+    base_ics = MOTOCAL_ICS.read_text(
         encoding="utf-8"
     )
 
+    final_ics = merge_actc_into_ics(
+        base_ics,
+        actc_events
+    )
+
+    FINAL_ICS.write_text(
+        final_ics,
+        encoding="utf-8"
+    )
+
+    # Crear JSON y CSV generales
     write_csv(events)
     write_json(events)
 
     print()
-    print(f"OK: {len(events)} eventos.")
+    print(f"OK: {len(events)} eventos totales.")
     print(f"CSV: {EVENTS_CSV}")
     print(f"JSON: {EVENTS_JSON}")
     print(f"ICS: {FINAL_ICS}")
@@ -317,7 +468,9 @@ def main():
     print()
     print("Categorías:")
 
-    for category, count in sorted(categories.items()):
+    for category, count in sorted(
+        categories.items()
+    ):
         print(f"  {category}: {count}")
 
     print()
