@@ -2,11 +2,702 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Automovilismo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>🏁 Automovilismo 2026</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0d1117;
+      color: #f0f0f0;
+    }
+
+    header {
+      padding: 30px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #151b24, #242b36);
+      border-bottom: 1px solid #30363d;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+    }
+
+    .subtitle {
+      color: #a8b3c2;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .status {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #8b949e;
+      font-size: 14px;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 25px;
+    }
+
+    button {
+      border: 1px solid #30363d;
+      background: #161b22;
+      color: #f0f0f0;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover {
+      background: #21262d;
+    }
+
+    button.active {
+      background: #f0f0f0;
+      color: #111;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .section h2 {
+      font-size: 21px;
+      margin-bottom: 12px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .card.imperdible {
+      border: 1px solid #d29922;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 20px;
+      background: #30363d;
+      color: #ddd;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .badge.formula {
+      background: #3b1d1d;
+    }
+
+    .badge.motos {
+      background: #1d303b;
+    }
+
+    .badge.endurance {
+      background: #30351d;
+    }
+
+    .badge.gt {
+      background: #30233b;
+    }
+
+    .badge.argentina {
+      background: #1d3540;
+    }
+
+    .event-name {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .championship {
+      color: #8b949e;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .time {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .location {
+      color: #8b949e;
+      font-size: 13px;
+      margin-top: 7px;
+    }
+
+    .empty {
+      color: #8b949e;
+      padding: 15px;
+      background: #161b22;
+      border-radius: 10px;
+    }
+
+    .download {
+      text-align: center;
+      margin: 35px 0 10px;
+    }
+
+    .download a {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 8px;
+      background: #f0f0f0;
+      color: #111;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      color: #6e7681;
+      padding: 25px;
+      font-size: 13px;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>🏁 Calendario de Automovilismo</h1>
-  <p>Calendario automático actualizado por GitHub Actions.</p>
-  <p><a href="automovilismo.ics">Descargar calendario .ics</a></p>
+
+<header>
+  <h1>🏁 Automovilismo 2026</h1>
+  <p class="subtitle">
+    Calendario automático · Horarios de Argentina 🇦🇷
+  </p>
+</header>
+
+<div class="container">
+
+  <div class="status" id="status">
+    Cargando calendario...
+  </div>
+
+  <div class="filters">
+    <button class="active" data-filter="Todos">🏁 Todos</button>
+    <button data-filter="Fórmula">🏎️ Fórmula</button>
+    <button data-filter="Motos">🏍️ Motos</button>
+    <button data-filter="Endurance">🏁 Endurance</button>
+    <button data-filter="GT">🏎️ GT</button>
+    <button data-filter="Argentina">🇦🇷 Argentina</button>
+    <button data-filter="IndyCar">🇺🇸 IndyCar</button>
+    <button data-filter="NASCAR">🇺🇸 NASCAR</button>
+    <button data-filter="Rally">🌎 Rally</button>
+    <button data-filter="Drift">💨 Drift</button>
+    <button data-filter="Otros">📦 Otros</button>
+  </div>
+
+  <div id="content"></div>
+
+  <div class="download">
+    <a href="automovilismo.ics">
+      📅 Suscribirse / descargar calendario .ics
+    </a>
+  </div>
+
+</div>
+
+<footer>
+  Actualizado automáticamente por GitHub Actions · Zona horaria: Argentina
+</footer>
+
+<script>
+
+const CSV_URL = "../data/events.csv";
+
+let events = [];
+let currentFilter = "Todos";
+
+function parseCSV(text) {
+
+  const rows = [];
+  let row = [];
+  let cell = "";
+  let insideQuotes = false;
+
+  for (let i = 0; i < text.length; i++) {
+
+    const char = text[i];
+    const next = text[i + 1];
+
+    if (char === '"' && insideQuotes && next === '"') {
+      cell += '"';
+      i++;
+    }
+
+    else if (char === '"') {
+      insideQuotes = !insideQuotes;
+    }
+
+    else if (char === "," && !insideQuotes) {
+      row.push(cell);
+      cell = "";
+    }
+
+    else if ((char === "\n" || char === "\r") && !insideQuotes) {
+
+      if (char === "\r" && next === "\n") {
+        i++;
+      }
+
+      row.push(cell);
+      cell = "";
+
+      if (row.length > 1 || row[0] !== "") {
+        rows.push(row);
+      }
+
+      row = [];
+    }
+
+    else {
+      cell += char;
+    }
+  }
+
+  if (cell !== "" || row.length) {
+    row.push(cell);
+    rows.push(row);
+  }
+
+  if (!rows.length) return [];
+
+  const headers = rows[0];
+
+  return rows.slice(1).map(values => {
+
+    const obj = {};
+
+    headers.forEach((header, index) => {
+      obj[header] = values[index] || "";
+    });
+
+    return obj;
+  });
+}
+
+
+function parseDate(value) {
+
+  if (!value) return null;
+
+  const clean = value.trim();
+
+  const match = clean.match(
+    /^(\d{4})(\d{2})(\d{2})T?(\d{2})(\d{2})(\d{2})?Z?$/
+  );
+
+  if (!match) return new Date(clean);
+
+  const year = Number(match[1]);
+  const month = Number(match[2]) - 1;
+  const day = Number(match[3]);
+  const hour = Number(match[4]);
+  const minute = Number(match[5]);
+  const second = Number(match[6] || 0);
+
+  return new Date(Date.UTC(
+    year,
+    month,
+    day,
+    hour,
+    minute,
+    second
+  ));
+}
+
+
+function formatDate(date) {
+
+  return new Intl.DateTimeFormat(
+    "es-AR",
+    {
+      timeZone: "America/Argentina/Buenos_Aires",
+      weekday: "short",
+      day: "2-digit",
+      month: "2-digit"
+    }
+  ).format(date);
+}
+
+
+function formatTime(date) {
+
+  return new Intl.DateTimeFormat(
+    "es-AR",
+    {
+      timeZone: "America/Argentina/Buenos_Aires",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false
+    }
+  ).format(date);
+}
+
+
+function sameDay(date, reference) {
+
+  const formatter = new Intl.DateTimeFormat(
+    "en-CA",
+    {
+      timeZone: "America/Argentina/Buenos_Aires",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit"
+    }
+  );
+
+  return formatter.format(date) === formatter.format(reference);
+}
+
+
+function daysFromNow(date) {
+
+  const now = new Date();
+
+  const startToday = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate()
+  );
+
+  const eventDate = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate()
+  );
+
+  return Math.floor(
+    (eventDate - startToday) / 86400000
+  );
+}
+
+
+function categoryClass(category) {
+
+  return category
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
+
+function createCard(event) {
+
+  const start = parseDate(event.fecha_inicio);
+  const end = parseDate(event.fecha_fin);
+
+  if (!start) return "";
+
+  const now = new Date();
+
+  const live =
+    start <= now &&
+    end &&
+    end >= now;
+
+  const imperdible =
+    event.prioridad === "Imperdible";
+
+  const cardClass =
+    imperdible ? "card imperdible" : "card";
+
+  let liveBadge = "";
+
+  if (live) {
+    liveBadge =
+      `<span class="badge">🔴 EN VIVO</span>`;
+  }
+
+  const category = event.categoria || "Otros";
+
+  return `
+    <div class="${cardClass}">
+
+      ${liveBadge}
+
+      <span class="badge ${categoryClass(category)}">
+        ${category}
+      </span>
+
+      <div class="event-name">
+        ${imperdible ? "🔥 " : ""}
+        ${escapeHTML(event.evento)}
+      </div>
+
+      <div class="championship">
+        ${escapeHTML(event.campeonato)}
+        ·
+        ${escapeHTML(event.tipo)}
+      </div>
+
+      <div class="time">
+        ${formatDate(start)}
+        ·
+        ${formatTime(start)}
+      </div>
+
+      ${
+        event.ubicacion
+        ? `<div class="location">
+             📍 ${escapeHTML(event.ubicacion)}
+           </div>`
+        : ""
+      }
+
+    </div>
+  `;
+}
+
+
+function escapeHTML(value) {
+
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+
+function renderSection(title, list) {
+
+  if (!list.length) return "";
+
+  return `
+    <section class="section">
+
+      <h2>${title}</h2>
+
+      <div class="cards">
+        ${list.map(createCard).join("")}
+      </div>
+
+    </section>
+  `;
+}
+
+
+function render() {
+
+  const now = new Date();
+
+  let filtered = events;
+
+  if (currentFilter !== "Todos") {
+    filtered = events.filter(
+      event => event.categoria === currentFilter
+    );
+  }
+
+  filtered.sort(
+    (a, b) =>
+      parseDate(a.fecha_inicio) -
+      parseDate(b.fecha_inicio)
+  );
+
+  const live = filtered.filter(event => {
+
+    const start = parseDate(event.fecha_inicio);
+    const end = parseDate(event.fecha_fin);
+
+    return (
+      start &&
+      end &&
+      start <= now &&
+      end >= now
+    );
+  });
+
+  const today = filtered.filter(event => {
+
+    const start = parseDate(event.fecha_inicio);
+
+    return (
+      start &&
+      sameDay(start, now) &&
+      !live.includes(event)
+    );
+  });
+
+  const tomorrow = filtered.filter(event => {
+
+    const start = parseDate(event.fecha_inicio);
+
+    const tomorrowDate =
+      new Date(now.getTime() + 86400000);
+
+    return (
+      start &&
+      sameDay(start, tomorrowDate)
+    );
+  });
+
+  const next7 = filtered.filter(event => {
+
+    const start = parseDate(event.fecha_inicio);
+
+    const days = start
+      ? daysFromNow(start)
+      : 999;
+
+    return days >= 2 && days <= 7;
+  });
+
+  const next30 = filtered.filter(event => {
+
+    const start = parseDate(event.fecha_inicio);
+
+    const days = start
+      ? daysFromNow(start)
+      : 999;
+
+    return days >= 8 && days <= 30;
+  });
+
+  const imperdibles = filtered.filter(
+    event =>
+      event.prioridad === "Imperdible" &&
+      parseDate(event.fecha_inicio) >= now
+  );
+
+  let html = "";
+
+  html += renderSection(
+    "🔥 Imperdibles",
+    imperdibles.slice(0, 12)
+  );
+
+  html += renderSection(
+    "🔴 En vivo ahora",
+    live
+  );
+
+  html += renderSection(
+    "🟡 Hoy",
+    today
+  );
+
+  html += renderSection(
+    "🔵 Mañana",
+    tomorrow
+  );
+
+  html += renderSection(
+    "📅 Próximos 7 días",
+    next7
+  );
+
+  html += renderSection(
+    "📆 Próximos 30 días",
+    next30
+  );
+
+  if (!html) {
+    html = `
+      <div class="empty">
+        No hay eventos para este filtro en los próximos 30 días.
+      </div>
+    `;
+  }
+
+  document.getElementById("content").innerHTML = html;
+}
+
+
+async function loadCalendar() {
+
+  try {
+
+    const response = await fetch(
+      CSV_URL + "?v=" + Date.now()
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        "No se pudo cargar events.csv"
+      );
+    }
+
+    const text = await response.text();
+
+    events = parseCSV(text);
+
+    document.getElementById("status").textContent =
+      `${events.length} eventos · actualizado automáticamente · horario de Argentina 🇦🇷`;
+
+    render();
+
+  } catch (error) {
+
+    console.error(error);
+
+    document.getElementById("status").textContent =
+      "⚠️ No se pudo cargar el calendario.";
+
+    document.getElementById("content").innerHTML = `
+      <div class="empty">
+        No se pudo cargar el calendario automático.
+      </div>
+    `;
+  }
+}
+
+
+document.querySelectorAll(
+  ".filters button"
+).forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    document.querySelectorAll(
+      ".filters button"
+    ).forEach(b =>
+      b.classList.remove("active")
+    );
+
+    button.classList.add("active");
+
+    currentFilter =
+      button.dataset.filter;
+
+    render();
+  });
+
+});
+
+
+loadCalendar();
+
+</script>
+
 </body>
 </html>
