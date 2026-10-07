@@ -3,12 +3,28 @@ import re
 from datetime import datetime
 from html import unescape
 from pathlib import Path
-from urllib.parse import urljoin
 from urllib.request import Request, urlopen
 
 
-BASE_URL = "https://aptpweb.com.ar/"
 OUTPUT = Path("data/turismo_pista_events.json")
+
+BASE_URL = "https://aptpweb.com.ar"
+
+MONTHS = {
+    "enero": 1,
+    "febrero": 2,
+    "marzo": 3,
+    "abril": 4,
+    "mayo": 5,
+    "junio": 6,
+    "julio": 7,
+    "agosto": 8,
+    "septiembre": 9,
+    "setiembre": 9,
+    "octubre": 10,
+    "noviembre": 11,
+    "diciembre": 12,
+}
 
 
 def current_year():
@@ -19,7 +35,10 @@ def fetch(url):
     request = Request(
         url,
         headers={
-            "User-Agent": "Mozilla/5.0",
+            "User-Agent": (
+                "Mozilla/5.0 "
+                "(Windows NT 10.0; Win64; x64)"
+            )
         },
     )
 
@@ -35,17 +54,31 @@ def fetch(url):
 
 def clean_html(html):
     html = re.sub(
-        r"<script.*?</script>",
+        r"<script\b[^>]*>.*?</script>",
         " ",
         html,
         flags=re.I | re.S,
     )
 
     html = re.sub(
-        r"<style.*?</style>",
+        r"<style\b[^>]*>.*?</style>",
         " ",
         html,
         flags=re.I | re.S,
+    )
+
+    html = re.sub(
+        r"<br\s*/?>",
+        "\n",
+        html,
+        flags=re.I,
+    )
+
+    html = re.sub(
+        r"</p\s*>",
+        "\n",
+        html,
+        flags=re.I,
     )
 
     html = re.sub(
@@ -56,9 +89,20 @@ def clean_html(html):
 
     html = unescape(html)
 
-    html = re.sub(
-        r"\s+",
+    html = html.replace(
+        "\xa0",
         " ",
+    )
+
+    html = re.sub(
+        r"[ \t]+",
+        " ",
+        html,
+    )
+
+    html = re.sub(
+        r"\n\s+",
+        "\n",
         html,
     )
 
@@ -66,8 +110,6 @@ def clean_html(html):
 
 
 def normalize(text):
-    text = text.lower()
-
     replacements = {
         "á": "a",
         "é": "e",
@@ -83,230 +125,156 @@ def normalize(text):
             new,
         )
 
-    return text
+    return text.lower()
 
 
-def month_number(name):
-    months = {
-        "enero": 1,
-        "febrero": 2,
-        "marzo": 3,
-        "abril": 4,
-        "mayo": 5,
-        "junio": 6,
-        "julio": 7,
-        "agosto": 8,
-        "septiembre": 9,
-        "setiembre": 9,
-        "octubre": 10,
-        "noviembre": 11,
-        "diciembre": 12,
-    }
+def parse_date(day, month_name, year):
+    month = MONTHS.get(
+        normalize(month_name)
+    )
 
-    return months.get(
-        normalize(name)
+    if not month:
+        return None
+
+    return (
+        f"{year:04d}-"
+        f"{month:02d}-"
+        f"{int(day):02d}"
     )
 
 
-def find_date(text, year):
+def find_calendar_block(text, year):
+    """
+    Busca específicamente el bloque CALENDARIO YYYY.
+    Evita tomar fechas de noticias, resultados
+    o publicaciones secundarias de la página.
+    """
+
+    normalized = normalize(text)
+
+    marker = f"calendario {year}"
+
+    start = normalized.find(
+        marker
+    )
+
+    if start == -1:
+        return None
+
+    block = text[start:]
+
+    # El calendario 2026 tiene 10 fechas.
+    # Cortamos cuando aparece una sección claramente posterior.
+    stop_markers = [
+        "turismo carretera 2000",
+        "noticias",
+        "campeonato",
+        "resultados",
+        "contacto",
+    ]
+
+    normalized_block = normalize(
+        block
+    )
+
+    positions = []
+
+    for marker in stop_markers:
+        position = normalized_block.find(
+            marker,
+            100,
+        )
+
+        if position != -1:
+            positions.append(
+                position
+            )
+
+    if positions:
+        block = block[
+            :min(positions)
+        ]
+
+    return block
+
+
+def extract_events_from_block(
+    block,
+    year,
+):
+    events = []
+
+    """
+    APTP publica actualmente líneas con formatos como:
+
+    1° FECHA | 1° febrero – La Plata
+    2° FECHA | 1° marzo
+    3° FECHA | 12 de abril
+    ...
+
+    La sede puede aparecer solamente en algunas
+    líneas. En ese caso conservamos la última sede
+    conocida si corresponde.
+    """
+
     pattern = re.compile(
-        r"(\d{1,2})\s+"
+        r"(\d{1,2})\s*[°º]?\s*"
+        r"FECHA"
+        r"\s*"
+        r"(?:\||:|-)?"
+        r"\s*"
+        r"(\d{1,2})"
+        r"(?:\s*de)?"
+        r"\s+"
         r"(enero|febrero|marzo|abril|mayo|junio|"
         r"julio|agosto|septiembre|setiembre|octubre|"
         r"noviembre|diciembre)"
-        r"(?:\s+de)?\s+"
-        r"(\d{4})",
-        re.I,
+        r"(?:\s+de\s+\d{4})?"
+        r"(?:\s*[-–—]\s*([^|\n]+))?",
+        re.IGNORECASE,
     )
 
     matches = list(
-        pattern.finditer(text)
+        pattern.finditer(block)
     )
+
+    if not matches:
+        return []
 
     for match in matches:
-        event_year = int(
-            match.group(3)
-        )
-
-        if event_year != year:
-            continue
-
-        day = int(
-            match.group(1)
-        )
-
-        month = month_number(
-            match.group(2)
-        )
-
-        if not month:
-            continue
-
-        return (
-            f"{event_year:04d}-"
-            f"{month:02d}-"
-            f"{day:02d}"
-        )
-
-    return None
-
-
-def find_round(text):
-    patterns = [
-        r"(\d{1,2})[°º]?\s*fecha",
-        r"fecha\s*(\d{1,2})",
-        r"carrera\s*(\d{1,2})",
-    ]
-
-    normalized = normalize(text)
-
-    for pattern in patterns:
-        match = re.search(
-            pattern,
-            normalized,
-            re.I,
-        )
-
-        if match:
-            return int(
-                match.group(1)
-            )
-
-    return None
-
-
-def find_location(text):
-    locations = [
-        "La Plata",
-        "Toay",
-        "Concordia",
-        "San Jorge",
-        "Rosario",
-        "Río Cuarto",
-        "Rio Cuarto",
-        "San Nicolás",
-        "San Nicolas",
-        "Termas de Río Hondo",
-        "Termas de Rio Hondo",
-        "Concepción del Uruguay",
-        "Concepcion del Uruguay",
-        "Rafaela",
-    ]
-
-    normalized = normalize(text)
-
-    for location in locations:
-        if normalize(location) in normalized:
-            return location
-
-    return "Argentina"
-
-
-def find_calendar_links(html, year):
-    links = []
-
-    pattern = re.compile(
-        r'href=["\']([^"\']+)["\']',
-        re.I,
-    )
-
-    for match in pattern.finditer(html):
-        href = match.group(1)
-
-        full_url = urljoin(
-            BASE_URL,
-            href,
-        )
-
-        normalized_url = normalize(
-            full_url
-        )
-
-        if (
-            "calendario" in normalized_url
-            and str(year) in normalized_url
-        ):
-            links.append(
-                full_url
-            )
-
-    return list(
-        dict.fromkeys(links)
-    )
-
-
-def extract_calendar_article(
-    url,
-    year,
-):
-    print(
-        f"Consultando: {url}"
-    )
-
-    try:
-        html = fetch(url)
-    except Exception as exc:
-        print(
-            f"ERROR: {exc}"
-        )
-        return []
-
-    text = clean_html(
-        html
-    )
-
-    if "turismo pista" not in normalize(
-        text
-    ):
-        return []
-
-    events = []
-
-    round_pattern = re.compile(
-        r"(\d{1,2})[°º]?\s*fecha",
-        re.I,
-    )
-
-    matches = list(
-        round_pattern.finditer(
-            normalize(text)
-        )
-    )
-
-    for index, match in enumerate(
-        matches
-    ):
         round_number = int(
             match.group(1)
         )
 
-        start = match.start()
+        day = int(
+            match.group(2)
+        )
 
-        if index + 1 < len(matches):
-            end = matches[
-                index + 1
-            ].start()
-        else:
-            end = min(
-                len(text),
-                start + 2500,
-            )
+        month_name = match.group(3)
 
-        fragment = text[
-            start:end
-        ]
+        location = (
+            match.group(4) or ""
+        ).strip()
 
-        date = find_date(
-            fragment,
+        location = re.sub(
+            r"\s+",
+            " ",
+            location,
+        )
+
+        # Evitamos que una frase posterior
+        # termine siendo tomada como circuito.
+        if len(location) > 80:
+            location = location[:80]
+
+        date = parse_date(
+            day,
+            month_name,
             year,
         )
 
         if not date:
             continue
-
-        location = find_location(
-            fragment
-        )
 
         events.append(
             {
@@ -324,7 +292,9 @@ def extract_calendar_article(
                 "fecha_fin": (
                     f"{date}T23:59:00"
                 ),
-                "ubicacion": location,
+                "ubicacion": location
+                if location
+                else "Argentina",
                 "descripcion": (
                     f"Turismo Pista - "
                     f"Fecha {round_number}"
@@ -336,6 +306,25 @@ def extract_calendar_article(
     return events
 
 
+def candidate_urls(year):
+    return [
+        (
+            f"{BASE_URL}/"
+            f"turismo-pista-y-actc-presentaron-"
+            f"el-calendario-{year}-en-la-tv-publica/"
+        ),
+        (
+            f"{BASE_URL}/"
+            f"recorrido-completo-para-el-"
+            f"calendario-{year}/"
+        ),
+        (
+            f"{BASE_URL}/"
+            f"calendario-{year}/"
+        ),
+    ]
+
+
 def main():
     year = current_year()
 
@@ -344,49 +333,61 @@ def main():
         f"para {year}..."
     )
 
-    # Página oficial de calendario del año.
-    calendar_url = (
-        f"https://aptpweb.com.ar/"
-        f"calendario-{year}/"
-    )
+    all_events = []
 
-    candidates = [
-        calendar_url,
-        (
-            f"https://aptpweb.com.ar/"
-            f"recorrido-completo-para-el-"
-            f"calendario-{year}/"
-        ),
-        (
-            f"https://aptpweb.com.ar/"
-            f"turismo-pista-y-actc-"
-            f"presentaron-el-calendario-"
-            f"{year}-en-la-tv-publica/"
-        ),
-    ]
+    for url in candidate_urls(year):
+        print(
+            f"Consultando: {url}"
+        )
 
-    events = []
-
-    for url in candidates:
         try:
-            found = extract_calendar_article(
-                url,
-                year,
-            )
-
-            events.extend(
-                found
-            )
+            html = fetch(url)
 
         except Exception as exc:
             print(
-                f"ERROR procesando {url}: "
-                f"{exc}"
+                f"  No disponible: {exc}"
             )
+            continue
+
+        text = clean_html(
+            html
+        )
+
+        block = find_calendar_block(
+            text,
+            year,
+        )
+
+        if not block:
+            print(
+                "  No se encontró el "
+                f"bloque CALENDARIO {year}."
+            )
+            continue
+
+        events = extract_events_from_block(
+            block,
+            year,
+        )
+
+        print(
+            f"  Fechas encontradas: "
+            f"{len(events)}"
+        )
+
+        all_events.extend(
+            events
+        )
+
+        # Si encontramos un calendario
+        # completo, no necesitamos seguir
+        # usando otras fuentes.
+        if len(events) >= 10:
+            break
 
     unique = {}
 
-    for event in events:
+    for event in all_events:
         unique[event["uid"]] = event
 
     events = list(
@@ -429,8 +430,7 @@ def main():
     if not events:
         print(
             "No hay calendario de Turismo "
-            "Pista disponible todavía para "
-            f"{year}."
+            f"Pista disponible para {year}."
         )
 
 
