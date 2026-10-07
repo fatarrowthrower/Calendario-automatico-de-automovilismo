@@ -1,10 +1,10 @@
 [
   {
-    "uid": "indycar-2026-st-petersburg-2026-02-27-1530-ntt-indycar-series-practice-1",
+    "uid": "indycar-2026-st-petersburg-2026-02-27-1530-practice-1",
     "date": "2026-02-27",
     "time": "15:30",
     "datetime": "2026-02-27T15:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 1",
+    "title": "Practice 1",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of St. Petersburg",
@@ -15,11 +15,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-st-petersburg-2026-02-28-1130-ntt-indycar-series-practice-2",
+    "uid": "indycar-2026-st-petersburg-2026-02-28-1130-practice-2",
     "date": "2026-02-28",
     "time": "11:30",
     "datetime": "2026-02-28T11:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 2",
+    "title": "Practice 2",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of St. Petersburg",
@@ -30,11 +30,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-st-petersburg-2026-02-28-1830-ntt-indycar-series-qualifications",
+    "uid": "indycar-2026-st-petersburg-2026-02-28-1830-qualifications",
     "date": "2026-02-28",
     "time": "18:30",
     "datetime": "2026-02-28T18:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Qualifications",
+    "title": "Qualifications",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of St. Petersburg",
@@ -45,11 +45,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-st-petersburg-2026-03-01-1100-ntt-indycar-series-warmup",
+    "uid": "indycar-2026-st-petersburg-2026-03-01-1100-warmup",
     "date": "2026-03-01",
     "time": "11:00",
     "datetime": "2026-03-01T11:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Warmup",
+    "title": "Warmup",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of St. Petersburg",
@@ -60,11 +60,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-st-petersburg-2026-03-01-1400-ntt-indycar-series-race",
+    "uid": "indycar-2026-st-petersburg-2026-03-01-1400-race",
     "date": "2026-03-01",
     "time": "14:00",
     "datetime": "2026-03-01T14:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Race",
+    "title": "Race",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of St. Petersburg",
@@ -135,11 +135,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-arlington-2026-03-13-1700-ntt-indycar-series-practice-1",
+    "uid": "indycar-2026-arlington-2026-03-13-1700-practice-1",
     "date": "2026-03-13",
     "time": "17:00",
     "datetime": "2026-03-13T17:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 1",
+    "title": "Practice 1",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Arlington",
@@ -150,11 +150,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-arlington-2026-03-14-1030-ntt-indycar-series-practice-2",
+    "uid": "indycar-2026-arlington-2026-03-14-1030-practice-2",
     "date": "2026-03-14",
     "time": "10:30",
     "datetime": "2026-03-14T10:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 2",
+    "title": "Practice 2",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Arlington",
@@ -165,11 +165,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-arlington-2026-03-14-1530-ntt-indycar-series-qualifications",
+    "uid": "indycar-2026-arlington-2026-03-14-1530-qualifications",
     "date": "2026-03-14",
     "time": "15:30",
     "datetime": "2026-03-14T15:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Qualifications",
+    "title": "Qualifications",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Arlington",
@@ -180,11 +180,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-arlington-2026-03-15-1030-ntt-indycar-series-warmup",
+    "uid": "indycar-2026-arlington-2026-03-15-1030-warmup",
     "date": "2026-03-15",
     "time": "10:30",
     "datetime": "2026-03-15T10:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Warmup",
+    "title": "Warmup",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Arlington",
@@ -195,11 +195,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-arlington-2026-03-15-1230-ntt-indycar-series-race",
+    "uid": "indycar-2026-arlington-2026-03-15-1230-race",
     "date": "2026-03-15",
     "time": "12:30",
     "datetime": "2026-03-15T12:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Race",
+    "title": "Race",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Arlington",
@@ -210,11 +210,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-barber-2026-03-27-1630-ntt-indycar-series-practice-1",
+    "uid": "indycar-2026-barber-2026-03-27-1630-practice-1",
     "date": "2026-03-27",
     "time": "16:30",
     "datetime": "2026-03-27T16:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 1",
+    "title": "Practice 1",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Barber Motorsports Park",
@@ -225,11 +225,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-barber-2026-03-28-1200-ntt-indycar-series-practice-2",
+    "uid": "indycar-2026-barber-2026-03-28-1200-practice-2",
     "date": "2026-03-28",
     "time": "12:00",
     "datetime": "2026-03-28T12:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 2",
+    "title": "Practice 2",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Barber Motorsports Park",
@@ -240,11 +240,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-barber-2026-03-28-1530-ntt-indycar-series-qualifying",
+    "uid": "indycar-2026-barber-2026-03-28-1530-qualifications",
     "date": "2026-03-28",
     "time": "15:30",
     "datetime": "2026-03-28T15:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Qualifying",
+    "title": "Qualifications",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Barber Motorsports Park",
@@ -255,11 +255,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-barber-2026-03-29-1100-ntt-indycar-series-warmup",
+    "uid": "indycar-2026-barber-2026-03-29-1100-warmup",
     "date": "2026-03-29",
     "time": "11:00",
     "datetime": "2026-03-29T11:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Warmup",
+    "title": "Warmup",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Barber Motorsports Park",
@@ -270,11 +270,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-barber-2026-03-29-1400-ntt-indycar-series-race",
+    "uid": "indycar-2026-barber-2026-03-29-1400-race",
     "date": "2026-03-29",
     "time": "14:00",
     "datetime": "2026-03-29T14:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Race",
+    "title": "Race",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Barber Motorsports Park",
@@ -285,11 +285,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-long-beach-2026-04-17-1900-ntt-indycar-series-practice-1",
+    "uid": "indycar-2026-long-beach-2026-04-17-1900-practice-1",
     "date": "2026-04-17",
     "time": "19:00",
     "datetime": "2026-04-17T19:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 1",
+    "title": "Practice 1",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Long Beach",
@@ -300,11 +300,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-long-beach-2026-04-18-1430-ntt-indycar-series-practice-2",
+    "uid": "indycar-2026-long-beach-2026-04-18-1430-practice-2",
     "date": "2026-04-18",
     "time": "14:30",
     "datetime": "2026-04-18T14:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 2",
+    "title": "Practice 2",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Long Beach",
@@ -315,11 +315,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-long-beach-2026-04-18-1930-ntt-indycar-series-qualifying",
+    "uid": "indycar-2026-long-beach-2026-04-18-1930-qualifications",
     "date": "2026-04-18",
     "time": "19:30",
     "datetime": "2026-04-18T19:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Qualifying",
+    "title": "Qualifications",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Long Beach",
@@ -330,11 +330,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-long-beach-2026-04-19-1400-ntt-indycar-series-warmup",
+    "uid": "indycar-2026-long-beach-2026-04-19-1400-warmup",
     "date": "2026-04-19",
     "time": "14:00",
     "datetime": "2026-04-19T14:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Warmup",
+    "title": "Warmup",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Long Beach",
@@ -345,11 +345,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-long-beach-2026-04-19-1830-ntt-indycar-series-race",
+    "uid": "indycar-2026-long-beach-2026-04-19-1830-race",
     "date": "2026-04-19",
     "time": "18:30",
     "datetime": "2026-04-19T18:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Race",
+    "title": "Race",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Long Beach",
@@ -360,14 +360,14 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-2026-05-08-1000-ntt-indycar-series-practice-1",
+    "uid": "indycar-2026-indianapolis-2026-05-08-1000-practice-1",
     "date": "2026-05-08",
     "time": "10:00",
     "datetime": "2026-05-08T10:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 1",
+    "title": "Practice 1",
     "category": "IndyCar",
     "championship": "IndyCar",
-    "location": "The 2.439-mile, 14-turn road course incorporates portions of Turns 1 and 2 and the frontstraight of the famed Indianapolis Motor Speedway oval and the remainder of the circuit is within the infield, allowing for great spectator viewing.",
+    "location": "IMS Road Course",
     "event": "Sonsio Grand Prix",
     "source": "https://www.indycar.com/Schedule/2026/Indianapolis",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -375,14 +375,14 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-2026-05-08-1400-ntt-indycar-series-practice-2",
+    "uid": "indycar-2026-indianapolis-2026-05-08-1400-practice-2",
     "date": "2026-05-08",
     "time": "14:00",
     "datetime": "2026-05-08T14:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 2",
+    "title": "Practice 2",
     "category": "IndyCar",
     "championship": "IndyCar",
-    "location": "The 2.439-mile, 14-turn road course incorporates portions of Turns 1 and 2 and the frontstraight of the famed Indianapolis Motor Speedway oval and the remainder of the circuit is within the infield, allowing for great spectator viewing.",
+    "location": "IMS Road Course",
     "event": "Sonsio Grand Prix",
     "source": "https://www.indycar.com/Schedule/2026/Indianapolis",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -390,14 +390,14 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-2026-05-09-1130-ntt-indycar-series-qualifying",
+    "uid": "indycar-2026-indianapolis-2026-05-09-1130-qualifications",
     "date": "2026-05-09",
     "time": "11:30",
     "datetime": "2026-05-09T11:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Qualifying",
+    "title": "Qualifications",
     "category": "IndyCar",
     "championship": "IndyCar",
-    "location": "The 2.439-mile, 14-turn road course incorporates portions of Turns 1 and 2 and the frontstraight of the famed Indianapolis Motor Speedway oval and the remainder of the circuit is within the infield, allowing for great spectator viewing.",
+    "location": "IMS Road Course",
     "event": "Sonsio Grand Prix",
     "source": "https://www.indycar.com/Schedule/2026/Indianapolis",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -405,14 +405,14 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-2026-05-09-1230-ntt-indycar-series-qualifying",
+    "uid": "indycar-2026-indianapolis-2026-05-09-1230-qualifications",
     "date": "2026-05-09",
     "time": "12:30",
     "datetime": "2026-05-09T12:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Qualifying",
+    "title": "Qualifications",
     "category": "IndyCar",
     "championship": "IndyCar",
-    "location": "The 2.439-mile, 14-turn road course incorporates portions of Turns 1 and 2 and the frontstraight of the famed Indianapolis Motor Speedway oval and the remainder of the circuit is within the infield, allowing for great spectator viewing.",
+    "location": "IMS Road Course",
     "event": "Sonsio Grand Prix",
     "source": "https://www.indycar.com/Schedule/2026/Indianapolis",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -420,14 +420,14 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-2026-05-09-1730-ntt-indycar-series-race",
+    "uid": "indycar-2026-indianapolis-2026-05-09-1730-race",
     "date": "2026-05-09",
     "time": "17:30",
     "datetime": "2026-05-09T17:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Race",
+    "title": "Race",
     "category": "IndyCar",
     "championship": "IndyCar",
-    "location": "The 2.439-mile, 14-turn road course incorporates portions of Turns 1 and 2 and the frontstraight of the famed Indianapolis Motor Speedway oval and the remainder of the circuit is within the infield, allowing for great spectator viewing.",
+    "location": "IMS Road Course",
     "event": "Sonsio Grand Prix",
     "source": "https://www.indycar.com/Schedule/2026/Indianapolis",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -435,11 +435,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-500-2026-05-12-1300-ntt-indycar-series-practice-1",
+    "uid": "indycar-2026-indianapolis-500-2026-05-12-1300-practice-1",
     "date": "2026-05-12",
     "time": "13:00",
     "datetime": "2026-05-12T13:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 1",
+    "title": "Practice 1",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Indianapolis Motor Speedway",
@@ -450,11 +450,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-500-2026-05-12-1700-ntt-indycar-series-practice-1",
+    "uid": "indycar-2026-indianapolis-500-2026-05-12-1700-practice-1",
     "date": "2026-05-12",
     "time": "17:00",
     "datetime": "2026-05-12T17:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 1",
+    "title": "Practice 1",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Indianapolis Motor Speedway",
@@ -465,11 +465,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-500-2026-05-13-1300-ntt-indycar-series-practice-2",
+    "uid": "indycar-2026-indianapolis-500-2026-05-13-1300-practice-2",
     "date": "2026-05-13",
     "time": "13:00",
     "datetime": "2026-05-13T13:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 2",
+    "title": "Practice 2",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Indianapolis Motor Speedway",
@@ -480,11 +480,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-500-2026-05-13-1700-ntt-indycar-series-practice-2",
+    "uid": "indycar-2026-indianapolis-500-2026-05-13-1700-practice-2",
     "date": "2026-05-13",
     "time": "17:00",
     "datetime": "2026-05-13T17:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 2",
+    "title": "Practice 2",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Indianapolis Motor Speedway",
@@ -495,11 +495,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-500-2026-05-14-1300-ntt-indycar-series-practice-3",
+    "uid": "indycar-2026-indianapolis-500-2026-05-14-1300-practice-3",
     "date": "2026-05-14",
     "time": "13:00",
     "datetime": "2026-05-14T13:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 3",
+    "title": "Practice 3",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Indianapolis Motor Speedway",
@@ -510,11 +510,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-500-2026-05-14-1700-ntt-indycar-series-practice-3",
+    "uid": "indycar-2026-indianapolis-500-2026-05-14-1700-practice-3",
     "date": "2026-05-14",
     "time": "17:00",
     "datetime": "2026-05-14T17:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 3",
+    "title": "Practice 3",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Indianapolis Motor Speedway",
@@ -525,11 +525,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-500-2026-05-15-1530-ntt-indycar-series-fast-friday",
+    "uid": "indycar-2026-indianapolis-500-2026-05-15-1530-fast-friday",
     "date": "2026-05-15",
     "time": "15:30",
     "datetime": "2026-05-15T15:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Fast Friday",
+    "title": "Fast Friday",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Indianapolis Motor Speedway",
@@ -540,11 +540,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-500-2026-05-15-1600-ntt-indycar-series-fast-friday",
+    "uid": "indycar-2026-indianapolis-500-2026-05-15-1600-fast-friday",
     "date": "2026-05-15",
     "time": "16:00",
     "datetime": "2026-05-15T16:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Fast Friday",
+    "title": "Fast Friday",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Indianapolis Motor Speedway",
@@ -555,11 +555,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-500-2026-05-15-1800-ntt-indycar-series-fast-friday",
+    "uid": "indycar-2026-indianapolis-500-2026-05-15-1800-fast-friday",
     "date": "2026-05-15",
     "time": "18:00",
     "datetime": "2026-05-15T18:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Fast Friday",
+    "title": "Fast Friday",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Indianapolis Motor Speedway",
@@ -570,11 +570,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-500-2026-05-17-1030-ntt-indycar-series-practice-6",
+    "uid": "indycar-2026-indianapolis-500-2026-05-17-1030-practice-6",
     "date": "2026-05-17",
     "time": "10:30",
     "datetime": "2026-05-17T10:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 6",
+    "title": "Practice 6",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Indianapolis Motor Speedway",
@@ -585,11 +585,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-500-2026-05-17-1300-ntt-indycar-series-qualifying-all-cars",
+    "uid": "indycar-2026-indianapolis-500-2026-05-17-1300-qualifying-all-cars",
     "date": "2026-05-17",
     "time": "13:00",
     "datetime": "2026-05-17T13:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Qualifying (All Cars)",
+    "title": "Qualifying (All Cars)",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Indianapolis Motor Speedway",
@@ -600,11 +600,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-500-2026-05-17-1700-ntt-indycar-series-qualifying-top-12",
+    "uid": "indycar-2026-indianapolis-500-2026-05-17-1700-qualifying-top-12",
     "date": "2026-05-17",
     "time": "17:00",
     "datetime": "2026-05-17T17:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Qualifying (Top-12)",
+    "title": "Qualifying (Top-12)",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Indianapolis Motor Speedway",
@@ -615,11 +615,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-500-2026-05-17-1900-ntt-indycar-series-qualifying-firestone-fast-6",
+    "uid": "indycar-2026-indianapolis-500-2026-05-17-1900-qualifying-firestone-fast-6",
     "date": "2026-05-17",
     "time": "19:00",
     "datetime": "2026-05-17T19:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Qualifying (Firestone Fast 6)",
+    "title": "Qualifying (Firestone Fast 6)",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Indianapolis Motor Speedway",
@@ -630,11 +630,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-500-2026-05-18-1400-ntt-indycar-series-practice-7",
+    "uid": "indycar-2026-indianapolis-500-2026-05-18-1400-practice-7",
     "date": "2026-05-18",
     "time": "14:00",
     "datetime": "2026-05-18T14:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 7",
+    "title": "Practice 7",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Indianapolis Motor Speedway",
@@ -645,11 +645,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-500-2026-05-22-1200-ntt-indycar-series-carb-day-final-practice",
+    "uid": "indycar-2026-indianapolis-500-2026-05-22-1200-carb-day-final-practice",
     "date": "2026-05-22",
     "time": "12:00",
     "datetime": "2026-05-22T12:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Carb Day Final Practice",
+    "title": "Carb Day Final Practice",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Indianapolis Motor Speedway",
@@ -660,11 +660,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-500-2026-05-22-1500-ntt-indycar-series-pit-stop-competition",
+    "uid": "indycar-2026-indianapolis-500-2026-05-22-1500-pit-stop-competition",
     "date": "2026-05-22",
     "time": "15:00",
     "datetime": "2026-05-22T15:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Pit Stop Competition",
+    "title": "Pit Stop Competition",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Indianapolis Motor Speedway",
@@ -675,11 +675,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-500-2026-05-22-1530-ntt-indycar-series-pit-stop-competition",
+    "uid": "indycar-2026-indianapolis-500-2026-05-22-1530-pit-stop-competition",
     "date": "2026-05-22",
     "time": "15:30",
     "datetime": "2026-05-22T15:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Pit Stop Competition",
+    "title": "Pit Stop Competition",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Indianapolis Motor Speedway",
@@ -690,11 +690,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-500-2026-05-24-1100-ntt-indycar-series-pre-race",
+    "uid": "indycar-2026-indianapolis-500-2026-05-24-1100-pre-race",
     "date": "2026-05-24",
     "time": "11:00",
     "datetime": "2026-05-24T11:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Pre-Race",
+    "title": "Pre-Race",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Indianapolis Motor Speedway",
@@ -705,11 +705,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-indianapolis-500-2026-05-24-1330-ntt-indycar-series-race",
+    "uid": "indycar-2026-indianapolis-500-2026-05-24-1330-race",
     "date": "2026-05-24",
     "time": "13:30",
     "datetime": "2026-05-24T13:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Race",
+    "title": "Race",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Indianapolis Motor Speedway",
@@ -720,11 +720,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-detroit-2026-05-29-1600-ntt-indycar-series-practice-1",
+    "uid": "indycar-2026-detroit-2026-05-29-1600-practice-1",
     "date": "2026-05-29",
     "time": "16:00",
     "datetime": "2026-05-29T16:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 1",
+    "title": "Practice 1",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Detroit",
@@ -735,11 +735,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-detroit-2026-05-30-1000-ntt-indycar-series-practice-2",
+    "uid": "indycar-2026-detroit-2026-05-30-1000-practice-2",
     "date": "2026-05-30",
     "time": "10:00",
     "datetime": "2026-05-30T10:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 2",
+    "title": "Practice 2",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Detroit",
@@ -750,11 +750,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-detroit-2026-05-30-1400-ntt-indycar-series-qualifying",
+    "uid": "indycar-2026-detroit-2026-05-30-1400-qualifications",
     "date": "2026-05-30",
     "time": "14:00",
     "datetime": "2026-05-30T14:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Qualifying",
+    "title": "Qualifications",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Detroit",
@@ -765,11 +765,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-detroit-2026-05-31-1030-ntt-indycar-series-warmup",
+    "uid": "indycar-2026-detroit-2026-05-31-1030-warmup",
     "date": "2026-05-31",
     "time": "10:30",
     "datetime": "2026-05-31T10:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Warmup",
+    "title": "Warmup",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Detroit",
@@ -780,11 +780,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-detroit-2026-05-31-1330-ntt-indycar-series-race",
+    "uid": "indycar-2026-detroit-2026-05-31-1330-race",
     "date": "2026-05-31",
     "time": "13:30",
     "datetime": "2026-05-31T13:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Race",
+    "title": "Race",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Detroit",
@@ -795,11 +795,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-wwtr-2026-06-06-1330-ntt-indycar-series-practice-1",
+    "uid": "indycar-2026-wwtr-2026-06-06-1330-practice-1",
     "date": "2026-06-06",
     "time": "13:30",
     "datetime": "2026-06-06T13:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 1",
+    "title": "Practice 1",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "World Wide Technology Raceway",
@@ -810,11 +810,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-wwtr-2026-06-06-1730-ntt-indycar-series-qualifying",
+    "uid": "indycar-2026-wwtr-2026-06-06-1730-qualifications",
     "date": "2026-06-06",
     "time": "17:30",
     "datetime": "2026-06-06T17:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Qualifying",
+    "title": "Qualifications",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "World Wide Technology Raceway",
@@ -825,11 +825,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-wwtr-2026-06-06-2200-ntt-indycar-series-final-practice",
+    "uid": "indycar-2026-wwtr-2026-06-06-2200-final-practice",
     "date": "2026-06-06",
     "time": "22:00",
     "datetime": "2026-06-06T22:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Final Practice",
+    "title": "Final Practice",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "World Wide Technology Raceway",
@@ -840,11 +840,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-wwtr-2026-06-07-2200-ntt-indycar-series-race",
+    "uid": "indycar-2026-wwtr-2026-06-07-2200-race",
     "date": "2026-06-07",
     "time": "22:00",
     "datetime": "2026-06-07T22:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Race",
+    "title": "Race",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "World Wide Technology Raceway",
@@ -855,14 +855,14 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-road-america-2026-06-19-1700-ntt-indycar-series-practice-1",
+    "uid": "indycar-2026-road-america-2026-06-19-1700-practice-1",
     "date": "2026-06-19",
     "time": "17:00",
     "datetime": "2026-06-19T17:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 1",
+    "title": "Practice 1",
     "category": "IndyCar",
     "championship": "IndyCar",
-    "location": "",
+    "location": "Road America",
     "event": "XPEL Grand Prix at Road America",
     "source": "https://www.indycar.com/Schedule/2026/Road-America",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -870,14 +870,14 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-road-america-2026-06-20-1200-ntt-indycar-series-practice-2",
+    "uid": "indycar-2026-road-america-2026-06-20-1200-practice-2",
     "date": "2026-06-20",
     "time": "12:00",
     "datetime": "2026-06-20T12:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 2",
+    "title": "Practice 2",
     "category": "IndyCar",
     "championship": "IndyCar",
-    "location": "",
+    "location": "Road America",
     "event": "XPEL Grand Prix at Road America",
     "source": "https://www.indycar.com/Schedule/2026/Road-America",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -885,14 +885,14 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-road-america-2026-06-20-1500-ntt-indycar-series-qualifying",
+    "uid": "indycar-2026-road-america-2026-06-20-1500-qualifications",
     "date": "2026-06-20",
     "time": "15:00",
     "datetime": "2026-06-20T15:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Qualifying",
+    "title": "Qualifications",
     "category": "IndyCar",
     "championship": "IndyCar",
-    "location": "",
+    "location": "Road America",
     "event": "XPEL Grand Prix at Road America",
     "source": "https://www.indycar.com/Schedule/2026/Road-America",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -900,14 +900,14 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-road-america-2026-06-21-1200-ntt-indycar-series-warmup",
+    "uid": "indycar-2026-road-america-2026-06-21-1200-warmup",
     "date": "2026-06-21",
     "time": "12:00",
     "datetime": "2026-06-21T12:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Warmup",
+    "title": "Warmup",
     "category": "IndyCar",
     "championship": "IndyCar",
-    "location": "",
+    "location": "Road America",
     "event": "XPEL Grand Prix at Road America",
     "source": "https://www.indycar.com/Schedule/2026/Road-America",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -915,14 +915,14 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-road-america-2026-06-21-1500-ntt-indycar-series-race",
+    "uid": "indycar-2026-road-america-2026-06-21-1500-race",
     "date": "2026-06-21",
     "time": "15:00",
     "datetime": "2026-06-21T15:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Race",
+    "title": "Race",
     "category": "IndyCar",
     "championship": "IndyCar",
-    "location": "",
+    "location": "Road America",
     "event": "XPEL Grand Prix at Road America",
     "source": "https://www.indycar.com/Schedule/2026/Road-America",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -930,14 +930,14 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-mid-ohio-2026-07-03-1600-ntt-indycar-series-practice-1",
+    "uid": "indycar-2026-mid-ohio-2026-07-03-1600-practice-1",
     "date": "2026-07-03",
     "time": "16:00",
     "datetime": "2026-07-03T16:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 1",
+    "title": "Practice 1",
     "category": "IndyCar",
     "championship": "IndyCar",
-    "location": "",
+    "location": "Mid-Ohio Sports Car Course",
     "event": "Honda Indy 200 at Mid-Ohio",
     "source": "https://www.indycar.com/Schedule/2026/Mid-Ohio",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -945,14 +945,14 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-mid-ohio-2026-07-04-1100-ntt-indycar-series-practice-2",
+    "uid": "indycar-2026-mid-ohio-2026-07-04-1100-practice-2",
     "date": "2026-07-04",
     "time": "11:00",
     "datetime": "2026-07-04T11:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 2",
+    "title": "Practice 2",
     "category": "IndyCar",
     "championship": "IndyCar",
-    "location": "",
+    "location": "Mid-Ohio Sports Car Course",
     "event": "Honda Indy 200 at Mid-Ohio",
     "source": "https://www.indycar.com/Schedule/2026/Mid-Ohio",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -960,14 +960,14 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-mid-ohio-2026-07-04-1815-ntt-indycar-series-qualifying",
+    "uid": "indycar-2026-mid-ohio-2026-07-04-1815-qualifications",
     "date": "2026-07-04",
     "time": "18:15",
     "datetime": "2026-07-04T18:15:00-03:00",
-    "title": "NTT INDYCAR SERIES - Qualifying",
+    "title": "Qualifications",
     "category": "IndyCar",
     "championship": "IndyCar",
-    "location": "",
+    "location": "Mid-Ohio Sports Car Course",
     "event": "Honda Indy 200 at Mid-Ohio",
     "source": "https://www.indycar.com/Schedule/2026/Mid-Ohio",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -975,14 +975,14 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-mid-ohio-2026-07-05-1000-ntt-indycar-series-warmup",
+    "uid": "indycar-2026-mid-ohio-2026-07-05-1000-warmup",
     "date": "2026-07-05",
     "time": "10:00",
     "datetime": "2026-07-05T10:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Warmup",
+    "title": "Warmup",
     "category": "IndyCar",
     "championship": "IndyCar",
-    "location": "",
+    "location": "Mid-Ohio Sports Car Course",
     "event": "Honda Indy 200 at Mid-Ohio",
     "source": "https://www.indycar.com/Schedule/2026/Mid-Ohio",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -990,14 +990,14 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-mid-ohio-2026-07-05-1330-ntt-indycar-series-race",
+    "uid": "indycar-2026-mid-ohio-2026-07-05-1330-race",
     "date": "2026-07-05",
     "time": "13:30",
     "datetime": "2026-07-05T13:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Race",
+    "title": "Race",
     "category": "IndyCar",
     "championship": "IndyCar",
-    "location": "",
+    "location": "Mid-Ohio Sports Car Course",
     "event": "Honda Indy 200 at Mid-Ohio",
     "source": "https://www.indycar.com/Schedule/2026/Mid-Ohio",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -1005,11 +1005,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-nashville-2026-07-18-1100-ntt-indycar-series-practice-1",
+    "uid": "indycar-2026-nashville-2026-07-18-1100-practice-1",
     "date": "2026-07-18",
     "time": "11:00",
     "datetime": "2026-07-18T11:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 1",
+    "title": "Practice 1",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Nashville Superspeedway",
@@ -1020,11 +1020,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-nashville-2026-07-18-1600-ntt-indycar-series-qualifying",
+    "uid": "indycar-2026-nashville-2026-07-18-1600-qualifications",
     "date": "2026-07-18",
     "time": "16:00",
     "datetime": "2026-07-18T16:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Qualifying",
+    "title": "Qualifications",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Nashville Superspeedway",
@@ -1035,11 +1035,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-nashville-2026-07-18-1900-ntt-indycar-series-final-practice",
+    "uid": "indycar-2026-nashville-2026-07-18-1900-final-practice",
     "date": "2026-07-18",
     "time": "19:00",
     "datetime": "2026-07-18T19:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Final Practice",
+    "title": "Final Practice",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Nashville Superspeedway",
@@ -1050,11 +1050,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-nashville-2026-07-20-1600-ntt-indycar-series-race",
+    "uid": "indycar-2026-nashville-2026-07-20-1600-race",
     "date": "2026-07-20",
     "time": "16:00",
     "datetime": "2026-07-20T16:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Race",
+    "title": "Race",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Nashville Superspeedway",
@@ -1065,11 +1065,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-portland-2026-08-07-1830-ntt-indycar-series-practice-1",
+    "uid": "indycar-2026-portland-2026-08-07-1830-practice-1",
     "date": "2026-08-07",
     "time": "18:30",
     "datetime": "2026-08-07T18:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 1",
+    "title": "Practice 1",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Portland International Raceway",
@@ -1080,11 +1080,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-portland-2026-08-08-1400-ntt-indycar-series-practice-2",
+    "uid": "indycar-2026-portland-2026-08-08-1400-practice-2",
     "date": "2026-08-08",
     "time": "14:00",
     "datetime": "2026-08-08T14:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 2",
+    "title": "Practice 2",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Portland International Raceway",
@@ -1095,11 +1095,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-portland-2026-08-08-2000-ntt-indycar-series-qualifying",
+    "uid": "indycar-2026-portland-2026-08-08-2000-qualifications",
     "date": "2026-08-08",
     "time": "20:00",
     "datetime": "2026-08-08T20:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Qualifying",
+    "title": "Qualifications",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Portland International Raceway",
@@ -1110,11 +1110,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-portland-2026-08-09-1400-ntt-indycar-series-warmup",
+    "uid": "indycar-2026-portland-2026-08-09-1400-warmup",
     "date": "2026-08-09",
     "time": "14:00",
     "datetime": "2026-08-09T14:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Warmup",
+    "title": "Warmup",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Portland International Raceway",
@@ -1125,11 +1125,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-portland-2026-08-09-1700-ntt-indycar-series-race",
+    "uid": "indycar-2026-portland-2026-08-09-1700-race",
     "date": "2026-08-09",
     "time": "17:00",
     "datetime": "2026-08-09T17:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Race",
+    "title": "Race",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Portland International Raceway",
@@ -1140,11 +1140,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-markham-2026-08-15-1100-ntt-indycar-series-practice-1",
+    "uid": "indycar-2026-markham-2026-08-15-1100-practice-1",
     "date": "2026-08-15",
     "time": "11:00",
     "datetime": "2026-08-15T11:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 1",
+    "title": "Practice 1",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Markham",
@@ -1155,11 +1155,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-markham-2026-08-15-1530-ntt-indycar-series-practice-2",
+    "uid": "indycar-2026-markham-2026-08-15-1530-practice-2",
     "date": "2026-08-15",
     "time": "15:30",
     "datetime": "2026-08-15T15:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 2",
+    "title": "Practice 2",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Markham",
@@ -1170,11 +1170,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-markham-2026-08-15-1930-ntt-indycar-series-qualifying",
+    "uid": "indycar-2026-markham-2026-08-15-1930-qualifications",
     "date": "2026-08-15",
     "time": "19:30",
     "datetime": "2026-08-15T19:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Qualifying",
+    "title": "Qualifications",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Markham",
@@ -1185,11 +1185,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-markham-2026-08-15-2000-ntt-indycar-series-qualifying",
+    "uid": "indycar-2026-markham-2026-08-15-2000-qualifications",
     "date": "2026-08-15",
     "time": "20:00",
     "datetime": "2026-08-15T20:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Qualifying",
+    "title": "Qualifications",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Markham",
@@ -1200,11 +1200,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-markham-2026-08-16-0930-ntt-indycar-series-warmup",
+    "uid": "indycar-2026-markham-2026-08-16-0930-warmup",
     "date": "2026-08-16",
     "time": "09:30",
     "datetime": "2026-08-16T09:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Warmup",
+    "title": "Warmup",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Markham",
@@ -1215,11 +1215,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-markham-2026-08-16-1300-ntt-indycar-series-race",
+    "uid": "indycar-2026-markham-2026-08-16-1300-race",
     "date": "2026-08-16",
     "time": "13:00",
     "datetime": "2026-08-16T13:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Race",
+    "title": "Race",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Markham",
@@ -1230,11 +1230,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-washington-dc-2026-08-22-1000-ntt-indycar-series-practice-1",
+    "uid": "indycar-2026-washington-dc-2026-08-22-1000-practice-1",
     "date": "2026-08-22",
     "time": "10:00",
     "datetime": "2026-08-22T10:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 1",
+    "title": "Practice 1",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Washington",
@@ -1245,11 +1245,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-washington-dc-2026-08-22-1400-ntt-indycar-series-practice-2",
+    "uid": "indycar-2026-washington-dc-2026-08-22-1400-practice-2",
     "date": "2026-08-22",
     "time": "14:00",
     "datetime": "2026-08-22T14:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 2",
+    "title": "Practice 2",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Washington",
@@ -1260,11 +1260,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-washington-dc-2026-08-22-1800-ntt-indycar-series-qualifying",
+    "uid": "indycar-2026-washington-dc-2026-08-22-1800-qualifications",
     "date": "2026-08-22",
     "time": "18:00",
     "datetime": "2026-08-22T18:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Qualifying",
+    "title": "Qualifications",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Washington",
@@ -1275,11 +1275,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-washington-dc-2026-08-23-1000-ntt-indycar-series-warmup",
+    "uid": "indycar-2026-washington-dc-2026-08-23-1000-warmup",
     "date": "2026-08-23",
     "time": "10:00",
     "datetime": "2026-08-23T10:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Warmup",
+    "title": "Warmup",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Washington",
@@ -1290,11 +1290,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-washington-dc-2026-08-23-1230-ntt-indycar-series-pre-race-show",
+    "uid": "indycar-2026-washington-dc-2026-08-23-1230-race",
     "date": "2026-08-23",
     "time": "12:30",
     "datetime": "2026-08-23T12:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Pre-Race Show",
+    "title": "Race",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Washington",
@@ -1305,11 +1305,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-washington-dc-2026-08-23-1400-ntt-indycar-series-race",
+    "uid": "indycar-2026-washington-dc-2026-08-23-1400-race",
     "date": "2026-08-23",
     "time": "14:00",
     "datetime": "2026-08-23T14:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Race",
+    "title": "Race",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "Streets of Washington",
@@ -1320,14 +1320,14 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-milwaukee-race1-2026-08-28-1900-ntt-indycar-series-practice",
+    "uid": "indycar-2026-milwaukee-race1-2026-08-28-1900-practice",
     "date": "2026-08-28",
     "time": "19:00",
     "datetime": "2026-08-28T19:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice",
+    "title": "Practice",
     "category": "IndyCar",
     "championship": "IndyCar",
-    "location": "",
+    "location": "Milwaukee Mile",
     "event": "Snap-on Makers and Fixers 250",
     "source": "https://www.indycar.com/Schedule/2026/Milwaukee-Race1",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -1335,29 +1335,14 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-milwaukee-race2-2026-08-29-1200-ntt-indycar-series-qualifying",
+    "uid": "indycar-2026-milwaukee-race1-2026-08-29-1200-qualifications",
     "date": "2026-08-29",
     "time": "12:00",
     "datetime": "2026-08-29T12:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Qualifying",
+    "title": "Qualifications",
     "category": "IndyCar",
     "championship": "IndyCar",
-    "location": "",
-    "event": "Snap-on Milwaukee Mile 250",
-    "source": "https://www.indycar.com/Schedule/2026/Milwaukee-Race2",
-    "timezone": "America/Argentina/Buenos_Aires",
-    "prioridad": false,
-    "imperdible": false
-  },
-  {
-    "uid": "indycar-2026-milwaukee-race1-2026-08-29-1200-ntt-indycar-series-qualifying",
-    "date": "2026-08-29",
-    "time": "12:00",
-    "datetime": "2026-08-29T12:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Qualifying",
-    "category": "IndyCar",
-    "championship": "IndyCar",
-    "location": "",
+    "location": "Milwaukee Mile",
     "event": "Snap-on Makers and Fixers 250",
     "source": "https://www.indycar.com/Schedule/2026/Milwaukee-Race1",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -1365,29 +1350,14 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-milwaukee-race2-2026-08-30-1400-ntt-indycar-series-race-2",
+    "uid": "indycar-2026-milwaukee-race1-2026-08-30-1400-race-2",
     "date": "2026-08-30",
     "time": "14:00",
     "datetime": "2026-08-30T14:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Race 2",
+    "title": "Race 2",
     "category": "IndyCar",
     "championship": "IndyCar",
-    "location": "",
-    "event": "Snap-on Milwaukee Mile 250",
-    "source": "https://www.indycar.com/Schedule/2026/Milwaukee-Race2",
-    "timezone": "America/Argentina/Buenos_Aires",
-    "prioridad": false,
-    "imperdible": false
-  },
-  {
-    "uid": "indycar-2026-milwaukee-race1-2026-08-30-1400-ntt-indycar-series-race-2",
-    "date": "2026-08-30",
-    "time": "14:00",
-    "datetime": "2026-08-30T14:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Race 2",
-    "category": "IndyCar",
-    "championship": "IndyCar",
-    "location": "",
+    "location": "Milwaukee Mile",
     "event": "Snap-on Makers and Fixers 250",
     "source": "https://www.indycar.com/Schedule/2026/Milwaukee-Race1",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -1395,14 +1365,14 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-milwaukee-race1-2026-08-30-1900-ntt-indycar-series-race-1",
+    "uid": "indycar-2026-milwaukee-race1-2026-08-30-1900-race-1",
     "date": "2026-08-30",
     "time": "19:00",
     "datetime": "2026-08-30T19:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Race 1",
+    "title": "Race 1",
     "category": "IndyCar",
     "championship": "IndyCar",
-    "location": "",
+    "location": "Milwaukee Mile",
     "event": "Snap-on Makers and Fixers 250",
     "source": "https://www.indycar.com/Schedule/2026/Milwaukee-Race1",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -1410,11 +1380,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-laguna-seca-2026-09-04-1800-ntt-indycar-series-practice-1",
+    "uid": "indycar-2026-laguna-seca-2026-09-04-1800-practice-1",
     "date": "2026-09-04",
     "time": "18:00",
     "datetime": "2026-09-04T18:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 1",
+    "title": "Practice 1",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "WeatherTech Raceway Laguna Seca",
@@ -1425,11 +1395,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-laguna-seca-2026-09-05-1400-ntt-indycar-series-practice-2",
+    "uid": "indycar-2026-laguna-seca-2026-09-05-1400-practice-2",
     "date": "2026-09-05",
     "time": "14:00",
     "datetime": "2026-09-05T14:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Practice 2",
+    "title": "Practice 2",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "WeatherTech Raceway Laguna Seca",
@@ -1440,11 +1410,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-laguna-seca-2026-09-05-1730-ntt-indycar-series-qualifying",
+    "uid": "indycar-2026-laguna-seca-2026-09-05-1730-qualifications",
     "date": "2026-09-05",
     "time": "17:30",
     "datetime": "2026-09-05T17:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Qualifying",
+    "title": "Qualifications",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "WeatherTech Raceway Laguna Seca",
@@ -1455,11 +1425,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-laguna-seca-2026-09-05-2100-ntt-indycar-series-final-practice",
+    "uid": "indycar-2026-laguna-seca-2026-09-05-2100-final-practice",
     "date": "2026-09-05",
     "time": "21:00",
     "datetime": "2026-09-05T21:00:00-03:00",
-    "title": "NTT INDYCAR SERIES - Final Practice",
+    "title": "Final Practice",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "WeatherTech Raceway Laguna Seca",
@@ -1470,11 +1440,11 @@
     "imperdible": false
   },
   {
-    "uid": "indycar-2026-laguna-seca-2026-09-06-1530-ntt-indycar-series-race",
+    "uid": "indycar-2026-laguna-seca-2026-09-06-1530-race",
     "date": "2026-09-06",
     "time": "15:30",
     "datetime": "2026-09-06T15:30:00-03:00",
-    "title": "NTT INDYCAR SERIES - Race",
+    "title": "Race",
     "category": "IndyCar",
     "championship": "IndyCar",
     "location": "WeatherTech Raceway Laguna Seca",
