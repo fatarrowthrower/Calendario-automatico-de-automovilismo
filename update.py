@@ -3,7 +3,8 @@ import csv
 import json
 import re
 import subprocess
-from datetime import datetime, timedelta
+from datetime import datetime
+
 
 ROOT = Path(__file__).resolve().parent
 DATA = ROOT / "data"
@@ -15,136 +16,164 @@ EVENTS_CSV = DATA / "events.csv"
 EVENTS_JSON = DATA / "events.json"
 FINAL_ICS = OUTPUT / "automovilismo.ics"
 
-DATA.mkdir(exist_ok=True)
-OUTPUT.mkdir(exist_ok=True)
+TIMEZONE = "America/Argentina/Buenos_Aires"
 
 
-def classify(uid, name, location):
+def current_year():
+    """
+    Devuelve automáticamente el año actual.
+    De esta manera el calendario pasa de 2026 a 2027,
+    2028, etc. sin modificar este archivo cada año.
+    """
+    return datetime.now().year
+
+
+def classify(uid, name):
     u = uid.lower()
     n = name.lower()
 
     if "f1-academy" in u:
-        categoria, campeonato = "Fórmula", "F1 Academy"
-    elif "formula-e" in u or "f1calendar-fe" in u:
-        categoria, campeonato = "Fórmula", "Formula E"
-    elif "f1calendar-f1-" in u:
-        categoria, campeonato = "Fórmula", "F1"
-    elif "f1calendar-f2-" in u:
-        categoria, campeonato = "Fórmula", "F2"
-    elif "f1calendar-f3-" in u:
-        categoria, campeonato = "Fórmula", "F3"
+        return "Fórmula", "F1 Academy"
 
-    elif u.startswith("motogp-"):
-        categoria, campeonato = "Motos", "MotoGP"
-    elif u.startswith("moto2-"):
-        categoria, campeonato = "Motos", "Moto2"
-    elif u.startswith("moto3-"):
-        categoria, campeonato = "Motos", "Moto3"
-    elif "worldsbk" in u:
-        categoria, campeonato = "Motos", "WorldSBK"
+    if "formula-e" in u or "f1calendar-fe" in u:
+        return "Fórmula", "Formula E"
 
-    elif u.startswith("wec-"):
-        categoria, campeonato = "Endurance", "WEC"
-    elif "elms" in u:
-        categoria, campeonato = "Endurance", "ELMS"
-    elif "mlmc" in u or "le-mans-cup" in u:
-        categoria, campeonato = "Endurance", "Le Mans Cup"
-    elif "imsa" in u:
-        categoria, campeonato = "Endurance", "IMSA"
+    if "f1calendar-f1-" in u:
+        return "Fórmula", "F1"
 
-    elif "gtwc-europe" in u:
-        categoria, campeonato = "GT", "GT World Challenge Europe"
-    elif "gtwc-america" in u:
-        categoria, campeonato = "GT", "GT World Challenge America"
-    elif "gtwc-asia" in u:
-        categoria, campeonato = "GT", "GT World Challenge Asia"
-    elif "igtc" in u:
-        categoria, campeonato = "GT", "IGTC"
-    elif "super-gt" in u:
-        categoria, campeonato = "GT", "Super GT"
+    if "f1calendar-f2-" in u:
+        return "Fórmula", "F2"
 
-    elif any(x in u or x in n for x in [
-        "turismo-carretera",
-        "tc-pista",
-        "tc-pick",
-        "tc2000",
-        "turismo-nacional",
-        "turismo-pista",
-        "top-race",
-        "rally-argentino",
-        "formula-nacional",
-    ]):
-        categoria = "Argentina"
+    if "f1calendar-f3-" in u:
+        return "Fórmula", "F3"
 
-        if "turismo-carretera" in u or "turismo carretera" in n:
-            campeonato = "Turismo Carretera"
-        elif "tc-pista" in u or "tc pista" in n:
-            campeonato = "TC Pista"
-        elif "tc-pick" in u or "tc pick" in n:
-            campeonato = "TC Pick Up"
-        elif "tc2000" in u or "tc2000" in n:
-            campeonato = "TC2000"
-        elif "turismo-nacional" in u or "turismo nacional" in n:
-            campeonato = "Turismo Nacional"
-        elif "turismo-pista" in u or "turismo pista" in n:
-            campeonato = "Turismo Pista"
-        elif "top-race" in u or "top race" in n:
-            campeonato = "Top Race"
-        elif "rally-argentino" in u or "rally argentino" in n:
-            campeonato = "Rally Argentino"
-        else:
-            campeonato = "Fórmula Argentina"
+    if u.startswith("motogp-"):
+        return "Motos", "MotoGP"
 
-    elif "nascar" in u or "nascar" in n:
-        categoria = "NASCAR"
+    if u.startswith("moto2-"):
+        return "Motos", "Moto2"
 
+    if u.startswith("moto3-"):
+        return "Motos", "Moto3"
+
+    if "worldsbk" in u:
+        return "Motos", "WorldSBK"
+
+    if u.startswith("wec-"):
+        return "Endurance", "WEC"
+
+    if "elms" in u:
+        return "Endurance", "ELMS"
+
+    if "mlmc" in u or "le-mans-cup" in u:
+        return "Endurance", "Le Mans Cup"
+
+    if "imsa" in u:
+        return "Endurance", "IMSA"
+
+    if "gtwc-europe" in u:
+        return "GT", "GT World Challenge Europe"
+
+    if "gtwc-america" in u:
+        return "GT", "GT World Challenge America"
+
+    if "gtwc-asia" in u:
+        return "GT", "GT World Challenge Asia"
+
+    if "igtc" in u:
+        return "GT", "IGTC"
+
+    if "super-gt" in u:
+        return "GT", "Super GT"
+
+    if any(
+        x in u or x in n
+        for x in [
+            "turismo-carretera",
+            "tc-pista",
+            "tc-pick",
+            "tc2000",
+            "turismo-nacional",
+            "turismo-pista",
+            "top-race",
+            "rally-argentino",
+            "formula-nacional",
+        ]
+    ):
+        return "Argentina", "Automovilismo argentino"
+
+    if "nascar" in u or "nascar" in n:
+        if "cup" in u or "cup" in n:
+            return "NASCAR", "NASCAR Cup"
         if "xfinity" in u or "xfinity" in n:
-            campeonato = "NASCAR Xfinity"
-        elif "truck" in u or "truck" in n:
-            campeonato = "NASCAR Truck"
-        else:
-            campeonato = "NASCAR Cup"
+            return "NASCAR", "NASCAR Xfinity"
+        if "truck" in u or "truck" in n:
+            return "NASCAR", "NASCAR Truck"
+        return "NASCAR", "NASCAR"
 
-    elif "indycar" in u or "indycar" in n or "indy-500" in u:
-        categoria, campeonato = "IndyCar", "IndyCar"
+    if "indycar" in u or "indycar" in n or "indy-500" in u:
+        return "IndyCar", "IndyCar"
 
-    elif "wrc" in u or "wrc" in n:
-        categoria, campeonato = "Rally", "WRC"
-    elif "dakar" in u or "dakar" in n:
-        categoria, campeonato = "Rally", "Dakar"
-    elif "rallycross" in u or "rallycross" in n:
-        categoria, campeonato = "Rally", "Rallycross"
+    if "wrc" in u or "wrc" in n:
+        return "Rally", "WRC"
 
-    elif "drift" in u or "drift" in n:
-        categoria, campeonato = "Drift", "Formula Drift"
+    if "dakar" in u or "dakar" in n:
+        return "Rally", "Dakar"
 
-    else:
-        categoria, campeonato = "Otros", "Otros"
+    if "rallycross" in u or "rallycross" in n:
+        return "Rally", "Rallycross"
 
-    if any(x in n for x in ["race", "carrera"]):
-        tipo = "Carrera"
-    elif any(x in n for x in [
-        "qualifying",
-        "qualification",
-        "clasificación"
-    ]):
-        tipo = "Clasificación"
-    elif "sprint" in n:
-        tipo = "Sprint"
-    elif any(x in n for x in [
-        "practice",
-        "free practice",
-        "entrenamiento",
-        "fp1",
-        "fp2",
-        "fp3",
-    ]):
-        tipo = "Entrenamiento"
-    else:
-        tipo = "Evento"
+    if "drift" in u or "drift" in n:
+        return "Drift", "Formula Drift"
 
-    if (
-        campeonato in [
+    return "Otros", "Otros"
+
+
+def classify_session(name):
+    text = name.lower()
+
+    if "sprint" in text:
+        return "Sprint"
+
+    if any(
+        x in text
+        for x in [
+            "qualifying",
+            "qualification",
+            "clasificación",
+        ]
+    ):
+        return "Clasificación"
+
+    if any(
+        x in text
+        for x in [
+            "race",
+            "carrera",
+        ]
+    ):
+        return "Carrera"
+
+    if any(
+        x in text
+        for x in [
+            "practice",
+            "free practice",
+            "entrenamiento",
+            "fp1",
+            "fp2",
+            "fp3",
+        ]
+    ):
+        return "Entrenamiento"
+
+    return "Evento"
+
+
+def is_imperdible(campeonato, tipo):
+    return (
+        campeonato
+        in {
             "F1",
             "MotoGP",
             "WEC",
@@ -154,341 +183,478 @@ def classify(uid, name, location):
             "NASCAR Cup",
             "WRC",
             "Dakar",
-        ]
+            "TC",
+            "TC Pista",
+            "TC Pick Up",
+        }
         and tipo == "Carrera"
-    ):
-        prioridad = "Imperdible"
-    else:
-        prioridad = "Normal"
-
-    return categoria, campeonato, tipo, prioridad
+    )
 
 
 def parse_ics(path):
-    text = path.read_text(encoding="utf-8")
-    text = re.sub(r"\r?\n[ \t]", "", text)
+    text = path.read_text(
+        encoding="utf-8",
+        errors="ignore",
+    )
 
-    events = []
     blocks = re.findall(
         r"BEGIN:VEVENT(.*?)END:VEVENT",
         text,
-        re.S
+        re.S,
     )
+
+    events = []
 
     for block in blocks:
 
-        def get_field(field):
+        def get_value(field):
             match = re.search(
                 rf"^{field}(?:;[^:]*)?:(.*)$",
                 block,
-                re.M
+                re.MULTILINE,
             )
             return match.group(1).strip() if match else ""
 
-        uid = get_field("UID")
-        summary = get_field("SUMMARY")
-        dtstart = get_field("DTSTART")
-        dtend = get_field("DTEND")
-        location = get_field("LOCATION")
-        description = get_field("DESCRIPTION")
+        uid = get_value("UID")
+        summary = get_value("SUMMARY")
+        location = get_value("LOCATION")
+        description = get_value("DESCRIPTION")
+        dtstart = get_value("DTSTART")
+        dtend = get_value("DTEND")
 
-        categoria, campeonato, tipo, prioridad = classify(
+        if not uid or not dtstart:
+            continue
+
+        categoria, campeonato = classify(
             uid,
             summary,
-            location
         )
 
-        events.append({
-            "uid": uid,
-            "fecha_inicio": dtstart,
-            "fecha_fin": dtend,
-            "evento": summary,
-            "categoria": categoria,
-            "campeonato": campeonato,
-            "tipo": tipo,
-            "prioridad": prioridad,
-            "ubicacion": location,
-            "descripcion": description,
-        })
+        tipo = classify_session(summary)
+
+        events.append(
+            {
+                "uid": uid,
+                "categoria": categoria,
+                "campeonato": campeonato,
+                "tipo": tipo,
+                "fecha_inicio": dtstart,
+                "fecha_fin": dtend,
+                "ubicacion": location,
+                "descripcion": description,
+                "prioridad": (
+                    "alta"
+                    if is_imperdible(
+                        campeonato,
+                        tipo,
+                    )
+                    else ""
+                ),
+            }
+        )
 
     return events
 
 
 def load_actc_events():
     if not ACTC_JSON.exists():
-        print("ACTC: no existe actc_events.json. Se continúa sin ACTC.")
         return []
 
     try:
         events = json.loads(
-            ACTC_JSON.read_text(encoding="utf-8")
+            ACTC_JSON.read_text(
+                encoding="utf-8",
+            )
         )
-
-        if not isinstance(events, list):
-            raise ValueError("Formato ACTC inválido.")
-
-        print(
-            f"ACTC: incorporando {len(events)} eventos."
-        )
-
-        return events
-
     except Exception as exc:
-        raise SystemExit(
+        print(
             f"ERROR leyendo ACTC: {exc}"
         )
+        return []
+
+    normalized = []
+
+    for event in events:
+        event = dict(event)
+
+        if "imperdible" in event:
+            event["prioridad"] = (
+                "alta"
+                if event.get("imperdible")
+                else ""
+            )
+
+            del event["imperdible"]
+
+        normalized.append(event)
+
+    return normalized
 
 
 def ics_escape(value):
-    value = str(value or "")
-    value = value.replace("\\", "\\\\")
-    value = value.replace(";", "\\;")
-    value = value.replace(",", "\\,")
-    value = value.replace("\n", "\\n")
-    return value
+    if value is None:
+        return ""
+
+    return (
+        str(value)
+        .replace("\\", "\\\\")
+        .replace(";", "\\;")
+        .replace(",", "\\,")
+        .replace("\n", "\\n")
+    )
 
 
 def actc_to_ics(event):
-    start = event["fecha_inicio"]
-    end = event["fecha_fin"]
-
-    start_dt = datetime.strptime(
-        start,
-        "%Y-%m-%dT%H:%M:%S"
-    )
-
-    end_dt = datetime.strptime(
-        end,
-        "%Y-%m-%dT%H:%M:%S"
-    )
-
     uid = event["uid"]
 
-    summary = (
-        f'{event["campeonato"]} - '
-        f'{event["tipo"]}'
+    start = (
+        event["fecha_inicio"]
+        .replace("-", "")
+        .replace(":", "")
     )
 
-    description = event.get(
-        "descripcion",
-        ""
+    end = (
+        event["fecha_fin"]
+        .replace("-", "")
+        .replace(":", "")
     )
 
-    location = event.get(
-        "ubicacion",
-        ""
-    )
+    start = start[:15]
+    end = end[:15]
 
-    lines = [
-        "BEGIN:VEVENT",
-        f"UID:{ics_escape(uid)}",
-        f"DTSTART;TZID=America/Argentina/Buenos_Aires:"
-        f"{start_dt.strftime('%Y%m%dT%H%M%S')}",
-        f"DTEND;TZID=America/Argentina/Buenos_Aires:"
-        f"{end_dt.strftime('%Y%m%dT%H%M%S')}",
-        f"SUMMARY:{ics_escape(summary)}",
-        f"LOCATION:{ics_escape(location)}",
-        f"DESCRIPTION:{ics_escape(description)}",
-        "END:VEVENT",
-    ]
-
-    return "\r\n".join(lines)
-
-
-def merge_actc_into_ics(base_ics, actc_events):
-    if not actc_events:
-        return base_ics
-
-    if "END:VCALENDAR" not in base_ics:
-        raise SystemExit(
-            "ERROR: el ICS principal no tiene END:VCALENDAR."
-        )
-
-    blocks = []
-
-    for event in actc_events:
-        blocks.append(
-            actc_to_ics(event)
-        )
-
-    addition = "\r\n".join(blocks)
-
-    return base_ics.replace(
-        "END:VCALENDAR",
-        addition + "\r\nEND:VCALENDAR"
-    )
-
-
-def write_csv(events):
-    fields = [
-        "uid",
-        "fecha_inicio",
-        "fecha_fin",
-        "evento",
-        "categoria",
-        "campeonato",
-        "tipo",
-        "prioridad",
-        "ubicacion",
-        "descripcion",
-    ]
-
-    with EVENTS_CSV.open(
-        "w",
-        newline="",
-        encoding="utf-8"
-    ) as f:
-
-        writer = csv.DictWriter(
-            f,
-            fieldnames=fields
-        )
-
-        writer.writeheader()
-        writer.writerows(events)
-
-
-def write_json(events):
-    with EVENTS_JSON.open(
-        "w",
-        encoding="utf-8"
-    ) as f:
-
-        json.dump(
-            events,
-            f,
-            ensure_ascii=False,
-            indent=2
-        )
-
-
-def main():
-
-    print(
-        "Ejecutando: motocal generate 2026 --refresh"
-    )
-
-    result = subprocess.run(
+    return "\r\n".join(
         [
-            "motocal",
-            "generate",
-            "2026",
-            str(MOTOCAL_ICS),
-            "--refresh",
-        ],
-        text=True,
+            "BEGIN:VEVENT",
+            f"UID:{ics_escape(uid)}",
+            f"DTSTART:{start}",
+            f"DTEND:{end}",
+            (
+                "SUMMARY:"
+                + ics_escape(
+                    event.get(
+                        "descripcion",
+                        "",
+                    )
+                )
+            ),
+            (
+                "LOCATION:"
+                + ics_escape(
+                    event.get(
+                        "ubicacion",
+                        "",
+                    )
+                )
+            ),
+            (
+                "DESCRIPTION:"
+                + ics_escape(
+                    event.get(
+                        "descripcion",
+                        "",
+                    )
+                )
+            ),
+            "END:VEVENT",
+        ]
     )
 
-    if result.returncode != 0:
-        raise SystemExit(
-            "ERROR: motocal no pudo generar el calendario."
-        )
 
-    if not MOTOCAL_ICS.exists():
-        raise SystemExit(
-            "ERROR: no se creó data/motorsport.ics"
-        )
-
-    events = parse_ics(MOTOCAL_ICS)
-
-    if not events:
-        raise SystemExit(
-            "ERROR: no se encontraron eventos."
-        )
-
-    print(
-        f"Motocal: {len(events)} eventos."
-    )
-
-    # Incorporar eventos ACTC
-    actc_events = load_actc_events()
-
+def merge_actc_into_events(
+    events,
+    actc_events,
+):
     existing_uids = {
         event["uid"]
         for event in events
     }
 
-    added_actc = 0
+    added = 0
 
     for event in actc_events:
-        if event["uid"] not in existing_uids:
+        if event["uid"] in existing_uids:
+            continue
 
-            # ACTC usa "imperdible"; el calendario general usa "prioridad"
-            if "imperdible" in event:
-                event["prioridad"] = (
-                    "Imperdible"
-                    if event.pop("imperdible")
-                    else "Normal"
-                )
+        events.append(event)
+        existing_uids.add(event["uid"])
+        added += 1
 
-            events.append(event)
-            existing_uids.add(event["uid"])
-            added_actc += 1
-    
-    events.sort(
-        key=lambda event: event["fecha_inicio"]
+    return added
+
+
+def write_csv(events):
+    fieldnames = [
+        "uid",
+        "categoria",
+        "campeonato",
+        "tipo",
+        "fecha_inicio",
+        "fecha_fin",
+        "ubicacion",
+        "descripcion",
+        "prioridad",
+    ]
+
+    with EVENTS_CSV.open(
+        "w",
+        newline="",
+        encoding="utf-8",
+    ) as file:
+
+        writer = csv.DictWriter(
+            file,
+            fieldnames=fieldnames,
+        )
+
+        writer.writeheader()
+
+        for event in events:
+            writer.writerow(
+                {
+                    field: event.get(
+                        field,
+                        "",
+                    )
+                    for field in fieldnames
+                }
+            )
+
+
+def write_json(events):
+    EVENTS_JSON.write_text(
+        json.dumps(
+            events,
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
     )
 
-    print(
-        f"ACTC agregados al calendario: {added_actc}"
+
+def build_final_ics(events, year):
+    OUTPUT.mkdir(
+        parents=True,
+        exist_ok=True,
     )
 
-    # Crear ICS final
-    base_ics = MOTOCAL_ICS.read_text(
-        encoding="utf-8"
-    )
-
-    final_ics = merge_actc_into_ics(
-        base_ics,
-        actc_events
-    )
-
-    FINAL_ICS.write_text(
-        final_ics,
-        encoding="utf-8"
-    )
-
-    # Crear JSON y CSV generales
-    write_csv(events)
-    write_json(events)
-
-    print()
-    print(f"OK: {len(events)} eventos totales.")
-    print(f"CSV: {EVENTS_CSV}")
-    print(f"JSON: {EVENTS_JSON}")
-    print(f"ICS: {FINAL_ICS}")
-
-    categories = {}
-    championships = {}
+    lines = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//Automovilismo Auto//ES",
+        "CALSCALE:GREGORIAN",
+        "METHOD:PUBLISH",
+        f"X-WR-CALNAME:Automovilismo {year}",
+        f"X-WR-TIMEZONE:{TIMEZONE}",
+    ]
 
     for event in events:
 
-        category = event["categoria"]
-        championship = event["campeonato"]
+        if event["uid"].startswith(
+            "actc-"
+        ):
+            lines.append(
+                actc_to_ics(event)
+            )
+            continue
 
-        categories[category] = (
-            categories.get(category, 0) + 1
+        uid = ics_escape(
+            event["uid"]
         )
 
-        championships[championship] = (
-            championships.get(championship, 0) + 1
+        dtstart = event.get(
+            "fecha_inicio",
+            "",
+        )
+
+        dtend = event.get(
+            "fecha_fin",
+            "",
+        )
+
+        summary = (
+            f"{event.get('campeonato', 'Automovilismo')} "
+            f"- {event.get('tipo', 'Evento')}"
+        )
+
+        location = event.get(
+            "ubicacion",
+            "",
+        )
+
+        description = event.get(
+            "descripcion",
+            "",
+        )
+
+        lines.extend(
+            [
+                "BEGIN:VEVENT",
+                f"UID:{uid}",
+                f"DTSTART:{dtstart}",
+                f"DTEND:{dtend}",
+                (
+                    "SUMMARY:"
+                    + ics_escape(summary)
+                ),
+                (
+                    "LOCATION:"
+                    + ics_escape(location)
+                ),
+                (
+                    "DESCRIPTION:"
+                    + ics_escape(description)
+                ),
+                "END:VEVENT",
+            ]
+        )
+
+    lines.append(
+        "END:VCALENDAR"
+    )
+
+    FINAL_ICS.write_text(
+        "\r\n".join(lines),
+        encoding="utf-8",
+    )
+
+
+def main():
+    year = current_year()
+
+    print(
+        f"Actualizando calendario para {year}..."
+    )
+
+    DATA.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    OUTPUT.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    subprocess.run(
+        [
+            "motocal",
+            "generate",
+            str(year),
+            str(MOTOCAL_ICS),
+            "--refresh",
+        ],
+        check=True,
+    )
+
+    events = parse_ics(
+        MOTOCAL_ICS
+    )
+
+    print(
+        f"Motocal: {len(events)} eventos."
+    )
+
+    actc_events = load_actc_events()
+
+    print(
+        f"ACTC: incorporando "
+        f"{len(actc_events)} eventos."
+    )
+
+    added = merge_actc_into_events(
+        events,
+        actc_events,
+    )
+
+    print(
+        f"ACTC agregados al calendario: "
+        f"{added}"
+    )
+
+    events.sort(
+        key=lambda event: event.get(
+            "fecha_inicio",
+            "",
+        )
+    )
+
+    write_csv(events)
+    write_json(events)
+    build_final_ics(
+        events,
+        year,
+    )
+
+    print()
+    print(
+        f"OK: {len(events)} eventos totales."
+    )
+
+    print(
+        f"CSV: {EVENTS_CSV}"
+    )
+
+    print(
+        f"JSON: {EVENTS_JSON}"
+    )
+
+    print(
+        f"ICS: {FINAL_ICS}"
+    )
+
+    categories = {}
+
+    for event in events:
+        category = event.get(
+            "categoria",
+            "Otros",
+        )
+
+        categories[category] = (
+            categories.get(
+                category,
+                0,
+            )
+            + 1
         )
 
     print()
     print("Categorías:")
 
-    for category, count in sorted(
-        categories.items()
+    for category in sorted(
+        categories
     ):
-        print(f"  {category}: {count}")
+        print(
+            f"  {category}: "
+            f"{categories[category]}"
+        )
+
+    championships = {}
+
+    for event in events:
+        championship = event.get(
+            "campeonato",
+            "Otros",
+        )
+
+        championships[championship] = (
+            championships.get(
+                championship,
+                0,
+            )
+            + 1
+        )
 
     print()
     print("Campeonatos:")
 
-    for championship, count in sorted(
-        championships.items()
+    for championship in sorted(
+        championships
     ):
-        print(f"  {championship}: {count}")
+        print(
+            f"  {championship}: "
+            f"{championships[championship]}"
+        )
 
 
 if __name__ == "__main__":
