@@ -349,6 +349,67 @@ def find_cronograma_url(
     html,
     championship,
 ):
+    """
+    Busca cualquier enlace relacionado con la carrera
+    dentro del HTML de ACTC.
+
+    Por ahora mostramos los enlaces encontrados en el log
+    para descubrir exactamente cómo está construida la
+    página oficial.
+    """
+
+    all_links = re.findall(
+        r'href=["\']([^"\']+)["\']',
+        html,
+        flags=re.I,
+    )
+
+    interesting = []
+
+    for href in all_links:
+        href = href.replace(
+            "&amp;",
+            "&",
+        )
+
+        lower = href.lower()
+
+        if (
+            "carrera-online" in lower
+            or "cronograma" in lower
+            or "calendario" in lower
+        ):
+            full_url = urljoin(
+                "https://actc.org.ar/",
+                href,
+            )
+
+            if full_url not in interesting:
+                interesting.append(
+                    full_url
+                )
+
+    if interesting:
+        print(
+            "    Enlaces ACTC encontrados:"
+        )
+
+        for url in interesting[:20]:
+            print(
+                f"      {url}"
+            )
+
+        # Preferimos directamente una URL de cronograma.
+        for url in interesting:
+            if "cronograma" in url.lower():
+                return url
+
+        # Segundo intento: carrera-online.
+        for url in interesting:
+            if "carrera-online" in url.lower():
+                return url
+
+    return None
     matches = re.findall(
         r'href=["\']([^"\']*carrera-online[^"\']*)["\']',
         html,
