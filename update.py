@@ -171,6 +171,7 @@ def classify_session(name):
             "qualification",
             "clasificación",
             "qualifications",
+            "clasificacion",
         ]
     ):
         return "Clasificación"
@@ -190,6 +191,8 @@ def classify_session(name):
             "practice",
             "free practice",
             "entrenamiento",
+            "práctica",
+            "practica",
             "fp1",
             "fp2",
             "fp3",
@@ -371,8 +374,6 @@ def load_indycar_events():
         try:
             start_dt = datetime.fromisoformat(start)
 
-            # Duración razonable para mostrar el evento
-            # en calendarios. No modifica la hora de inicio.
             tipo = classify_session(title)
 
             if tipo == "Carrera":
@@ -426,8 +427,21 @@ def load_indycar_events():
 
 def load_tc2000_events():
     """
-    Lee los eventos generados por tc2000.py
-    y los transforma al formato interno del calendario.
+    Lee los eventos generados por tc2000.py.
+
+    Estructura real de tc2000_events.json:
+
+        uid
+        fecha
+        inicio
+        fin
+        categoria
+        campeonato
+        tipo
+        nombre
+        circuito
+        fuente
+        round
     """
 
     if not TC2000_JSON.exists():
@@ -452,37 +466,47 @@ def load_tc2000_events():
         if not uid:
             continue
 
-        start = source.get("fecha_inicio", "")
-        end = source.get("fecha_fin", "")
+        fecha = source.get("fecha", "")
+        inicio = source.get("inicio", "")
+        fin = source.get("fin", "")
 
-        if not start:
+        if not fecha or not inicio:
             continue
 
-        title = source.get(
-            "nombre",
-            source.get(
-                "title",
-                source.get(
-                    "evento",
-                    "Evento",
-                ),
-            ),
-        )
+        try:
+            start_dt = datetime.strptime(
+                f"{fecha} {inicio}",
+                "%Y-%m-%d %H:%M",
+            )
 
-        location = source.get(
-            "ubicacion",
-            source.get(
-                "location",
-                "",
-            ),
-        )
+            if fin:
+                end_dt = datetime.strptime(
+                    f"{fecha} {fin}",
+                    "%Y-%m-%d %H:%M",
+                )
 
-        description = source.get(
-            "descripcion",
-            "",
-        )
+                # Si el horario final fuese menor que el inicial,
+                # asumimos que terminó después de medianoche.
+                if end_dt < start_dt:
+                    end_dt += timedelta(days=1)
+            else:
+                end_dt = start_dt + timedelta(hours=1)
 
-        tipo = classify_session(title)
+        except Exception as exc:
+            print(
+                f"ERROR procesando TC2000 "
+                f"{uid}: {exc}"
+            )
+            continue
+
+        tipo = source.get("tipo", "Evento")
+
+        # El scraper ya identifica el tipo real.
+        # Solo usamos classify_session como respaldo.
+        if not tipo:
+            tipo = classify_session(
+                source.get("nombre", "")
+            )
 
         normalized.append(
             {
@@ -490,10 +514,21 @@ def load_tc2000_events():
                 "categoria": "Argentina",
                 "campeonato": "TC2000",
                 "tipo": tipo,
-                "fecha_inicio": start,
-                "fecha_fin": end,
-                "ubicacion": location,
-                "descripcion": description,
+                "fecha_inicio": start_dt.strftime(
+                    "%Y%m%dT%H%M%S"
+                ),
+                "fecha_fin": end_dt.strftime(
+                    "%Y%m%dT%H%M%S"
+                ),
+                "ubicacion": source.get(
+                    "circuito",
+                    "",
+                ),
+                "descripcion": (
+                    f"{source.get('nombre', 'Evento')}\n"
+                    f"Fecha {source.get('round', '')}\n"
+                    f"Fuente oficial: {source.get('fuente', '')}"
+                ),
                 "prioridad": (
                     "alta"
                     if tipo == "Carrera"
