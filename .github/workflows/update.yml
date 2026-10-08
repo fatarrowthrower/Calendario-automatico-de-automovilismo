@@ -25,6 +25,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Instalar navegador Chromium
+        run: |
+          python -m playwright install --with-deps chromium
+
       - name: Instalar OCR
         run: |
           sudo apt-get update
@@ -33,11 +37,11 @@ jobs:
       - name: Verificar motocal
         run: motocal version
 
-      - name: Actualizar TC2000
-        run: python tc2000.py
-
       - name: Actualizar ACTC
         run: python actc.py
+
+      - name: Actualizar TC2000
+        run: python tc2000.py
 
       - name: Actualizar IndyCar
         run: python indycar.py
