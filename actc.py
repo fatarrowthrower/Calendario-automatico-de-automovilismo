@@ -79,9 +79,9 @@ def normalize(text):
     )
 
     text = "".join(
-        char
-        for char in text
-        if unicodedata.category(char) != "Mn"
+        c
+        for c in text
+        if unicodedata.category(c) != "Mn"
     )
 
     text = text.upper()
@@ -107,56 +107,35 @@ def slug(text):
     return text.strip("-")
 
 
-def parse_date_from_text(text):
-    text = normalize(text)
+def parse_calendar_date(line):
+    text = normalize(line)
 
-    patterns = [
+    match = re.search(
         r"\b(\d{1,2})\s+([A-Z]+)\s+(20\d{2})\b",
-        r"\b(\d{1,2})/(\d{1,2})/(20\d{2})\b",
-        r"\b(\d{1,2})-(\d{1,2})-(20\d{2})\b",
-    ]
+        text,
+    )
 
-    for pattern in patterns:
-        match = re.search(
-            pattern,
-            text,
-        )
+    if not match:
+        return None
 
-        if not match:
-            continue
+    day = int(match.group(1))
+    month = MONTHS.get(
+        match.group(2)
+    )
+    year = int(match.group(3))
 
-        try:
-            if pattern.endswith(
-                r"(20\d{2})\b"
-            ) and match.group(2).isalpha():
-                day = int(match.group(1))
-                month = MONTHS.get(
-                    match.group(2)
-                )
-                year = int(match.group(3))
+    if not month:
+        return None
 
-                if month:
-                    return datetime(
-                        year,
-                        month,
-                        day,
-                    ).date()
+    try:
+        return datetime(
+            year,
+            month,
+            day,
+        ).date()
 
-            else:
-                day = int(match.group(1))
-                month = int(match.group(2))
-                year = int(match.group(3))
-
-                return datetime(
-                    year,
-                    month,
-                    day,
-                ).date()
-
-        except Exception:
-            pass
-
-    return None
+    except ValueError:
+        return None
 
 
 def extract_calendar_events(
@@ -174,256 +153,267 @@ def extract_calendar_events(
         timeout=60000,
     )
 
-    page.wait_for_timeout(2000)
+    page.wait_for_timeout(2500)
 
-    links = page.locator("a").all()
+    text = page.locator(
+        "body"
+    ).inner_text()
+
+    lines = [
+        line.strip()
+        for line in text.splitlines()
+        if line.strip()
+    ]
 
     events = []
 
     current_round = None
     current_location = None
 
-    for link in links:
-        try:
-            text = link.inner_text().strip()
-            href = link.get_attribute("href")
+    for line in lines:
+        normalized = normalize(line)
 
-            if not text:
-                continue
+        match = re.match(
+            r"^FECHA\s+(\d+)\s*[—–-]\s*(.+)$",
+            normalized,
+        )
 
-            normalized = normalize(text)
+        if match:
+            current_round = int(
+                match.group(1)
+            )
 
-            round_match = re.search(
-                r"FECHA\s+(\d+)",
+            current_location = (
+                match.group(2).strip()
+            )
+
+            continue
+
+        if current_round is None:
+            continue
+
+        date = parse_calendar_date(
+            line
+        )
+
+        if not date:
+            continue
+
+        if date.year != YEAR:
+            continue
+
+        key = (
+            current_round,
+            date.isoformat(),
+            normalize(
+                current_location
+            ),
+        )
+
+        if any(
+            event["_key"] == key
+            for event in events
+        ):
+            continue
+
+        events.append(
+            {
+                "_key": key,
+                "round": current_round,
+                "date": date,
+                "location": current_location,
+            }
+        )
+
+        current_round = None
+        current_location = None
+
+    # Segunda pasada por si ACTC cambia
+    # ligeramente el HTML.
+    if not events:
+        for index, line in enumerate(lines):
+            normalized = normalize(line)
+
+            match = re.match(
+                r"^FECHA\s+(\d+)\s*[—–-]\s*(.+)$",
                 normalized,
             )
 
-            if round_match:
-                current_round = int(
-                    round_match.group(1)
-                )
-
-                current_location = (
-                    normalized
-                    .replace(
-                        f"FECHA {current_round}",
-                        "",
-                    )
-                    .strip(
-                        " —–-"
-                    )
-                )
-
-            date = parse_date_from_text(
-                text
-            )
-
-            if (
-                date
-                and date.year == YEAR
-                and current_round is not None
-            ):
-                result_url = None
-
-                if href:
-                    result_url = urljoin(
-                        category[
-                            "calendar_url"
-                        ],
-                        href,
-                    )
-
-                key = (
-                    current_round,
-                    date.isoformat(),
-                )
-
-                if not any(
-                    event["_key"] == key
-                    for event in events
-                ):
-                    events.append(
-                        {
-                            "_key": key,
-                            "round": current_round,
-                            "date": date,
-                            "location": current_location,
-                            "result_url": result_url,
-                        }
-                    )
-
-        except Exception:
-            continue
-
-    # La estructura del calendario puede tener
-    # fecha y botón "Ver resultados" en elementos
-    # distintos. Si faltan URLs, hacemos una segunda
-    # pasada buscando los enlaces de resultados.
-    if events:
-        result_links = []
-
-        for link in links:
-            try:
-                href = link.get_attribute(
-                    "href"
-                )
-
-                text = normalize(
-                    link.inner_text()
-                )
-
-                if (
-                    href
-                    and (
-                        "RESULTADOS" in text
-                        or "/resultados" in href
-                    )
-                ):
-                    result_links.append(
-                        urljoin(
-                            category[
-                                "calendar_url"
-                            ],
-                            href,
-                        )
-                    )
-
-            except Exception:
+            if not match:
                 continue
 
-        result_links = list(
-            dict.fromkeys(
-                result_links
+            round_number = int(
+                match.group(1)
             )
-        )
 
-        for event in events:
-            if event["result_url"]:
-                continue
+            location = match.group(2).strip()
 
-            candidates = [
-                url
-                for url in result_links
-                if (
-                    f"fecha={event['round']}"
-                    in url.lower()
+            for next_line in lines[
+                index + 1:index + 15
+            ]:
+                date = parse_calendar_date(
+                    next_line
                 )
-            ]
 
-            if candidates:
-                event["result_url"] = (
-                    candidates[0]
+                if not date:
+                    continue
+
+                if date.year != YEAR:
+                    continue
+
+                events.append(
+                    {
+                        "_key": (
+                            round_number,
+                            date.isoformat(),
+                            location,
+                        ),
+                        "round": round_number,
+                        "date": date,
+                        "location": location,
+                    }
                 )
+
+                break
 
     events.sort(
-        key=lambda event:
-        event["round"]
+        key=lambda item:
+        item["round"]
     )
 
     return events
 
 
-def find_carrera_online_from_result(
+def find_result_links(
     page,
-    result_url,
 ):
-    if not result_url:
-        return None
+    links = []
 
-    print(
-        f"    Resultados: {result_url}"
-    )
-
-    try:
-        page.goto(
-            result_url,
-            wait_until="domcontentloaded",
-            timeout=60000,
-        )
-
-        page.wait_for_timeout(1200)
-
-    except Exception as error:
-        print(
-            f"      Error abriendo resultados: "
-            f"{error}"
-        )
-
-        return None
-
-    # Primero buscamos un enlace directo.
-    anchors = page.locator(
+    for anchor in page.locator(
         "a"
-    ).all()
-
-    candidates = []
-
-    for anchor in anchors:
+    ).all():
         try:
             href = anchor.get_attribute(
                 "href"
             )
 
-            text = normalize(
-                anchor.inner_text()
+            if not href:
+                continue
+
+            href = urljoin(
+                "https://actc.org.ar",
+                href,
+            )
+
+            if "/resultados" not in href:
+                continue
+
+            if href not in links:
+                links.append(href)
+
+        except Exception:
+            continue
+
+    return links
+
+
+def get_result_url_for_round(
+    page,
+    category,
+    race,
+):
+    """
+    Busca el enlace real de resultados de una
+    fecha dentro del calendario.
+
+    No intenta interpretar el HTML:
+    solamente busca href que contengan
+    /resultados y fecha=N.
+    """
+
+    page.goto(
+        category["calendar_url"],
+        wait_until="domcontentloaded",
+        timeout=60000,
+    )
+
+    page.wait_for_timeout(1000)
+
+    links = find_result_links(
+        page
+    )
+
+    wanted = f"fecha={race['round']}"
+
+    candidates = [
+        link
+        for link in links
+        if wanted in link.lower()
+    ]
+
+    if candidates:
+        return candidates[0]
+
+    return None
+
+
+def find_online_url_in_page(
+    page,
+):
+    """
+    Busca cualquier referencia a
+    carrera-online dentro de la página.
+
+    ACTC puede colocarla como enlace,
+    atributo HTML o URL embebida.
+    """
+
+    # 1. Enlaces normales.
+    for anchor in page.locator(
+        "a"
+    ).all():
+        try:
+            href = anchor.get_attribute(
+                "href"
             )
 
             if not href:
                 continue
 
-            full_url = urljoin(
-                result_url,
+            full = urljoin(
+                "https://actc.org.ar",
                 href,
             )
 
             if (
                 "/carrera-online/"
-                in full_url
+                in full.lower()
             ):
-                candidates.append(
-                    full_url
-                )
-
-                continue
-
-            if (
-                "CRONOGRAMA"
-                in text
-                and "/carrera-online/"
-                in full_url
-            ):
-                candidates.append(
-                    full_url
-                )
+                return full
 
         except Exception:
             continue
 
-    if candidates:
-        # Preferimos explícitamente /cronograma/.
-        for candidate in candidates:
-            if "/cronograma/" in candidate:
-                return candidate
-
-        return candidates[0]
-
-    # Si no aparece como <a>, buscamos la URL
-    # directamente en el HTML.
+    # 2. HTML completo.
     try:
         html = page.content()
 
         matches = re.findall(
-            r'https?://[^"\']+/carrera-online/[^"\']+',
+            r"""(?:https?:)?//[^"'\\s<>]+/carrera-online/[^"'\\s<>]+""",
             html,
             flags=re.IGNORECASE,
         )
 
         if matches:
-            for match in matches:
-                if "/cronograma/" in match:
-                    return match
+            url = matches[0]
 
-            return matches[0]
+            if url.startswith("//"):
+                url = "https:" + url
+
+            return urljoin(
+                "https://actc.org.ar",
+                url,
+            )
 
     except Exception:
         pass
@@ -431,152 +421,157 @@ def find_carrera_online_from_result(
     return None
 
 
-def find_carrera_online_by_search(
+def find_carrera_online(
     page,
     category,
     race,
 ):
     """
-    Último recurso.
+    Primero abre resultados de la fecha.
 
-    ACTC usa una estructura estable para carrera-online:
-    
-    /categoria/carrera-online/AÑO/cronograma/...
+    Después busca allí carrera-online.
 
-    Buscamos dentro del HTML del calendario y de
-    resultados cualquier referencia que contenga:
-    
-        carrera-online
-        fecha-N
+    Si ACTC no lo deja expuesto en resultados,
+    inspecciona el calendario de esa categoría.
     """
 
-    urls_to_check = [
-        category["calendar_url"],
-    ]
-
-    if race.get("result_url"):
-        urls_to_check.append(
-            race["result_url"]
-        )
-
-    target = (
-        f"fecha-{race['round']}"
+    result_url = get_result_url_for_round(
+        page,
+        category,
+        race,
     )
 
-    for url in urls_to_check:
+    if result_url:
+        print(
+            f"    Resultados: "
+            f"{result_url}"
+        )
+
         try:
             page.goto(
-                url,
+                result_url,
                 wait_until="domcontentloaded",
                 timeout=60000,
             )
 
             page.wait_for_timeout(
-                700
+                1200
             )
 
-            html = page.content()
-
-            matches = re.findall(
-                r'(?:https?:)?//[^"\']*carrera-online/[^"\']+',
-                html,
-                flags=re.IGNORECASE,
+            online = (
+                find_online_url_in_page(
+                    page
+                )
             )
 
-            for match in matches:
-                match = match.replace(
-                    "&amp;",
-                    "&",
+            if online:
+                return online
+
+        except Exception as error:
+            print(
+                f"    Error leyendo resultados: "
+                f"{error}"
+            )
+
+    # Segundo intento:
+    # buscar carrera-online en calendario.
+    try:
+        page.goto(
+            category["calendar_url"],
+            wait_until="domcontentloaded",
+            timeout=60000,
+        )
+
+        page.wait_for_timeout(
+            1000
+        )
+
+        html = page.content()
+
+        matches = re.findall(
+            r"""(?:https?:)?//[^"'\\s<>]+/carrera-online/[^"'\\s<>]+""",
+            html,
+            flags=re.IGNORECASE,
+        )
+
+        for match in matches:
+            if (
+                f"fecha-{race['round']}"
+                in match.lower()
+            ):
+                if match.startswith("//"):
+                    match = "https:" + match
+
+                return urljoin(
+                    category["calendar_url"],
+                    match,
                 )
 
-                if target in match.lower():
-                    if match.startswith("//"):
-                        match = (
-                            "https:"
-                            + match
-                        )
-
-                    return urljoin(
-                        url,
-                        match,
-                    )
-
-        except Exception:
-            continue
+    except Exception:
+        pass
 
     return None
 
 
-def extract_clock_pairs(text):
+def extract_time_pairs(text):
     normalized = normalize(text)
 
-    pairs = []
+    result = []
 
-    patterns = [
-        r"\b(\d{1,2}):(\d{2})\s*(?:A|-|–)\s*(\d{1,2}):(\d{2})\b",
-        r"\b(\d{1,2})\.(\d{2})\s*(?:A|-|–)\s*(\d{1,2})\.(\d{2})\b",
-    ]
+    # 09:25 a 09:55
+    # 09:25 - 09:55
+    ranges = re.findall(
+        r"\b(\d{1,2})[:.](\d{2})\s*(?:A|-|–)\s*(\d{1,2})[:.](\d{2})\b",
+        normalized,
+    )
 
-    for pattern in patterns:
-        for match in re.finditer(
-            pattern,
-            normalized,
+    for sh, sm, eh, em in ranges:
+        sh = int(sh)
+        sm = int(sm)
+        eh = int(eh)
+        em = int(em)
+
+        if (
+            0 <= sh <= 23
+            and 0 <= sm <= 59
+            and 0 <= eh <= 23
+            and 0 <= em <= 59
         ):
-            sh = int(match.group(1))
-            sm = int(match.group(2))
-            eh = int(match.group(3))
-            em = int(match.group(4))
-
-            if (
-                0 <= sh <= 23
-                and 0 <= sm <= 59
-                and 0 <= eh <= 23
-                and 0 <= em <= 59
-            ):
-                pairs.append(
-                    (
-                        (sh, sm),
-                        (eh, em),
-                    )
+            result.append(
+                (
+                    (sh, sm),
+                    (eh, em),
                 )
-
-    if pairs:
-        return pairs
-
-    # Una sola hora.
-    single_patterns = [
-        r"\b(\d{1,2}):(\d{2})\b",
-        r"\b(\d{1,2})\.(\d{2})\b",
-    ]
-
-    for pattern in single_patterns:
-        for match in re.finditer(
-            pattern,
-            normalized,
-        ):
-            hour = int(
-                match.group(1)
             )
 
-            minute = int(
-                match.group(2)
+    if result:
+        return result
+
+    # Hora única.
+    values = re.findall(
+        r"\b(\d{1,2})[:.](\d{2})\b",
+        normalized,
+    )
+
+    for hour, minute in values:
+        hour = int(hour)
+        minute = int(minute)
+
+        if (
+            0 <= hour <= 23
+            and 0 <= minute <= 59
+        ):
+            result.append(
+                (
+                    (hour, minute),
+                    None,
+                )
             )
 
-            if (
-                0 <= hour <= 23
-                and 0 <= minute <= 59
-            ):
-                pairs.append(
-                    (
-                        (hour, minute),
-                        None,
-                    )
-                )
-
-    return pairs
+    return result
 
 
-def session_type(text):
+def get_session_type(text):
     text = normalize(text)
 
     if (
@@ -600,7 +595,59 @@ def session_type(text):
     return None
 
 
-def session_name(text):
+def get_category(text):
+    text = normalize(text)
+
+    if (
+        "TCPK" in text
+        or "TC PICK UP" in text
+    ):
+        return "TC Pick Up"
+
+    if (
+        re.search(
+            r"\bTCP\b",
+            text,
+        )
+        or "TC PISTA" in text
+    ):
+        return "TC Pista"
+
+    if (
+        re.search(
+            r"\bTC\b",
+            text,
+        )
+        or "TURISMO CARRETERA" in text
+    ):
+        return "TC"
+
+    return None
+
+
+def get_day(
+    line,
+    race_date,
+):
+    text = normalize(line)
+
+    if "VIERNES" in text:
+        return race_date - timedelta(
+            days=2
+        )
+
+    if "SABADO" in text:
+        return race_date - timedelta(
+            days=1
+        )
+
+    if "DOMINGO" in text:
+        return race_date
+
+    return None
+
+
+def make_name(text):
     name = normalize(text)
 
     name = re.sub(
@@ -628,85 +675,11 @@ def session_name(text):
     )
 
     return name.strip(
-        " -|:;,."
+        " -|:;,.()"
     ) or "Actividad"
 
 
-def detect_category(text):
-    text = normalize(text)
-
-    if (
-        re.search(
-            r"\bTCPK\b",
-            text,
-        )
-        or "TC PICK UP" in text
-    ):
-        return "TC Pick Up"
-
-    if (
-        re.search(
-            r"\bTCP\b",
-            text,
-        )
-        or "TC PISTA" in text
-    ):
-        return "TC Pista"
-
-    if (
-        re.search(
-            r"\bTC\b",
-            text,
-        )
-        or "TURISMO CARRETERA" in text
-    ):
-        return "TC"
-
-    return None
-
-
-def detect_day(
-    line,
-    race_date,
-):
-    text = normalize(line)
-
-    if "VIERNES" in text:
-        return race_date - timedelta(
-            days=2
-        )
-
-    if "SABADO" in text:
-        return race_date - timedelta(
-            days=1
-        )
-
-    if "DOMINGO" in text:
-        return race_date
-
-    # Si la página dice solamente "Sabado /"
-    # o "Domingo /", ya quedó contemplado arriba.
-    return None
-
-
-def build_datetime(
-    date,
-    clock,
-):
-    hour, minute = clock
-
-    return TZ.localize(
-        datetime(
-            date.year,
-            date.month,
-            date.day,
-            hour,
-            minute,
-        )
-    )
-
-
-def parse_carrera_online(
+def parse_online_page(
     page,
     url,
     race,
@@ -724,12 +697,12 @@ def parse_carrera_online(
         )
 
         page.wait_for_timeout(
-            1200
+            1500
         )
 
     except Exception as error:
         print(
-            f"      Error abriendo cronograma: "
+            f"    ERROR cronograma: "
             f"{error}"
         )
 
@@ -751,66 +724,50 @@ def parse_carrera_online(
     events = []
 
     current_day = None
-    active_category = category["name"]
+    current_category = None
 
     for line in lines:
-        normalized = normalize(line)
-
-        day = detect_day(
+        detected_day = get_day(
             line,
             race["date"],
         )
 
-        if day:
-            current_day = day
+        if detected_day:
+            current_day = detected_day
             continue
 
-        detected_category = (
-            detect_category(line)
+        detected_category = get_category(
+            line
         )
 
         if detected_category:
-            active_category = (
+            current_category = (
                 detected_category
             )
 
-        kind = session_type(line)
+        kind = get_session_type(
+            line
+        )
 
         if not kind:
             continue
 
-        # Algunas páginas tienen texto de resultados
-        # junto al nombre. No queremos generar eventos
-        # desde eso.
+        # Si ACTC no puso encabezado de categoría,
+        # aceptamos la categoría de la URL/página.
         if (
-            "RESULTADOS" in normalized
-            and not (
-                "ENTRENAMIENTO"
-                in normalized
-                or "CLASIFICACION"
-                in normalized
-                or "SERIE"
-                in normalized
-                or "FINAL" in normalized
-            )
-        ):
-            continue
-
-        clocks = extract_clock_pairs(
-            line
-        )
-
-        if not clocks:
-            continue
-
-        if (
-            active_category
+            current_category
+            and current_category
             != category["name"]
         ):
             continue
 
-        # Si no encontramos "Sabado/Domingo",
-        # inferimos según el tipo.
+        times = extract_time_pairs(
+            line
+        )
+
+        if not times:
+            continue
+
         if current_day is None:
             if kind in (
                 "Serie",
@@ -823,24 +780,37 @@ def parse_carrera_online(
                     - timedelta(days=1)
                 )
 
-        name = session_name(
+        name = make_name(
             line
         )
 
-        for start, end in clocks:
-            start_dt = build_datetime(
-                current_day,
-                start,
+        for start, end in times:
+            sh, sm = start
+
+            start_dt = TZ.localize(
+                datetime(
+                    current_day.year,
+                    current_day.month,
+                    current_day.day,
+                    sh,
+                    sm,
+                )
             )
 
             if end:
-                end_dt = build_datetime(
-                    current_day,
-                    end,
+                eh, em = end
+
+                end_dt = TZ.localize(
+                    datetime(
+                        current_day.year,
+                        current_day.month,
+                        current_day.day,
+                        eh,
+                        em,
+                    )
                 )
+
             else:
-                # Cuando ACTC publica únicamente
-                # la hora de inicio, usamos 30 minutos.
                 end_dt = (
                     start_dt
                     + timedelta(
@@ -859,7 +829,6 @@ def parse_carrera_online(
                 }
             )
 
-    # Eliminar duplicados.
     unique = {}
 
     for event in events:
@@ -875,16 +844,16 @@ def parse_carrera_online(
 
         unique[key] = event
 
-    events = list(
+    result = list(
         unique.values()
     )
 
-    events.sort(
+    result.sort(
         key=lambda event:
         event["inicio"]
     )
 
-    return events
+    return result
 
 
 def make_event(
@@ -950,6 +919,9 @@ def process_category(
         f"{len(races)}"
     )
 
+    if not races:
+        return []
+
     for race in races:
         print(
             f"  Fecha {race['round']}: "
@@ -957,51 +929,29 @@ def process_category(
             f"{race['location']}"
         )
 
-    if not races:
-        return []
-
-    events = []
+    result = []
 
     for race in races:
         print()
         print(
-            f"  Procesando Fecha "
-            f"{race['round']}: "
-            f"{race['location']}"
+            f"  Fecha {race['round']}: "
+            f"buscando carrera-online..."
         )
 
-        online_url = None
-
-        # 1. Intentamos descubrir carrera-online
-        # desde la página de resultados.
-        if race.get("result_url"):
-            online_url = (
-                find_carrera_online_from_result(
-                    page,
-                    race["result_url"],
-                )
-            )
-
-        # 2. Si no apareció, buscamos la referencia
-        # directamente en las páginas.
-        if not online_url:
-            online_url = (
-                find_carrera_online_by_search(
-                    page,
-                    category,
-                    race,
-                )
-            )
+        online_url = find_carrera_online(
+            page,
+            category,
+            race,
+        )
 
         if not online_url:
             print(
-                "    ADVERTENCIA: "
-                "no se encontró carrera-online."
+                "    NO encontrada"
             )
 
             continue
 
-        sessions = parse_carrera_online(
+        sessions = parse_online_page(
             page,
             online_url,
             race,
@@ -1009,12 +959,12 @@ def process_category(
         )
 
         print(
-            f"    Horarios encontrados: "
+            f"    Sesiones encontradas: "
             f"{len(sessions)}"
         )
 
         for session in sessions:
-            events.append(
+            result.append(
                 make_event(
                     category,
                     race,
@@ -1022,7 +972,7 @@ def process_category(
                 )
             )
 
-    return events
+    return result
 
 
 def deduplicate(events):
@@ -1125,11 +1075,11 @@ def main():
     championships = {}
 
     for event in all_events:
-        name = event["campeonato"]
-
-        championships[name] = (
+        championships[
+            event["campeonato"]
+        ] = (
             championships.get(
-                name,
+                event["campeonato"],
                 0,
             )
             + 1
@@ -1151,11 +1101,9 @@ def main():
     types = {}
 
     for event in all_events:
-        name = event["tipo"]
-
-        types[name] = (
+        types[event["tipo"]] = (
             types.get(
-                name,
+                event["tipo"],
                 0,
             )
             + 1
