@@ -308,14 +308,80 @@
     "imperdible": true
   },
   {
-    "uid": "actc-tc-pista-fecha-12",
+    "uid": "actc-tc-pista-2026-10-04-0726-l-tc-pista-abrio-la-actividad-en-este-hermoso-domingo-sin-nubes-en-el-cielo-y-con-una-temperatura-mas-que-agradable-con-las-series-matutinas-en-la-primera-bateria-el-ganador-fue-eugenio-provens-y-en-la-segunda-lo-hizo-gabriel-gandulia-ambos-largaran-desde-la-fila-1-en-la-final-de-la-categoria",
+    "categoria": "Argentina",
+    "campeonato": "TC Pista",
+    "tipo": "Serie",
+    "fecha_inicio": "2026-10-04T07:26:00",
+    "fecha_fin": "2026-10-04T07:27:00",
+    "ubicacion": "SAN NICOLAS",
+    "descripcion": "TC Pista - Fecha 12\nl TC Pista abrió la actividad en este hermoso domingo, sin nubes en el cielo y con una temperatura más que agradable, con las series matutinas. En la primera batería el ganador fue Eugenio Provens y en la segunda lo hizo Gabriel Gandulia; ambos largarán desde la fila 1 en la final de la categoría.\nFuente: https://actc.org.ar/tcp/noticias/provens-y-gandulia-los-ganadores-de-las-serie",
+    "imperdible": false
+  },
+  {
+    "uid": "actc-tc-pista-2026-10-04-0726-serie-1-tiempo-total-7-26-030",
+    "categoria": "Argentina",
+    "campeonato": "TC Pista",
+    "tipo": "Serie",
+    "fecha_inicio": "2026-10-04T07:26:00",
+    "fecha_fin": "2026-10-04T07:27:00",
+    "ubicacion": "SAN NICOLAS",
+    "descripcion": "TC Pista - Fecha 12\nSERIE 1 – Tiempo total: 7:26.030\nFuente: https://actc.org.ar/tcp/noticias/provens-y-gandulia-los-ganadores-de-las-serie",
+    "imperdible": false
+  },
+  {
+    "uid": "actc-tc-pista-2026-10-04-0729-la-primera-fila-tenia-a-provens-y-pozner-el-de-isla-verde-posiciono-rapidamente-su-dodge-challenger-por-delante-del-ford-mustang-que-tripula-el-cordobes-y-casi-sin-sobre-saltos-lidero-las-cinco-vueltas-de-la-serie-mas-rapida-quien-completo-el-podio-fue-benjamin-ochoa-a-una-diferencia-de-5-115-milesimas",
+    "categoria": "Argentina",
+    "campeonato": "TC Pista",
+    "tipo": "Serie",
+    "fecha_inicio": "2026-10-04T07:29:00",
+    "fecha_fin": "2026-10-04T07:30:00",
+    "ubicacion": "SAN NICOLAS",
+    "descripcion": "TC Pista - Fecha 12\nLa primera fila tenía a Provens y Pozner, el de Isla Verde posicionó rápidamente su Dodge Challenger por delante del Ford Mustang que tripula el cordobés y casi sin sobre saltos, lideró las cinco vueltas de la serie más rápida. Quien completó el podio fue Benjamín Ochoa, a una diferencia de 5.115 milésimas.\nFuente: https://actc.org.ar/tcp/noticias/provens-y-gandulia-los-ganadores-de-las-serie",
+    "imperdible": false
+  },
+  {
+    "uid": "actc-tc-pista-2026-10-04-0729-mas-atras-estuvieron-4-faustino-cifre-ford-5-gustavo-tadei-chevrolet-6-juan-ignacio-maceira-ford-7-benjamin-anton-ford-8-felipe-bernasconi-toyota-9-santiago-arrigoni-toyota-y-10-juan-antonio-sandin-toyota-que-no-pudo-completar-la-serie",
+    "categoria": "Argentina",
+    "campeonato": "TC Pista",
+    "tipo": "Serie",
+    "fecha_inicio": "2026-10-04T07:29:00",
+    "fecha_fin": "2026-10-04T07:30:00",
+    "ubicacion": "SAN NICOLAS",
+    "descripcion": "TC Pista - Fecha 12\nMás atrás estuvieron: 4° Faustino Cifre (Ford), 5° Gustavo Tadei (Chevrolet), 6° Juan Ignacio Maceira (Ford), 7° Benjamín Antón (Ford), 8° Felipe Bernasconi (Toyota), 9° Santiago Arrigoni (Toyota) y 10° Juan Antonio Sandín (Toyota), que no pudo completar la serie.\nFuente: https://actc.org.ar/tcp/noticias/provens-y-gandulia-los-ganadores-de-las-serie",
+    "imperdible": false
+  },
+  {
+    "uid": "actc-tc-pista-2026-10-04-0729-serie-2-tiempo-total-7-29-612",
+    "categoria": "Argentina",
+    "campeonato": "TC Pista",
+    "tipo": "Serie",
+    "fecha_inicio": "2026-10-04T07:29:00",
+    "fecha_fin": "2026-10-04T07:30:00",
+    "ubicacion": "SAN NICOLAS",
+    "descripcion": "TC Pista - Fecha 12\nSERIE 2 – Tiempo total: 7:29.612\nFuente: https://actc.org.ar/tcp/noticias/provens-y-gandulia-los-ganadores-de-las-serie",
+    "imperdible": false
+  },
+  {
+    "uid": "actc-tc-pista-2026-10-04-1255-grilla-final-tcp",
     "categoria": "Argentina",
     "campeonato": "TC Pista",
     "tipo": "Carrera",
-    "fecha_inicio": "2026-10-04T00:00:00",
-    "fecha_fin": "2026-10-04T23:59:00",
+    "fecha_inicio": "2026-10-04T12:55:00",
+    "fecha_fin": "2026-10-04T12:56:00",
     "ubicacion": "SAN NICOLAS",
-    "descripcion": "TC Pista - Fecha 12 (horario pendiente)",
+    "descripcion": "TC Pista - Fecha 12\nGRILLA_FINAL_TCP\nFuente: https://actc.org.ar/tcp/noticias/provens-y-gandulia-los-ganadores-de-las-serie",
+    "imperdible": true
+  },
+  {
+    "uid": "actc-tc-pista-2026-10-04-1255-de-esta-manera-el-tc-pista-ya-conoce-la-grilla-para-la-final-de-la-12-fecha-en-el-autodromo-ciudad-de-san-nicolas-la-misma-tendra-lugar-a-partir-de-las-12-55-y-sera-transmitido-por-la-pantalla-de-canal-9",
+    "categoria": "Argentina",
+    "campeonato": "TC Pista",
+    "tipo": "Carrera",
+    "fecha_inicio": "2026-10-04T12:55:00",
+    "fecha_fin": "2026-10-04T12:56:00",
+    "ubicacion": "SAN NICOLAS",
+    "descripcion": "TC Pista - Fecha 12\nDe esta manera, el TC Pista ya conoce la grilla para la final de la 12° fecha en el Autódromo Ciudad de San Nicolás. La misma tendrá lugar a partir de las 12:55 y será transmitido por la pantalla de Canal 9.\nFuente: https://actc.org.ar/tcp/noticias/provens-y-gandulia-los-ganadores-de-las-serie",
     "imperdible": true
   },
   {
