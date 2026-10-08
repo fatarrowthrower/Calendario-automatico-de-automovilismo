@@ -4,37 +4,28 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from urllib.parse import urljoin
 
-import requests
 from bs4 import BeautifulSoup
+from playwright.sync_api import sync_playwright
 
 
 YEAR = datetime.now().year
 
 OUTPUT = Path("data/actc_events.json")
 
-HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/131.0.0.0 Safari/537.36"
-    )
-}
-
-
 CATEGORIES = {
     "TC": {
-        "results": "https://actc.org.ar/tc/resultados",
-        "news": "https://actc.org.ar/tc/noticias",
+        "page": "https://actc.org.ar/tc",
+        "calendar": "https://actc.org.ar/tc/calendario",
         "code": "TC",
     },
     "TC Pista": {
-        "results": "https://actc.org.ar/tcp/resultados",
-        "news": "https://actc.org.ar/tcp/noticias",
+        "page": "https://actc.org.ar/tcp",
+        "calendar": "https://actc.org.ar/tcp/calendario",
         "code": "TCP",
     },
     "TC Pick Up": {
-        "results": "https://actc.org.ar/tcpk/resultados",
-        "news": "https://actc.org.ar/tcpk/noticias",
+        "page": "https://actc.org.ar/tcpk",
+        "calendar": "https://actc.org.ar/tcpk/calendario",
         "code": "TCPK",
     },
 }
@@ -64,21 +55,7 @@ def clean(text):
     ).strip()
 
 
-def fetch(url):
-    response = requests.get(
-        url,
-        headers=HEADERS,
-        timeout=30,
-    )
-
-    response.raise_for_status()
-
-    return response.text
-
-
 def slugify(text):
-    text = text.lower()
-
     replacements = {
         "á": "a",
         "é": "e",
@@ -89,11 +66,10 @@ def slugify(text):
         "ñ": "n",
     }
 
+    text = text.lower()
+
     for old, new in replacements.items():
-        text = text.replace(
-            old,
-            new,
-        )
+        text = text.replace(old, new)
 
     text = re.sub(
         r"[^a-z0-9]+",
@@ -116,17 +92,11 @@ def parse_date(text):
     if not match:
         return None
 
-    day = int(
-        match.group(1)
-    )
-
+    day = int(match.group(1))
     month = MONTHS.get(
         match.group(2).lower()
     )
-
-    year = int(
-        match.group(3)
-    )
+    year = int(match.group(3))
 
     if not month:
         return None
@@ -137,34 +107,45 @@ def parse_date(text):
             month,
             day,
         ).date()
-
     except ValueError:
         return None
 
 
-def parse_results_page(
+def parse_numeric_date(text):
+    match = re.search(
+        r"\b(\d{1,2})/(\d{1,2})/(\d{4})\b",
+        text,
+    )
+
+    if not match:
+        return None
+
+    try:
+        return datetime(
+            int(match.group(3)),
+            int(match.group(2)),
+            int(match.group(1)),
+        ).date()
+    except ValueError:
+        return None
+
+
+def parse_calendar_page(
+    page,
     championship,
-    url,
 ):
     print(
-        f"  Leyendo resultados: {url}"
+        f"  Leyendo calendario dinámico: "
+        f"{page.url}"
     )
 
-    html = fetch(
-        url
-    )
-
-    soup = BeautifulSoup(
-        html,
-        "html.parser",
-    )
+    text = page.locator(
+        "body"
+    ).inner_text()
 
     lines = [
         clean(line)
-        for line in soup.get_text(
-            "\n",
-            strip=True,
-        ).splitlines()
+        for line in text.splitlines()
         if clean(line)
     ]
 
@@ -172,263 +153,218 @@ def parse_results_page(
 
     current_round = None
     current_location = "Argentina"
-    current_date = None
 
-    for index, line in enumerate(
-        lines
-    ):
+    for index, line in enumerate(lines):
 
-        # Ejemplo:
-        #
-        # Fecha 12 · SAN NICOLAS
-        #
         round_match = re.search(
-            r"Fecha\s+(\d+)\s*[·•\-]\s*(.+)",
+            r"Fecha\s+(\d+)",
             line,
             re.IGNORECASE,
         )
 
         if round_match:
-
             current_round = int(
                 round_match.group(1)
             )
 
-            current_location = clean(
-                round_match.group(2)
+            location_match = re.search(
+                r"Fecha\s+\d+\s*[—\-:]\s*(.+)",
+                line,
+                re.IGNORECASE,
             )
 
-            continue
+            if location_match:
+                current_location = clean(
+                    location_match.group(1)
+                )
 
-        # Fecha del evento.
         date = parse_date(
             line
         )
 
-        if date:
+        if not date:
+            date = parse_numeric_date(
+                line
+            )
 
-            if date.year == YEAR:
-                current_date = date
-
+        if not date:
             continue
 
-        if not current_round:
+        if date.year != YEAR:
             continue
 
-        if not current_date:
-            continue
+        # Si la fecha está en la línea pero
+        # "Fecha N" está unas líneas antes,
+        # buscamos hacia atrás.
+        if current_round is None:
+            for previous in reversed(
+                lines[
+                    max(0, index - 8):index
+                ]
+            ):
+                previous_match = re.search(
+                    r"Fecha\s+(\d+)",
+                    previous,
+                    re.IGNORECASE,
+                )
 
-        session = classify_result(
-            line
-        )
+                if previous_match:
+                    current_round = int(
+                        previous_match.group(1)
+                    )
+                    break
 
-        if not session:
-            continue
-
-        # Ignoramos parciales, grillas y similares.
-        lower = line.lower()
-
-        if (
-            "parcial" in lower
-            or "grilla" in lower
-            or "rectificada" in lower
-            or "rectificado" in lower
-        ):
+        if current_round is None:
             continue
 
         events.append(
             {
                 "round": current_round,
-                "date": current_date,
+                "date": date,
                 "location": current_location,
-                "tipo": session,
-                "nombre": line,
             }
         )
 
     unique = {}
 
     for event in events:
+        unique[
+            (
+                event["round"],
+                event["date"],
+            )
+        ] = event
 
-        key = (
-            event["round"],
-            event["date"],
-            event["tipo"],
-            event["nombre"],
-        )
-
-        unique[key] = event
-
-    events = list(
+    result = list(
         unique.values()
     )
 
-    events.sort(
-        key=lambda event: (
-            event["date"],
-            event["round"],
+    result.sort(
+        key=lambda item: (
+            item["date"],
+            item["round"],
         )
     )
 
     print(
-        f"  Sesiones encontradas en resultados: "
-        f"{len(events)}"
+        f"  Fechas encontradas: "
+        f"{len(result)}"
     )
 
-    return events
+    return result
 
 
-def classify_result(text):
+def discover_cronogram_links(page):
+    links = []
+
+    anchors = page.locator(
+        "a"
+    )
+
+    count = anchors.count()
+
+    for index in range(count):
+
+        anchor = anchors.nth(
+            index
+        )
+
+        try:
+            href = anchor.get_attribute(
+                "href"
+            )
+
+            text = clean(
+                anchor.inner_text()
+            )
+        except Exception:
+            continue
+
+        if not href:
+            continue
+
+        full_url = urljoin(
+            page.url,
+            href,
+        )
+
+        lower_url = full_url.lower()
+        lower_text = text.lower()
+
+        if (
+            "/cronogramas/" in lower_url
+            or "cronograma" in lower_text
+        ):
+            if full_url not in links:
+                links.append(
+                    full_url
+                )
+
+    return links
+
+
+def classify_session(text):
     lower = text.lower()
 
     if (
         "entrenamiento" in lower
+        or "práctica" in lower
+        or "practica" in lower
     ):
         return "Entrenamiento"
 
     if (
-        "clasificacion" in lower
-        or "clasificación" in lower
+        "clasificación" in lower
+        or "clasificacion" in lower
     ):
         return "Clasificación"
 
     if "serie" in lower:
         return "Serie"
 
-    if (
-        re.search(
-            r"\bfinal\b",
-            lower,
-        )
-        and "parcial" not in lower
+    if re.search(
+        r"\bfinal\b",
+        lower,
     ):
         return "Carrera"
 
     return None
 
 
-def get_news_links(
-    url,
-):
-    """
-    ACTC devuelve actualmente las noticias más
-    recientes en la página de categoría.
-
-    No usamos ?page= porque ACTC está sirviendo
-    la misma página en ese endpoint.
-    """
-
-    print(
-        f"  Leyendo noticias: {url}"
-    )
-
-    html = fetch(
-        url
-    )
-
-    soup = BeautifulSoup(
-        html,
-        "html.parser",
-    )
-
-    links = []
-
-    for a in soup.find_all(
-        "a",
-        href=True,
-    ):
-
-        href = a[
-            "href"
-        ]
-
-        title = clean(
-            a.get_text(
-                " ",
-                strip=True,
-            )
-        )
-
-        full_url = urljoin(
-            url,
-            href,
-        )
-
-        if (
-            "/noticias/" not in full_url
-        ):
-            continue
-
-        if not title:
-            continue
-
-        item = {
-            "url": full_url,
-            "title": title,
-        }
-
-        if item not in links:
-            links.append(
-                item
-            )
-
-    print(
-        f"  Noticias encontradas: "
-        f"{len(links)}"
-    )
-
-    return links
-
-
-def get_article(
-    url,
-):
-    html = fetch(
-        url
-    )
-
-    soup = BeautifulSoup(
-        html,
-        "html.parser",
-    )
-
-    title = ""
-
-    h1 = soup.find(
-        "h1"
-    )
-
-    if h1:
-        title = clean(
-            h1.get_text(
-                " ",
-                strip=True,
-            )
-        )
-
-    if not title and soup.title:
-        title = clean(
-            soup.title.get_text(
-                " ",
-                strip=True,
-            )
-        )
-
-    text = soup.get_text(
-        "\n",
-        strip=True,
-    )
-
-    return title, text
-
-
-def parse_time_range(
+def category_matches(
     text,
+    code,
 ):
-    # 09:00 a 09:15
-    # 09:00 - 09:15
-    # 09:00 – 09:15
+    upper = text.upper()
 
+    if code == "TC":
+        return (
+            "TCPK" not in upper
+            and "TCP" not in upper
+            and re.search(
+                r"\bTC\b",
+                upper,
+            )
+            is not None
+        )
+
+    if code == "TCP":
+        return (
+            "TCP" in upper
+            and "TCPK" not in upper
+        )
+
+    if code == "TCPK":
+        return (
+            "TCPK" in upper
+            or "TC PICK UP" in upper
+            or "TC PICK-UP" in upper
+        )
+
+    return False
+
+
+def parse_time_range(text):
     match = re.search(
         r"\b"
         r"([01]?\d|2[0-3]):([0-5]\d)"
@@ -442,7 +378,6 @@ def parse_time_range(
     )
 
     if match:
-
         start = (
             f"{int(match.group(1)):02d}:"
             f"{int(match.group(2)):02d}"
@@ -455,7 +390,6 @@ def parse_time_range(
 
         return start, end
 
-    # Solamente hora de comienzo.
     match = re.search(
         r"\b"
         r"([01]?\d|2[0-3]):([0-5]\d)"
@@ -464,23 +398,18 @@ def parse_time_range(
     )
 
     if match:
-
-        start = (
+        return (
             f"{int(match.group(1)):02d}:"
-            f"{int(match.group(2)):02d}"
+            f"{int(match.group(2)):02d}",
+            None,
         )
-
-        return start, None
 
     return None, None
 
 
-def duration_from_text(
-    text,
-):
+def parse_duration(text):
     match = re.search(
-        r"(\d+)\s*"
-        r"(?:min|minutos)",
+        r"(\d+)\s*(?:min|minutos)",
         text,
         re.IGNORECASE,
     )
@@ -493,246 +422,75 @@ def duration_from_text(
     )
 
 
-def find_day(
-    line,
-    race_date,
-):
-    upper = line.upper()
-
-    if "VIERNES" in upper:
-        return (
-            race_date
-            - timedelta(days=2)
-        )
-
-    if (
-        "SÁBADO" in upper
-        or "SABADO" in upper
-    ):
-        return (
-            race_date
-            - timedelta(days=1)
-        )
-
-    if "DOMINGO" in upper:
-        return race_date
-
-    return None
-
-
-def article_matches_event(
-    title,
-    text,
-    event,
-):
-    combined = (
-        f"{title}\n{text}"
-    ).lower()
-
-    # Tiene que hablar de horarios o cronograma.
-    if not any(
-        word in combined
-        for word in (
-            "horarios",
-            "horario",
-            "cronograma",
-            "actividades",
-        )
-    ):
-        return False
-
-    location = (
-        event["location"]
-        .lower()
-    )
-
-    # Palabras suficientemente específicas
-    # de la sede.
-    location_words = [
-        word
-        for word in re.split(
-            r"\W+",
-            location,
-        )
-        if len(word) >= 5
-    ]
-
-    location_match = any(
-        word in combined
-        for word in location_words
-    )
-
-    round_number = str(
-        event["round"]
-    )
-
-    round_match = re.search(
-        rf"\bfecha\s+{re.escape(round_number)}\b",
-        combined,
-        re.IGNORECASE,
-    )
-
-    return (
-        location_match
-        or round_match is not None
-    )
-
-
-def article_has_category(
-    text,
-    code,
-):
-    upper = text.upper()
-
-    if code == "TC":
-
-        return (
-            re.search(
-                r"\bTC\s*-",
-                upper,
-            )
-            is not None
-        )
-
-    if code == "TCP":
-
-        return (
-            "TCP -" in upper
-            or "TCP |" in upper
-            or "TC PISTA" in upper
-        )
-
-    if code == "TCPK":
-
-        return (
-            "TC PICK UP" in upper
-            or "TC PICK-UP" in upper
-            or "TCPK" in upper
-        )
-
-    return False
-
-
-def parse_schedule_article(
+def build_session(
     championship,
     code,
     calendar_event,
-    title,
-    text,
-    source_url,
+    date,
+    line,
+    source,
 ):
-    """
-    Convierte líneas del cronograma ACTC en
-    eventos del calendario.
+    tipo = classify_session(
+        line
+    )
 
-    Ejemplo real publicado por ACTC:
+    if not tipo:
+        return None
 
-    TC - 09:00 a 09:15 Hs.
-    1er. Entrenamiento (Grupo A)
+    if not category_matches(
+        line,
+        code,
+    ):
+        return None
 
-    TC - 15:55 a 16:03 Hs.
-    Clasificación
-    """
-
-    events = []
-
-    race_date = calendar_event[
-        "date"
-    ]
-
-    current_date = race_date
-
-    lines = [
-        clean(line)
-        for line in text.splitlines()
-        if clean(line)
-    ]
-
-    for line in lines:
-
-        detected_day = find_day(
-            line,
-            race_date,
-        )
-
-        if detected_day:
-            current_date = detected_day
-            continue
-
-        tipo = classify_result(
+    start_time, end_time = (
+        parse_time_range(
             line
         )
+    )
 
-        if not tipo:
-            continue
+    if not start_time:
+        return None
 
-        if not article_has_category(
-            line,
-            code,
-        ):
-            continue
+    name = clean(
+        line
+    )
 
-        start_time, end_time = (
-            parse_time_range(
-                line
-            )
-        )
+    start = datetime.strptime(
+        (
+            f"{date.isoformat()} "
+            f"{start_time}"
+        ),
+        "%Y-%m-%d %H:%M",
+    )
 
-        if not start_time:
-            continue
-
-        name = line
-
-        # Quitamos prefijos de categoría.
-        name = re.sub(
-            r"^\s*(?:TC|TCP|TCPK)\s*[-|]\s*",
-            "",
-            name,
-            flags=re.IGNORECASE,
-        )
-
-        name = clean(
-            name
-        )
-
-        # Si la línea tiene solamente
-        # "10:10 Hs. 1ra Serie",
-        # la duración puede estar indicada.
-        duration = duration_from_text(
-            name
-        )
-
-        start = datetime.strptime(
+    if end_time:
+        end = datetime.strptime(
             (
-                f"{current_date.isoformat()} "
-                f"{start_time}"
+                f"{date.isoformat()} "
+                f"{end_time}"
             ),
             "%Y-%m-%d %H:%M",
         )
 
-        if end_time:
-
-            end = datetime.strptime(
-                (
-                    f"{current_date.isoformat()} "
-                    f"{end_time}"
-                ),
-                "%Y-%m-%d %H:%M",
+        if end < start:
+            end += timedelta(
+                days=1
             )
 
-        elif duration:
+    else:
+        duration = parse_duration(
+            name
+        )
 
+        if duration:
             end = (
                 start
                 + timedelta(
                     minutes=duration
                 )
             )
-
         else:
-
-            # ACTC publica una sola hora para
-            # series. No inventamos una duración.
             end = (
                 start
                 + timedelta(
@@ -740,40 +498,129 @@ def parse_schedule_article(
                 )
             )
 
-        uid = (
+    return {
+        "uid": (
             "actc-"
             f"{slugify(championship)}-"
-            f"{current_date.isoformat()}-"
+            f"{date.isoformat()}-"
             f"{start_time.replace(':', '')}-"
             f"{slugify(name)}"
+        ),
+        "categoria": "Argentina",
+        "campeonato": championship,
+        "tipo": tipo,
+        "fecha_inicio": start.strftime(
+            "%Y-%m-%dT%H:%M:%S"
+        ),
+        "fecha_fin": end.strftime(
+            "%Y-%m-%dT%H:%M:%S"
+        ),
+        "ubicacion": calendar_event[
+            "location"
+        ],
+        "descripcion": (
+            f"{championship} - "
+            f"Fecha {calendar_event['round']} - "
+            f"{name}\n"
+            f"Fuente ACTC: {source}"
+        ),
+        "imperdible": (
+            tipo == "Carrera"
+        ),
+    }
+
+
+def parse_cronograma_page(
+    page,
+    championship,
+    code,
+    calendar_events,
+):
+    text = page.locator(
+        "body"
+    ).inner_text()
+
+    lines = [
+        clean(line)
+        for line in text.splitlines()
+        if clean(line)
+    ]
+
+    events = []
+
+    current_date = None
+
+    for line in lines:
+
+        date = parse_date(
+            line
         )
 
-        events.append(
-            {
-                "uid": uid,
-                "categoria": "Argentina",
-                "campeonato": championship,
-                "tipo": tipo,
-                "fecha_inicio": start.strftime(
-                    "%Y-%m-%dT%H:%M:%S"
+        if not date:
+            date = parse_numeric_date(
+                line
+            )
+
+        if date and date.year == YEAR:
+            current_date = date
+            continue
+
+        upper = line.upper()
+
+        if "VIERNES" in upper:
+            if current_date:
+                current_date = current_date
+
+        elif (
+            "SÁBADO" in upper
+            or "SABADO" in upper
+        ):
+            pass
+
+        elif "DOMINGO" in upper:
+            pass
+
+        if not current_date:
+            # Si el cronograma no muestra
+            # la fecha en el texto, usamos la
+            # próxima fecha del calendario.
+            continue
+
+        # Buscamos la fecha de calendario
+        # correspondiente.
+        calendar_event = None
+
+        for item in calendar_events:
+            if item["date"] == current_date:
+                calendar_event = item
+                break
+
+        if not calendar_event:
+            # Algunas páginas sólo muestran
+            # el día de la semana.
+            calendar_event = min(
+                calendar_events,
+                key=lambda item: abs(
+                    (
+                        item["date"]
+                        - current_date
+                    ).days
                 ),
-                "fecha_fin": end.strftime(
-                    "%Y-%m-%dT%H:%M:%S"
-                ),
-                "ubicacion": calendar_event[
-                    "location"
-                ],
-                "descripcion": (
-                    f"{championship} - "
-                    f"Fecha {calendar_event['round']} - "
-                    f"{name}\n"
-                    f"Fuente ACTC: {source_url}"
-                ),
-                "imperdible": (
-                    tipo == "Carrera"
-                ),
-            }
+            )
+
+        event = build_session(
+            championship=championship,
+            code=code,
+            calendar_event=calendar_event,
+            date=current_date,
+            line=line,
+            source=page.url,
         )
+
+        if event:
+            events.append(
+                event
+            )
 
     unique = {}
 
@@ -787,41 +634,53 @@ def parse_schedule_article(
     )
 
 
-def make_fallback_race(
+def fallback_events(
     championship,
-    result_event,
+    calendar_events,
 ):
-    date = result_event[
-        "date"
-    ]
+    events = []
 
-    return {
-        "uid": (
-            "actc-"
-            f"{slugify(championship)}-"
-            f"fecha-{result_event['round']}"
-        ),
-        "categoria": "Argentina",
-        "campeonato": championship,
-        "tipo": "Carrera",
-        "fecha_inicio": (
-            f"{date.isoformat()}T00:00:00"
-        ),
-        "fecha_fin": (
-            f"{date.isoformat()}T23:59:00"
-        ),
-        "ubicacion": result_event[
-            "location"
-        ],
-        "descripcion": (
-            f"{championship} - "
-            f"Fecha {result_event['round']}"
-        ),
-        "imperdible": True,
-    }
+    for item in calendar_events:
+
+        date = item[
+            "date"
+        ]
+
+        events.append(
+            {
+                "uid": (
+                    "actc-"
+                    f"{slugify(championship)}-"
+                    f"fecha-{item['round']}"
+                ),
+                "categoria": "Argentina",
+                "campeonato": championship,
+                "tipo": "Carrera",
+                "fecha_inicio": (
+                    f"{date.isoformat()}"
+                    "T00:00:00"
+                ),
+                "fecha_fin": (
+                    f"{date.isoformat()}"
+                    "T23:59:00"
+                ),
+                "ubicacion": item[
+                    "location"
+                ],
+                "descripcion": (
+                    f"{championship} - "
+                    f"Fecha {item['round']} "
+                    f"(horario pendiente)"
+                ),
+                "imperdible": True,
+            }
+        )
+
+    return events
 
 
 def process_category(
+    browser,
     championship,
     config,
 ):
@@ -831,133 +690,142 @@ def process_category(
         f"{championship}"
     )
 
-    result_sessions = parse_results_page(
-        championship,
-        config["results"],
-    )
+    page = browser.new_page()
 
-    # Agrupamos por fecha.
-    dates = {}
-
-    for session in result_sessions:
-
-        key = (
-            session["round"],
-            session["date"],
-        )
-
-        if key not in dates:
-            dates[key] = {
-                "round": session[
-                    "round"
-                ],
-                "date": session[
-                    "date"
-                ],
-                "location": session[
-                    "location"
-                ],
-            }
-
-    # Noticias recientes de la categoría.
-    news_links = get_news_links(
-        config["news"]
-    )
-
-    timed_events = []
-
-    for event in dates.values():
-
+    try:
         print(
-            f"  Fecha {event['round']} "
-            f"({event['date']}) "
-            f"{event['location']}"
+            f"  Abriendo: "
+            f"{config['calendar']}"
         )
 
-        matched = False
+        page.goto(
+            config["calendar"],
+            wait_until="networkidle",
+            timeout=60000,
+        )
 
-        for article in news_links:
+        page.wait_for_timeout(
+            3000
+        )
 
-            try:
-                title, text = get_article(
-                    article["url"]
-                )
-            except Exception:
-                continue
+        calendar_events = (
+            parse_calendar_page(
+                page,
+                championship,
+            )
+        )
 
-            if not article_matches_event(
-                title,
-                text,
-                event,
-            ):
-                continue
+        # Si el calendario dinámico no se pudo
+        # leer, intentamos la página de categoría.
+        if not calendar_events:
 
-            if not article_has_category(
-                text,
-                config["code"],
-            ):
-                continue
-
-            sessions = parse_schedule_article(
-                championship=championship,
-                code=config["code"],
-                calendar_event=event,
-                title=title,
-                text=text,
-                source_url=article["url"],
+            print(
+                "  Calendario sin fechas. "
+                "Probando página de categoría..."
             )
 
-            if sessions:
+            page.goto(
+                config["page"],
+                wait_until="networkidle",
+                timeout=60000,
+            )
 
-                print(
-                    f"    Cronograma encontrado: "
-                    f"{title}"
+            page.wait_for_timeout(
+                3000
+            )
+
+            calendar_events = (
+                parse_calendar_page(
+                    page,
+                    championship,
+                )
+            )
+
+        all_events = fallback_events(
+            championship,
+            calendar_events,
+        )
+
+        print(
+            f"  Eventos base: "
+            f"{len(all_events)}"
+        )
+
+        # Descubrimos los cronogramas
+        # directamente desde el navegador.
+        page.goto(
+            config["page"],
+            wait_until="networkidle",
+            timeout=60000,
+        )
+
+        page.wait_for_timeout(
+            3000
+        )
+
+        links = discover_cronogram_links(
+            page
+        )
+
+        print(
+            f"  Cronogramas encontrados: "
+            f"{len(links)}"
+        )
+
+        for link in links:
+
+            print(
+                f"    Abriendo cronograma: "
+                f"{link}"
+            )
+
+            schedule_page = (
+                browser.new_page()
+            )
+
+            try:
+
+                schedule_page.goto(
+                    link,
+                    wait_until="networkidle",
+                    timeout=60000,
+                )
+
+                schedule_page.wait_for_timeout(
+                    3000
+                )
+
+                sessions = (
+                    parse_cronograma_page(
+                        schedule_page,
+                        championship,
+                        config["code"],
+                        calendar_events,
+                    )
                 )
 
                 print(
-                    f"    Sesiones con horario: "
+                    f"    Sesiones encontradas: "
                     f"{len(sessions)}"
                 )
 
-                timed_events.extend(
+                all_events.extend(
                     sessions
                 )
 
-                matched = True
+            except Exception as exc:
 
-                break
+                print(
+                    f"    ERROR: {exc}"
+                )
 
-        if not matched:
-            print(
-                "    Sin cronograma horario "
-                "en noticias recientes."
-            )
+            finally:
+                schedule_page.close()
 
-    # Para fechas que ya tienen resultados,
-    # conservamos las sesiones aunque no haya
-    # noticia con horario.
-    #
-    # Pero NO las agregamos como eventos de
-    # calendario, porque no queremos inventar
-    # horas.
-    #
-    # Sí mantenemos la fecha de carrera.
-    all_events = []
+        return all_events
 
-    for event in dates.values():
-
-        all_events.append(
-            make_fallback_race(
-                championship,
-                event,
-            )
-        )
-
-    all_events.extend(
-        timed_events
-    )
-
-    return all_events
+    finally:
+        page.close()
 
 
 def main():
@@ -967,37 +835,48 @@ def main():
 
     all_events = []
 
-    for championship, config in (
-        CATEGORIES.items()
-    ):
+    with sync_playwright() as playwright:
+
+        browser = playwright.chromium.launch(
+            headless=True
+        )
 
         try:
 
-            events = process_category(
-                championship,
-                config,
-            )
+            for championship, config in (
+                CATEGORIES.items()
+            ):
 
-            print(
-                f"  Total {championship}: "
-                f"{len(events)}"
-            )
+                try:
 
-            all_events.extend(
-                events
-            )
+                    events = process_category(
+                        browser,
+                        championship,
+                        config,
+                    )
 
-        except Exception as exc:
+                    print(
+                        f"  Total {championship}: "
+                        f"{len(events)}"
+                    )
 
-            print(
-                f"  ERROR {championship}: "
-                f"{exc}"
-            )
+                    all_events.extend(
+                        events
+                    )
+
+                except Exception as exc:
+
+                    print(
+                        f"  ERROR {championship}: "
+                        f"{exc}"
+                    )
+
+        finally:
+            browser.close()
 
     unique = {}
 
     for event in all_events:
-
         unique[
             event["uid"]
         ] = event
@@ -1051,7 +930,6 @@ def main():
     championships = {}
 
     for event in events:
-
         name = event[
             "campeonato"
         ]
@@ -1067,7 +945,6 @@ def main():
     for name in sorted(
         championships
     ):
-
         print(
             f"  {name}: "
             f"{championships[name]}"
@@ -1081,7 +958,6 @@ def main():
     types = {}
 
     for event in events:
-
         tipo = event[
             "tipo"
         ]
@@ -1097,7 +973,6 @@ def main():
     for tipo in sorted(
         types
     ):
-
         print(
             f"  {tipo}: "
             f"{types[tipo]}"
