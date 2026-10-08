@@ -1241,6 +1241,30 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-01-2026-03-13-1435-practica-libre-autorizados-todos",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260313T143500",
+    "fecha_fin": "20260313T145000",
+    "ubicacion": "Callejero de Buenos Aires",
+    "descripcion": "PRACTICA LIBRE AUTORIZADOS (TODOS)\nFecha 1\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-01-2026-03-13-1640-shakedown-todos-juntos",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Shakedown",
+    "fecha_inicio": "20260313T164000",
+    "fecha_fin": "20260313T165500",
+    "ubicacion": "Callejero de Buenos Aires",
+    "descripcion": "SHAKEDOWN (TODOS JUNTOS)\nFecha 1\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "indycar-2026-arlington-2026-03-13-1700-practice-1",
     "categoria": "IndyCar",
     "campeonato": "IndyCar",
@@ -1286,6 +1310,18 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-01-2026-03-14-1020-practica-libre-1-grupo-a",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260314T102000",
+    "fecha_fin": "20260314T104000",
+    "ubicacion": "Callejero de Buenos Aires",
+    "descripcion": "PRACTICA LIBRE 1 (GRUPO A)\nFecha 1\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "indycar-2026-arlington-2026-03-14-1030-practice-2",
     "categoria": "IndyCar",
     "campeonato": "IndyCar",
@@ -1298,6 +1334,42 @@
     "indycar_timezone": true
   },
   {
+    "uid": "tc2000-2026-01-2026-03-14-1050-practica-libre-1-grupo-b",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260314T105000",
+    "fecha_fin": "20260314T111000",
+    "ubicacion": "Callejero de Buenos Aires",
+    "descripcion": "PRACTICA LIBRE 1 (GRUPO B)\nFecha 1\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-01-2026-03-14-1315-practica-libre-2-grupo-a",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260314T131500",
+    "fecha_fin": "20260314T134000",
+    "ubicacion": "Callejero de Buenos Aires",
+    "descripcion": "PRACTICA LIBRE 2 (GRUPO A)\nFecha 1\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-01-2026-03-14-1350-practica-libre-2-grupo-b",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260314T135000",
+    "fecha_fin": "20260314T141500",
+    "ubicacion": "Callejero de Buenos Aires",
+    "descripcion": "PRACTICA LIBRE 2 (GRUPO B)\nFecha 1\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "indycar-2026-arlington-2026-03-14-1530-qualifications",
     "categoria": "IndyCar",
     "campeonato": "IndyCar",
@@ -1308,6 +1380,18 @@
     "descripcion": "Java House Grand Prix of Arlington - Qualifications\nFuente oficial: https://www.indycar.com/Schedule/2026/Arlington",
     "prioridad": "",
     "indycar_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-01-2026-03-14-1615-clasificacion-box-abierto-todos-juntos-y-pp",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Clasificación",
+    "fecha_inicio": "20260314T161500",
+    "fecha_fin": "20260314T164000",
+    "ubicacion": "Callejero de Buenos Aires",
+    "descripcion": "CLASIFICACION BOX ABIERTO TODOS JUNTOS y Pp\nFecha 1\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "f1calendar-f1-academy-2026-1@motorsport-calendar-FP3",
@@ -1332,6 +1416,18 @@
     "prioridad": "alta"
   },
   {
+    "uid": "tc2000-2026-01-2026-03-15-1005-warm-up",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Warm-Up",
+    "fecha_inicio": "20260315T100500",
+    "fecha_fin": "20260315T101500",
+    "ubicacion": "Callejero de Buenos Aires",
+    "descripcion": "WARM - UP\nFecha 1\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "indycar-2026-arlington-2026-03-15-1030-warmup",
     "categoria": "IndyCar",
     "campeonato": "IndyCar",
@@ -1354,6 +1450,54 @@
     "descripcion": "Java House Grand Prix of Arlington - Race\nFuente oficial: https://www.indycar.com/Schedule/2026/Arlington",
     "prioridad": "alta",
     "indycar_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-01-2026-03-15-1235-grid-show-s-tyc-sports",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Grid",
+    "fecha_inicio": "20260315T123500",
+    "fecha_fin": "20260315T125000",
+    "ubicacion": "Callejero de Buenos Aires",
+    "descripcion": "GRID SHOW ”s TyC Sports\nFecha 1\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-01-2026-03-15-1255-vuelta-previa-el-t-r-e-ce",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Carrera",
+    "fecha_inicio": "20260315T125500",
+    "fecha_fin": "20260315T125600",
+    "ubicacion": "Callejero de Buenos Aires",
+    "descripcion": "VUELTA PREVIA el t r e ce\nFecha 1\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "alta",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-01-2026-03-15-1300-carrera-final-1-vuelta-producido-por",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Carrera",
+    "fecha_inicio": "20260315T130000",
+    "fecha_fin": "20260315T133700",
+    "ubicacion": "Callejero de Buenos Aires",
+    "descripcion": "CARRERA FINAL +1 VUELTA Producido por\nFecha 1\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "alta",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-01-2026-03-15-1340-podio-carburando",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Podio",
+    "fecha_inicio": "20260315T134000",
+    "fecha_fin": "20260315T135500",
+    "ubicacion": "Callejero de Buenos Aires",
+    "descripcion": "PODIO , carburando\nFecha 1\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "moto3-2026-11588b5a-f76c-4c8e-ae06-acba82ff1303@motorsport-calendar-FP",
@@ -2076,6 +2220,18 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-02-2026-04-10-1745-practica-libre-autorizados-todos",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260410T174500",
+    "fecha_fin": "20260410T180000",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "PRACTICA LIBRE AUTORIZADOS (TODOS)\nFecha 2\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "elms-2026-1@motorsport-calendar-FP2",
     "categoria": "Endurance",
     "campeonato": "ELMS",
@@ -2085,6 +2241,18 @@
     "ubicacion": "Barcelona\\, Spain",
     "descripcion": "Reminder",
     "prioridad": ""
+  },
+  {
+    "uid": "tc2000-2026-02-2026-04-11-0920-shakedown-todos-juntos",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Shakedown",
+    "fecha_inicio": "20260411T092000",
+    "fecha_fin": "20260411T093000",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "SHAKEDOWN (TODOS JUNTOS)\nFecha 2\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "gtwc-europe-2026-circuit-paul-ricard@motorsport-calendar-QUALIFYING",
@@ -2109,6 +2277,30 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-02-2026-04-11-1055-practica-libre-1-grupo-a",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260411T105500",
+    "fecha_fin": "20260411T111500",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "PRACTICA LIBRE 1 (GRUPO A)\nFecha 2\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-02-2026-04-11-1120-practica-libre-1-grupo-b",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260411T112000",
+    "fecha_fin": "20260411T114000",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "PRACTICA LIBRE 1 (GRUPO B)\nFecha 2\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "openf1-meeting-1282@motorsport-calendar-FP3",
     "categoria": "Fórmula",
     "campeonato": "F1",
@@ -2129,6 +2321,30 @@
     "ubicacion": "Barcelona\\, Spain",
     "descripcion": "Reminder",
     "prioridad": ""
+  },
+  {
+    "uid": "tc2000-2026-02-2026-04-11-1335-practica-libre-2-grupo-a",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260411T133500",
+    "fecha_fin": "20260411T135500",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "PRACTICA LIBRE 2 (GRUPO A)\nFecha 2\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-02-2026-04-11-1400-practica-libre-2-grupo-b",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260411T140000",
+    "fecha_fin": "20260411T142000",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "PRACTICA LIBRE 2 (GRUPO B)\nFecha 2\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "openf1-meeting-1282@motorsport-calendar-QUALIFYING",
@@ -2153,6 +2369,18 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-02-2026-04-11-1615-clasificacion-1-vuelta-lanzada-wi-carburande",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Clasificación",
+    "fecha_inicio": "20260411T161500",
+    "fecha_fin": "20260411T164500",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "CLASIFICACION 1 VUELTA LANZADA wi. carburande\nFecha 2\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "mlmc-2026-1@motorsport-calendar-RACE",
     "categoria": "Endurance",
     "campeonato": "Le Mans Cup",
@@ -2164,6 +2392,18 @@
     "prioridad": "alta"
   },
   {
+    "uid": "tc2000-2026-02-2026-04-12-0935-warm-up",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Warm-Up",
+    "fecha_inicio": "20260412T093500",
+    "fecha_fin": "20260412T094500",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "WARM - UP\nFecha 2\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "elms-2026-1@motorsport-calendar-RACE",
     "categoria": "Endurance",
     "campeonato": "ELMS",
@@ -2173,6 +2413,42 @@
     "ubicacion": "Barcelona\\, Spain",
     "descripcion": "Reminder",
     "prioridad": ""
+  },
+  {
+    "uid": "tc2000-2026-02-2026-04-12-1245-grid-show",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Grid",
+    "fecha_inicio": "20260412T124500",
+    "fecha_fin": "20260412T130000",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "GRID SHOW\nFecha 2\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-02-2026-04-12-1305-vuelta-previa-y-carrera-final-1-vuelta-producido-por",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Carrera",
+    "fecha_inicio": "20260412T130500",
+    "fecha_fin": "20260412T134500",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "VUELTA PREVIA Y CARRERA FINAL + 1 VUELTA Producido por\nFecha 2\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "alta",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-02-2026-04-12-1350-podio-i-carburando",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Podio",
+    "fecha_inicio": "20260412T135000",
+    "fecha_fin": "20260412T140000",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "PODIO i= _carburando\nFecha 2\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "openf1-meeting-1282@motorsport-calendar-RACE",
@@ -2697,6 +2973,18 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-03-2026-05-01-1730-shakedown-todos-juntos",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Shakedown",
+    "fecha_inicio": "20260501T173000",
+    "fecha_fin": "20260501T174000",
+    "ubicacion": "Concordia",
+    "descripcion": "Shakedown (todos juntos)\nFecha 3\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "f1calendar-f2-2026-2@motorsport-calendar-QUALIFYING",
     "categoria": "Fórmula",
     "campeonato": "F2",
@@ -2796,6 +3084,18 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-03-2026-05-02-1040-practica-oficial-1-grupo-a",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260502T104000",
+    "fecha_fin": "20260502T110500",
+    "ubicacion": "Concordia",
+    "descripcion": "Practica oficial 1 (grupo A)\nFecha 3\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "gtwc-europe-2026-brands-hatch@motorsport-calendar-FP2",
     "categoria": "GT",
     "campeonato": "GT World Challenge Europe",
@@ -2807,6 +3107,30 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-03-2026-05-02-1110-practica-oficial-1-grupo-b",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260502T111000",
+    "fecha_fin": "20260502T113500",
+    "ubicacion": "Concordia",
+    "descripcion": "Practica oficial 1 (grupo B)\nFecha 3\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-03-2026-05-02-1310-practica-oficial-2-grupo-libre-eleccion",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260502T131000",
+    "fecha_fin": "20260502T133000",
+    "ubicacion": "Concordia",
+    "descripcion": "Practica oficial 2 (grupo libre eleccion)\nFecha 3\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "elms-2026-2@motorsport-calendar-QUALIFYING",
     "categoria": "Endurance",
     "campeonato": "ELMS",
@@ -2816,6 +3140,18 @@
     "ubicacion": "Paul Ricard\\, France",
     "descripcion": "Reminder",
     "prioridad": ""
+  },
+  {
+    "uid": "tc2000-2026-03-2026-05-02-1335-practica-oficial-2-grupo-libre-eleccion",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260502T133500",
+    "fecha_fin": "20260502T135500",
+    "ubicacion": "Concordia",
+    "descripcion": "Practica oficial 2 (grupo libre eleccion)\nFecha 3\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "f1calendar-f2-2026-2@motorsport-calendar-SPRINT",
@@ -2838,6 +3174,18 @@
     "ubicacion": "Berlin ePrix\\, Germany",
     "descripcion": "Reminder",
     "prioridad": "alta"
+  },
+  {
+    "uid": "tc2000-2026-03-2026-05-02-1540-clasificacion-1-vuelta-lanzada",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Clasificación",
+    "fecha_inicio": "20260502T154000",
+    "fecha_fin": "20260502T161500",
+    "ubicacion": "Concordia",
+    "descripcion": "Clasificacion 1 vuelta lanzada\nFecha 3\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "gtwc-europe-2026-brands-hatch@motorsport-calendar-SPRINT_QUALIFYING",
@@ -2917,6 +3265,18 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-03-2026-05-03-0945-warm-up",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Warm-Up",
+    "fecha_inicio": "20260503T094500",
+    "fecha_fin": "20260503T095500",
+    "ubicacion": "Concordia",
+    "descripcion": "Warm -up\nFecha 3\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "elms-2026-2@motorsport-calendar-RACE",
     "categoria": "Endurance",
     "campeonato": "ELMS",
@@ -2939,6 +3299,30 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-03-2026-05-03-1240-grid-show",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Grid",
+    "fecha_inicio": "20260503T124000",
+    "fecha_fin": "20260503T125500",
+    "ubicacion": "Concordia",
+    "descripcion": "Grid Show\nFecha 3\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-03-2026-05-03-1300-vuelta-previa-y-carrera-final-1-vuelta",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Carrera",
+    "fecha_inicio": "20260503T130000",
+    "fecha_fin": "20260503T134000",
+    "ubicacion": "Concordia",
+    "descripcion": "Vuelta previa y carrera final + 1 vuelta\nFecha 3\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "alta",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "f1calendar-f2-2026-2@motorsport-calendar-RACE",
     "categoria": "Fórmula",
     "campeonato": "F2",
@@ -2948,6 +3332,18 @@
     "ubicacion": "USA\\, USA",
     "descripcion": "Reminder",
     "prioridad": ""
+  },
+  {
+    "uid": "tc2000-2026-03-2026-05-03-1345-podio",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Podio",
+    "fecha_inicio": "20260503T134500",
+    "fecha_fin": "20260503T140000",
+    "ubicacion": "Concordia",
+    "descripcion": "Podio\nFecha 3\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "f1calendar-fe-2026-8@motorsport-calendar-RACE",
@@ -3873,6 +4269,54 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-04-2026-05-23-0930-shakedown-todos-juntos",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Shakedown",
+    "fecha_inicio": "20260523T093000",
+    "fecha_fin": "20260523T094000",
+    "ubicacion": "Salta",
+    "descripcion": "Shakedown (todos juntos)\nFecha 4\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-04-2026-05-23-1055-practica-oficial-1-grupo-b",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260523T105500",
+    "fecha_fin": "20260523T112000",
+    "ubicacion": "Salta",
+    "descripcion": "Practica oficial 1 (grupo B)\nFecha 4\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-04-2026-05-23-1325-practica-oficial-2-grupo-libre-eleccion",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260523T132500",
+    "fecha_fin": "20260523T135000",
+    "ubicacion": "Salta",
+    "descripcion": "Practica oficial 2 (grupo libre eleccion)\nFecha 4\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-04-2026-05-23-1355-practica-oficial-2-grupo-libre-eleccion",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260523T135500",
+    "fecha_fin": "20260523T142000",
+    "ubicacion": "Salta",
+    "descripcion": "Practica oficial 2 (grupo libre eleccion)\nFecha 4\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "openf1-meeting-1285@motorsport-calendar-SPRINT",
     "categoria": "Fórmula",
     "campeonato": "F1",
@@ -3882,6 +4326,18 @@
     "ubicacion": "Montreal\\, Canada",
     "descripcion": "Reminder",
     "prioridad": ""
+  },
+  {
+    "uid": "tc2000-2026-04-2026-05-23-1605-clasificacion-vuelta-lanzada",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Clasificación",
+    "fecha_inicio": "20260523T160500",
+    "fecha_fin": "20260523T164500",
+    "ubicacion": "Salta",
+    "descripcion": "Clasificacion Vuelta lanzada\nFecha 4\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "f1calendar-f2-2026-3@motorsport-calendar-SPRINT",
@@ -3917,6 +4373,18 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-04-2026-05-24-0920-warm-up",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Warm-Up",
+    "fecha_inicio": "20260524T092000",
+    "fecha_fin": "20260524T093000",
+    "ubicacion": "Salta",
+    "descripcion": "Warm -up\nFecha 4\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "indycar-2026-indianapolis-500-2026-05-24-1100-pre-race",
     "categoria": "IndyCar",
     "campeonato": "IndyCar",
@@ -3927,6 +4395,42 @@
     "descripcion": "110th Running of the Indianapolis 500 - Pre-Race\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis-500",
     "prioridad": "alta",
     "indycar_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-04-2026-05-24-1145-grid-show",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Grid",
+    "fecha_inicio": "20260524T114500",
+    "fecha_fin": "20260524T115500",
+    "ubicacion": "Salta",
+    "descripcion": "Grid Show\nFecha 4\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-04-2026-05-24-1200-vuelta-previa-y-carrera-final-1-vuelta",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Carrera",
+    "fecha_inicio": "20260524T120000",
+    "fecha_fin": "20260524T124000",
+    "ubicacion": "Salta",
+    "descripcion": "Vuelta previa y carrera final + 1 vuelta\nFecha 4\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "alta",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-04-2026-05-24-1245-podio",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Podio",
+    "fecha_inicio": "20260524T124500",
+    "fecha_fin": "20260524T130000",
+    "ubicacion": "Salta",
+    "descripcion": "Podio\nFecha 4\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "indycar-2026-indianapolis-500-2026-05-24-1330-race",
@@ -5462,6 +5966,18 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-05-2026-06-26-1655-shakedown-todos-juntos",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Shakedown",
+    "fecha_inicio": "20260626T165500",
+    "fecha_fin": "20260626T171000",
+    "ubicacion": "San Nicolas",
+    "descripcion": "Shakedown (todos juntos)\nFecha 5\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "moto3-2026-47c25c37-d307-4d45-b1ed-b1cb5e811975@motorsport-calendar-FP",
     "categoria": "Motos",
     "campeonato": "Moto3",
@@ -5517,6 +6033,18 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-05-2026-06-27-1015-practica-oficial-1-grupo-a",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260627T101500",
+    "fecha_fin": "20260627T103500",
+    "ubicacion": "San Nicolas",
+    "descripcion": "Practica oficial 1 (grupo A)\nFecha 5\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "openf1-meeting-1288@motorsport-calendar-FP3",
     "categoria": "Fórmula",
     "campeonato": "F1",
@@ -5526,6 +6054,18 @@
     "ubicacion": "Spielberg\\, Austria",
     "descripcion": "Reminder",
     "prioridad": ""
+  },
+  {
+    "uid": "tc2000-2026-05-2026-06-27-1040-practica-oficial-1-grupo-b",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260627T104000",
+    "fecha_fin": "20260627T110000",
+    "ubicacion": "San Nicolas",
+    "descripcion": "Practica oficial 1 (grupo B)\nFecha 5\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "moto3-2026-47c25c37-d307-4d45-b1ed-b1cb5e811975@motorsport-calendar-QU",
@@ -5572,6 +6112,30 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-05-2026-06-27-1310-practica-oficial-2-grupo-libre-eleccion",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260627T131000",
+    "fecha_fin": "20260627T133500",
+    "ubicacion": "San Nicolas",
+    "descripcion": "Practica oficial 2 (grupo libre eleccion)\nFecha 5\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-05-2026-06-27-1340-practica-oficial-2-grupo-libre-eleccion",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260627T134000",
+    "fecha_fin": "20260627T140000",
+    "ubicacion": "San Nicolas",
+    "descripcion": "Practica oficial 2 (grupo libre eleccion)\nFecha 5\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "openf1-meeting-1288@motorsport-calendar-QUALIFYING",
     "categoria": "Fórmula",
     "campeonato": "F1",
@@ -5603,6 +6167,18 @@
     "ubicacion": "Spa-Francorchamps\\, Belgium",
     "descripcion": "Reminder",
     "prioridad": ""
+  },
+  {
+    "uid": "tc2000-2026-05-2026-06-27-1545-clasificacion-1-vuelta-lanzada",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Clasificación",
+    "fecha_inicio": "20260627T154500",
+    "fecha_fin": "20260627T162500",
+    "ubicacion": "San Nicolas",
+    "descripcion": "Clasificacion 1 vuelta lanzada\nFecha 5\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "f1calendar-f3-2026-4@motorsport-calendar-RACE",
@@ -5660,6 +6236,30 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-05-2026-06-28-1245-grid-show",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Grid",
+    "fecha_inicio": "20260628T124500",
+    "fecha_fin": "20260628T125500",
+    "ubicacion": "San Nicolas",
+    "descripcion": "Grid Show\nFecha 5\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-05-2026-06-28-1300-vuelta-previa-y-carrera-final-1-vuelta",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Carrera",
+    "fecha_inicio": "20260628T130000",
+    "fecha_fin": "20260628T134000",
+    "ubicacion": "San Nicolas",
+    "descripcion": "Vuelta previa y carrera final + 1 vuelta\nFecha 5\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "alta",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "openf1-meeting-1288@motorsport-calendar-RACE",
     "categoria": "Fórmula",
     "campeonato": "F1",
@@ -5669,6 +6269,18 @@
     "ubicacion": "Spielberg\\, Austria",
     "descripcion": "Reminder",
     "prioridad": "alta"
+  },
+  {
+    "uid": "tc2000-2026-05-2026-06-28-1345-podio",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Podio",
+    "fecha_inicio": "20260628T134500",
+    "fecha_fin": "20260628T140000",
+    "ubicacion": "San Nicolas",
+    "descripcion": "Podio\nFecha 5\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "f1calendar-f1-academy-2026-3@motorsport-calendar-FP1",
@@ -6956,6 +7568,18 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-06-2026-08-07-1630-shakedown-todos-juntos",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Shakedown",
+    "fecha_inicio": "20260807T163000",
+    "fecha_fin": "20260807T164500",
+    "ubicacion": "La Pampa",
+    "descripcion": "Shakedown (todos juntos)\nFecha 6\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "indycar-2026-portland-2026-08-07-1830-practice-1",
     "categoria": "IndyCar",
     "campeonato": "IndyCar",
@@ -7001,6 +7625,30 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-06-2026-08-08-1020-practica-oficial-1-grupo-libre-eleccidn",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260808T102000",
+    "fecha_fin": "20260808T104000",
+    "ubicacion": "La Pampa",
+    "descripcion": "Practica oficial 1 (grupo libre eleccidn)\nFecha 6\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-06-2026-08-08-1045-practica-oficial-1-grupo-libre-eleccidn",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260808T104500",
+    "fecha_fin": "20260808T110500",
+    "ubicacion": "La Pampa",
+    "descripcion": "Practica oficial 1 (grupo libre eleccidn)\nFecha 6\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "motogp-2026-41aa319a-8ec5-49d6-aa99-4e2059c88098@motorsport-calendar-Q",
     "categoria": "Motos",
     "campeonato": "MotoGP",
@@ -7021,6 +7669,18 @@
     "ubicacion": "Silverstone Circuit\\, United Kingdom",
     "descripcion": "Reminder",
     "prioridad": ""
+  },
+  {
+    "uid": "tc2000-2026-06-2026-08-08-1340-practica-oficial-2-grupo-libre-eleccion",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260808T134000",
+    "fecha_fin": "20260808T140500",
+    "ubicacion": "La Pampa",
+    "descripcion": "Practica oficial 2 (grupo libre eleccion)\nFecha 6\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "moto2-2026-41aa319a-8ec5-49d6-aa99-4e2059c88098@motorsport-calendar-QU",
@@ -7046,6 +7706,18 @@
     "indycar_timezone": true
   },
   {
+    "uid": "tc2000-2026-06-2026-08-08-1410-practica-oficial-2-grupo-libre-eleccion",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260808T141000",
+    "fecha_fin": "20260808T143500",
+    "ubicacion": "La Pampa",
+    "descripcion": "Practica oficial 2 (grupo libre eleccion)\nFecha 6\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "motogp-2026-41aa319a-8ec5-49d6-aa99-4e2059c88098@motorsport-calendar-S",
     "categoria": "Motos",
     "campeonato": "MotoGP",
@@ -7055,6 +7727,30 @@
     "ubicacion": "Silverstone Circuit\\, United Kingdom",
     "descripcion": "Reminder",
     "prioridad": ""
+  },
+  {
+    "uid": "tc2000-2026-06-2026-08-08-1612-q1-clasificacion-todos-juntos",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Clasificación",
+    "fecha_inicio": "20260808T161200",
+    "fecha_fin": "20260808T163000",
+    "ubicacion": "La Pampa",
+    "descripcion": "Q1 Clasificacion (todos juntos)\nFecha 6\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-06-2026-08-08-1635-q2-clasificacion-10-mejores",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Clasificación",
+    "fecha_inicio": "20260808T163500",
+    "fecha_fin": "20260808T165000",
+    "ubicacion": "La Pampa",
+    "descripcion": "Q2 Clasificacion (10 mejores)\nFecha 6\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "indycar-2026-portland-2026-08-08-2000-qualifications",
@@ -7067,6 +7763,18 @@
     "descripcion": "OnlyBulls Grand Prix of Portland - Qualifications\nFuente oficial: https://www.indycar.com/Schedule/2026/Portland",
     "prioridad": "",
     "indycar_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-06-2026-08-09-0925-warm-up",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Warm-Up",
+    "fecha_inicio": "20260809T092500",
+    "fecha_fin": "20260809T093500",
+    "ubicacion": "La Pampa",
+    "descripcion": "Warm -up\nFecha 6\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "moto2-2026-41aa319a-8ec5-49d6-aa99-4e2059c88098@motorsport-calendar-RA",
@@ -7091,6 +7799,30 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-06-2026-08-09-1240-grid-show",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Grid",
+    "fecha_inicio": "20260809T124000",
+    "fecha_fin": "20260809T125500",
+    "ubicacion": "La Pampa",
+    "descripcion": "Grid Show\nFecha 6\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-06-2026-08-09-1300-vuelta-previa-y-carrera-final-1-vuelta",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Carrera",
+    "fecha_inicio": "20260809T130000",
+    "fecha_fin": "20260809T134000",
+    "ubicacion": "La Pampa",
+    "descripcion": "Vuelta previa y carrera final + 1 vuelta\nFecha 6\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "alta",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "moto3-2026-41aa319a-8ec5-49d6-aa99-4e2059c88098@motorsport-calendar-RA",
     "categoria": "Motos",
     "campeonato": "Moto3",
@@ -7100,6 +7832,18 @@
     "ubicacion": "Silverstone Circuit\\, United Kingdom",
     "descripcion": "Reminder",
     "prioridad": ""
+  },
+  {
+    "uid": "tc2000-2026-06-2026-08-09-1345-podio",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Podio",
+    "fecha_inicio": "20260809T134500",
+    "fecha_fin": "20260809T140000",
+    "ubicacion": "La Pampa",
+    "descripcion": "Podio\nFecha 6\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "indycar-2026-portland-2026-08-09-1400-warmup",
@@ -8044,6 +8788,18 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-07-2026-09-05-1015-shakedown-todos-juntos",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Shakedown",
+    "fecha_inicio": "20260905T101500",
+    "fecha_fin": "20260905T102500",
+    "ubicacion": "Junin",
+    "descripcion": "Shakedown (todos juntos)\nFecha 7\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "openf1-meeting-1293@motorsport-calendar-FP3",
     "categoria": "Fórmula",
     "campeonato": "F1",
@@ -8055,6 +8811,18 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-07-2026-09-05-1200-practica-oficial-1-grupo-libre-eleccion",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260905T120000",
+    "fecha_fin": "20260905T122000",
+    "ubicacion": "Junin",
+    "descripcion": "Practica oficial 1 (grupo libre eleccion)\nFecha 7\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "f1calendar-f2-2026-10@motorsport-calendar-SPRINT",
     "categoria": "Fórmula",
     "campeonato": "F2",
@@ -8064,6 +8832,18 @@
     "ubicacion": "Italian\\, Unknown",
     "descripcion": "Reminder",
     "prioridad": ""
+  },
+  {
+    "uid": "tc2000-2026-07-2026-09-05-1225-practica-oficial-1-grupo-libre-eleccion",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260905T122500",
+    "fecha_fin": "20260905T124500",
+    "ubicacion": "Junin",
+    "descripcion": "Practica oficial 1 (grupo libre eleccion)\nFecha 7\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "wec-2026-5@motorsport-calendar-QUALIFYING",
@@ -8088,6 +8868,18 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-07-2026-09-05-1345-practica-oficial-2-grupo-libre-eleccion",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260905T134500",
+    "fecha_fin": "20260905T140500",
+    "ubicacion": "Junin",
+    "descripcion": "Practica oficial 2 (grupo libre eleccion)\nFecha 7\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "indycar-2026-laguna-seca-2026-09-05-1400-practice-2",
     "categoria": "IndyCar",
     "campeonato": "IndyCar",
@@ -8109,6 +8901,30 @@
     "ubicacion": "Monza\\, Italy",
     "descripcion": "Reminder",
     "prioridad": ""
+  },
+  {
+    "uid": "tc2000-2026-07-2026-09-05-1410-practica-oficial-2-grupo-libre-eleccion",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260905T141000",
+    "fecha_fin": "20260905T143000",
+    "ubicacion": "Junin",
+    "descripcion": "Practica oficial 2 (grupo libre eleccion)\nFecha 7\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-07-2026-09-05-1610-clasificaci6n-1-vuelta-lanzada",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Clasificación",
+    "fecha_inicio": "20260905T161000",
+    "fecha_fin": "20260905T164500",
+    "ubicacion": "Junin",
+    "descripcion": "Clasificaci6n 1 vuelta lanzada\nFecha 7\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "indycar-2026-laguna-seca-2026-09-05-1730-qualifications",
@@ -8157,6 +8973,18 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-07-2026-09-06-0945-warm-up-4e-tyc-sports-i",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Warm-Up",
+    "fecha_inicio": "20260906T094500",
+    "fecha_fin": "20260906T095500",
+    "ubicacion": "Junin",
+    "descripcion": "Warm -up . . 4e TyC Sports i\nFecha 7\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "wec-2026-5@motorsport-calendar-RACE",
     "categoria": "Endurance",
     "campeonato": "WEC",
@@ -8168,6 +8996,30 @@
     "prioridad": "alta"
   },
   {
+    "uid": "tc2000-2026-07-2026-09-06-1240-grid-show",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Grid",
+    "fecha_inicio": "20260906T124000",
+    "fecha_fin": "20260906T125500",
+    "ubicacion": "Junin",
+    "descripcion": "Grid Show\nFecha 7\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-07-2026-09-06-1300-carrera-final-1-vuelta",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Carrera",
+    "fecha_inicio": "20260906T130000",
+    "fecha_fin": "20260906T134000",
+    "ubicacion": "Junin",
+    "descripcion": "Carrera final - + 1 vuelta\nFecha 7\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "alta",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "openf1-meeting-1293@motorsport-calendar-RACE",
     "categoria": "Fórmula",
     "campeonato": "F1",
@@ -8177,6 +9029,18 @@
     "ubicacion": "Monza\\, Italy",
     "descripcion": "Reminder",
     "prioridad": "alta"
+  },
+  {
+    "uid": "tc2000-2026-07-2026-09-06-1345-podio",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Podio",
+    "fecha_inicio": "20260906T134500",
+    "fecha_fin": "20260906T140000",
+    "ubicacion": "Junin",
+    "descripcion": "Podio\nFecha 7\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "indycar-2026-laguna-seca-2026-09-06-1530-race",
@@ -9027,6 +9891,18 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-08-2026-09-26-0950-shakedown-todos-juntos",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Shakedown",
+    "fecha_inicio": "20260926T095000",
+    "fecha_fin": "20260926T100000",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "Shakedown (todos juntos)\nFecha 8\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "openf1-meeting-1295@motorsport-calendar-RACE",
     "categoria": "Fórmula",
     "campeonato": "F1",
@@ -9036,6 +9912,18 @@
     "ubicacion": "Baku\\, Azerbaijan",
     "descripcion": "Reminder",
     "prioridad": "alta"
+  },
+  {
+    "uid": "tc2000-2026-08-2026-09-26-1200-practica-oficial-1-grupo-libre-eleccidn",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260926T120000",
+    "fecha_fin": "20260926T122000",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "Practica oficial 1 (grupo libre eleccidn)\nFecha 8\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "wec-2026-6@motorsport-calendar-QUALIFYING",
@@ -9060,6 +9948,42 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-08-2026-09-26-1225-practica-oficial-1-grupo-libre-eleccien",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260926T122500",
+    "fecha_fin": "20260926T124500",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "Practica oficial 1 (grupo libre eleccien)\nFecha 8\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-08-2026-09-26-1450-practica-oficial-2-grupo-libre-eleccien",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260926T145000",
+    "fecha_fin": "20260926T151000",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "Practica oficial 2 (grupo libre eleccien)\nFecha 8\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-08-2026-09-26-1515-practica-oficial-2-grupo-libre-eleccidn",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20260926T151500",
+    "fecha_fin": "20260926T153500",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "Practica oficial 2 (grupo libre eleccidn)\nFecha 8\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "gtwc-america-2026-barber-motorsports-park@motorsport-calendar-FP2",
     "categoria": "GT",
     "campeonato": "GT World Challenge America",
@@ -9069,6 +9993,30 @@
     "ubicacion": "Barber Motorsports Park\\, United States of America",
     "descripcion": "Reminder",
     "prioridad": ""
+  },
+  {
+    "uid": "tc2000-2026-08-2026-09-26-1717-clasificacidn-q1-todos-juntos",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Clasificación",
+    "fecha_inicio": "20260926T171700",
+    "fecha_fin": "20260926T173500",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "Clasificacidn - Q1 - Todos juntos\nFecha 8\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-08-2026-09-26-1740-clasificacien-q2-10-mejores",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Clasificación",
+    "fecha_inicio": "20260926T174000",
+    "fecha_fin": "20260926T175000",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "Clasificacien - Q2 - (10 mejores)\nFecha 8\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "gtwc-america-2026-barber-motorsports-park@motorsport-calendar-FP3",
@@ -9093,6 +10041,42 @@
     "prioridad": "alta"
   },
   {
+    "uid": "tc2000-2026-08-2026-09-27-1010-warm-up",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Warm-Up",
+    "fecha_inicio": "20260927T101000",
+    "fecha_fin": "20260927T102000",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "Warm -up\nFecha 8\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-08-2026-09-27-1240-grid-show",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Grid",
+    "fecha_inicio": "20260927T124000",
+    "fecha_fin": "20260927T125500",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "Grid Show\nFecha 8\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-08-2026-09-27-1300-carrera-final-1-vuelta",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Carrera",
+    "fecha_inicio": "20260927T130000",
+    "fecha_fin": "20260927T134000",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "Carrera final - + 1 vuelta\nFecha 8\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "alta",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "gtwc-america-2026-barber-motorsports-park@motorsport-calendar-QUALIFYI",
     "categoria": "GT",
     "campeonato": "GT World Challenge America",
@@ -9102,6 +10086,18 @@
     "ubicacion": "Barber Motorsports Park\\, United States of America",
     "descripcion": "Reminder",
     "prioridad": ""
+  },
+  {
+    "uid": "tc2000-2026-08-2026-09-27-1345-podio",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Podio",
+    "fecha_inicio": "20260927T134500",
+    "fecha_fin": "20260927T140000",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "Podio\nFecha 8\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "gtwc-america-2026-barber-motorsports-park@motorsport-calendar-RACE",
@@ -9764,6 +10760,18 @@
     "prioridad": "alta"
   },
   {
+    "uid": "tc2000-2026-09-2026-10-10-0835-shakedown-todos-juntos",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Shakedown",
+    "fecha_inicio": "20261010T083500",
+    "fecha_fin": "20261010T084500",
+    "ubicacion": "La Pampa",
+    "descripcion": "Shakedown (todos juntos)\nFecha 9\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "openf1-meeting-1296@motorsport-calendar-SPRINT",
     "categoria": "Fórmula",
     "campeonato": "F1",
@@ -9773,6 +10781,54 @@
     "ubicacion": "Singapore\\, Singapore",
     "descripcion": "Reminder",
     "prioridad": ""
+  },
+  {
+    "uid": "tc2000-2026-09-2026-10-10-0935-practica-oficial-1-grupo-libre-eleccidn",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20261010T093500",
+    "fecha_fin": "20261010T095500",
+    "ubicacion": "La Pampa",
+    "descripcion": "Practica oficial 1 (grupo libre eleccidn)\nFecha 9\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-09-2026-10-10-1000-practica-oficial-1-grupo-libre-eleccidn",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20261010T100000",
+    "fecha_fin": "20261010T102000",
+    "ubicacion": "La Pampa",
+    "descripcion": "Practica oficial 1 (grupo libre eleccidn)\nFecha 9\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-09-2026-10-10-1120-practica-oficial-2-grupo-libre-eleccidn",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20261010T112000",
+    "fecha_fin": "20261010T114000",
+    "ubicacion": "La Pampa",
+    "descripcion": "Practica oficial 2 (grupo libre eleccidn)\nFecha 9\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-09-2026-10-10-1145-practica-oficial-2-grupo-libre-eleccidn",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Práctica",
+    "fecha_inicio": "20261010T114500",
+    "fecha_fin": "20261010T120500",
+    "ubicacion": "La Pampa",
+    "descripcion": "Practica oficial 2 (grupo libre eleccidn)\nFecha 9\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "elms-2026-6@motorsport-calendar-RACE",
@@ -9795,6 +10851,30 @@
     "ubicacion": "Singapore\\, Singapore",
     "descripcion": "Reminder",
     "prioridad": ""
+  },
+  {
+    "uid": "tc2000-2026-09-2026-10-10-1547-clasificacidn-q1-todos-juntos",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Clasificación",
+    "fecha_inicio": "20261010T154700",
+    "fecha_fin": "20261010T160500",
+    "ubicacion": "La Pampa",
+    "descripcion": "Clasificacidn Q1 todos juntos\nFecha 9\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-09-2026-10-10-1610-clasificaci6n-q2-10-mejores",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Clasificación",
+    "fecha_inicio": "20261010T161000",
+    "fecha_fin": "20261010T162000",
+    "ubicacion": "La Pampa",
+    "descripcion": "Clasificaci6n Q2 (10 mejores)\nFecha 9\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "gtwc-america-2026-indianpolis-8-hour@motorsport-calendar-RACE",
@@ -9852,6 +10932,18 @@
     "prioridad": ""
   },
   {
+    "uid": "tc2000-2026-09-2026-10-11-1035-warm-up",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Warm-Up",
+    "fecha_inicio": "20261011T103500",
+    "fecha_fin": "20261011T104500",
+    "ubicacion": "La Pampa",
+    "descripcion": "Warm -up\nFecha 9\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
     "uid": "openf1-meeting-1296@motorsport-calendar-RACE",
     "categoria": "Fórmula",
     "campeonato": "F1",
@@ -9861,6 +10953,42 @@
     "ubicacion": "Singapore\\, Singapore",
     "descripcion": "Reminder",
     "prioridad": "alta"
+  },
+  {
+    "uid": "tc2000-2026-09-2026-10-11-1240-grid-show",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Grid",
+    "fecha_inicio": "20261011T124000",
+    "fecha_fin": "20261011T125500",
+    "ubicacion": "La Pampa",
+    "descripcion": "Grid Show\nFecha 9\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-09-2026-10-11-1300-carrera-final-1-vuelta",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Carrera",
+    "fecha_inicio": "20261011T130000",
+    "fecha_fin": "20261011T134000",
+    "ubicacion": "La Pampa",
+    "descripcion": "Carrera final - + 1 vuelta\nFecha 9\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "alta",
+    "tc2000_timezone": true
+  },
+  {
+    "uid": "tc2000-2026-09-2026-10-11-1345-podio",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Podio",
+    "fecha_inicio": "20261011T134500",
+    "fecha_fin": "20261011T140000",
+    "ubicacion": "La Pampa",
+    "descripcion": "Podio\nFecha 9\nFuente oficial: https://www.tc2000.com.ar/",
+    "prioridad": "",
+    "tc2000_timezone": true
   },
   {
     "uid": "gtwc-europe-2026-portimao@motorsport-calendar-FP1",
