@@ -5,3 +5,5 @@ pypdf>=5.0,<7
 requests
 beautifulsoup4
 curl_cffi
+pytesseract
+Pillow
