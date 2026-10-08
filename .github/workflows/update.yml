@@ -35,6 +35,24 @@ jobs:
       - name: Descubrir estructura TC2000
         run: python tc2000.py
 
+      - name: Mostrar eventos TC2000
+        run: |
+          python - <<'PY'
+          import json
+
+          with open("data/tc2000_events.json", encoding="utf-8") as f:
+              events = json.load(f)
+
+          for event in events:
+              print(
+                  f"{event['fecha']} "
+                  f"{event['inicio']}-{event['fin']} | "
+                  f"{event['tipo']} | "
+                  f"{event['nombre']} | "
+                  f"{event['circuito']}"
+              )
+          PY
+
       - name: Probar acceso TC2000
         run: |
           python - <<'PY'
