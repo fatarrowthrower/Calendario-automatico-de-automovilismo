@@ -815,6 +815,7 @@ def split_schedule_blocks(lines):
 def is_shared_activity(line):
     upper = normalize_ocr(line).upper()
 
+    # Actividades que NO queremos en el calendario principal.
     excluded_phrases = [
         "VERIFICACION TECNICA",
         "VERIFICACION ADMINISTRATIVA",
@@ -831,16 +832,26 @@ def is_shared_activity(line):
         "CONFERENCIA",
         "ENTREVISTAS",
         "PRENSA",
+
+        # Actividades operativas que no son una sesión
+        # deportiva que queramos mostrar.
+        "APERTURA DE BOX",
+        "APERTURA DE BOXES",
+        "CIERRE DE BOX",
+        "CIERRE DE BOXES",
+        "DESPEJE DE GRILLA",
+        "INICIO TRANSMISION",
+        "FINAL TRANSMISION",
+        "PARQUE CERRADO",
+        "PILOTOS AUTORIZADOS",
     ]
 
     for phrase in excluded_phrases:
-
         if phrase in upper:
             return True
 
-    # Si el OCR muestra varias categorías
-    # separadas por //, normalmente es
-    # una actividad compartida.
+    # Si aparecen varias categorías juntas,
+    # normalmente es una actividad compartida.
     if "//" in upper:
         return True
 
@@ -855,12 +866,10 @@ def is_shared_activity(line):
     ]
 
     for category in other_categories:
-
         if category in upper:
             return True
 
     return False
-
 
 def is_tc2000_line(line):
     upper = normalize_ocr(line).upper()
