@@ -17,6 +17,7 @@ OUTPUT = Path("data/actc_events.json")
 # ACTC publica aproximadamente 12 noticias por página.
 # Recorremos suficiente historial para cubrir todo el año.
 MAX_NEWS_PAGES = 40
+DEBUG_CARRERA_ONLINE = True
 
 
 CATEGORIES = [
