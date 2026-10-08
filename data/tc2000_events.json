@@ -104,45 +104,6 @@
     "round": 1
   },
   {
-    "uid": "tc2000-2026-01-2026-03-15-1230-apertura-de-boxes",
-    "fecha": "2026-03-15",
-    "inicio": "12:30",
-    "fin": "12:31",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "APERTURA DE BOXES",
-    "circuito": "Callejero de Buenos Aires",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 1
-  },
-  {
-    "uid": "tc2000-2026-01-2026-03-15-1230-inicio-transmision-canal-13-hs-ahs",
-    "fecha": "2026-03-15",
-    "inicio": "12:30",
-    "fin": "13:55",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "INICIO TRANSMISION CANAL 13 hs.ahs",
-    "circuito": "Callejero de Buenos Aires",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 1
-  },
-  {
-    "uid": "tc2000-2026-01-2026-03-15-1235-cierre-de-boxes",
-    "fecha": "2026-03-15",
-    "inicio": "12:35",
-    "fin": "12:36",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "CIERRE DE BOXES",
-    "circuito": "Callejero de Buenos Aires",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 1
-  },
-  {
     "uid": "tc2000-2026-01-2026-03-15-1235-grid-show-s-tyc-sports",
     "fecha": "2026-03-15",
     "inicio": "12:35",
@@ -151,19 +112,6 @@
     "campeonato": "TC2000",
     "tipo": "Grid",
     "nombre": "GRID SHOW ”s TyC Sports",
-    "circuito": "Callejero de Buenos Aires",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 1
-  },
-  {
-    "uid": "tc2000-2026-01-2026-03-15-1250-despeje-de-grilla",
-    "fecha": "2026-03-15",
-    "inicio": "12:50",
-    "fin": "12:51",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "DESPEJE DE GRILLA",
     "circuito": "Callejero de Buenos Aires",
     "fuente": "https://www.tc2000.com.ar/",
     "round": 1
@@ -203,19 +151,6 @@
     "campeonato": "TC2000",
     "tipo": "Podio",
     "nombre": "PODIO , carburando",
-    "circuito": "Callejero de Buenos Aires",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 1
-  },
-  {
-    "uid": "tc2000-2026-01-2026-03-15-1415-final-transmision-tyc-sports",
-    "fecha": "2026-03-15",
-    "inicio": "14:15",
-    "fin": "14:16",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "FINAL TRANSMISION TYC SPORTS",
     "circuito": "Callejero de Buenos Aires",
     "fuente": "https://www.tc2000.com.ar/",
     "round": 1
@@ -299,19 +234,6 @@
     "round": 2
   },
   {
-    "uid": "tc2000-2026-02-2026-04-11-1605-parque-cerrado-box-45-producido-por",
-    "fecha": "2026-04-11",
-    "inicio": "16:05",
-    "fin": "16:15",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "PARQUE CERRADO BOX 45° Producido por",
-    "circuito": "El Zonda Eduardo Copello",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 2
-  },
-  {
     "uid": "tc2000-2026-02-2026-04-11-1615-clasificacion-1-vuelta-lanzada-wi-carburande",
     "fecha": "2026-04-11",
     "inicio": "16:15",
@@ -338,32 +260,6 @@
     "round": 2
   },
   {
-    "uid": "tc2000-2026-02-2026-04-12-1240-apertura-de-boxes",
-    "fecha": "2026-04-12",
-    "inicio": "12:40",
-    "fin": "12:41",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "APERTURA DE BOXES",
-    "circuito": "El Zonda Eduardo Copello",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 2
-  },
-  {
-    "uid": "tc2000-2026-02-2026-04-12-1245-cierre-de-boxes",
-    "fecha": "2026-04-12",
-    "inicio": "12:45",
-    "fin": "12:46",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "CIERRE DE BOXES",
-    "circuito": "El Zonda Eduardo Copello",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 2
-  },
-  {
     "uid": "tc2000-2026-02-2026-04-12-1245-grid-show",
     "fecha": "2026-04-12",
     "inicio": "12:45",
@@ -372,19 +268,6 @@
     "campeonato": "TC2000",
     "tipo": "Grid",
     "nombre": "GRID SHOW",
-    "circuito": "El Zonda Eduardo Copello",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 2
-  },
-  {
-    "uid": "tc2000-2026-02-2026-04-12-1300-despeje-de-grilla",
-    "fecha": "2026-04-12",
-    "inicio": "13:00",
-    "fin": "13:01",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "DESPEJE DE GRILLA",
     "circuito": "El Zonda Eduardo Copello",
     "fuente": "https://www.tc2000.com.ar/",
     "round": 2
@@ -481,19 +364,6 @@
     "round": 3
   },
   {
-    "uid": "tc2000-2026-03-2026-05-02-1530-parque-cerrado-box-45",
-    "fecha": "2026-05-02",
-    "inicio": "15:30",
-    "fin": "15:40",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Parque cerrado box 45°",
-    "circuito": "Concordia",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 3
-  },
-  {
     "uid": "tc2000-2026-03-2026-05-02-1540-clasificacion-1-vuelta-lanzada",
     "fecha": "2026-05-02",
     "inicio": "15:40",
@@ -520,32 +390,6 @@
     "round": 3
   },
   {
-    "uid": "tc2000-2026-03-2026-05-03-1235-apertura-de-box",
-    "fecha": "2026-05-03",
-    "inicio": "12:35",
-    "fin": "12:36",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Apertura de box",
-    "circuito": "Concordia",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 3
-  },
-  {
-    "uid": "tc2000-2026-03-2026-05-03-1240-cierre-de-boxes",
-    "fecha": "2026-05-03",
-    "inicio": "12:40",
-    "fin": "12:41",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Cierre de boxes",
-    "circuito": "Concordia",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 3
-  },
-  {
     "uid": "tc2000-2026-03-2026-05-03-1240-grid-show",
     "fecha": "2026-05-03",
     "inicio": "12:40",
@@ -554,19 +398,6 @@
     "campeonato": "TC2000",
     "tipo": "Grid",
     "nombre": "Grid Show",
-    "circuito": "Concordia",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 3
-  },
-  {
-    "uid": "tc2000-2026-03-2026-05-03-1255-despeje-de-grilla",
-    "fecha": "2026-05-03",
-    "inicio": "12:55",
-    "fin": "12:56",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Despeje de grilla",
     "circuito": "Concordia",
     "fuente": "https://www.tc2000.com.ar/",
     "round": 3
@@ -650,19 +481,6 @@
     "round": 4
   },
   {
-    "uid": "tc2000-2026-04-2026-05-23-1555-parque-cerrado-box-45",
-    "fecha": "2026-05-23",
-    "inicio": "15:55",
-    "fin": "16:05",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Parque cerrado box 45°",
-    "circuito": "Salta",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 4
-  },
-  {
     "uid": "tc2000-2026-04-2026-05-23-1605-clasificacion-vuelta-lanzada",
     "fecha": "2026-05-23",
     "inicio": "16:05",
@@ -689,32 +507,6 @@
     "round": 4
   },
   {
-    "uid": "tc2000-2026-04-2026-05-24-1140-apertura-de-box",
-    "fecha": "2026-05-24",
-    "inicio": "11:40",
-    "fin": "11:41",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Apertura de box",
-    "circuito": "Salta",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 4
-  },
-  {
-    "uid": "tc2000-2026-04-2026-05-24-1145-cierre-de-boxes",
-    "fecha": "2026-05-24",
-    "inicio": "11:45",
-    "fin": "11:46",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Cierre de boxes",
-    "circuito": "Salta",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 4
-  },
-  {
     "uid": "tc2000-2026-04-2026-05-24-1145-grid-show",
     "fecha": "2026-05-24",
     "inicio": "11:45",
@@ -723,19 +515,6 @@
     "campeonato": "TC2000",
     "tipo": "Grid",
     "nombre": "Grid Show",
-    "circuito": "Salta",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 4
-  },
-  {
-    "uid": "tc2000-2026-04-2026-05-24-1155-despeje-de-grilla",
-    "fecha": "2026-05-24",
-    "inicio": "11:55",
-    "fin": "11:56",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Despeje de grilla",
     "circuito": "Salta",
     "fuente": "https://www.tc2000.com.ar/",
     "round": 4
@@ -832,19 +611,6 @@
     "round": 5
   },
   {
-    "uid": "tc2000-2026-05-2026-06-27-1540-parque-cerrado-box-45",
-    "fecha": "2026-06-27",
-    "inicio": "15:40",
-    "fin": "15:50",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Parque cerrado box 45°",
-    "circuito": "San Nicolas",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 5
-  },
-  {
     "uid": "tc2000-2026-05-2026-06-27-1545-clasificacion-1-vuelta-lanzada",
     "fecha": "2026-06-27",
     "inicio": "15:45",
@@ -858,32 +624,6 @@
     "round": 5
   },
   {
-    "uid": "tc2000-2026-05-2026-06-28-1240-apertura-de-box",
-    "fecha": "2026-06-28",
-    "inicio": "12:40",
-    "fin": "12:41",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Apertura de box",
-    "circuito": "San Nicolas",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 5
-  },
-  {
-    "uid": "tc2000-2026-05-2026-06-28-1245-cierre-de-boxes",
-    "fecha": "2026-06-28",
-    "inicio": "12:45",
-    "fin": "12:46",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Cierre de boxes",
-    "circuito": "San Nicolas",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 5
-  },
-  {
     "uid": "tc2000-2026-05-2026-06-28-1245-grid-show",
     "fecha": "2026-06-28",
     "inicio": "12:45",
@@ -892,19 +632,6 @@
     "campeonato": "TC2000",
     "tipo": "Grid",
     "nombre": "Grid Show",
-    "circuito": "San Nicolas",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 5
-  },
-  {
-    "uid": "tc2000-2026-05-2026-06-28-1255-despeje-de-grilla",
-    "fecha": "2026-06-28",
-    "inicio": "12:55",
-    "fin": "12:56",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Despeje de grilla",
     "circuito": "San Nicolas",
     "fuente": "https://www.tc2000.com.ar/",
     "round": 5
@@ -1040,32 +767,6 @@
     "round": 6
   },
   {
-    "uid": "tc2000-2026-06-2026-08-09-1235-apertura-de-box",
-    "fecha": "2026-08-09",
-    "inicio": "12:35",
-    "fin": "12:36",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Apertura de box",
-    "circuito": "La Pampa",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 6
-  },
-  {
-    "uid": "tc2000-2026-06-2026-08-09-1240-cierre-de-boxes",
-    "fecha": "2026-08-09",
-    "inicio": "12:40",
-    "fin": "12:41",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Cierre de boxes",
-    "circuito": "La Pampa",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 6
-  },
-  {
     "uid": "tc2000-2026-06-2026-08-09-1240-grid-show",
     "fecha": "2026-08-09",
     "inicio": "12:40",
@@ -1074,19 +775,6 @@
     "campeonato": "TC2000",
     "tipo": "Grid",
     "nombre": "Grid Show",
-    "circuito": "La Pampa",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 6
-  },
-  {
-    "uid": "tc2000-2026-06-2026-08-09-1255-despeje-de-grilla",
-    "fecha": "2026-08-09",
-    "inicio": "12:55",
-    "fin": "12:56",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Despeje de grilla",
     "circuito": "La Pampa",
     "fuente": "https://www.tc2000.com.ar/",
     "round": 6
@@ -1116,19 +804,6 @@
     "circuito": "La Pampa",
     "fuente": "https://www.tc2000.com.ar/",
     "round": 6
-  },
-  {
-    "uid": "tc2000-2026-07-2026-09-05-1000-pilotos-autorizados",
-    "fecha": "2026-09-05",
-    "inicio": "10:00",
-    "fin": "10:10",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Pilotos autorizados",
-    "circuito": "Junin",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 7
   },
   {
     "uid": "tc2000-2026-07-2026-09-05-1015-shakedown-todos-juntos",
@@ -1196,19 +871,6 @@
     "round": 7
   },
   {
-    "uid": "tc2000-2026-07-2026-09-05-1600-parque-cerrado-box-45",
-    "fecha": "2026-09-05",
-    "inicio": "16:00",
-    "fin": "16:10",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Parque cerrado box 45°",
-    "circuito": "Junin",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 7
-  },
-  {
     "uid": "tc2000-2026-07-2026-09-05-1610-clasificaci6n-1-vuelta-lanzada",
     "fecha": "2026-09-05",
     "inicio": "16:10",
@@ -1235,19 +897,6 @@
     "round": 7
   },
   {
-    "uid": "tc2000-2026-07-2026-09-06-1235-apertura-de-box",
-    "fecha": "2026-09-06",
-    "inicio": "12:35",
-    "fin": "12:40",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Apertura de box",
-    "circuito": "Junin",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 7
-  },
-  {
     "uid": "tc2000-2026-07-2026-09-06-1240-grid-show",
     "fecha": "2026-09-06",
     "inicio": "12:40",
@@ -1256,19 +905,6 @@
     "campeonato": "TC2000",
     "tipo": "Grid",
     "nombre": "Grid Show",
-    "circuito": "Junin",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 7
-  },
-  {
-    "uid": "tc2000-2026-07-2026-09-06-1255-despeje-de-grilla",
-    "fecha": "2026-09-06",
-    "inicio": "12:55",
-    "fin": "12:56",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Despeje de grilla",
     "circuito": "Junin",
     "fuente": "https://www.tc2000.com.ar/",
     "round": 7
@@ -1298,19 +934,6 @@
     "circuito": "Junin",
     "fuente": "https://www.tc2000.com.ar/",
     "round": 7
-  },
-  {
-    "uid": "tc2000-2026-08-2026-09-26-0930-pilotos-autorizados",
-    "fecha": "2026-09-26",
-    "inicio": "09:30",
-    "fin": "09:45",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Pilotos autorizados",
-    "circuito": "El Zonda Eduardo Copello",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 8
   },
   {
     "uid": "tc2000-2026-08-2026-09-26-0950-shakedown-todos-juntos",
@@ -1417,19 +1040,6 @@
     "round": 8
   },
   {
-    "uid": "tc2000-2026-08-2026-09-27-1235-apertura-de-box",
-    "fecha": "2026-09-27",
-    "inicio": "12:35",
-    "fin": "12:40",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Apertura de box",
-    "circuito": "El Zonda Eduardo Copello",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 8
-  },
-  {
     "uid": "tc2000-2026-08-2026-09-27-1240-grid-show",
     "fecha": "2026-09-27",
     "inicio": "12:40",
@@ -1438,19 +1048,6 @@
     "campeonato": "TC2000",
     "tipo": "Grid",
     "nombre": "Grid Show",
-    "circuito": "El Zonda Eduardo Copello",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 8
-  },
-  {
-    "uid": "tc2000-2026-08-2026-09-27-1255-despeje-de-grilla",
-    "fecha": "2026-09-27",
-    "inicio": "12:55",
-    "fin": "12:56",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Despeje de grilla",
     "circuito": "El Zonda Eduardo Copello",
     "fuente": "https://www.tc2000.com.ar/",
     "round": 8
@@ -1480,19 +1077,6 @@
     "circuito": "El Zonda Eduardo Copello",
     "fuente": "https://www.tc2000.com.ar/",
     "round": 8
-  },
-  {
-    "uid": "tc2000-2026-09-2026-10-10-0820-pilotos-autorizados",
-    "fecha": "2026-10-10",
-    "inicio": "08:20",
-    "fin": "08:30",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Pilotos autorizados",
-    "circuito": "La Pampa",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 9
   },
   {
     "uid": "tc2000-2026-09-2026-10-10-0835-shakedown-todos-juntos",
@@ -1599,19 +1183,6 @@
     "round": 9
   },
   {
-    "uid": "tc2000-2026-09-2026-10-11-1235-apertura-de-box",
-    "fecha": "2026-10-11",
-    "inicio": "12:35",
-    "fin": "12:40",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Apertura de box",
-    "circuito": "La Pampa",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 9
-  },
-  {
     "uid": "tc2000-2026-09-2026-10-11-1240-grid-show",
     "fecha": "2026-10-11",
     "inicio": "12:40",
@@ -1620,19 +1191,6 @@
     "campeonato": "TC2000",
     "tipo": "Grid",
     "nombre": "Grid Show",
-    "circuito": "La Pampa",
-    "fuente": "https://www.tc2000.com.ar/",
-    "round": 9
-  },
-  {
-    "uid": "tc2000-2026-09-2026-10-11-1255-despeje-de-grilla",
-    "fecha": "2026-10-11",
-    "inicio": "12:55",
-    "fin": "12:56",
-    "categoria": "Argentina",
-    "campeonato": "TC2000",
-    "tipo": "Sesión",
-    "nombre": "Despeje de grilla",
     "circuito": "La Pampa",
     "fuente": "https://www.tc2000.com.ar/",
     "round": 9
