@@ -5,12 +5,8 @@ from curl_cffi import requests
 URL = "https://tc2000.com.ar/carreras.php?accion=cronograma&id=411"
 
 
-def clean_text(text):
-    return " ".join(text.split())
-
-
 def main():
-    print("=== INSPECCIÓN CRONOGRAMA TC2000 FECHA 1 ===")
+    print("=== INSPECCIÓN TÉCNICA CRONOGRAMA TC2000 ===")
     print(f"URL: {URL}")
     print()
 
@@ -21,7 +17,6 @@ def main():
     )
 
     print(f"HTTP: {response.status_code}")
-    print(f"URL final: {response.url}")
     print(f"Bytes: {len(response.content)}")
     print()
 
@@ -29,74 +24,118 @@ def main():
 
     soup = BeautifulSoup(response.text, "html.parser")
 
-    print("=== TÍTULO ===")
+    print("=== IFRAMES ===")
 
-    if soup.title:
+    iframes = soup.find_all("iframe")
+
+    print(f"Cantidad: {len(iframes)}")
+
+    for iframe in iframes:
         print(
-            soup.title.get_text(
-                " ",
-                strip=True,
-            )
+            "SRC:",
+            iframe.get("src"),
         )
 
     print()
 
-    print("=== TEXTO DE LA PÁGINA ===")
+    print("=== SCRIPTS ===")
 
-    texto = clean_text(
-        soup.get_text(
+    scripts = soup.find_all("script")
+
+    print(f"Cantidad: {len(scripts)}")
+
+    for script in scripts:
+        src = script.get("src")
+
+        if src:
+            print(f"SRC: {src}")
+
+        contenido = script.get_text(
             " ",
             strip=True,
         )
+
+        if contenido:
+            texto = contenido.lower()
+
+            if any(
+                palabra in texto
+                for palabra in (
+                    "cronograma",
+                    "ajax",
+                    "schedule",
+                    "horario",
+                    "411",
+                )
+            ):
+                print()
+                print("SCRIPT RELEVANTE:")
+                print(contenido[:5000])
+
+    print()
+
+    print("=== ENLACES RELACIONADOS ===")
+
+    for link in soup.find_all(
+        "a",
+        href=True,
+    ):
+        texto = link.get_text(
+            " ",
+            strip=True,
+        )
+
+        href = link.get("href", "")
+
+        contenido = (
+            f"{texto} {href}"
+        ).lower()
+
+        if any(
+            palabra in contenido
+            for palabra in (
+                "cronograma",
+                "horario",
+                "tiempo",
+                "411",
+            )
+        ):
+            print(
+                f"TEXTO: {texto}"
+            )
+            print(
+                f"HREF: {href}"
+            )
+
+    print()
+
+    print("=== HTML QUE CONTIENE 'CRONOGRAMA' ===")
+
+    html = response.text
+
+    posicion = html.lower().find(
+        "cronograma"
     )
 
-    print(texto[:15000])
+    if posicion >= 0:
+        inicio = max(
+            0,
+            posicion - 5000,
+        )
 
-    print()
-    print("=== TABLAS ===")
+        fin = min(
+            len(html),
+            posicion + 10000,
+        )
 
-    tablas = soup.find_all("table")
-
-    print(f"Cantidad de tablas: {len(tablas)}")
-
-    for numero, tabla in enumerate(
-        tablas,
-        start=1,
-    ):
-        print()
-        print(f"--- TABLA {numero} ---")
         print(
-            clean_text(
-                tabla.get_text(
-                    " ",
-                    strip=True,
-                )
-            )[:10000]
+            html[inicio:fin]
         )
-
-    print()
-    print("=== ENCABEZADOS ===")
-
-    for tag in soup.find_all(
-        [
-            "h1",
-            "h2",
-            "h3",
-            "h4",
-            "h5",
-        ]
-    ):
-        texto = clean_text(
-            tag.get_text(
-                " ",
-                strip=True,
-            )
+    else:
+        print(
+            "No se encontró 'cronograma' "
+            "en el HTML."
         )
-
-        if texto:
-            print(
-                f"{tag.name.upper()}: {texto}"
-            )
 
     print()
     print("=== FIN INSPECCIÓN ===")
