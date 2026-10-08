@@ -5,6 +5,8 @@ import json
 
 from bs4 import BeautifulSoup
 from curl_cffi import requests
+from PIL import Image, ImageEnhance, ImageFilter
+import pytesseract
 
 
 YEAR = datetime.now().year
@@ -119,7 +121,7 @@ def extract_calendar(html):
 
 
 def find_cronograma_image(history_url):
-    print(f"Buscando cronograma:")
+    print("Buscando cronograma:")
     print(history_url)
 
     html = get_page(history_url)
@@ -139,10 +141,12 @@ def find_cronograma_image(history_url):
         cronograma_link.get("href"),
     )
 
-    print(f"Página cronograma:")
+    print("Página cronograma:")
     print(cronograma_url)
 
-    cronograma_html = get_page(cronograma_url)
+    cronograma_html = get_page(
+        cronograma_url
+    )
 
     cronograma_soup = BeautifulSoup(
         cronograma_html,
@@ -159,13 +163,17 @@ def find_cronograma_image(history_url):
         )
 
     if not image:
-        print("No se encontró imagen del cronograma.")
+        print(
+            "No se encontró imagen del cronograma."
+        )
         return None
 
     image_src = image.get("src")
 
     if not image_src:
-        print("La imagen no tiene src.")
+        print(
+            "La imagen no tiene src."
+        )
         return None
 
     image_url = urljoin(
@@ -173,6 +181,7 @@ def find_cronograma_image(history_url):
         image_src,
     )
 
+    print()
     print("Imagen del cronograma:")
     print(image_url)
 
@@ -189,11 +198,15 @@ def download_image(image_url, round_number):
         timeout=30,
     )
 
-    print(f"HTTP imagen: {response.status_code}")
+    print(
+        f"HTTP imagen: {response.status_code}"
+    )
+
     print(
         f"Content-Type: "
         f"{response.headers.get('content-type')}"
     )
+
     print(
         f"Tamaño: "
         f"{len(response.content)} bytes"
@@ -222,12 +235,102 @@ def download_image(image_url, round_number):
     return output_file
 
 
-def main():
-    print(f"=== TC2000 {YEAR} ===")
+def prepare_image(image):
+    """
+    Prepara la imagen para mejorar la lectura OCR.
+    """
+
+    # Escala la imagen para darle más resolución al OCR.
+    width, height = image.size
+
+    image = image.resize(
+        (
+            width * 2,
+            height * 2,
+        )
+    )
+
+    # Convierte a escala de grises.
+    image = image.convert("L")
+
+    # Aumenta el contraste.
+    image = ImageEnhance.Contrast(
+        image
+    ).enhance(2.0)
+
+    # Suaviza pequeños artefactos.
+    image = image.filter(
+        ImageFilter.SHARPEN
+    )
+
+    return image
+
+
+def run_ocr(image_file):
+    print()
+    print("=== OCR TC2000 ===")
     print()
 
-    print("Calendario oficial:")
-    print(CALENDAR_URL)
+    print(
+        f"Archivo: {image_file}"
+    )
+
+    image = Image.open(
+        image_file
+    )
+
+    print(
+        f"Tamaño original: "
+        f"{image.size[0]}x{image.size[1]}"
+    )
+
+    prepared = prepare_image(
+        image
+    )
+
+    print(
+        f"Tamaño para OCR: "
+        f"{prepared.size[0]}x{prepared.size[1]}"
+    )
+
+    print()
+    print("Ejecutando Tesseract...")
+    print()
+
+    text = pytesseract.image_to_string(
+        prepared,
+        lang="spa+eng",
+        config="--psm 6",
+    )
+
+    print(
+        "========== TEXTO OCR =========="
+    )
+
+    print(text)
+
+    print(
+        "======== FIN TEXTO OCR ========"
+    )
+
+    return text
+
+
+def main():
+    print(
+        f"=== TC2000 {YEAR} - PRUEBA OCR ==="
+    )
+
+    print()
+
+    print(
+        "Calendario oficial:"
+    )
+
+    print(
+        CALENDAR_URL
+    )
+
     print()
 
     calendar_html = get_page(
@@ -241,8 +344,10 @@ def main():
     )
 
     print(
-        f"Fechas detectadas: {len(races)}"
+        f"Fechas detectadas: "
+        f"{len(races)}"
     )
+
     print()
 
     for race in races:
@@ -252,27 +357,44 @@ def main():
             f"{race['track']}"
         )
 
+    if not races:
+        print(
+            "No se encontraron fechas."
+        )
+        return
+
     print()
     print(
-        "=== PROBANDO CRONOGRAMA FECHA 01 ==="
+        "=== PROBANDO OCR FECHA 01 ==="
     )
     print()
 
-    if races:
-        first_race = races[0]
+    first_race = races[0]
 
-        image_url = find_cronograma_image(
-            first_race["history_url"]
+    image_url = find_cronograma_image(
+        first_race["history_url"]
+    )
+
+    if not image_url:
+        print(
+            "No se pudo encontrar "
+            "la imagen del cronograma."
         )
+        return
 
-        if image_url:
-            download_image(
-                image_url,
-                first_race["round"],
-            )
+    image_file = download_image(
+        image_url,
+        first_race["round"],
+    )
+
+    run_ocr(
+        image_file
+    )
 
     print()
-    print("=== FIN PRUEBA TC2000 ===")
+    print(
+        "=== FIN PRUEBA OCR ==="
+    )
 
 
 if __name__ == "__main__":
