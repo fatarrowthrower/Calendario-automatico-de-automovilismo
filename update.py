@@ -13,6 +13,7 @@ OUTPUT = ROOT / "output"
 MOTOCAL_ICS = DATA / "motorsport.ics"
 ACTC_JSON = DATA / "actc_events.json"
 INDYCAR_JSON = DATA / "indycar_events.json"
+TC2000_JSON = DATA / "tc2000_events.json"
 
 EVENTS_CSV = DATA / "events.csv"
 EVENTS_JSON = DATA / "events.json"
@@ -24,10 +25,12 @@ TIMEZONE = "America/Argentina/Buenos_Aires"
 def current_year():
     """
     Devuelve automáticamente el año actual.
+
     De esta manera el calendario pasa de 2026 a 2027,
     2028, etc. sin modificar este archivo cada año.
     """
     return datetime.now().year
+
 
 def classify(uid, name):
     u = uid.lower()
@@ -154,6 +157,7 @@ def classify(uid, name):
 
     return "Otros", "Otros"
 
+
 def classify_session(name):
     text = name.lower()
 
@@ -219,6 +223,7 @@ def is_imperdible(campeonato, tipo):
             "TC",
             "TC Pista",
             "TC Pick Up",
+            "TC2000",
         }
         and tipo == "Carrera"
     )
@@ -419,6 +424,88 @@ def load_indycar_events():
     return normalized
 
 
+def load_tc2000_events():
+    """
+    Lee los eventos generados por tc2000.py
+    y los transforma al formato interno del calendario.
+    """
+
+    if not TC2000_JSON.exists():
+        print("TC2000: no existe data/tc2000_events.json")
+        return []
+
+    try:
+        source_events = json.loads(
+            TC2000_JSON.read_text(
+                encoding="utf-8",
+            )
+        )
+    except Exception as exc:
+        print(f"ERROR leyendo TC2000: {exc}")
+        return []
+
+    normalized = []
+
+    for source in source_events:
+        uid = source.get("uid", "")
+
+        if not uid:
+            continue
+
+        start = source.get("fecha_inicio", "")
+        end = source.get("fecha_fin", "")
+
+        if not start:
+            continue
+
+        title = source.get(
+            "nombre",
+            source.get(
+                "title",
+                source.get(
+                    "evento",
+                    "Evento",
+                ),
+            ),
+        )
+
+        location = source.get(
+            "ubicacion",
+            source.get(
+                "location",
+                "",
+            ),
+        )
+
+        description = source.get(
+            "descripcion",
+            "",
+        )
+
+        tipo = classify_session(title)
+
+        normalized.append(
+            {
+                "uid": uid,
+                "categoria": "Argentina",
+                "campeonato": "TC2000",
+                "tipo": tipo,
+                "fecha_inicio": start,
+                "fecha_fin": end,
+                "ubicacion": location,
+                "descripcion": description,
+                "prioridad": (
+                    "alta"
+                    if tipo == "Carrera"
+                    else ""
+                ),
+                "tc2000_timezone": True,
+            }
+        )
+
+    return normalized
+
+
 def ics_escape(value):
     if value is None:
         return ""
@@ -501,6 +588,39 @@ def indycar_to_ics(event):
 
     summary = (
         f"{event.get('campeonato', 'IndyCar')} "
+        f"- {event.get('tipo', 'Evento')}"
+    )
+
+    location = event.get("ubicacion", "")
+    description = event.get("descripcion", "")
+
+    return "\r\n".join(
+        [
+            "BEGIN:VEVENT",
+            f"UID:{uid}",
+            f"DTSTART;TZID={TIMEZONE}:{start}",
+            f"DTEND;TZID={TIMEZONE}:{end}",
+            f"SUMMARY:{ics_escape(summary)}",
+            f"LOCATION:{ics_escape(location)}",
+            f"DESCRIPTION:{ics_escape(description)}",
+            "END:VEVENT",
+        ]
+    )
+
+
+def tc2000_to_ics(event):
+    """
+    Genera los eventos de TC2000 usando la zona horaria
+    de Argentina.
+    """
+
+    uid = ics_escape(event["uid"])
+
+    start = event["fecha_inicio"]
+    end = event["fecha_fin"]
+
+    summary = (
+        f"{event.get('campeonato', 'TC2000')} "
         f"- {event.get('tipo', 'Evento')}"
     )
 
@@ -616,6 +736,12 @@ def build_final_ics(events, year):
         if event.get("indycar_timezone"):
             lines.append(
                 indycar_to_ics(event)
+            )
+            continue
+
+        if event.get("tc2000_timezone"):
+            lines.append(
+                tc2000_to_ics(event)
             )
             continue
 
@@ -748,6 +874,23 @@ def main():
     print(
         f"IndyCar agregados al calendario: "
         f"{indycar_added}"
+    )
+
+    tc2000_events = load_tc2000_events()
+
+    print(
+        f"TC2000: incorporando "
+        f"{len(tc2000_events)} eventos."
+    )
+
+    tc2000_added = merge_events(
+        events,
+        tc2000_events,
+    )
+
+    print(
+        f"TC2000 agregados al calendario: "
+        f"{tc2000_added}"
     )
 
     events.sort(
