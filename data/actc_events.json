@@ -1,1 +1,58 @@
-[]
+[
+  {
+    "uid": "actc-tc-pista-2026-02-15-clasificacion-el-segundo-entrenamiento-para-el-tc-pista-tendra-lugar-desde-las-cuando-la-categoria-salga-a-practicar-nuevamente-previo-a-lo-que-sera-la-clasificacion-general-de-la-12-fecha-en-san-nicolas",
+    "fecha_inicio": "2026-02-15T13:05:00-03:00",
+    "fecha_fin": "2026-02-15T13:35:00-03:00",
+    "ubicacion": "CALAFATE",
+    "categoria": "Argentina",
+    "campeonato": "TC Pista",
+    "tipo": "Clasificación",
+    "nombre": "El segundo entrenamiento para el TC Pista tendrá lugar desde las , cuando la categoría salga a practicar nuevamente, previo a lo que será la clasificación general de la 12° fecha en San Nicolás.",
+    "descripcion": "Fecha 1 de TC Pista.",
+    "fuente": "https://actc.org.ar/tcp/noticias/biagi-en-el-primer-entrenamiento",
+    "imperdible": false,
+    "round": 1
+  },
+  {
+    "uid": "actc-tc-pista-2026-10-04-clasificacion-el-segundo-entrenamiento-para-el-tc-pista-tendra-lugar-desde-las-cuando-la-categoria-salga-a-practicar-nuevamente-previo-a-lo-que-sera-la-clasificacion-general-de-la-12-fecha-en-san-nicolas",
+    "fecha_inicio": "2026-10-04T13:05:00-03:00",
+    "fecha_fin": "2026-10-04T13:35:00-03:00",
+    "ubicacion": "SAN NICOLAS",
+    "categoria": "Argentina",
+    "campeonato": "TC Pista",
+    "tipo": "Clasificación",
+    "nombre": "El segundo entrenamiento para el TC Pista tendrá lugar desde las , cuando la categoría salga a practicar nuevamente, previo a lo que será la clasificación general de la 12° fecha en San Nicolás.",
+    "descripcion": "Fecha 12 de TC Pista.",
+    "fuente": "https://actc.org.ar/tcp/noticias/biagi-en-el-primer-entrenamiento",
+    "imperdible": false,
+    "round": 12
+  },
+  {
+    "uid": "actc-tc-pista-2026-10-04-clasificacion-de-esta-manera-se-terminaron-los-entrenamientos-para-el-tc-pista-que-desde-las-horas-tendra-que-regresar-a-la-cinta-asfaltica-para-la-clasificacion-general-de-la-12-fecha-en-el-autodromo-ciudad-de-san-nicolas",
+    "fecha_inicio": "2026-10-04T15:24:00-03:00",
+    "fecha_fin": "2026-10-04T15:54:00-03:00",
+    "ubicacion": "SAN NICOLAS",
+    "categoria": "Argentina",
+    "campeonato": "TC Pista",
+    "tipo": "Clasificación",
+    "nombre": "De esta manera, se terminaron los entrenamientos para el TC Pista, que desde las horas tendrá que regresar a la cinta asfáltica para la clasificación general de la 12° fecha en el Autódromo Ciudad de San Nicolás.",
+    "descripcion": "Fecha 12 de TC Pista.",
+    "fuente": "https://actc.org.ar/tcp/noticias/maceira-cerro-los-entrenamientos",
+    "imperdible": false,
+    "round": 12
+  },
+  {
+    "uid": "actc-tc-pick-up-2026-10-18-entrenamiento-se-terminaron-los-entrenamientos-para-las-tc-pick-up-que-desde-las-horas-y-por-la-pantalla-de-canal-9-tendra-que-clasificar-en-el-marco-de-la-fecha-9-en-el-autodromo-juan-manuel-fangio-en-la-ciudad-de-balcarce",
+    "fecha_inicio": "2026-10-18T16:10:00-03:00",
+    "fecha_fin": "2026-10-18T16:40:00-03:00",
+    "ubicacion": "LA PLATA",
+    "categoria": "Argentina",
+    "campeonato": "TC Pick Up",
+    "tipo": "Entrenamiento",
+    "nombre": "Se terminaron los entrenamientos para las TC Pick Up, que desde las horas y por la pantalla de Canal 9, tendrá que clasificar en el marco de la fecha 9 en el Autódromo Juan Manuel Fangio, en la ciudad de Balcarce.",
+    "descripcion": "Fecha 9 de TC Pick Up.",
+    "fuente": "https://actc.org.ar/tcpk/noticias/ciantini-en-la-segunda-practica-en-balcarce",
+    "imperdible": false,
+    "round": 9
+  }
+]

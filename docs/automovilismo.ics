@@ -30,6 +30,38 @@ LOCATION:Sao Paulo ePrix\\\, Brazil
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:actc-tc-pista-2026-02-15-clasificacion-el-segundo-entrenamiento-para-el-tc-pista-tendra-lugar-desde-las-cuando-la-categoria-salga-a-practicar-nuevamente-previo-a-lo-que-sera-la-clasificacion-general-de-la-12-fecha-en-san-nicolas
+DTSTART:20260215T130500
+DTEND:20260215T133500
+SUMMARY:Fecha 1 de TC Pista.
+LOCATION:CALAFATE
+DESCRIPTION:Fecha 1 de TC Pista.
+END:VEVENT
+BEGIN:VEVENT
+UID:actc-tc-pista-2026-10-04-clasificacion-el-segundo-entrenamiento-para-el-tc-pista-tendra-lugar-desde-las-cuando-la-categoria-salga-a-practicar-nuevamente-previo-a-lo-que-sera-la-clasificacion-general-de-la-12-fecha-en-san-nicolas
+DTSTART:20261004T130500
+DTEND:20261004T133500
+SUMMARY:Fecha 12 de TC Pista.
+LOCATION:SAN NICOLAS
+DESCRIPTION:Fecha 12 de TC Pista.
+END:VEVENT
+BEGIN:VEVENT
+UID:actc-tc-pista-2026-10-04-clasificacion-de-esta-manera-se-terminaron-los-entrenamientos-para-el-tc-pista-que-desde-las-horas-tendra-que-regresar-a-la-cinta-asfaltica-para-la-clasificacion-general-de-la-12-fecha-en-el-autodromo-ciudad-de-san-nicolas
+DTSTART:20261004T152400
+DTEND:20261004T155400
+SUMMARY:Fecha 12 de TC Pista.
+LOCATION:SAN NICOLAS
+DESCRIPTION:Fecha 12 de TC Pista.
+END:VEVENT
+BEGIN:VEVENT
+UID:actc-tc-pick-up-2026-10-18-entrenamiento-se-terminaron-los-entrenamientos-para-las-tc-pick-up-que-desde-las-horas-y-por-la-pantalla-de-canal-9-tendra-que-clasificar-en-el-marco-de-la-fecha-9-en-el-autodromo-juan-manuel-fangio-en-la-ciudad-de-balcarce
+DTSTART:20261018T161000
+DTEND:20261018T164000
+SUMMARY:Fecha 9 de TC Pick Up.
+LOCATION:LA PLATA
+DESCRIPTION:Fecha 9 de TC Pick Up.
+END:VEVENT
+BEGIN:VEVENT
 UID:f1calendar-fe-2026-2@motorsport-calendar-FP1
 DTSTART:20260109T220000Z
 DTEND:20260109T223000Z
