@@ -1,17 +1,21 @@
 from datetime import datetime
-from curl_cffi import requests
+from pathlib import Path
+import json
+import re
+
 from bs4 import BeautifulSoup
+from curl_cffi import requests
 
 
-URL = "https://www.tc2000.com.ar/"
 YEAR = datetime.now().year
 
+URL = "https://tc2000.com.ar/carreras.php?evento=calendario"
 
-def main():
-    print(f"=== DESCUBRIMIENTO TC2000 {YEAR} ===")
-    print(f"URL: {URL}")
-    print()
+DATA_DIR = Path("data")
+OUTPUT_FILE = DATA_DIR / "tc2000_events.json"
 
+
+def get_page():
     response = requests.get(
         URL,
         impersonate="chrome",
@@ -21,106 +25,210 @@ def main():
     print(f"HTTP: {response.status_code}")
     print(f"URL final: {response.url}")
     print(f"Bytes: {len(response.content)}")
-    print()
 
     response.raise_for_status()
 
-    soup = BeautifulSoup(response.text, "html.parser")
+    return response.text
 
-    print("=== TÍTULO ===")
-    print(soup.title.get_text(" ", strip=True) if soup.title else "Sin título")
-    print()
 
-    print("=== ENLACES RELACIONADOS ===")
+def clean_text(text):
+    return " ".join(text.split())
 
-    encontrados = set()
 
-    palabras = (
-        "calend",
-        "fecha",
-        "cronograma",
-        "horario",
-        "tc2000",
+def extract_date(text):
+    """
+    Busca fechas argentinas del tipo:
+    12/04/2026
+    12-04-2026
+    12.04.2026
+    """
+
+    match = re.search(
+        r"\b(\d{1,2})[/-](\d{1,2})[/-](20\d{2})\b",
+        text,
     )
 
-    for link in soup.find_all("a", href=True):
-        texto = link.get_text(" ", strip=True)
-        href = link.get("href", "").strip()
+    if not match:
+        return None
 
-        contenido = f"{texto} {href}".lower()
+    day = int(match.group(1))
+    month = int(match.group(2))
+    year = int(match.group(3))
 
-        if any(palabra in contenido for palabra in palabras):
-            clave = (texto, href)
+    if year != YEAR:
+        return None
 
-            if clave not in encontrados:
-                encontrados.add(clave)
-                print(f"TEXTO: {texto}")
-                print(f"HREF:  {href}")
-                print()
+    try:
+        return datetime(year, month, day).strftime("%Y-%m-%d")
+    except ValueError:
+        return None
 
-    print("=== ENCABEZADOS RELACIONADOS ===")
 
-    for tag in soup.find_all(["h1", "h2", "h3"]):
-        texto = tag.get_text(" ", strip=True)
+def extract_round(text):
+    """
+    Busca:
+    1° Fecha
+    2° Fecha
+    10° Fecha
+    """
 
-        if any(
-            palabra in texto.lower()
-            for palabra in (
-                "calend",
-                "fecha",
-                "cronograma",
-                "tc2000",
-                "2026",
-                "2027",
-            )
-        ):
-            print(f"{tag.name.upper()}: {texto}")
+    match = re.search(
+        r"\b(\d{1,2})[°ºo]?\s*Fecha\b",
+        text,
+        re.IGNORECASE,
+    )
 
-    print()
-    print("=== TEXTO CON FECHAS / CALENDARIO ===")
+    if match:
+        return int(match.group(1))
 
-    texto_completo = soup.get_text("\n", strip=True)
+    return None
 
-    lineas = texto_completo.splitlines()
 
-    mostradas = 0
+def extract_events(html):
+    soup = BeautifulSoup(html, "html.parser")
 
-    for linea in lineas:
-        linea = " ".join(linea.split())
+    events = []
+    seen = set()
 
-        if not linea:
+    # Primero buscamos bloques que contengan "Fecha".
+    candidates = soup.find_all(
+        string=re.compile(r"\bFecha\b", re.IGNORECASE)
+    )
+
+    for text_node in candidates:
+        parent = text_node.parent
+
+        if parent is None:
             continue
 
-        linea_lower = linea.lower()
+        # Subimos algunos niveles para intentar encontrar
+        # el bloque completo de la fecha.
+        block = parent
 
-        if any(
-            palabra in linea_lower
-            for palabra in (
-                "calendario",
-                "fecha 1",
-                "fecha 2",
-                "fecha 3",
-                "fecha 4",
-                "fecha 5",
-                "fecha 6",
-                "fecha 7",
-                "fecha 8",
-                "fecha 9",
-                "fecha 10",
-                "fecha 11",
-                "fecha 12",
-                "2026",
-                "2027",
-            )
-        ):
-            print(linea)
-            mostradas += 1
-
-            if mostradas >= 100:
+        for _ in range(4):
+            if block.parent is None:
                 break
 
+            candidate_text = clean_text(
+                block.get_text(" ", strip=True)
+            )
+
+            if len(candidate_text) > 20:
+                break
+
+            block = block.parent
+
+        text = clean_text(
+            block.get_text(" ", strip=True)
+        )
+
+        if not text:
+            continue
+
+        round_number = extract_round(text)
+
+        if round_number is None:
+            continue
+
+        date = extract_date(text)
+
+        # Si el bloque no contiene fecha, intentamos buscarla
+        # en el bloque padre inmediato.
+        if date is None and block.parent is not None:
+            parent_text = clean_text(
+                block.parent.get_text(" ", strip=True)
+            )
+            date = extract_date(parent_text)
+
+        if date is None:
+            continue
+
+        # Intentamos obtener un nombre limpio.
+        name_match = re.search(
+            r"\d{1,2}[°ºo]?\s*Fecha\s+(.+?)\s+20\d{2}",
+            text,
+            re.IGNORECASE,
+        )
+
+        if name_match:
+            location = clean_text(name_match.group(1))
+        else:
+            location = f"Fecha {round_number}"
+
+        # Limpiamos algunos textos que puedan haber quedado pegados.
+        location = re.sub(
+            r"\bRESULTADOS\b.*$",
+            "",
+            location,
+            flags=re.IGNORECASE,
+        )
+
+        location = clean_text(location)
+
+        uid = f"tc2000-{YEAR}-{round_number:02d}"
+
+        if uid in seen:
+            continue
+
+        seen.add(uid)
+
+        events.append(
+            {
+                "uid": uid,
+                "categoria": "Argentina",
+                "campeonato": "TC2000",
+                "tipo": "Carrera",
+                "fecha_inicio": f"{date}T12:00:00",
+                "fecha_fin": f"{date}T18:00:00",
+                "ubicacion": location,
+                "descripcion": f"TC2000 - Fecha {round_number}",
+                "prioridad": "alta",
+            }
+        )
+
+    events.sort(
+        key=lambda event: event["fecha_inicio"]
+    )
+
+    return events
+
+
+def main():
+    print(f"=== TC2000 {YEAR} ===")
+    print(f"Fuente oficial: {URL}")
     print()
-    print("=== FIN DEL DESCUBRIMIENTO ===")
+
+    html = get_page()
+
+    events = extract_events(html)
+
+    print()
+    print(f"Fechas detectadas: {len(events)}")
+    print()
+
+    for event in events:
+        print(
+            f'{event["descripcion"]} | '
+            f'{event["fecha_inicio"]} | '
+            f'{event["ubicacion"]}'
+        )
+
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+
+    with OUTPUT_FILE.open(
+        "w",
+        encoding="utf-8",
+    ) as file:
+        json.dump(
+            events,
+            file,
+            ensure_ascii=False,
+            indent=2,
+        )
+
+    print()
+    print(f"Archivo generado: {OUTPUT_FILE}")
+    print("=== FIN TC2000 ===")
 
 
 if __name__ == "__main__":
