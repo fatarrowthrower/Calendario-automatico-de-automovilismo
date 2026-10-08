@@ -38,6 +38,54 @@ LOCATION:CALAFATE
 DESCRIPTION:Fecha 1 de TC Pista.
 END:VEVENT
 BEGIN:VEVENT
+UID:actc-tc-pista-2026-07-12-carrera-la-palabra-de-juanse-post-final
+DTSTART:20260712T003900
+DTEND:20260712T011000
+SUMMARY:Fecha 8 de TC Pista.
+LOCATION:POSADAS
+DESCRIPTION:Fecha 8 de TC Pista.
+END:VEVENT
+BEGIN:VEVENT
+UID:actc-tc-pista-2026-09-13-carrera-la-palabra-de-juanse-post-final
+DTSTART:20260913T003900
+DTEND:20260913T011000
+SUMMARY:Fecha 11 de TC Pista.
+LOCATION:SAN LUIS
+DESCRIPTION:Fecha 11 de TC Pista.
+END:VEVENT
+BEGIN:VEVENT
+UID:actc-tc-pick-up-2026-09-27-serie-se-termino-la-actividad-en-este-sabado-en-el-autodromo-juan-manuel-fangio-de-balcarce-manana-desde-las-horas-se-disputaran-las-series-de-la-fecha-9-en-el-marco-de-la-primera-jornada-de-la-copa-shell-v-power
+DTSTART:20260927T113500
+DTEND:20260927T120500
+SUMMARY:Fecha 8 de TC Pick Up.
+LOCATION:BALCARCE
+DESCRIPTION:Fecha 8 de TC Pick Up.
+END:VEVENT
+BEGIN:VEVENT
+UID:actc-tc-pista-2026-10-04-carrera-la-nota-post-carrera-a-damiani-a-partir-del
+DTSTART:20261004T012500
+DTEND:20261004T015500
+SUMMARY:Fecha 12 de TC Pista.
+LOCATION:SAN NICOLAS
+DESCRIPTION:Fecha 12 de TC Pista.
+END:VEVENT
+BEGIN:VEVENT
+UID:actc-tc-pista-2026-10-04-carrera-el-tiempo-para-maceira-fue-de-469-con-el-mustang-n-59-que-lo-hizo-84-milesimas-mas-rapido-que-bautista-damiani-que-llego-en-el-segundo-lugar-con-el-chevrolet-camaro-del-canning-motorsport-thomas-pozner-por-su-parte-finalizo-en-la-tercera-colocacion-con-el-ford-mustang-del-moriatis-competicion-a-una-diferencia-de-148-1000
+DTSTART:20261004T012700
+DTEND:20261004T015700
+SUMMARY:Fecha 12 de TC Pista.
+LOCATION:SAN NICOLAS
+DESCRIPTION:Fecha 12 de TC Pista.
+END:VEVENT
+BEGIN:VEVENT
+UID:actc-tc-pista-2026-10-04-serie-el-sabado-llego-al-fin-para-el-tc-pista-manana-la-telonera-abre-el-circuito-juan-maria-traverso-a-las-horas-con-la-serie-que-comandara-provens-mientras-que-la-segunda-bateria-es-a-las-con-damiani-a-la-cabeza-la-final-del-gran-premio-corven-en-san-nicolas-arranca-a-las-horas-toda-la-actividad-del-domingo-por-el-nueve-y-motor-play
+DTSTART:20261004T100000
+DTEND:20261004T103000
+SUMMARY:Fecha 12 de TC Pista.
+LOCATION:SAN NICOLAS
+DESCRIPTION:Fecha 12 de TC Pista.
+END:VEVENT
+BEGIN:VEVENT
 UID:actc-tc-pista-2026-10-04-clasificacion-el-segundo-entrenamiento-para-el-tc-pista-tendra-lugar-desde-las-cuando-la-categoria-salga-a-practicar-nuevamente-previo-a-lo-que-sera-la-clasificacion-general-de-la-12-fecha-en-san-nicolas
 DTSTART:20261004T130500
 DTEND:20261004T133500
@@ -54,12 +102,92 @@ LOCATION:SAN NICOLAS
 DESCRIPTION:Fecha 12 de TC Pista.
 END:VEVENT
 BEGIN:VEVENT
+UID:actc-tc-pista-2026-10-05-serie-serie-1-tiempo-total-030
+DTSTART:20261005T072600
+DTEND:20261005T075600
+SUMMARY:Fecha 12 de TC Pista.
+LOCATION:SAN NICOLAS
+DESCRIPTION:Fecha 12 de TC Pista.
+END:VEVENT
+BEGIN:VEVENT
+UID:actc-tc-pista-2026-10-05-serie-serie-2-tiempo-total-612
+DTSTART:20261005T072900
+DTEND:20261005T075900
+SUMMARY:Fecha 12 de TC Pista.
+LOCATION:SAN NICOLAS
+DESCRIPTION:Fecha 12 de TC Pista.
+END:VEVENT
+BEGIN:VEVENT
+UID:actc-tc-pista-2026-10-05-carrera-de-esta-manera-el-tc-pista-ya-conoce-la-grilla-para-la-final-de-la-12-fecha-en-el-autodromo-ciudad-de-san-nicolas-la-misma-tendra-lugar-a-partir-de-las-y-sera-transmitido-por-la-pantalla-de-canal-9
+DTSTART:20261005T125500
+DTEND:20261005T132500
+SUMMARY:Fecha 12 de TC Pista.
+LOCATION:SAN NICOLAS
+DESCRIPTION:Fecha 12 de TC Pista.
+END:VEVENT
+BEGIN:VEVENT
+UID:actc-tc-pick-up-2026-10-18-serie-se-termino-la-actividad-en-este-sabado-en-el-autodromo-juan-manuel-fangio-de-balcarce-manana-desde-las-horas-se-disputaran-las-series-de-la-fecha-9-en-el-marco-de-la-primera-jornada-de-la-copa-shell-v-power
+DTSTART:20261018T113500
+DTEND:20261018T120500
+SUMMARY:Fecha 9 de TC Pick Up.
+LOCATION:LA PLATA
+DESCRIPTION:Fecha 9 de TC Pick Up.
+END:VEVENT
+BEGIN:VEVENT
 UID:actc-tc-pick-up-2026-10-18-entrenamiento-se-terminaron-los-entrenamientos-para-las-tc-pick-up-que-desde-las-horas-y-por-la-pantalla-de-canal-9-tendra-que-clasificar-en-el-marco-de-la-fecha-9-en-el-autodromo-juan-manuel-fangio-en-la-ciudad-de-balcarce
 DTSTART:20261018T161000
 DTEND:20261018T164000
 SUMMARY:Fecha 9 de TC Pick Up.
 LOCATION:LA PLATA
 DESCRIPTION:Fecha 9 de TC Pick Up.
+END:VEVENT
+BEGIN:VEVENT
+UID:actc-tc-pista-2026-10-25-carrera-la-palabra-de-juanse-post-final
+DTSTART:20261025T003900
+DTEND:20261025T011000
+SUMMARY:Fecha 13 de TC Pista.
+LOCATION:ROSARIO
+DESCRIPTION:Fecha 13 de TC Pista.
+END:VEVENT
+BEGIN:VEVENT
+UID:actc-tc-pista-2026-10-25-carrera-la-nota-post-carrera-a-damiani-a-partir-del
+DTSTART:20261025T012500
+DTEND:20261025T015500
+SUMMARY:Fecha 13 de TC Pista.
+LOCATION:ROSARIO
+DESCRIPTION:Fecha 13 de TC Pista.
+END:VEVENT
+BEGIN:VEVENT
+UID:actc-tc-pista-2026-11-15-carrera-la-palabra-de-juanse-post-final
+DTSTART:20261115T003900
+DTEND:20261115T011000
+SUMMARY:Fecha 14 de TC Pista.
+LOCATION:RIO CUARTO
+DESCRIPTION:Fecha 14 de TC Pista.
+END:VEVENT
+BEGIN:VEVENT
+UID:actc-tc-pista-2026-11-15-carrera-la-nota-post-carrera-a-damiani-a-partir-del
+DTSTART:20261115T012500
+DTEND:20261115T015500
+SUMMARY:Fecha 14 de TC Pista.
+LOCATION:RIO CUARTO
+DESCRIPTION:Fecha 14 de TC Pista.
+END:VEVENT
+BEGIN:VEVENT
+UID:actc-tc-pista-2026-12-06-carrera-la-palabra-de-juanse-post-final
+DTSTART:20261206T003900
+DTEND:20261206T011000
+SUMMARY:Fecha 15 de TC Pista.
+LOCATION:LA PLATA
+DESCRIPTION:Fecha 15 de TC Pista.
+END:VEVENT
+BEGIN:VEVENT
+UID:actc-tc-pista-2026-12-06-carrera-la-nota-post-carrera-a-damiani-a-partir-del
+DTSTART:20261206T012500
+DTEND:20261206T015500
+SUMMARY:Fecha 15 de TC Pista.
+LOCATION:LA PLATA
+DESCRIPTION:Fecha 15 de TC Pista.
 END:VEVENT
 BEGIN:VEVENT
 UID:f1calendar-fe-2026-2@motorsport-calendar-FP1
