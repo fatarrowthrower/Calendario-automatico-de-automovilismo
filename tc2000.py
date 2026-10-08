@@ -1,331 +1,392 @@
-from datetime import datetime, timedelta
-from pathlib import Path
-from urllib.parse import urljoin
 import json
 import re
+from datetime import datetime, timedelta
+from pathlib import Path
 
-from bs4 import BeautifulSoup
-from curl_cffi import requests
-from PIL import Image, ImageEnhance, ImageFilter
 import pytesseract
+from PIL import Image, ImageEnhance, ImageFilter
+from curl_cffi import requests as curl_requests
+from bs4 import BeautifulSoup
 
+
+ROOT = Path(__file__).resolve().parent
+DATA = ROOT / "data"
+OUTPUT = DATA / "tc2000_events.json"
 
 YEAR = datetime.now().year
 
-CALENDAR_URL = "https://tc2000.com.ar/carreras.php?evento=calendario"
+CALENDAR_URL = "https://www.tc2000.com.ar/carreras.php?evento=calendario"
 
-DATA_DIR = Path("data")
-OUTPUT_FILE = DATA_DIR / "tc2000_events.json"
+MONTHS = {
+    "ENERO": 1,
+    "FEBRERO": 2,
+    "MARZO": 3,
+    "ABRIL": 4,
+    "MAYO": 5,
+    "JUNIO": 6,
+    "JULIO": 7,
+    "AGOSTO": 8,
+    "SEPTIEMBRE": 9,
+    "SETIEMBRE": 9,
+    "OCTUBRE": 10,
+    "NOVIEMBRE": 11,
+    "DICIEMBRE": 12,
+}
+
+WEEKDAYS = {
+    "LUNES": 0,
+    "MARTES": 1,
+    "MIERCOLES": 2,
+    "JUEVES": 3,
+    "VIERNES": 4,
+    "SABADO": 5,
+    "DOMINGO": 6,
+}
 
 
 def clean_text(text):
-    return " ".join(text.split())
+    replacements = {
+        "\xa0": " ",
+        "Á": "A",
+        "É": "E",
+        "Í": "I",
+        "Ó": "O",
+        "Ú": "U",
+        "Ü": "U",
+        "á": "a",
+        "é": "e",
+        "í": "i",
+        "ó": "o",
+        "ú": "u",
+        "ü": "u",
+        "SÁBADO": "SABADO",
+        "SÁBADOS": "SABADOS",
+        "DOMINGO": "DOMINGO",
+    }
+
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+
+    text = text.replace("I4", "14")
+    text = text.replace("IS", "15")
+
+    text = re.sub(r"[ \t]+", " ", text)
+    return text.strip()
 
 
-def get_page(url):
-    response = requests.get(
-        url,
+def current_year():
+    return datetime.now().year
+
+
+def get_session():
+    return curl_requests.Session(
         impersonate="chrome",
         timeout=30,
     )
 
-    print(f"HTTP: {response.status_code}")
-    print(f"URL final: {response.url}")
-    print(f"Bytes: {len(response.content)}")
+
+def fetch(url):
+    session = get_session()
+
+    response = session.get(
+        url,
+        headers={
+            "User-Agent": (
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/131.0 Safari/537.36"
+            )
+        },
+    )
 
     response.raise_for_status()
+    return response
 
-    return response.text
 
+def parse_calendar():
+    print(f"TC2000: consultando calendario oficial {YEAR}")
 
-def extract_calendar(html):
-    soup = BeautifulSoup(html, "html.parser")
+    response = fetch(CALENDAR_URL)
+    soup = BeautifulSoup(response.text, "html.parser")
 
-    events = []
+    races = []
 
-    boxes = soup.select("div.box-fechas")
+    for box in soup.select("div.box-fechas"):
+        text = clean_text(box.get_text(" ", strip=True))
 
-    print(f"Bloques de carreras encontrados: {len(boxes)}")
-    print()
-
-    for box in boxes:
-        round_element = box.select_one(
-            "span.item-fechas"
+        round_match = re.search(
+            r"(?:FECHA|ROUND)\s*(\d+)",
+            text,
+            re.IGNORECASE,
         )
 
-        date_element = box.select_one(
-            "span.gris"
-        )
-
-        track_element = box.select_one(
-            "h3"
-        )
-
-        if (
-            not round_element
-            or not date_element
-            or not track_element
-        ):
+        if not round_match:
             continue
 
-        round_text = clean_text(
-            round_element.get_text(
-                " ",
-                strip=True,
-            )
+        round_number = int(round_match.group(1))
+
+        date_match = re.search(
+            rf"(\d{{1,2}})\s+DE\s+"
+            r"(ENERO|FEBRERO|MARZO|ABRIL|MAYO|JUNIO|JULIO|AGOSTO|"
+            r"SEPTIEMBRE|SETIEMBRE|OCTUBRE|NOVIEMBRE|DICIEMBRE)",
+            text,
+            re.IGNORECASE,
         )
 
-        date_text = clean_text(
-            date_element.get_text(
-                " ",
-                strip=True,
-            )
-        )
-
-        track = clean_text(
-            track_element.get_text(
-                " ",
-                strip=True,
-            )
-        )
-
-        try:
-            round_number = int(round_text)
-        except ValueError:
+        if not date_match:
             continue
 
-        parts = date_text.split("-")
+        day = int(date_match.group(1))
+        month_name = date_match.group(2).upper()
+        month = MONTHS.get(month_name)
 
-        if len(parts) != 2:
+        if not month:
             continue
 
-        try:
-            day = int(parts[0])
-            month = int(parts[1])
+        base_date = datetime(YEAR, month, day).date()
 
-            date = datetime(
-                YEAR,
-                month,
-                day,
-            )
+        track = ""
 
-        except ValueError:
-            continue
+        history_link = None
 
-        date_string = date.strftime(
-            "%Y-%m-%d"
-        )
+        for link in box.find_all("a", href=True):
+            href = link["href"]
 
-        history_link = box.select_one(
-            'a[href*="accion=historial"]'
-        )
+            if "historia" in href.lower():
+                history_link = href
+                break
+
+        if history_link and history_link.startswith("/"):
+            history_link = "https://www.tc2000.com.ar" + history_link
 
         if not history_link:
+            for link in box.find_all("a", href=True):
+                href = link["href"]
+
+                if "carreras.php" in href and "id=" in href:
+                    history_link = href
+
+                    if history_link.startswith("/"):
+                        history_link = (
+                            "https://www.tc2000.com.ar" + history_link
+                        )
+
+                    break
+
+        if not history_link:
+            print(
+                f"TC2000: Fecha {round_number:02d}: "
+                "no se encontró página histórica"
+            )
             continue
 
-        history_url = urljoin(
-            CALENDAR_URL,
-            history_link.get("href"),
+        # Intentamos obtener el circuito desde el texto.
+        # Eliminamos partes administrativas conocidas.
+        track_text = text
+
+        track_text = re.sub(
+            r"FECHA\s*\d+",
+            "",
+            track_text,
+            flags=re.IGNORECASE,
         )
 
-        events.append(
+        track_text = re.sub(
+            rf"\d{{1,2}}\s+DE\s+"
+            r"(ENERO|FEBRERO|MARZO|ABRIL|MAYO|JUNIO|JULIO|AGOSTO|"
+            r"SEPTIEMBRE|SETIEMBRE|OCTUBRE|NOVIEMBRE|DICIEMBRE)",
+            "",
+            track_text,
+            flags=re.IGNORECASE,
+        )
+
+        track_text = re.sub(
+            r"\d{1,2}/\d{1,2}/\d{4}",
+            "",
+            track_text,
+        )
+
+        track_text = re.sub(r"\s+", " ", track_text).strip()
+
+        races.append(
             {
                 "round": round_number,
-                "date": date_string,
-                "track": track,
-                "history_url": history_url,
+                "base_date": base_date.isoformat(),
+                "track": track_text,
+                "history_url": history_link,
             }
         )
 
-    events.sort(
-        key=lambda event: event["date"]
+    races.sort(key=lambda x: x["round"])
+
+    print(f"TC2000: {len(races)} fechas encontradas")
+
+    return races
+
+
+def find_cronograma_url(history_url):
+    response = fetch(history_url)
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    candidates = []
+
+    for link in soup.find_all("a", href=True):
+        href = link["href"]
+        text = clean_text(link.get_text(" ", strip=True))
+
+        if "cronograma" in text.lower() or "cronograma" in href.lower():
+            candidates.append(href)
+
+    for href in candidates:
+        if href.startswith("/"):
+            return "https://www.tc2000.com.ar" + href
+
+        if href.startswith("http"):
+            return href
+
+    # Fallback: buscar directamente la acción de cronograma
+    match = re.search(
+        r"carreras\.php\?accion=cronograma&id=(\d+)",
+        response.text,
+        re.IGNORECASE,
     )
 
-    return events
-
-
-def find_cronograma_image(history_url):
-    print()
-    print("Buscando cronograma:")
-    print(history_url)
-
-    html = get_page(history_url)
-
-    soup = BeautifulSoup(
-        html,
-        "html.parser",
-    )
-
-    cronograma_link = soup.select_one(
-        'a[href*="accion=cronograma"]'
-    )
-
-    if not cronograma_link:
-        print(
-            "No se encontró enlace al cronograma."
-        )
-        return None
-
-    cronograma_url = urljoin(
-        history_url,
-        cronograma_link.get("href"),
-    )
-
-    print(
-        "Página cronograma:"
-    )
-
-    print(
-        cronograma_url
-    )
-
-    cronograma_html = get_page(
-        cronograma_url
-    )
-
-    cronograma_soup = BeautifulSoup(
-        cronograma_html,
-        "html.parser",
-    )
-
-    image = cronograma_soup.select_one(
-        ".texto-cronograma img"
-    )
-
-    if not image:
-        image = cronograma_soup.select_one(
-            'img[src*="noticias"]'
+    if match:
+        return (
+            "https://www.tc2000.com.ar/"
+            f"carreras.php?accion=cronograma&id={match.group(1)}"
         )
 
-    if not image:
-        print(
-            "No se encontró imagen "
-            "del cronograma."
-        )
-        return None
-
-    image_src = image.get(
-        "src"
-    )
-
-    if not image_src:
-        print(
-            "La imagen no tiene src."
-        )
-        return None
-
-    image_url = urljoin(
-        cronograma_url,
-        image_src,
-    )
-
-    print(
-        "Imagen del cronograma:"
-    )
-
-    print(
-        image_url
-    )
-
-    return image_url
+    return None
 
 
-def download_image(
-    image_url,
-    round_number,
-):
-    print()
-    print(
-        "Descargando imagen..."
-    )
+def find_cronograma_image(cronograma_url):
+    response = fetch(cronograma_url)
 
-    response = requests.get(
-        image_url,
-        impersonate="chrome",
-        timeout=30,
-    )
+    soup = BeautifulSoup(response.text, "html.parser")
 
-    print(
-        f"HTTP imagen: "
-        f"{response.status_code}"
-    )
+    candidates = []
 
-    print(
-        f"Content-Type: "
-        f"{response.headers.get('content-type')}"
-    )
+    # Primero buscamos imágenes del contenido principal.
+    for img in soup.find_all("img"):
+        src = img.get("src")
 
-    print(
-        f"Tamaño: "
-        f"{len(response.content)} bytes"
-    )
+        if not src:
+            continue
 
-    response.raise_for_status()
+        src = src.strip()
 
-    DATA_DIR.mkdir(
-        parents=True,
-        exist_ok=True,
-    )
+        if src.lower().startswith("file://"):
+            continue
 
-    output_file = (
-        DATA_DIR
-        / f"tc2000_cronograma_"
-        f"{round_number:02d}.jpg"
-    )
+        if src.startswith("//"):
+            src = "https:" + src
 
-    output_file.write_bytes(
-        response.content
-    )
+        elif src.startswith("/"):
+            src = "https://www.tc2000.com.ar" + src
 
-    print(
-        f"Imagen guardada en: "
-        f"{output_file}"
-    )
+        elif not src.startswith("http"):
+            src = "https://www.tc2000.com.ar/" + src
 
-    return output_file
+        candidates.append(src)
+
+    # También revisamos og:image.
+    for meta in soup.find_all("meta"):
+        prop = (
+            meta.get("property")
+            or meta.get("name")
+            or ""
+        ).lower()
+
+        content = meta.get("content")
+
+        if content and prop in (
+            "og:image",
+            "twitter:image",
+        ):
+            content = content.strip()
+
+            if content.lower().startswith("file://"):
+                continue
+
+            if content.startswith("//"):
+                content = "https:" + content
+            elif content.startswith("/"):
+                content = "https://www.tc2000.com.ar" + content
+
+            candidates.append(content)
+
+    # Priorizamos imágenes que parezcan cronogramas.
+    scored = []
+
+    for url in candidates:
+        lower = url.lower()
+
+        score = 0
+
+        if "cronograma" in lower:
+            score += 10
+
+        if "noticias" in lower:
+            score += 5
+
+        if lower.endswith(".jpg"):
+            score += 2
+
+        if lower.endswith(".jpeg"):
+            score += 2
+
+        if lower.endswith(".png"):
+            score += 1
+
+        scored.append((score, url))
+
+    scored.sort(reverse=True)
+
+    for _, url in scored:
+        if url.startswith("http"):
+            return url
+
+    return None
 
 
-def prepare_image(image):
+def download_image(url, destination):
+    response = fetch(url)
+
+    destination.write_bytes(response.content)
+
+    return destination
+
+
+def preprocess_image(path):
+    image = Image.open(path)
+
+    # Escalamos para mejorar OCR.
     width, height = image.size
 
-    image = image.resize(
-        (
-            width * 2,
-            height * 2,
+    if width < 1800:
+        factor = 1800 / width
+        image = image.resize(
+            (
+                int(width * factor),
+                int(height * factor),
+            )
         )
-    )
 
-    image = image.convert(
-        "L"
-    )
+    image = image.convert("L")
 
-    image = ImageEnhance.Contrast(
-        image
-    ).enhance(2.0)
+    image = ImageEnhance.Contrast(image).enhance(2.0)
 
-    image = image.filter(
-        ImageFilter.SHARPEN
-    )
+    image = image.filter(ImageFilter.SHARPEN)
 
     return image
 
 
-def run_ocr(image_file):
-    print()
-    print(
-        "Ejecutando OCR..."
-    )
-
-    image = Image.open(
-        image_file
-    )
-
-    prepared = prepare_image(
-        image
-    )
+def ocr_image(path):
+    image = preprocess_image(path)
 
     text = pytesseract.image_to_string(
-        prepared,
+        image,
         lang="spa+eng",
         config="--psm 6",
     )
@@ -333,524 +394,669 @@ def run_ocr(image_file):
     return text
 
 
-def normalize_ocr_text(text):
+def normalize_ocr(text):
+    text = clean_text(text)
+
     replacements = {
         "TC2OOO": "TC2000",
-        "TC2O00": "TC2000",
-        "TC2000O": "TC2000",
+        "TC2OO0": "TC2000",
+        "TC200O": "TC2000",
         "TC 2000": "TC2000",
-        "TC-2000": "TC2000",
-        "TC 2OOO": "TC2000",
+        "CLASIFICACI6N": "CLASIFICACION",
+        "CLASIFICACI0N": "CLASIFICACION",
+        "PRACTICA": "PRACTICA",
+        "PRACTlCA": "PRACTICA",
+        "SHAKED0WN": "SHAKEDOWN",
+        "WARM-UP": "WARM UP",
+        "WARMUP": "WARM UP",
     }
 
     for old, new in replacements.items():
-        text = text.replace(
-            old,
-            new,
-        )
+        text = text.replace(old, new)
 
     return text
 
 
-def extract_time(text):
-    pattern = re.compile(
-        r"\b([01]?\d|2[0-3])"
-        r"\s*:\s*([0-5]\d)"
-        r"\s*(?:hs?\.?)?",
-        re.IGNORECASE,
+def normalize_dotted_times(text):
+    """
+    Convierte:
+        10.50 -> 10:50
+        13.40 -> 13:40
+
+    Solo acepta minutos 00-59 para evitar convertir números
+    que no son horarios.
+    """
+
+    def replace(match):
+        hour = int(match.group(1))
+        minute = int(match.group(2))
+
+        if 0 <= hour <= 23 and 0 <= minute <= 59:
+            return f"{hour:02d}:{minute:02d}"
+
+        return match.group(0)
+
+    return re.sub(
+        r"(?<!\d)(\d{1,2})[.](\d{2})(?!\d)",
+        replace,
+        text,
     )
 
-    match = pattern.search(
-        text
+
+def extract_times(text):
+    text = normalize_dotted_times(text)
+
+    matches = re.findall(
+        r"(?<!\d)([01]?\d|2[0-3]):([0-5]\d)(?!\d)",
+        text,
     )
 
-    if not match:
-        return None
+    result = []
 
-    hour = int(
-        match.group(1)
-    )
+    for hour, minute in matches:
+        value = f"{int(hour):02d}:{minute}"
 
-    minute = int(
-        match.group(2)
-    )
+        if value not in result:
+            result.append(value)
 
-    return hour, minute
+    return result
 
 
-def extract_all_times(text):
-    pattern = re.compile(
-        r"\b([01]?\d|2[0-3])"
-        r"\s*:\s*([0-5]\d)"
-        r"\s*(?:hs?\.?)?",
-        re.IGNORECASE,
-    )
+def parse_header_dates(text, base_date):
+    """
+    Determina qué días contiene el cronograma.
 
-    results = []
+    El calendario oficial del TC2000 usa como fecha base normalmente
+    el domingo de la competencia.
 
-    for match in pattern.finditer(
-        text
+    Por eso:
+      VIERNES -> base_date - 2
+      SABADO  -> base_date - 1
+      DOMINGO -> base_date
+
+    No dependemos de que OCR lea correctamente 13/14/15.
+    """
+
+    upper = normalize_ocr(text[:5000]).upper()
+
+    found = []
+
+    for weekday, number in WEEKDAYS.items():
+        if re.search(rf"\b{weekday}\b", upper):
+            found.append((number, weekday))
+
+    dates = {}
+
+    for weekday_number, weekday_name in found:
+        if weekday_number == 6:
+            date = base_date
+
+        elif weekday_number == 5:
+            date = base_date - timedelta(days=1)
+
+        elif weekday_number == 4:
+            date = base_date - timedelta(days=2)
+
+        else:
+            # Para cualquier otro día buscamos la fecha más cercana
+            # anterior a la fecha oficial.
+            delta = (base_date.weekday() - weekday_number) % 7
+
+            if delta == 0:
+                date = base_date
+            else:
+                date = base_date - timedelta(days=delta)
+
+        dates[weekday_name] = date
+
+    # Orden natural del cronograma.
+    ordered = []
+
+    for weekday in (
+        "LUNES",
+        "MARTES",
+        "MIERCOLES",
+        "JUEVES",
+        "VIERNES",
+        "SABADO",
+        "DOMINGO",
     ):
-        hour = int(
-            match.group(1)
-        )
-
-        minute = int(
-            match.group(2)
-        )
-
-        results.append(
-            (
-                hour,
-                minute,
+        if weekday in dates:
+            ordered.append(
+                {
+                    "weekday": weekday,
+                    "date": dates[weekday],
+                }
             )
+
+    # Normalmente solo nos interesan los últimos días encontrados.
+    if "DOMINGO" in dates:
+        if "VIERNES" in dates:
+            ordered = [
+                x
+                for x in ordered
+                if x["weekday"] in (
+                    "VIERNES",
+                    "SABADO",
+                    "DOMINGO",
+                )
+            ]
+
+        elif "SABADO" in dates:
+            ordered = [
+                x
+                for x in ordered
+                if x["weekday"] in (
+                    "SABADO",
+                    "DOMINGO",
+                )
+            ]
+
+    return ordered
+
+
+def split_schedule_blocks(lines):
+    """
+    Intenta separar el OCR en bloques por día.
+
+    Los cronogramas del TC2000 normalmente arrancan cada día con:
+      APERTURA DE ACREDITACIONES
+    o:
+      ENTRADA DE LOS SERVICIOS DE PISTA
+
+    Esto permite separar viernes/sábado/domingo sin inventar
+    fechas basándonos simplemente en la posición de la línea.
+    """
+
+    starts = []
+
+    for index, line in enumerate(lines):
+        normalized = normalize_ocr(line).upper()
+
+        if (
+            "APERTURA DE ACREDITACIONES" in normalized
+            or "APERTURA DE ACREDITACION" in normalized
+            or "ENTRADA DE LOS SERVICIOS DE PISTA" in normalized
+            or "ENTRADA DE LOS SERVICIOS DE PISTA" in normalized.replace(
+                "  ", " "
+            )
+            or "ENTRADA DE SERVICIOS DE PISTA" in normalized
+        ):
+            starts.append(index)
+
+    # Evitamos duplicados muy cercanos.
+    filtered = []
+
+    for index in starts:
+        if not filtered or index - filtered[-1] > 3:
+            filtered.append(index)
+
+    if not filtered:
+        return [lines]
+
+    blocks = []
+
+    for i, start in enumerate(filtered):
+        end = (
+            filtered[i + 1]
+            if i + 1 < len(filtered)
+            else len(lines)
         )
 
-    return results
+        block = lines[start:end]
+
+        if block:
+            blocks.append(block)
+
+    return blocks
+
+
+def is_shared_activity(line):
+    upper = normalize_ocr(line).upper()
+
+    # Actividades administrativas o compartidas que NO son
+    # una sesión propia del TC2000.
+    excluded_phrases = [
+        "VERIFICACION TECNICA",
+        "VERIFICACION ADMINISTRATIVA",
+        "INSCRIPCION",
+        "INSCRIPCIÓN",
+        "AAV",
+        "ACREDITACION",
+        "ACREDITACIONES",
+        "SORTEO DE NEUMATICOS",
+        "SORTEO DE NEUMÁTICOS",
+        "REUNION DE PILOTOS",
+        "REUNIÓN DE PILOTOS",
+        "RECINTO TECNICO",
+        "RECINTO TÉCNICO",
+        "RETIRO DE SERVICIOS",
+        "CONFERENCIA",
+        "PRENSA",
+        "ENTREVISTAS",
+    ]
+
+    for phrase in excluded_phrases:
+        if phrase in upper:
+            return True
+
+    # Si aparecen varias categorías juntas, normalmente es una
+    # actividad compartida y no una sesión de TC2000.
+    other_categories = [
+        "TOP RACE",
+        "FORMULA NACIONAL",
+        "F.N.A",
+        "FNA",
+        "FIAT",
+        "TR SERIES",
+        "TR JUNIOR",
+        "CATEGORIA COMPARTIDA",
+    ]
+
+    if "//" in upper:
+        return True
+
+    found_other = sum(
+        1
+        for category in other_categories
+        if category in upper
+    )
+
+    if found_other >= 1:
+        return True
+
+    return False
 
 
 def is_tc2000_line(line):
-    normalized = line.upper()
+    upper = normalize_ocr(line).upper()
 
     return (
-        "TC2000" in normalized
-        or "TC 2000" in normalized
-        or "TC2OOO" in normalized
+        "TC2000" in upper
+        or "TC 2000" in upper
+        or "TC2OOO" in upper
     )
-
-
-def clean_activity_name(line):
-    line = normalize_ocr_text(
-        line
-    )
-
-    times = extract_all_times(
-        line
-    )
-
-    for hour, minute in times:
-        patterns = [
-            rf"\b{hour:02d}\s*:\s*"
-            rf"{minute:02d}\s*hs?\.?",
-            rf"\b{hour}\s*:\s*"
-            rf"{minute:02d}\s*hs?\.?",
-        ]
-
-        for pattern in patterns:
-            line = re.sub(
-                pattern,
-                " ",
-                line,
-                flags=re.IGNORECASE,
-            )
-
-    line = re.sub(
-        r"\b\d+\s*min\.?",
-        " ",
-        line,
-        flags=re.IGNORECASE,
-    )
-
-    line = re.sub(
-        r"\s+",
-        " ",
-        line,
-    )
-
-    line = line.strip(
-        " -|,.;:"
-    )
-
-    return line
 
 
 def classify_activity(name):
-    normalized = name.upper()
+    upper = normalize_ocr(name).upper()
 
-    if "CARRERA" in normalized:
+    if "CARRERA" in upper:
         return "Carrera"
 
-    if "CLASIFICACION" in normalized:
+    if "CLASIFIC" in upper or "QUALY" in upper:
         return "Clasificación"
 
-    if "WARM" in normalized:
+    if "WARM" in upper:
         return "Warm-Up"
 
-    if "SHAKEDOWN" in normalized:
+    if "SHAKEDOWN" in upper:
         return "Shakedown"
 
-    if "PRACTICA" in normalized:
+    if "PRACTICA" in upper:
         return "Práctica"
 
-    if "PODIO" in normalized:
-        return "Podio"
-
-    if "GRID" in normalized:
+    if "GRID SHOW" in upper:
         return "Grid"
 
-    if "VUELTA PREVIA" in normalized:
-        return "Vuelta previa"
+    if "PODIO" in upper:
+        return "Podio"
 
-    if "BOXES" in normalized:
-        return "Boxes"
+    if "VUELTA PREVIA" in upper:
+        return "Carrera"
 
-    return "Evento"
-
-
-def find_day_from_text(
-    line,
-    current_date,
-):
-    normalized = line.upper()
-
-    weekday_map = {
-        "VIERNES": 0,
-        "SABADO": 1,
-        "SÁBADO": 1,
-        "DOMINGO": 2,
-    }
-
-    for weekday, offset in weekday_map.items():
-        if weekday in normalized:
-            return current_date + timedelta(
-                days=offset
-            )
-
-    return current_date
+    return "Sesión"
 
 
-def parse_tc2000_events(
-    ocr_text,
-    base_date,
-    track,
-    round_number,
-):
-    text = normalize_ocr_text(
-        ocr_text
+def clean_activity_name(line):
+    text = normalize_ocr(line)
+
+    # Quitamos horarios.
+    text = normalize_dotted_times(text)
+
+    text = re.sub(
+        r"(?<!\d)([01]?\d|2[0-3]):[0-5]\d(?!\d)",
+        "",
+        text,
     )
 
-    lines = [
-        clean_text(line)
-        for line in text.splitlines()
-    ]
+    # Quitamos duraciones comunes.
+    text = re.sub(
+        r"\b\d+\s*(?:MIN|MINUTOS|M|HS|HORA|HORAS)\b",
+        "",
+        text,
+        flags=re.IGNORECASE,
+    )
+
+    # Buscamos desde TC2000 para eliminar ruido OCR previo.
+    upper = text.upper()
+
+    position = upper.find("TC2000")
+
+    if position >= 0:
+        text = text[position + len("TC2000"):]
+
+    text = text.replace("TC 2000", "")
+    text = text.replace("TC2OOO", "")
+
+    # Limpiamos separadores.
+    text = re.sub(r"[/|]+", " ", text)
+    text = re.sub(r"\s+", " ", text)
+
+    text = text.strip(" -_:;.,|/")
+
+    return text
+
+
+def parse_line(line):
+    if not is_tc2000_line(line):
+        return None
+
+    if is_shared_activity(line):
+        return None
+
+    times = extract_times(line)
+
+    if not times:
+        return None
+
+    name = clean_activity_name(line)
+
+    if not name:
+        return None
+
+    # Si quedaron otros campeonatos en el nombre, no es una
+    # sesión limpia de TC2000.
+    upper = name.upper()
+
+    for other in (
+        "TOP RACE",
+        "FORMULA NACIONAL",
+        "F.N.A",
+        "FIAT",
+    ):
+        if other in upper:
+            return None
+
+    activity_type = classify_activity(name)
+
+    return {
+        "name": name,
+        "type": activity_type,
+        "times": times,
+    }
+
+
+def create_event(round_number, track, session_date, parsed):
+    times = parsed["times"]
+
+    start_time = times[0]
+
+    if len(times) >= 2:
+        end_time = times[1]
+    else:
+        # No inventamos una duración real.
+        # Usamos un minuto técnico para representar un evento
+        # cuyo cronograma oficial solo informa hora de inicio.
+        hour, minute = map(int, start_time.split(":"))
+
+        start_dt = datetime(
+            session_date.year,
+            session_date.month,
+            session_date.day,
+            hour,
+            minute,
+        )
+
+        end_dt = start_dt + timedelta(minutes=1)
+
+        end_time = end_dt.strftime("%H:%M")
+
+    uid_name = re.sub(
+        r"[^a-z0-9]+",
+        "-",
+        parsed["name"].lower(),
+    ).strip("-")
+
+    uid = (
+        f"tc2000-"
+        f"{YEAR}-"
+        f"{round_number:02d}-"
+        f"{session_date.isoformat()}-"
+        f"{start_time.replace(':', '')}-"
+        f"{uid_name}"
+    )
+
+    return {
+        "uid": uid,
+        "fecha": session_date.isoformat(),
+        "inicio": start_time,
+        "fin": end_time,
+        "categoria": "Argentina",
+        "campeonato": "TC2000",
+        "tipo": parsed["type"],
+        "nombre": parsed["name"],
+        "circuito": track,
+        "fuente": "https://www.tc2000.com.ar/",
+        "round": round_number,
+    }
+
+
+def parse_schedule(
+    ocr_text,
+    base_date,
+    round_number,
+    track,
+):
+    normalized = normalize_ocr(ocr_text)
 
     lines = [
-        line
-        for line in lines
-        if line
+        line.strip()
+        for line in normalized.splitlines()
+        if line.strip()
     ]
+
+    dates = parse_header_dates(
+        normalized,
+        base_date,
+    )
+
+    print(
+        f"TC2000: Fecha {round_number:02d}: "
+        f"días detectados = "
+        f"{', '.join(x['weekday'] for x in dates)}"
+    )
+
+    blocks = split_schedule_blocks(lines)
+
+    # Si la cantidad de bloques coincide con la cantidad de días,
+    # tenemos una asignación segura.
+    if len(blocks) == len(dates):
+        assigned_blocks = list(zip(dates, blocks))
+
+    else:
+        print(
+            f"TC2000: Fecha {round_number:02d}: "
+            f"bloques detectados={len(blocks)}, "
+            f"días={len(dates)}"
+        )
+
+        # Si no podemos asignar con seguridad, intentamos una
+        # estrategia conservadora.
+        if len(dates) == 1:
+            assigned_blocks = [
+                (
+                    dates[0],
+                    lines,
+                )
+            ]
+
+        elif len(blocks) >= len(dates):
+            assigned_blocks = list(
+                zip(
+                    dates,
+                    blocks[:len(dates)],
+                )
+            )
+
+        else:
+            print(
+                f"TC2000: Fecha {round_number:02d}: "
+                "no se pudo determinar con seguridad "
+                "la fecha de cada bloque."
+            )
+
+            return []
 
     events = []
 
-    current_date = base_date
+    for day_info, block in assigned_blocks:
+        session_date = day_info["date"]
 
-    for line in lines:
-        upper = line.upper()
+        for line in block:
+            parsed = parse_line(line)
 
-        if "VIERNES" in upper:
-            current_date = base_date
+            if not parsed:
+                continue
 
-        elif (
-            "SABADO" in upper
-            or "SÁBADO" in upper
-        ):
-            current_date = (
-                base_date
-                + timedelta(days=1)
+            event = create_event(
+                round_number=round_number,
+                track=track,
+                session_date=session_date,
+                parsed=parsed,
             )
 
-        elif "DOMINGO" in upper:
-            current_date = (
-                base_date
-                + timedelta(days=2)
-            )
-
-        if not is_tc2000_line(
-            line
-        ):
-            continue
-
-        times = extract_all_times(
-            line
-        )
-
-        if not times:
-            continue
-
-        activity_name = clean_activity_name(
-            line
-        )
-
-        if not activity_name:
-            continue
-
-        activity_name = re.sub(
-            r"^TC2000\s*",
-            "",
-            activity_name,
-            flags=re.IGNORECASE,
-        )
-
-        if not activity_name:
-            continue
-
-        start_hour, start_minute = (
-            times[0]
-        )
-
-        if len(times) >= 2:
-            end_hour, end_minute = (
-                times[1]
-            )
-        else:
-            end_hour = start_hour
-            end_minute = (
-                start_minute + 5
-            )
-
-            if end_minute >= 60:
-                end_hour += 1
-                end_minute -= 60
-
-        start = current_date.replace(
-            hour=start_hour,
-            minute=start_minute,
-            second=0,
-            microsecond=0,
-        )
-
-        end = current_date.replace(
-            hour=end_hour,
-            minute=end_minute,
-            second=0,
-            microsecond=0,
-        )
-
-        if end <= start:
-            end = start + timedelta(
-                minutes=5
-            )
-
-        event_type = classify_activity(
-            activity_name
-        )
-
-        uid = (
-            f"tc2000-"
-            f"{YEAR}-"
-            f"{round_number:02d}-"
-            f"{start.strftime('%Y%m%d-%H%M')}-"
-            f"{event_type.lower().replace(' ', '-')}"
-        )
-
-        events.append(
-            {
-                "uid": uid,
-                "categoria": "Argentina",
-                "campeonato": "TC2000",
-                "tipo": event_type,
-                "fecha_inicio": start.strftime(
-                    "%Y-%m-%dT%H:%M:%S"
-                ),
-                "fecha_fin": end.strftime(
-                    "%Y-%m-%dT%H:%M:%S"
-                ),
-                "ubicacion": track,
-                "descripcion": (
-                    f"TC2000 - "
-                    f"Fecha {round_number} - "
-                    f"{activity_name}"
-                ),
-                "prioridad": (
-                    "alta"
-                    if event_type
-                    == "Carrera"
-                    else "media"
-                ),
-            }
-        )
+            events.append(event)
 
     return events
 
 
 def process_race(race):
-    print()
-    print(
-        "========================================"
-    )
+    round_number = race["round"]
+    base_date = datetime.fromisoformat(
+        race["base_date"]
+    ).date()
+
+    track = race["track"]
+    history_url = race["history_url"]
 
     print(
-        f"TC2000 FECHA "
-        f"{race['round']:02d}"
+        f"\nTC2000: procesando Fecha "
+        f"{round_number:02d} - {track}"
     )
 
-    print(
-        f"{race['date']} - "
-        f"{race['track']}"
+    cronograma_url = find_cronograma_url(
+        history_url
     )
 
+    if not cronograma_url:
+        print(
+            f"TC2000: Fecha {round_number:02d}: "
+            "no se encontró cronograma"
+        )
+        return []
+
     print(
-        "========================================"
+        f"TC2000: cronograma: {cronograma_url}"
     )
 
     image_url = find_cronograma_image(
-        race["history_url"]
+        cronograma_url
     )
 
     if not image_url:
+        print(
+            f"TC2000: Fecha {round_number:02d}: "
+            "no se encontró imagen externa del cronograma"
+        )
         return []
 
-    image_file = download_image(
-        image_url,
-        race["round"],
+    print(
+        f"TC2000: imagen: {image_url}"
+    )
+
+    temp_image = DATA / (
+        f"tc2000_cronograma_{round_number:02d}.jpg"
     )
 
     try:
-        ocr_text = run_ocr(
-            image_file
+        download_image(
+            image_url,
+            temp_image,
         )
 
-        print()
+        ocr_text = ocr_image(temp_image)
+
+        events = parse_schedule(
+            ocr_text=ocr_text,
+            base_date=base_date,
+            round_number=round_number,
+            track=track,
+        )
+
         print(
-            "Texto OCR obtenido:"
+            f"TC2000: Fecha {round_number:02d}: "
+            f"{len(events)} eventos"
         )
-        print(
-            ocr_text
-        )
-
-        base_date = datetime.strptime(
-            race["date"],
-            "%Y-%m-%d",
-        )
-
-        events = parse_tc2000_events(
-            ocr_text,
-            base_date,
-            race["track"],
-            race["round"],
-        )
-
-        print()
-        print(
-            f"Eventos TC2000 detectados: "
-            f"{len(events)}"
-        )
-
-        for event in events:
-            print(
-                f"{event['fecha_inicio']} | "
-                f"{event['fecha_fin']} | "
-                f"{event['descripcion']}"
-            )
 
         return events
 
     finally:
-        if image_file.exists():
-            image_file.unlink()
-
-            print()
-            print(
-                f"Imagen temporal eliminada: "
-                f"{image_file}"
-            )
+        if temp_image.exists():
+            temp_image.unlink()
 
 
 def main():
-    print(
-        f"=== TC2000 {YEAR} ==="
-    )
+    DATA.mkdir(parents=True, exist_ok=True)
 
-    print()
-    print(
-        "Fuente oficial:"
-    )
-    print(
-        CALENDAR_URL
-    )
-
-    print()
-
-    calendar_html = get_page(
-        CALENDAR_URL
-    )
-
-    print()
-
-    races = extract_calendar(
-        calendar_html
-    )
-
-    print(
-        f"Fechas detectadas: "
-        f"{len(races)}"
-    )
-
-    print()
+    races = parse_calendar()
 
     all_events = []
 
     for race in races:
         try:
-            events = process_race(
-                race
-            )
-
-            all_events.extend(
-                events
-            )
+            events = process_race(race)
+            all_events.extend(events)
 
         except Exception as exc:
-            print()
             print(
-                f"ERROR procesando "
-                f"Fecha {race['round']:02d}: "
-                f"{exc}"
+                f"TC2000: ERROR en Fecha "
+                f"{race['round']:02d}: {exc}"
             )
 
+    # Eliminamos duplicados por UID.
+    unique = {}
+
+    for event in all_events:
+        unique[event["uid"]] = event
+
+    all_events = list(unique.values())
+
     all_events.sort(
-        key=lambda event:
-        event["fecha_inicio"]
+        key=lambda event: (
+            event["fecha"],
+            event["inicio"],
+            event["round"],
+            event["nombre"],
+        )
     )
 
-    DATA_DIR.mkdir(
-        parents=True,
-        exist_ok=True,
-    )
-
-    with OUTPUT_FILE.open(
-        "w",
-        encoding="utf-8",
-    ) as file:
-        json.dump(
+    OUTPUT.write_text(
+        json.dumps(
             all_events,
-            file,
             ensure_ascii=False,
             indent=2,
-        )
-
-    print()
-    print(
-        "========================================"
+        ),
+        encoding="utf-8",
     )
 
     print(
-        f"Eventos TC2000 totales: "
-        f"{len(all_events)}"
+        f"\nTC2000: total final = "
+        f"{len(all_events)} eventos"
     )
 
     print(
-        f"Archivo generado: "
-        f"{OUTPUT_FILE}"
-    )
-
-    print(
-        "========================================"
-    )
-
-    print()
-    print(
-        "=== FIN TC2000 ==="
+        f"TC2000: archivo generado: {OUTPUT}"
     )
 
 
