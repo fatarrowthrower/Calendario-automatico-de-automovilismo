@@ -355,6 +355,10 @@ def find_cronograma_image(cronograma_url):
     for url in candidates:
         lower = url.lower()
 
+        # El logo del sitio NO es un cronograma.
+        if "logo-tc2000" in lower:
+            continue
+
         score = 0
 
         if "cronograma" in lower:
