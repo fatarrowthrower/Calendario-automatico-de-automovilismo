@@ -2,32 +2,6 @@ uid,categoria,campeonato,tipo,fecha_inicio,fecha_fin,ubicacion,descripcion,prior
 f1calendar-fe-2026-1@motorsport-calendar-FP2,Fórmula,Formula E,Entrenamiento,20251206T101000Z,20251206T104000Z,"Sao Paulo ePrix\, Brazil",Reminder,
 f1calendar-fe-2026-1@motorsport-calendar-QUALIFYING,Fórmula,Formula E,Clasificación,20251206T124000Z,20251206T134000Z,"Sao Paulo ePrix\, Brazil",Reminder,
 f1calendar-fe-2026-1@motorsport-calendar-RACE,Fórmula,Formula E,Carrera,20251206T170500Z,20251206T175000Z,"Sao Paulo ePrix\, Brazil",Reminder,alta
-actc-tc-2026-02-15-fecha-1,Argentina,TC,Carrera,2026-02-15T00:00:00,2026-02-15T23:59:00,Argentina,TC - Fecha 1,alta
-actc-tc-pick-up-2026-02-22-fecha-1,Argentina,TC Pick Up,Carrera,2026-02-22T00:00:00,2026-02-22T23:59:00,Argentina,TC Pick Up - Fecha 1,alta
-actc-tc-2026-03-08-fecha-2,Argentina,TC,Carrera,2026-03-08T00:00:00,2026-03-08T23:59:00,Argentina,TC - Fecha 2,alta
-actc-tc-pick-up-2026-03-22-fecha-2,Argentina,TC Pick Up,Carrera,2026-03-22T00:00:00,2026-03-22T23:59:00,Argentina,TC Pick Up - Fecha 2,alta
-actc-tc-2026-03-29-fecha-3,Argentina,TC,Carrera,2026-03-29T00:00:00,2026-03-29T23:59:00,Argentina,TC - Fecha 3,alta
-actc-tc-2026-04-19-fecha-4,Argentina,TC,Carrera,2026-04-19T00:00:00,2026-04-19T23:59:00,Argentina,TC - Fecha 4,alta
-actc-tc-pick-up-2026-04-26-fecha-3,Argentina,TC Pick Up,Carrera,2026-04-26T00:00:00,2026-04-26T23:59:00,Argentina,TC Pick Up - Fecha 3,alta
-actc-tc-2026-05-10-fecha-5,Argentina,TC,Carrera,2026-05-10T00:00:00,2026-05-10T23:59:00,Argentina,TC - Fecha 5,alta
-actc-tc-pick-up-2026-05-17-fecha-4,Argentina,TC Pick Up,Carrera,2026-05-17T00:00:00,2026-05-17T23:59:00,Argentina,TC Pick Up - Fecha 4,alta
-actc-tc-2026-05-31-fecha-6,Argentina,TC,Carrera,2026-05-31T00:00:00,2026-05-31T23:59:00,Argentina,TC - Fecha 6,alta
-actc-tc-2026-06-21-fecha-7,Argentina,TC,Carrera,2026-06-21T00:00:00,2026-06-21T23:59:00,Argentina,TC - Fecha 7,alta
-actc-tc-pick-up-2026-06-28-fecha-5,Argentina,TC Pick Up,Carrera,2026-06-28T00:00:00,2026-06-28T23:59:00,Argentina,TC Pick Up - Fecha 5,alta
-actc-tc-2026-07-12-fecha-8,Argentina,TC,Carrera,2026-07-12T00:00:00,2026-07-12T23:59:00,Argentina,TC - Fecha 8,alta
-actc-tc-pick-up-2026-07-26-fecha-6,Argentina,TC Pick Up,Carrera,2026-07-26T00:00:00,2026-07-26T23:59:00,Argentina,TC Pick Up - Fecha 6,alta
-actc-tc-2026-08-02-fecha-9,Argentina,TC,Carrera,2026-08-02T00:00:00,2026-08-02T23:59:00,Argentina,TC - Fecha 9,alta
-actc-tc-pick-up-2026-08-16-fecha-7,Argentina,TC Pick Up,Carrera,2026-08-16T00:00:00,2026-08-16T23:59:00,Argentina,TC Pick Up - Fecha 7,alta
-actc-tc-2026-08-23-fecha-10,Argentina,TC,Carrera,2026-08-23T00:00:00,2026-08-23T23:59:00,Argentina,TC - Fecha 10,alta
-actc-tc-2026-09-13-fecha-11,Argentina,TC,Carrera,2026-09-13T00:00:00,2026-09-13T23:59:00,Argentina,TC - Fecha 11,alta
-actc-tc-pick-up-2026-09-27-fecha-8,Argentina,TC Pick Up,Carrera,2026-09-27T00:00:00,2026-09-27T23:59:00,Argentina,TC Pick Up - Fecha 8,alta
-actc-tc-2026-10-04-fecha-12,Argentina,TC,Carrera,2026-10-04T00:00:00,2026-10-04T23:59:00,Argentina,TC - Fecha 12,alta
-actc-tc-pick-up-2026-10-18-fecha-9,Argentina,TC Pick Up,Carrera,2026-10-18T00:00:00,2026-10-18T23:59:00,Argentina,TC Pick Up - Fecha 9,alta
-actc-tc-2026-10-25-fecha-13,Argentina,TC,Carrera,2026-10-25T00:00:00,2026-10-25T23:59:00,Argentina,TC - Fecha 13,alta
-actc-tc-pick-up-2026-11-08-fecha-10,Argentina,TC Pick Up,Carrera,2026-11-08T00:00:00,2026-11-08T23:59:00,Argentina,TC Pick Up - Fecha 10,alta
-actc-tc-2026-11-15-fecha-14,Argentina,TC,Carrera,2026-11-15T00:00:00,2026-11-15T23:59:00,Argentina,TC - Fecha 14,alta
-actc-tc-2026-12-06-fecha-15,Argentina,TC,Carrera,2026-12-06T00:00:00,2026-12-06T23:59:00,Argentina,TC - Fecha 15,alta
-actc-tc-pick-up-2026-12-13-fecha-11,Argentina,TC Pick Up,Carrera,2026-12-13T00:00:00,2026-12-13T23:59:00,Argentina,TC Pick Up - Fecha 11,alta
 f1calendar-fe-2026-2@motorsport-calendar-FP1,Fórmula,Formula E,Entrenamiento,20260109T220000Z,20260109T223000Z,"Mexico City ePrix\, Mexico",Reminder,
 f1calendar-fe-2026-2@motorsport-calendar-FP2,Fórmula,Formula E,Entrenamiento,20260110T133000Z,20260110T140000Z,"Mexico City ePrix\, Mexico",Reminder,
 f1calendar-fe-2026-2@motorsport-calendar-QUALIFYING,Fórmula,Formula E,Clasificación,20260110T154000Z,20260110T164000Z,"Mexico City ePrix\, Mexico",Reminder,
