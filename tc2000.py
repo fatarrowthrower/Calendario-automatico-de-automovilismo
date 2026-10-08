@@ -906,6 +906,58 @@ def parse_schedule(
 
     blocks = split_schedule_blocks(lines)
 
+    print(
+        f"TC2000: Fecha {round_number:02d}: "
+        f"bloques detectados = {len(blocks)}"
+    )
+
+    if not blocks:
+        print(
+            f"TC2000: Fecha {round_number:02d}: "
+            "no se detectaron bloques"
+        )
+        return []
+
+    # El último bloque corresponde siempre al día de la carrera,
+    # que es la fecha oficial publicada por TC2000.
+    #
+    # Ejemplo:
+    #
+    # 3 bloques:
+    #   bloque 1 -> viernes
+    #   bloque 2 -> sábado
+    #   bloque 3 -> domingo (base_date)
+    #
+    # 2 bloques:
+    #   bloque 1 -> sábado
+    #   bloque 2 -> domingo (base_date)
+    #
+    # Esto es más robusto que depender del OCR del encabezado.
+    assigned_blocks = []
+
+    for index, block in enumerate(blocks):
+        days_back = len(blocks) - 1 - index
+
+        session_date = (
+            base_date
+            - timedelta(days=days_back)
+        )
+
+        assigned_blocks.append(
+            (
+                session_date,
+                block,
+            )
+        )
+
+    print(
+        f"TC2000: Fecha {round_number:02d}: "
+        f"rango de fechas "
+        f"{assigned_blocks[0][0].isoformat()} "
+        f"-> "
+        f"{assigned_blocks[-1][0].isoformat()}"
+    )
+
     # Si la cantidad de bloques coincide con la cantidad de días,
     # tenemos una asignación segura.
     if len(blocks) == len(dates):
@@ -947,9 +999,7 @@ def parse_schedule(
 
     events = []
 
-    for day_info, block in assigned_blocks:
-        session_date = day_info["date"]
-
+    for session_date, block in assigned_blocks:
         for line in block:
             parsed = parse_line(line)
 
