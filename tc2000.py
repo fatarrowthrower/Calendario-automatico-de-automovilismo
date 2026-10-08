@@ -1,24 +1,24 @@
 from datetime import datetime
 from pathlib import Path
-import re
+import json
 
 from bs4 import BeautifulSoup
 from curl_cffi import requests
 
 
 YEAR = datetime.now().year
+
 URL = "https://tc2000.com.ar/carreras.php?evento=calendario"
+
+DATA_DIR = Path("data")
+OUTPUT_FILE = DATA_DIR / "tc2000_events.json"
 
 
 def clean_text(text):
     return " ".join(text.split())
 
 
-def main():
-    print(f"=== INSPECCIÓN CALENDARIO TC2000 {YEAR} ===")
-    print(f"URL: {URL}")
-    print()
-
+def get_page():
     response = requests.get(
         URL,
         impersonate="chrome",
@@ -26,98 +26,159 @@ def main():
     )
 
     print(f"HTTP: {response.status_code}")
+    print(f"URL final: {response.url}")
     print(f"Bytes: {len(response.content)}")
-    print()
 
     response.raise_for_status()
 
-    soup = BeautifulSoup(response.text, "html.parser")
+    return response.text
 
-    print("=== TÍTULO ===")
-    print(
-        soup.title.get_text(" ", strip=True)
-        if soup.title
-        else "Sin título"
-    )
+
+def extract_events(html):
+    soup = BeautifulSoup(html, "html.parser")
+
+    events = []
+
+    # Cada carrera está dentro de:
+    #
+    # <div class="box-fechas">
+    #
+    # y contiene:
+    #
+    # <span class="item-fechas">01</span>
+    # <span class="gris">15-03</span>
+    # <h3>Callejero de Buenos Aires</h3>
+
+    boxes = soup.select("div.box-fechas")
+
+    print(f"Bloques de carreras encontrados: {len(boxes)}")
     print()
 
-    print("=== ELEMENTOS QUE CONTIENEN 'FECHA' ===")
+    for box in boxes:
+        round_element = box.select_one("span.item-fechas")
+        date_element = box.select_one("span.gris")
+        track_element = box.select_one("h3")
 
-    encontrados = 0
-
-    for element in soup.find_all(
-        string=re.compile(r"fecha", re.IGNORECASE)
-    ):
-        parent = element.parent
-
-        if parent is None:
+        if not round_element:
             continue
 
-        texto = clean_text(parent.get_text(" ", strip=True))
-
-        if not texto:
+        if not date_element:
             continue
 
-        print()
-        print(f"TAG: {parent.name}")
-        print(f"TEXTO: {texto}")
+        if not track_element:
+            continue
 
-        # Mostramos el HTML del elemento y su contenedor
-        # para descubrir cómo está armado el calendario.
-        print("HTML ELEMENTO:")
-        print(str(parent)[:2000])
+        round_text = clean_text(
+            round_element.get_text(" ", strip=True)
+        )
 
-        if parent.parent is not None:
-            print("HTML PADRE:")
-            print(str(parent.parent)[:4000])
+        date_text = clean_text(
+            date_element.get_text(" ", strip=True)
+        )
 
-        encontrados += 1
+        track = clean_text(
+            track_element.get_text(" ", strip=True)
+        )
 
-        if encontrados >= 20:
-            break
+        try:
+            round_number = int(round_text)
+        except ValueError:
+            continue
 
-    print()
-    print(f"Elementos mostrados: {encontrados}")
+        # El sitio utiliza DD-MM.
+        parts = date_text.split("-")
 
-    print()
-    print("=== TABLAS ===")
-
-    tablas = soup.find_all("table")
-
-    print(f"Cantidad de tablas: {len(tablas)}")
-
-    for i, tabla in enumerate(tablas[:10], start=1):
-        print()
-        print(f"--- TABLA {i} ---")
-        print(clean_text(tabla.get_text(" ", strip=True))[:3000])
-
-    print()
-    print("=== ENLACES DEL CALENDARIO ===")
-
-    for link in soup.find_all("a", href=True):
-        texto = clean_text(link.get_text(" ", strip=True))
-        href = link.get("href", "")
-
-        contenido = f"{texto} {href}".lower()
-
-        if any(
-            palabra in contenido
-            for palabra in (
-                "fecha",
-                "calendario",
-                "carrera",
-                "san juan",
-                "junin",
-                "toay",
-                "salta",
-                "nicolas",
+        if len(parts) != 2:
+            print(
+                f"Fecha inválida en Fecha {round_number}: "
+                f"{date_text}"
             )
-        ):
-            print(f"TEXTO: {texto}")
-            print(f"HREF:  {href}")
-            print()
+            continue
 
-    print("=== FIN INSPECCIÓN ===")
+        try:
+            day = int(parts[0])
+            month = int(parts[1])
+
+            date = datetime(
+                YEAR,
+                month,
+                day,
+            )
+        except ValueError:
+            print(
+                f"Fecha inválida en Fecha {round_number}: "
+                f"{date_text}"
+            )
+            continue
+
+        date_string = date.strftime("%Y-%m-%d")
+
+        uid = f"tc2000-{YEAR}-{round_number:02d}"
+
+        event = {
+            "uid": uid,
+            "categoria": "Argentina",
+            "campeonato": "TC2000",
+            "tipo": "Carrera",
+            "fecha_inicio": f"{date_string}T12:00:00",
+            "fecha_fin": f"{date_string}T18:00:00",
+            "ubicacion": track,
+            "descripcion": (
+                f"TC2000 - Fecha {round_number} "
+                f"- {track}"
+            ),
+            "prioridad": "alta",
+        }
+
+        events.append(event)
+
+    events.sort(
+        key=lambda event: event["fecha_inicio"]
+    )
+
+    return events
+
+
+def main():
+    print(f"=== TC2000 {YEAR} ===")
+    print(f"Fuente oficial: {URL}")
+    print()
+
+    html = get_page()
+
+    print()
+
+    events = extract_events(html)
+
+    print()
+    print(f"Fechas detectadas: {len(events)}")
+    print()
+
+    for event in events:
+        print(
+            f'{event["descripcion"]} | '
+            f'{event["fecha_inicio"]}'
+        )
+
+    DATA_DIR.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    with OUTPUT_FILE.open(
+        "w",
+        encoding="utf-8",
+    ) as file:
+        json.dump(
+            events,
+            file,
+            ensure_ascii=False,
+            indent=2,
+        )
+
+    print()
+    print(f"Archivo generado: {OUTPUT_FILE}")
+    print("=== FIN TC2000 ===")
 
 
 if __name__ == "__main__":
