@@ -244,11 +244,6 @@ def parse_calendar(page):
 
 
 def get_news_links(page):
-    """
-    Una sola lectura de la página de noticias.
-    No recorremos 30 páginas.
-    """
-
     links = []
 
     try:
@@ -257,10 +252,8 @@ def get_news_links(page):
             "a[href]"
         )
 
-        count = locator.count()
-
         for index in range(
-            min(count, 500)
+            min(locator.count(), 500)
         ):
 
             link = locator.nth(
@@ -320,16 +313,142 @@ def get_news_links(page):
     )
 
 
-def article_score(
-    title,
-    calendar_event,
+def load_news(
+    browser,
+    links,
+):
+    """
+    Carga cada noticia UNA sola vez.
+    """
+
+    articles = []
+
+    for index, item in enumerate(
+        links
+    ):
+
+        print(
+            f"    Leyendo noticia "
+            f"{index + 1}/{len(links)}"
+        )
+
+        page = browser.new_page()
+
+        try:
+
+            page.goto(
+                item["url"],
+                wait_until="domcontentloaded",
+                timeout=45000,
+            )
+
+            page.wait_for_timeout(
+                400
+            )
+
+            text = page.locator(
+                "body"
+            ).inner_text()
+
+            articles.append(
+                {
+                    "url": item["url"],
+                    "title": item["title"],
+                    "text": text,
+                }
+            )
+
+        except Exception:
+            pass
+
+        finally:
+            page.close()
+
+    return articles
+
+
+def category_in_article(
+    article_text,
     championship,
 ):
     text = normalize(
-        title
+        article_text
     )
 
-    score = 0
+    if championship == "TC":
+        # Si habla explícitamente de TCP
+        # o TCPK, no la usamos como noticia
+        # exclusiva de TC.
+        if (
+            "tc pista" in text
+            or "tc pick up" in text
+            or "tcpk" in text
+        ):
+            return (
+                "turismo carretera" in text
+                or re.search(
+                    r"\btc\b",
+                    text,
+                )
+                is not None
+            )
+
+        return (
+            "turismo carretera" in text
+            or re.search(
+                r"\btc\b",
+                text,
+            )
+            is not None
+        )
+
+    if championship == "TC Pista":
+        return (
+            "tc pista" in text
+            or "tc pista" in normalize(
+                article_text[:1000]
+            )
+        )
+
+    if championship == "TC Pick Up":
+        return (
+            "tc pick up" in text
+            or "tc pick-up" in text
+            or "tcpk" in text
+        )
+
+    return False
+
+
+def article_matches_date(
+    article_text,
+    calendar_event,
+):
+    text = normalize(
+        article_text
+    )
+
+    date = calendar_event[
+        "date"
+    ]
+
+    month = MONTH_NAMES[
+        date.month
+    ]
+
+    variants = [
+        f"{date.day} de {month}",
+        f"{date.day:02d}/{date.month:02d}/{date.year}",
+        f"{date.day}/{date.month}/{date.year}",
+        f"fecha {calendar_event['round']}",
+    ]
+
+    for variant in variants:
+
+        if normalize(
+            variant
+        ) in text:
+            return True
 
     location = normalize(
         calendar_event[
@@ -342,23 +461,42 @@ def article_score(
         and len(location) >= 4
         and location in text
     ):
-        score += 20
+        return True
 
-    round_number = str(
-        calendar_event[
-            "round"
-        ]
+    return False
+
+
+def article_score(
+    article,
+    championship,
+    calendar_event,
+):
+    text = normalize(
+        article["title"]
+        + " "
+        + article["text"]
     )
 
-    if (
-        f"fecha {round_number}" in text
-        or f"fecha {round_number}:" in text
+    score = 0
+
+    if not category_in_article(
+        text,
+        championship,
     ):
-        score += 15
+        return -100
 
     date = calendar_event[
         "date"
     ]
+
+    location = normalize(
+        calendar_event[
+            "location"
+        ]
+    )
+
+    if location in text:
+        score += 20
 
     month = MONTH_NAMES[
         date.month
@@ -368,31 +506,13 @@ def article_score(
         f"{date.day} de {month}"
         in text
     ):
-        score += 10
+        score += 20
 
-    if championship == "TC":
-        if (
-            "turismo carretera" in text
-            or re.search(
-                r"\btc\b",
-                text,
-            )
-        ):
-            score += 5
-
-    if championship == "TC Pista":
-        if (
-            "tc pista" in text
-            or "tcp" in text
-        ):
-            score += 5
-
-    if championship == "TC Pick Up":
-        if (
-            "tc pick up" in text
-            or "tcpk" in text
-        ):
-            score += 5
+    if (
+        f"fecha {calendar_event['round']}"
+        in text
+    ):
+        score += 15
 
     for word in (
         "cronograma",
@@ -511,18 +631,14 @@ def build_event(
     }
 
 
-def extract_article_events(
-    page,
+def extract_events(
+    article,
     championship,
     calendar_event,
 ):
-    text = page.locator(
-        "body"
-    ).inner_text()
-
     lines = [
         clean(line)
-        for line in text.splitlines()
+        for line in article["text"].splitlines()
         if clean(line)
     ]
 
@@ -532,7 +648,9 @@ def extract_article_events(
         "date"
     ]
 
-    for index, line in enumerate(lines):
+    for index, line in enumerate(
+        lines
+    ):
 
         date = parse_date(
             line
@@ -555,7 +673,7 @@ def extract_article_events(
         if not times:
 
             for next_line in lines[
-                index + 1:index + 4
+                index + 1:index + 5
             ]:
 
                 times = parse_times(
@@ -575,7 +693,7 @@ def extract_article_events(
             current_date,
             times[0],
             line,
-            page.url,
+            article["url"],
         )
 
         events.append(
@@ -667,156 +785,149 @@ def process_category(
             f"{len(calendar_events)}"
         )
 
-        # Una sola página de noticias.
-        news_page = browser.new_page()
-
-        try:
-
-            news_page.goto(
-                config["news"],
-                wait_until="domcontentloaded",
-                timeout=90000,
-            )
-
-            news_page.wait_for_timeout(
-                1500
-            )
-
-            news_links = get_news_links(
-                news_page
-            )
-
-        finally:
-            news_page.close()
-
-        print(
-            f"  Noticias visibles: "
-            f"{len(news_links)}"
-        )
-
-        results = []
-
-        for item in calendar_events:
-
-            print(
-                f"  Fecha {item['round']}: "
-                f"{item['date']} "
-                f"{item['location']}"
-            )
-
-            ranked = []
-
-            for article in news_links:
-
-                score = article_score(
-                    article["title"],
-                    item,
-                    championship,
-                )
-
-                if score >= 10:
-                    ranked.append(
-                        (
-                            score,
-                            article,
-                        )
-                    )
-
-            ranked.sort(
-                key=lambda x: x[0],
-                reverse=True,
-            )
-
-            # Como máximo 2 noticias por fecha.
-            candidates = [
-                article
-                for score, article in ranked[:2]
-            ]
-
-            print(
-                f"    Candidatas: "
-                f"{len(candidates)}"
-            )
-
-            found = []
-
-            for article in candidates:
-
-                article_page = browser.new_page()
-
-                try:
-
-                    article_page.goto(
-                        article["url"],
-                        wait_until="domcontentloaded",
-                        timeout=45000,
-                    )
-
-                    article_page.wait_for_timeout(
-                        500
-                    )
-
-                    events = (
-                        extract_article_events(
-                            article_page,
-                            championship,
-                            item,
-                        )
-                    )
-
-                    if events:
-
-                        found.extend(
-                            events
-                        )
-
-                        print(
-                            f"    Horarios: "
-                            f"{len(events)}"
-                        )
-
-                        print(
-                            f"    Fuente: "
-                            f"{article['url']}"
-                        )
-
-                except Exception:
-                    pass
-
-                finally:
-                    article_page.close()
-
-            unique = {}
-
-            for event in found:
-                unique[
-                    event["uid"]
-                ] = event
-
-            found = list(
-                unique.values()
-            )
-
-            if found:
-                results.extend(
-                    found
-                )
-            else:
-                print(
-                    "    Sin horarios publicados."
-                )
-
-                results.append(
-                    fallback_event(
-                        championship,
-                        item,
-                    )
-                )
-
-        return results
-
     finally:
         calendar_page.close()
+
+    news_page = browser.new_page()
+
+    try:
+
+        news_page.goto(
+            config["news"],
+            wait_until="domcontentloaded",
+            timeout=90000,
+        )
+
+        news_page.wait_for_timeout(
+            1500
+        )
+
+        links = get_news_links(
+            news_page
+        )
+
+    finally:
+        news_page.close()
+
+    print(
+        f"  Noticias visibles: "
+        f"{len(links)}"
+    )
+
+    print(
+        "  Descargando contenido "
+        "de noticias..."
+    )
+
+    articles = load_news(
+        browser,
+        links,
+    )
+
+    print(
+        f"  Noticias cargadas: "
+        f"{len(articles)}"
+    )
+
+    results = []
+
+    for calendar_event in calendar_events:
+
+        round_number = calendar_event[
+            "round"
+        ]
+
+        print(
+            f"  Fecha {round_number}: "
+            f"{calendar_event['date']} "
+            f"{calendar_event['location']}"
+        )
+
+        ranked = []
+
+        for article in articles:
+
+            score = article_score(
+                article,
+                championship,
+                calendar_event,
+            )
+
+            if score >= 15:
+                ranked.append(
+                    (
+                        score,
+                        article,
+                    )
+                )
+
+        ranked.sort(
+            key=lambda x: x[0],
+            reverse=True,
+        )
+
+        candidates = [
+            article
+            for score, article
+            in ranked[:3]
+        ]
+
+        print(
+            f"    Candidatas: "
+            f"{len(candidates)}"
+        )
+
+        found = []
+
+        for article in candidates:
+
+            events = extract_events(
+                article,
+                championship,
+                calendar_event,
+            )
+
+            if events:
+                found.extend(
+                    events
+                )
+
+        unique = {}
+
+        for event in found:
+            unique[
+                event["uid"]
+            ] = event
+
+        found = list(
+            unique.values()
+        )
+
+        if found:
+
+            print(
+                f"    Horarios: "
+                f"{len(found)}"
+            )
+
+            results.extend(
+                found
+            )
+
+        else:
+
+            print(
+                "    Sin horarios publicados."
+            )
+
+            results.append(
+                fallback_event(
+                    championship,
+                    calendar_event,
+                )
+            )
+
+    return results
 
 
 def main():
