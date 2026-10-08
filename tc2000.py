@@ -5,8 +5,12 @@ from curl_cffi import requests
 URL = "https://tc2000.com.ar/carreras.php?accion=historial&id=411&temp="
 
 
+def clean_text(text):
+    return " ".join(text.split())
+
+
 def main():
-    print("=== INSPECCIÓN FECHA 1 TC2000 ===")
+    print("=== INSPECCIÓN CRONOGRAMA FECHA 1 TC2000 ===")
     print(f"URL: {URL}")
     print()
 
@@ -17,7 +21,6 @@ def main():
     )
 
     print(f"HTTP: {response.status_code}")
-    print(f"URL final: {response.url}")
     print(f"Bytes: {len(response.content)}")
     print()
 
@@ -25,93 +28,83 @@ def main():
 
     soup = BeautifulSoup(response.text, "html.parser")
 
-    print("=== TÍTULO ===")
-
-    if soup.title:
-        print(soup.title.get_text(" ", strip=True))
-
-    print()
-
-    print("=== TEXTO RELACIONADO CON HORARIOS ===")
-
-    palabras = (
-        "hora",
-        "horario",
-        "práctica",
-        "entrenamiento",
-        "clasificación",
-        "clasificacion",
-        "carrera",
-        "sábado",
-        "sabado",
-        "domingo",
-        "viernes",
-    )
+    print("=== ELEMENTOS CON 'CRONOGRAMA' ===")
 
     encontrados = 0
 
     for element in soup.find_all(
-        string=True
+        string=lambda text: (
+            text is not None
+            and "cronograma" in text.lower()
+        )
     ):
-        texto = " ".join(element.split())
+        parent = element.parent
+
+        if parent is None:
+            continue
+
+        print()
+        print(f"TAG: {parent.name}")
+        print(
+            f"TEXTO: {clean_text(parent.get_text(' ', strip=True))}"
+        )
+        print("HTML:")
+        print(str(parent)[:5000])
+
+        if parent.parent is not None:
+            print()
+            print("HTML PADRE:")
+            print(str(parent.parent)[:10000])
+
+        encontrados += 1
+
+        if encontrados >= 10:
+            break
+
+    print()
+    print(f"Elementos encontrados: {encontrados}")
+
+    print()
+    print("=== ELEMENTOS CON HORARIOS ===")
+
+    encontrados_hora = 0
+
+    for element in soup.find_all(
+        string=lambda text: (
+            text is not None
+            and any(
+                caracter in text
+                for caracter in (
+                    ":00",
+                    ":15",
+                    ":30",
+                    ":45",
+                )
+            )
+        )
+    ):
+        texto = clean_text(element)
 
         if not texto:
             continue
 
-        texto_lower = texto.lower()
-
-        if any(
-            palabra in texto_lower
-            for palabra in palabras
-        ):
-            print(texto)
-            encontrados += 1
-
-            if encontrados >= 100:
-                break
-
-    print()
-    print(f"Textos encontrados: {encontrados}")
-
-    print()
-    print("=== TABLAS ===")
-
-    tablas = soup.find_all("table")
-
-    print(f"Tablas encontradas: {len(tablas)}")
-
-    for numero, tabla in enumerate(
-        tablas,
-        start=1,
-    ):
         print()
-        print(f"--- TABLA {numero} ---")
+        print(f"TEXTO: {texto}")
+        print(f"TAG: {element.parent.name}")
         print(
-            " ".join(
-                tabla.get_text(
-                    " ",
-                    strip=True
-                ).split()
-            )[:5000]
+            f"HTML: {str(element.parent)[:3000]}"
         )
+
+        encontrados_hora += 1
+
+        if encontrados_hora >= 50:
+            break
 
     print()
-    print("=== ENCABEZADOS ===")
-
-    for tag in soup.find_all(
-        ["h1", "h2", "h3", "h4"]
-    ):
-        texto = " ".join(
-            tag.get_text(
-                " ",
-                strip=True
-            ).split()
-        )
-
-        if texto:
-            print(
-                f"{tag.name.upper()}: {texto}"
-            )
+    print(
+        f"Elementos con posibles horarios: "
+        f"{encontrados_hora}"
+    )
 
     print()
     print("=== FIN INSPECCIÓN ===")
