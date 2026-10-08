@@ -7822,11 +7822,27 @@ LOCATION:Petronas Sepang International Circuit\\\, Malaysia
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:gtwc-asia-2026-shanghai-international-circuit@motorsport-calendar-FP1
+DTSTART:20261030T023800Z
+DTEND:20261030T033800Z
+SUMMARY:GT World Challenge Asia - Entrenamiento
+LOCATION:Shanghai International Circuit\\\, China
+DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
 UID:motogp-2026-d1aedfce-d7c8-4d4a-9532-99c82547baad@motorsport-calendar-F
 DTSTART:20261030T024500Z
 DTEND:20261030T033000Z
 SUMMARY:MotoGP - Entrenamiento
 LOCATION:Petronas Sepang International Circuit\\\, Malaysia
+DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:gtwc-asia-2026-shanghai-international-circuit@motorsport-calendar-FP2
+DTSTART:20261030T034500Z
+DTEND:20261030T044500Z
+SUMMARY:GT World Challenge Asia - Evento
+LOCATION:Shanghai International Circuit\\\, China
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
@@ -7886,6 +7902,14 @@ LOCATION:Petronas Sepang International Circuit\\\, Malaysia
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
+UID:gtwc-asia-2026-shanghai-international-circuit@motorsport-calendar-SPRI
+DTSTART:20261031T013500Z
+DTEND:20261031T025700Z
+SUMMARY:GT World Challenge Asia - Clasificación
+LOCATION:Shanghai International Circuit\\\, China
+DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
 UID:motogp-2026-d1aedfce-d7c8-4d4a-9532-99c82547baad@motorsport-calendar-F
 DTSTART:20261031T021000Z
 DTEND:20261031T024000Z
@@ -7907,6 +7931,14 @@ DTSTART:20261031T044500Z
 DTEND:20261031T052500Z
 SUMMARY:Moto3 - Clasificación
 LOCATION:Petronas Sepang International Circuit\\\, Malaysia
+DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:gtwc-asia-2026-shanghai-international-circuit@motorsport-calendar-SPRI
+DTSTART:20261031T045000Z
+DTEND:20261031T055000Z
+SUMMARY:GT World Challenge Asia - Carrera
+LOCATION:Shanghai International Circuit\\\, China
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
@@ -7947,6 +7979,14 @@ DTSTART:20261101T030000Z
 DTEND:20261101T033500Z
 SUMMARY:Moto3 - Carrera
 LOCATION:Petronas Sepang International Circuit\\\, Malaysia
+DESCRIPTION:Reminder
+END:VEVENT
+BEGIN:VEVENT
+UID:gtwc-asia-2026-shanghai-international-circuit@motorsport-calendar-RACE
+DTSTART:20261101T050500Z
+DTEND:20261101T063500Z
+SUMMARY:GT World Challenge Asia - Carrera
+LOCATION:Shanghai International Circuit\\\, China
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT

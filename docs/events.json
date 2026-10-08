@@ -10936,6 +10936,17 @@
     "prioridad": ""
   },
   {
+    "uid": "gtwc-asia-2026-shanghai-international-circuit@motorsport-calendar-FP1",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge Asia",
+    "tipo": "Entrenamiento",
+    "fecha_inicio": "20261030T023800Z",
+    "fecha_fin": "20261030T033800Z",
+    "ubicacion": "Shanghai International Circuit\\, China",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
     "uid": "motogp-2026-d1aedfce-d7c8-4d4a-9532-99c82547baad@motorsport-calendar-F",
     "categoria": "Motos",
     "campeonato": "MotoGP",
@@ -10943,6 +10954,17 @@
     "fecha_inicio": "20261030T024500Z",
     "fecha_fin": "20261030T033000Z",
     "ubicacion": "Petronas Sepang International Circuit\\, Malaysia",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
+    "uid": "gtwc-asia-2026-shanghai-international-circuit@motorsport-calendar-FP2",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge Asia",
+    "tipo": "Evento",
+    "fecha_inicio": "20261030T034500Z",
+    "fecha_fin": "20261030T044500Z",
+    "ubicacion": "Shanghai International Circuit\\, China",
     "descripcion": "Reminder",
     "prioridad": ""
   },
@@ -11024,6 +11046,17 @@
     "prioridad": ""
   },
   {
+    "uid": "gtwc-asia-2026-shanghai-international-circuit@motorsport-calendar-SPRI",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge Asia",
+    "tipo": "Clasificación",
+    "fecha_inicio": "20261031T013500Z",
+    "fecha_fin": "20261031T025700Z",
+    "ubicacion": "Shanghai International Circuit\\, China",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
     "uid": "motogp-2026-d1aedfce-d7c8-4d4a-9532-99c82547baad@motorsport-calendar-F",
     "categoria": "Motos",
     "campeonato": "MotoGP",
@@ -11053,6 +11086,17 @@
     "fecha_inicio": "20261031T044500Z",
     "fecha_fin": "20261031T052500Z",
     "ubicacion": "Petronas Sepang International Circuit\\, Malaysia",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
+    "uid": "gtwc-asia-2026-shanghai-international-circuit@motorsport-calendar-SPRI",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge Asia",
+    "tipo": "Carrera",
+    "fecha_inicio": "20261031T045000Z",
+    "fecha_fin": "20261031T055000Z",
+    "ubicacion": "Shanghai International Circuit\\, China",
     "descripcion": "Reminder",
     "prioridad": ""
   },
@@ -11108,6 +11152,17 @@
     "fecha_inicio": "20261101T030000Z",
     "fecha_fin": "20261101T033500Z",
     "ubicacion": "Petronas Sepang International Circuit\\, Malaysia",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
+    "uid": "gtwc-asia-2026-shanghai-international-circuit@motorsport-calendar-RACE",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge Asia",
+    "tipo": "Carrera",
+    "fecha_inicio": "20261101T050500Z",
+    "fecha_fin": "20261101T063500Z",
+    "ubicacion": "Shanghai International Circuit\\, China",
     "descripcion": "Reminder",
     "prioridad": ""
   },
