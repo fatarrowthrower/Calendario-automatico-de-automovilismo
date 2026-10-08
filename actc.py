@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from urllib.parse import urljoin
 
-from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
 
 
@@ -12,19 +11,17 @@ YEAR = datetime.now().year
 
 OUTPUT = Path("data/actc_events.json")
 
+
 CATEGORIES = {
     "TC": {
-        "page": "https://actc.org.ar/tc",
         "calendar": "https://actc.org.ar/tc/calendario",
         "code": "TC",
     },
     "TC Pista": {
-        "page": "https://actc.org.ar/tcp",
         "calendar": "https://actc.org.ar/tcp/calendario",
         "code": "TCP",
     },
     "TC Pick Up": {
-        "page": "https://actc.org.ar/tcpk",
         "calendar": "https://actc.org.ar/tcpk/calendario",
         "code": "TCPK",
     },
@@ -92,22 +89,15 @@ def parse_date(text):
     if not match:
         return None
 
-    day = int(match.group(1))
-    month = MONTHS.get(
-        match.group(2).lower()
-    )
-    year = int(match.group(3))
-
-    if not month:
-        return None
-
     try:
         return datetime(
-            year,
-            month,
-            day,
+            int(match.group(3)),
+            MONTHS[
+                match.group(2).lower()
+            ],
+            int(match.group(1)),
         ).date()
-    except ValueError:
+    except Exception:
         return None
 
 
@@ -126,11 +116,11 @@ def parse_numeric_date(text):
             int(match.group(2)),
             int(match.group(1)),
         ).date()
-    except ValueError:
+    except Exception:
         return None
 
 
-def parse_calendar_page(
+def get_calendar_events(
     page,
     championship,
 ):
@@ -193,15 +183,14 @@ def parse_calendar_page(
         if date.year != YEAR:
             continue
 
-        # Si la fecha está en la línea pero
-        # "Fecha N" está unas líneas antes,
-        # buscamos hacia atrás.
         if current_round is None:
+
             for previous in reversed(
                 lines[
-                    max(0, index - 8):index
+                    max(0, index - 10):index
                 ]
             ):
+
                 previous_match = re.search(
                     r"Fecha\s+(\d+)",
                     previous,
@@ -235,75 +224,190 @@ def parse_calendar_page(
             )
         ] = event
 
-    result = list(
+    events = list(
         unique.values()
     )
 
-    result.sort(
-        key=lambda item: (
-            item["date"],
-            item["round"],
-        )
+    events.sort(
+        key=lambda event: event["date"]
     )
 
     print(
         f"  Fechas encontradas: "
-        f"{len(result)}"
+        f"{len(events)}"
     )
 
-    return result
+    return events
 
 
-def discover_cronogram_links(page):
-    links = []
+def find_date_elements(
+    page,
+):
+    """
+    Busca elementos visibles que contienen
+    'Fecha N'.
 
-    anchors = page.locator(
-        "a"
-    )
+    No asumimos una clase CSS concreta.
+    """
 
-    count = anchors.count()
+    elements = []
 
-    for index in range(count):
+    locators = [
+        page.get_by_text(
+            re.compile(
+                r"Fecha\s+\d+",
+                re.IGNORECASE,
+            )
+        ),
+        page.locator(
+            "button"
+        ),
+        page.locator(
+            "a"
+        ),
+    ]
 
-        anchor = anchors.nth(
-            index
-        )
+    seen = set()
+
+    for locator in locators:
 
         try:
-            href = anchor.get_attribute(
-                "href"
-            )
-
-            text = clean(
-                anchor.inner_text()
-            )
+            count = locator.count()
         except Exception:
             continue
 
-        if not href:
-            continue
+        for index in range(
+            min(count, 500)
+        ):
 
-        full_url = urljoin(
-            page.url,
-            href,
+            try:
+                element = locator.nth(
+                    index
+                )
+
+                text = clean(
+                    element.inner_text()
+                )
+
+                if not text:
+                    continue
+
+                match = re.search(
+                    r"Fecha\s+(\d+)",
+                    text,
+                    re.IGNORECASE,
+                )
+
+                if not match:
+                    continue
+
+                round_number = int(
+                    match.group(1)
+                )
+
+                key = (
+                    round_number,
+                    text,
+                )
+
+                if key in seen:
+                    continue
+
+                seen.add(key)
+
+                elements.append(
+                    {
+                        "element": element,
+                        "round": round_number,
+                        "text": text,
+                    }
+                )
+
+            except Exception:
+                continue
+
+    return elements
+
+
+def find_cronograma_link(
+    page,
+):
+    """
+    Busca el botón/link Cronograma DESPUÉS
+    de seleccionar una fecha.
+    """
+
+    candidates = []
+
+    try:
+        links = page.locator(
+            "a"
         )
 
-        lower_url = full_url.lower()
-        lower_text = text.lower()
-
-        if (
-            "/cronogramas/" in lower_url
-            or "cronograma" in lower_text
+        for index in range(
+            min(links.count(), 300)
         ):
-            if full_url not in links:
-                links.append(
+
+            link = links.nth(
+                index
+            )
+
+            try:
+                href = link.get_attribute(
+                    "href"
+                )
+
+                text = clean(
+                    link.inner_text()
+                )
+            except Exception:
+                continue
+
+            if not href:
+                continue
+
+            full_url = urljoin(
+                page.url,
+                href,
+            )
+
+            if (
+                "/cronogramas/" in
+                full_url.lower()
+            ):
+                candidates.append(
                     full_url
                 )
 
-    return links
+            elif (
+                "cronograma" in
+                text.lower()
+            ):
+                candidates.append(
+                    full_url
+                )
+
+    except Exception:
+        pass
+
+    # Eliminar duplicados.
+    unique = []
+
+    for url in candidates:
+        if url not in unique:
+            unique.append(
+                url
+            )
+
+    if unique:
+        return unique[0]
+
+    return None
 
 
-def classify_session(text):
+def classify_session(
+    text,
+):
     lower = text.lower()
 
     if (
@@ -339,8 +443,8 @@ def category_matches(
 
     if code == "TC":
         return (
-            "TCPK" not in upper
-            and "TCP" not in upper
+            "TCP" not in upper
+            and "TCPK" not in upper
             and re.search(
                 r"\bTC\b",
                 upper,
@@ -364,7 +468,9 @@ def category_matches(
     return False
 
 
-def parse_time_range(text):
+def parse_time_range(
+    text,
+):
     match = re.search(
         r"\b"
         r"([01]?\d|2[0-3]):([0-5]\d)"
@@ -378,17 +484,13 @@ def parse_time_range(text):
     )
 
     if match:
-        start = (
+
+        return (
             f"{int(match.group(1)):02d}:"
-            f"{int(match.group(2)):02d}"
-        )
-
-        end = (
+            f"{int(match.group(2)):02d}",
             f"{int(match.group(3)):02d}:"
-            f"{int(match.group(4)):02d}"
+            f"{int(match.group(4)):02d}",
         )
-
-        return start, end
 
     match = re.search(
         r"\b"
@@ -398,6 +500,7 @@ def parse_time_range(text):
     )
 
     if match:
+
         return (
             f"{int(match.group(1)):02d}:"
             f"{int(match.group(2)):02d}",
@@ -407,7 +510,9 @@ def parse_time_range(text):
     return None, None
 
 
-def parse_duration(text):
+def parse_duration(
+    text,
+):
     match = re.search(
         r"(\d+)\s*(?:min|minutos)",
         text,
@@ -422,7 +527,7 @@ def parse_duration(text):
     )
 
 
-def build_session(
+def build_event(
     championship,
     code,
     calendar_event,
@@ -452,10 +557,6 @@ def build_session(
     if not start_time:
         return None
 
-    name = clean(
-        line
-    )
-
     start = datetime.strptime(
         (
             f"{date.isoformat()} "
@@ -465,6 +566,7 @@ def build_session(
     )
 
     if end_time:
+
         end = datetime.strptime(
             (
                 f"{date.isoformat()} "
@@ -479,8 +581,9 @@ def build_session(
             )
 
     else:
+
         duration = parse_duration(
-            name
+            line
         )
 
         if duration:
@@ -498,14 +601,20 @@ def build_session(
                 )
             )
 
+    name = clean(
+        line
+    )
+
+    uid = (
+        "actc-"
+        f"{slugify(championship)}-"
+        f"{date.isoformat()}-"
+        f"{start_time.replace(':', '')}-"
+        f"{slugify(name)}"
+    )
+
     return {
-        "uid": (
-            "actc-"
-            f"{slugify(championship)}-"
-            f"{date.isoformat()}-"
-            f"{start_time.replace(':', '')}-"
-            f"{slugify(name)}"
-        ),
+        "uid": uid,
         "categoria": "Argentina",
         "campeonato": championship,
         "tipo": tipo,
@@ -530,13 +639,17 @@ def build_session(
     }
 
 
-def parse_cronograma_page(
-    page,
+def parse_schedule(
+    schedule_page,
     championship,
     code,
-    calendar_events,
+    calendar_event,
 ):
-    text = page.locator(
+    """
+    Lee el texto ya renderizado por Chromium.
+    """
+
+    text = schedule_page.locator(
         "body"
     ).inner_text()
 
@@ -548,7 +661,9 @@ def parse_cronograma_page(
 
     events = []
 
-    current_date = None
+    current_date = calendar_event[
+        "date"
+    ]
 
     for line in lines:
 
@@ -568,53 +683,35 @@ def parse_cronograma_page(
         upper = line.upper()
 
         if "VIERNES" in upper:
-            if current_date:
-                current_date = current_date
+            current_date = (
+                calendar_event["date"]
+                - timedelta(days=2)
+            )
+            continue
 
-        elif (
+        if (
             "SÁBADO" in upper
             or "SABADO" in upper
         ):
-            pass
-
-        elif "DOMINGO" in upper:
-            pass
-
-        if not current_date:
-            # Si el cronograma no muestra
-            # la fecha en el texto, usamos la
-            # próxima fecha del calendario.
+            current_date = (
+                calendar_event["date"]
+                - timedelta(days=1)
+            )
             continue
 
-        # Buscamos la fecha de calendario
-        # correspondiente.
-        calendar_event = None
-
-        for item in calendar_events:
-            if item["date"] == current_date:
-                calendar_event = item
-                break
-
-        if not calendar_event:
-            # Algunas páginas sólo muestran
-            # el día de la semana.
-            calendar_event = min(
-                calendar_events,
-                key=lambda item: abs(
-                    (
-                        item["date"]
-                        - current_date
-                    ).days
-                ),
+        if "DOMINGO" in upper:
+            current_date = (
+                calendar_event["date"]
             )
+            continue
 
-        event = build_session(
-            championship=championship,
-            code=code,
-            calendar_event=calendar_event,
-            date=current_date,
-            line=line,
-            source=page.url,
+        event = build_event(
+            championship,
+            code,
+            calendar_event,
+            current_date,
+            line,
+            schedule_page.url,
         )
 
         if event:
@@ -693,10 +790,6 @@ def process_category(
     page = browser.new_page()
 
     try:
-        print(
-            f"  Abriendo: "
-            f"{config['calendar']}"
-        )
 
         page.goto(
             config["calendar"],
@@ -709,37 +802,11 @@ def process_category(
         )
 
         calendar_events = (
-            parse_calendar_page(
+            get_calendar_events(
                 page,
                 championship,
             )
         )
-
-        # Si el calendario dinámico no se pudo
-        # leer, intentamos la página de categoría.
-        if not calendar_events:
-
-            print(
-                "  Calendario sin fechas. "
-                "Probando página de categoría..."
-            )
-
-            page.goto(
-                config["page"],
-                wait_until="networkidle",
-                timeout=60000,
-            )
-
-            page.wait_for_timeout(
-                3000
-            )
-
-            calendar_events = (
-                parse_calendar_page(
-                    page,
-                    championship,
-                )
-            )
 
         all_events = fallback_events(
             championship,
@@ -751,76 +818,167 @@ def process_category(
             f"{len(all_events)}"
         )
 
-        # Descubrimos los cronogramas
-        # directamente desde el navegador.
-        page.goto(
-            config["page"],
-            wait_until="networkidle",
-            timeout=60000,
-        )
-
-        page.wait_for_timeout(
-            3000
-        )
-
-        links = discover_cronogram_links(
-            page
+        date_elements = (
+            find_date_elements(
+                page
+            )
         )
 
         print(
-            f"  Cronogramas encontrados: "
-            f"{len(links)}"
+            f"  Selectores de fechas "
+            f"detectados: "
+            f"{len(date_elements)}"
         )
 
-        for link in links:
+        # Procesamos cada fecha.
+        processed_rounds = set()
 
-            print(
-                f"    Abriendo cronograma: "
-                f"{link}"
+        for date_info in date_elements:
+
+            round_number = date_info[
+                "round"
+            ]
+
+            if round_number in processed_rounds:
+                continue
+
+            processed_rounds.add(
+                round_number
             )
 
-            schedule_page = (
-                browser.new_page()
+            calendar_event = None
+
+            for event in calendar_events:
+                if event[
+                    "round"
+                ] == round_number:
+                    calendar_event = event
+                    break
+
+            if not calendar_event:
+                continue
+
+            print(
+                f"  Fecha {round_number}: "
+                f"{calendar_event['date']} "
+                f"{calendar_event['location']}"
             )
 
             try:
 
-                schedule_page.goto(
-                    link,
+                # Volvemos a la página del
+                # calendario antes de cada click,
+                # así evitamos que el estado anterior
+                # interfiera.
+                page.goto(
+                    config["calendar"],
                     wait_until="networkidle",
                     timeout=60000,
                 )
 
-                schedule_page.wait_for_timeout(
-                    3000
+                page.wait_for_timeout(
+                    1500
                 )
 
-                sessions = (
-                    parse_cronograma_page(
-                        schedule_page,
-                        championship,
-                        config["code"],
-                        calendar_events,
+                selectors = (
+                    find_date_elements(
+                        page
                     )
                 )
 
-                print(
-                    f"    Sesiones encontradas: "
-                    f"{len(sessions)}"
+                target = None
+
+                for candidate in selectors:
+                    if candidate[
+                        "round"
+                    ] == round_number:
+                        target = candidate[
+                            "element"
+                        ]
+                        break
+
+                if target is None:
+                    print(
+                        "    No se encontró "
+                        "el selector de esta fecha."
+                    )
+                    continue
+
+                try:
+                    target.scroll_into_view_if_needed(
+                        timeout=5000
+                    )
+                except Exception:
+                    pass
+
+                target.click(
+                    timeout=10000
                 )
 
-                all_events.extend(
-                    sessions
+                page.wait_for_timeout(
+                    2500
                 )
+
+                cronograma = (
+                    find_cronograma_link(
+                        page
+                    )
+                )
+
+                if not cronograma:
+                    print(
+                        "    No apareció "
+                        "cronograma."
+                    )
+                    continue
+
+                print(
+                    f"    Cronograma: "
+                    f"{cronograma}"
+                )
+
+                schedule_page = (
+                    browser.new_page()
+                )
+
+                try:
+
+                    schedule_page.goto(
+                        cronograma,
+                        wait_until="networkidle",
+                        timeout=60000,
+                    )
+
+                    schedule_page.wait_for_timeout(
+                        3000
+                    )
+
+                    sessions = parse_schedule(
+                        schedule_page,
+                        championship,
+                        config["code"],
+                        calendar_event,
+                    )
+
+                    print(
+                        f"    Sesiones: "
+                        f"{len(sessions)}"
+                    )
+
+                    all_events.extend(
+                        sessions
+                    )
+
+                finally:
+                    schedule_page.close()
 
             except Exception as exc:
 
                 print(
-                    f"    ERROR: {exc}"
+                    f"    ERROR Fecha "
+                    f"{round_number}: "
+                    f"{exc}"
                 )
-
-            finally:
-                schedule_page.close()
 
         return all_events
 
@@ -930,6 +1088,7 @@ def main():
     championships = {}
 
     for event in events:
+
         name = event[
             "campeonato"
         ]
@@ -958,6 +1117,7 @@ def main():
     types = {}
 
     for event in events:
+
         tipo = event[
             "tipo"
         ]
