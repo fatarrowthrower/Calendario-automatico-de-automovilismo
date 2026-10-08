@@ -112,65 +112,105 @@ def parse_calendar():
     races = []
 
     for box in soup.select("div.box-fechas"):
-        text = clean_text(box.get_text(" ", strip=True))
+        # El número de fecha está en:
+        # <span class="item-fechas">01</span>
+        round_span = box.select_one("span.item-fechas")
 
-        round_match = re.search(
-            r"(?:FECHA|ROUND)\s*(\d+)",
-            text,
-            re.IGNORECASE,
-        )
-
-        if not round_match:
+        if not round_span:
             continue
 
-        round_number = int(round_match.group(1))
+        round_text = clean_text(
+            round_span.get_text(" ", strip=True)
+        )
+
+        if not round_text.isdigit():
+            continue
+
+        round_number = int(round_text)
+
+        # La fecha está en:
+        # <span class="gris">15-03</span>
+        date_span = box.select_one("span.gris")
+
+        if not date_span:
+            print(
+                f"TC2000: Fecha {round_number:02d}: "
+                "no se encontró fecha"
+            )
+            continue
+
+        date_text = clean_text(
+            date_span.get_text(" ", strip=True)
+        )
 
         date_match = re.search(
-            rf"(\d{{1,2}})\s+DE\s+"
-            r"(ENERO|FEBRERO|MARZO|ABRIL|MAYO|JUNIO|JULIO|AGOSTO|"
-            r"SEPTIEMBRE|SETIEMBRE|OCTUBRE|NOVIEMBRE|DICIEMBRE)",
-            text,
-            re.IGNORECASE,
+            r"(\d{1,2})-(\d{1,2})",
+            date_text,
         )
 
         if not date_match:
+            print(
+                f"TC2000: Fecha {round_number:02d}: "
+                f"fecha inválida: {date_text}"
+            )
             continue
 
         day = int(date_match.group(1))
-        month_name = date_match.group(2).upper()
-        month = MONTHS.get(month_name)
+        month = int(date_match.group(2))
 
-        if not month:
+        try:
+            base_date = datetime(
+                YEAR,
+                month,
+                day,
+            ).date()
+        except ValueError as exc:
+            print(
+                f"TC2000: Fecha {round_number:02d}: "
+                f"fecha inválida {date_text}: {exc}"
+            )
             continue
 
-        base_date = datetime(YEAR, month, day).date()
-
+        # Nombre del circuito.
         track = ""
 
+        track_heading = box.find("h3")
+
+        if track_heading:
+            track = clean_text(
+                track_heading.get_text(
+                    " ",
+                    strip=True,
+                )
+            )
+
+        if not track:
+            track = f"TC2000 Fecha {round_number:02d}"
+
+        # Buscamos el enlace al historial.
         history_link = None
 
         for link in box.find_all("a", href=True):
             href = link["href"]
 
-            if "historia" in href.lower():
+            if (
+                "carreras.php" in href
+                and "accion=historial" in href
+                and "id=" in href
+            ):
                 history_link = href
                 break
 
-        if history_link and history_link.startswith("/"):
-            history_link = "https://www.tc2000.com.ar" + history_link
-
+        # Fallback: cualquier enlace de historial.
         if not history_link:
             for link in box.find_all("a", href=True):
                 href = link["href"]
 
-                if "carreras.php" in href and "id=" in href:
+                if (
+                    "historial" in href.lower()
+                    and "id=" in href.lower()
+                ):
                     history_link = href
-
-                    if history_link.startswith("/"):
-                        history_link = (
-                            "https://www.tc2000.com.ar" + history_link
-                        )
-
                     break
 
         if not history_link:
@@ -180,46 +220,39 @@ def parse_calendar():
             )
             continue
 
-        # Intentamos obtener el circuito desde el texto.
-        # Eliminamos partes administrativas conocidas.
-        track_text = text
+        if history_link.startswith("/"):
+            history_link = (
+                "https://www.tc2000.com.ar"
+                + history_link
+            )
 
-        track_text = re.sub(
-            r"FECHA\s*\d+",
-            "",
-            track_text,
-            flags=re.IGNORECASE,
-        )
-
-        track_text = re.sub(
-            rf"\d{{1,2}}\s+DE\s+"
-            r"(ENERO|FEBRERO|MARZO|ABRIL|MAYO|JUNIO|JULIO|AGOSTO|"
-            r"SEPTIEMBRE|SETIEMBRE|OCTUBRE|NOVIEMBRE|DICIEMBRE)",
-            "",
-            track_text,
-            flags=re.IGNORECASE,
-        )
-
-        track_text = re.sub(
-            r"\d{1,2}/\d{1,2}/\d{4}",
-            "",
-            track_text,
-        )
-
-        track_text = re.sub(r"\s+", " ", track_text).strip()
+        elif history_link.startswith("carreras.php"):
+            history_link = (
+                "https://www.tc2000.com.ar/"
+                + history_link
+            )
 
         races.append(
             {
                 "round": round_number,
                 "base_date": base_date.isoformat(),
-                "track": track_text,
+                "track": track,
                 "history_url": history_link,
             }
         )
 
-    races.sort(key=lambda x: x["round"])
+        print(
+            f"TC2000: Fecha {round_number:02d} - "
+            f"{base_date.isoformat()} - {track}"
+        )
 
-    print(f"TC2000: {len(races)} fechas encontradas")
+    races.sort(
+        key=lambda race: race["round"]
+    )
+
+    print(
+        f"TC2000: {len(races)} fechas encontradas"
+    )
 
     return races
 
