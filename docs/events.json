@@ -1676,6 +1676,17 @@
     "prioridad": ""
   },
   {
+    "uid": "gtwc-america-2026-sonoma-raceway@motorsport-calendar-FP1",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Entrenamiento",
+    "fecha_inicio": "20260327T230000Z",
+    "fecha_fin": "20260328T000000Z",
+    "ubicacion": "Sonoma Raceway\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
     "uid": "openf1-meeting-1281@motorsport-calendar-FP3",
     "categoria": "Fórmula",
     "campeonato": "F1",
@@ -1777,6 +1788,17 @@
     "prioridad": ""
   },
   {
+    "uid": "gtwc-america-2026-sonoma-raceway@motorsport-calendar-FP2",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Entrenamiento",
+    "fecha_inicio": "20260328T180000Z",
+    "fecha_fin": "20260328T190000Z",
+    "ubicacion": "Sonoma Raceway\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
     "uid": "moto2-2026-8c83648e-8ec9-40f1-9ba0-b0f19883e7d7@motorsport-calendar-QU",
     "categoria": "Motos",
     "campeonato": "Moto2",
@@ -1795,6 +1817,17 @@
     "fecha_inicio": "20260328T201000Z",
     "fecha_fin": "20260328T204000Z",
     "ubicacion": "Circuit Of The Americas\\, United States",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
+    "uid": "gtwc-america-2026-sonoma-raceway@motorsport-calendar-FP3",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Entrenamiento",
+    "fecha_inicio": "20260328T211500Z",
+    "fecha_fin": "20260328T221500Z",
+    "ubicacion": "Sonoma Raceway\\, United States of America",
     "descripcion": "Reminder",
     "prioridad": ""
   },
@@ -1834,6 +1867,17 @@
     "indycar_timezone": true
   },
   {
+    "uid": "gtwc-america-2026-sonoma-raceway@motorsport-calendar-QUALIFYING",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Clasificación",
+    "fecha_inicio": "20260329T155000Z",
+    "fecha_fin": "20260329T165000Z",
+    "ubicacion": "Sonoma Raceway\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
     "uid": "moto3-2026-8c83648e-8ec9-40f1-9ba0-b0f19883e7d7@motorsport-calendar-RA",
     "categoria": "Motos",
     "campeonato": "Moto3",
@@ -1863,6 +1907,17 @@
     "fecha_inicio": "20260329T200000Z",
     "fecha_fin": "20260329T204500Z",
     "ubicacion": "Circuit Of The Americas\\, United States",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
+    "uid": "gtwc-america-2026-sonoma-raceway@motorsport-calendar-RACE",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Carrera",
+    "fecha_inicio": "20260329T204500Z",
+    "fecha_fin": "20260329T221500Z",
+    "ubicacion": "Sonoma Raceway\\, United States of America",
     "descripcion": "Reminder",
     "prioridad": ""
   },
@@ -2378,6 +2433,17 @@
     "prioridad": ""
   },
   {
+    "uid": "gtwc-america-2026-circuit-of-the-americas@motorsport-calendar-FP1",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Entrenamiento",
+    "fecha_inicio": "20260424T212000Z",
+    "fecha_fin": "20260424T222000Z",
+    "ubicacion": "Circuit of the Americas\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
     "uid": "moto3-2026-a24be69b-8472-4aa4-9e83-d3610e0f1d98@motorsport-calendar-FP",
     "categoria": "Motos",
     "campeonato": "Moto3",
@@ -2455,6 +2521,28 @@
     "prioridad": ""
   },
   {
+    "uid": "gtwc-america-2026-circuit-of-the-americas@motorsport-calendar-FP2",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Entrenamiento",
+    "fecha_inicio": "20260425T152500Z",
+    "fecha_fin": "20260425T162500Z",
+    "ubicacion": "Circuit of the Americas\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
+    "uid": "gtwc-america-2026-circuit-of-the-americas@motorsport-calendar-FP3",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Entrenamiento",
+    "fecha_inicio": "20260425T193000Z",
+    "fecha_fin": "20260425T203000Z",
+    "ubicacion": "Circuit of the Americas\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
     "uid": "moto3-2026-a24be69b-8472-4aa4-9e83-d3610e0f1d98@motorsport-calendar-RA",
     "categoria": "Motos",
     "campeonato": "Moto3",
@@ -2484,6 +2572,28 @@
     "fecha_inicio": "20260426T120000Z",
     "fecha_fin": "20260426T124500Z",
     "ubicacion": "Circuito de Jerez - Ángel Nieto\\, Spain",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
+    "uid": "gtwc-america-2026-circuit-of-the-americas@motorsport-calendar-QUALIFYI",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Clasificación",
+    "fecha_inicio": "20260426T134500Z",
+    "fecha_fin": "20260426T144500Z",
+    "ubicacion": "Circuit of the Americas\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
+    "uid": "gtwc-america-2026-circuit-of-the-americas@motorsport-calendar-RACE",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Carrera",
+    "fecha_inicio": "20260426T173000Z",
+    "fecha_fin": "20260426T190000Z",
+    "ubicacion": "Circuit of the Americas\\, United States of America",
     "descripcion": "Reminder",
     "prioridad": ""
   },
@@ -3018,6 +3128,17 @@
     "indycar_timezone": true
   },
   {
+    "uid": "gtwc-america-2026-sebring-international-raceway@motorsport-calendar-FP",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Entrenamiento",
+    "fecha_inicio": "20260508T230000Z",
+    "fecha_fin": "20260509T000000Z",
+    "ubicacion": "Sebring International Raceway\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
     "uid": "moto3-2026-4237f175-c6a4-4d1e-b658-82962baf3fa3@motorsport-calendar-FP",
     "categoria": "Motos",
     "campeonato": "Moto3",
@@ -3119,6 +3240,17 @@
     "indycar_timezone": true
   },
   {
+    "uid": "gtwc-america-2026-sebring-international-raceway@motorsport-calendar-FP",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Entrenamiento",
+    "fecha_inicio": "20260509T125000Z",
+    "fecha_fin": "20260509T135000Z",
+    "ubicacion": "Sebring International Raceway\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
     "uid": "motogp-2026-4237f175-c6a4-4d1e-b658-82962baf3fa3@motorsport-calendar-S",
     "categoria": "Motos",
     "campeonato": "MotoGP",
@@ -3140,6 +3272,28 @@
     "descripcion": "Sonsio Grand Prix - Race\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis",
     "prioridad": "alta",
     "indycar_timezone": true
+  },
+  {
+    "uid": "gtwc-america-2026-sebring-international-raceway@motorsport-calendar-QU",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Clasificación",
+    "fecha_inicio": "20260509T181000Z",
+    "fecha_fin": "20260509T191000Z",
+    "ubicacion": "Sebring International Raceway\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
+    "uid": "gtwc-america-2026-sebring-international-raceway@motorsport-calendar-RA",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Carrera",
+    "fecha_inicio": "20260509T210000Z",
+    "fecha_fin": "20260509T223000Z",
+    "ubicacion": "Sebring International Raceway\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
   },
   {
     "uid": "moto3-2026-4237f175-c6a4-4d1e-b658-82962baf3fa3@motorsport-calendar-RA",
@@ -4643,6 +4797,17 @@
     "prioridad": ""
   },
   {
+    "uid": "gtwc-america-2026-road-atlanta@motorsport-calendar-FP1",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Entrenamiento",
+    "fecha_inicio": "20260612T210500Z",
+    "fecha_fin": "20260612T220500Z",
+    "ubicacion": "Road Atlanta\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
     "uid": "f1calendar-f3-2026-3@motorsport-calendar-SPRINT",
     "categoria": "Fórmula",
     "campeonato": "F3",
@@ -4709,6 +4874,39 @@
     "prioridad": ""
   },
   {
+    "uid": "gtwc-america-2026-road-atlanta@motorsport-calendar-FP2",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Entrenamiento",
+    "fecha_inicio": "20260613T144500Z",
+    "fecha_fin": "20260613T154500Z",
+    "ubicacion": "Road Atlanta\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
+    "uid": "gtwc-america-2026-road-atlanta@motorsport-calendar-FP3",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Entrenamiento",
+    "fecha_inicio": "20260613T174500Z",
+    "fecha_fin": "20260613T184500Z",
+    "ubicacion": "Road Atlanta\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
+    "uid": "gtwc-america-2026-road-atlanta@motorsport-calendar-QUALIFYING",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Clasificación",
+    "fecha_inicio": "20260613T212500Z",
+    "fecha_fin": "20260613T225000Z",
+    "ubicacion": "Road Atlanta\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
     "uid": "f1calendar-f3-2026-3@motorsport-calendar-RACE",
     "categoria": "Fórmula",
     "campeonato": "F3",
@@ -4740,6 +4938,17 @@
     "ubicacion": "Catalunya\\, Spain",
     "descripcion": "Reminder",
     "prioridad": "alta"
+  },
+  {
+    "uid": "gtwc-america-2026-road-atlanta@motorsport-calendar-RACE",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Carrera",
+    "fecha_inicio": "20260614T183000Z",
+    "fecha_fin": "20260614T200000Z",
+    "ubicacion": "Road Atlanta\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
   },
   {
     "uid": "moto3-2026-c2018c5e-fb82-4058-b359-1b7d9769e703@motorsport-calendar-FP",
@@ -7435,6 +7644,17 @@
     "indycar_timezone": true
   },
   {
+    "uid": "gtwc-america-2026-road-america@motorsport-calendar-FP1",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Entrenamiento",
+    "fecha_inicio": "20260828T220000Z",
+    "fecha_fin": "20260828T230000Z",
+    "ubicacion": "Road America\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
     "uid": "gtwc-asia-2026-okayama-international-circuit@motorsport-calendar-SPRIN",
     "categoria": "GT",
     "campeonato": "GT World Challenge Asia",
@@ -7568,6 +7788,28 @@
     "prioridad": ""
   },
   {
+    "uid": "gtwc-america-2026-road-america@motorsport-calendar-FP2",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Entrenamiento",
+    "fecha_inicio": "20260829T155500Z",
+    "fecha_fin": "20260829T165500Z",
+    "ubicacion": "Road America\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
+    "uid": "gtwc-america-2026-road-america@motorsport-calendar-FP3",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Entrenamiento",
+    "fecha_inicio": "20260829T192500Z",
+    "fecha_fin": "20260829T202500Z",
+    "ubicacion": "Road America\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
     "uid": "gtwc-asia-2026-okayama-international-circuit@motorsport-calendar-RACE",
     "categoria": "GT",
     "campeonato": "GT World Challenge Asia",
@@ -7646,6 +7888,17 @@
     "indycar_timezone": true
   },
   {
+    "uid": "gtwc-america-2026-road-america@motorsport-calendar-QUALIFYING",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Clasificación",
+    "fecha_inicio": "20260830T141000Z",
+    "fecha_fin": "20260830T153000Z",
+    "ubicacion": "Road America\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
     "uid": "indycar-2026-milwaukee-race1-2026-08-30-1900-race-1",
     "categoria": "IndyCar",
     "campeonato": "IndyCar",
@@ -7656,6 +7909,17 @@
     "descripcion": "Snap-on Makers and Fixers 250 - Race 1\nFuente oficial: https://www.indycar.com/Schedule/2026/Milwaukee-Race1",
     "prioridad": "alta",
     "indycar_timezone": true
+  },
+  {
+    "uid": "gtwc-america-2026-road-america@motorsport-calendar-RACE",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Carrera",
+    "fecha_inicio": "20260830T190000Z",
+    "fecha_fin": "20260830T203000Z",
+    "ubicacion": "Road America\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
   },
   {
     "uid": "f1calendar-f3-2026-8@motorsport-calendar-FP1",
@@ -8730,6 +8994,17 @@
     "prioridad": ""
   },
   {
+    "uid": "gtwc-america-2026-barber-motorsports-park@motorsport-calendar-FP1",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Entrenamiento",
+    "fecha_inicio": "20260925T214500Z",
+    "fecha_fin": "20260925T224500Z",
+    "ubicacion": "Barber Motorsports Park\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
     "uid": "f1calendar-f2-2026-12@motorsport-calendar-RACE",
     "categoria": "Fórmula",
     "campeonato": "F2",
@@ -8785,6 +9060,28 @@
     "prioridad": ""
   },
   {
+    "uid": "gtwc-america-2026-barber-motorsports-park@motorsport-calendar-FP2",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Entrenamiento",
+    "fecha_inicio": "20260926T151500Z",
+    "fecha_fin": "20260926T161500Z",
+    "ubicacion": "Barber Motorsports Park\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
+    "uid": "gtwc-america-2026-barber-motorsports-park@motorsport-calendar-FP3",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Entrenamiento",
+    "fecha_inicio": "20260926T195000Z",
+    "fecha_fin": "20260926T205000Z",
+    "ubicacion": "Barber Motorsports Park\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
     "uid": "wec-2026-6@motorsport-calendar-RACE",
     "categoria": "Endurance",
     "campeonato": "WEC",
@@ -8794,6 +9091,28 @@
     "ubicacion": "Fuji Speedway\\, Japan",
     "descripcion": "Reminder",
     "prioridad": "alta"
+  },
+  {
+    "uid": "gtwc-america-2026-barber-motorsports-park@motorsport-calendar-QUALIFYI",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Clasificación",
+    "fecha_inicio": "20260927T133000Z",
+    "fecha_fin": "20260927T145000Z",
+    "ubicacion": "Barber Motorsports Park\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
+    "uid": "gtwc-america-2026-barber-motorsports-park@motorsport-calendar-RACE",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Carrera",
+    "fecha_inicio": "20260927T173000Z",
+    "fecha_fin": "20260927T190000Z",
+    "ubicacion": "Barber Motorsports Park\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
   },
   {
     "uid": "moto3-2026-a87453f0-3ed0-4469-993a-1486af92d879@motorsport-calendar-FP",
@@ -9192,6 +9511,17 @@
     "prioridad": ""
   },
   {
+    "uid": "gtwc-america-2026-indianpolis-8-hour@motorsport-calendar-FP1",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Entrenamiento",
+    "fecha_inicio": "20261008T230000Z",
+    "fecha_fin": "20261009T000000Z",
+    "ubicacion": "Indianapolis Motor Speedway\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
     "uid": "igtc-2026-Indianapolis%208%20Hour@motorsport-calendar-FP1",
     "categoria": "GT",
     "campeonato": "IGTC",
@@ -9324,6 +9654,17 @@
     "prioridad": ""
   },
   {
+    "uid": "gtwc-america-2026-indianpolis-8-hour@motorsport-calendar-QUALIFYING",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Clasificación",
+    "fecha_inicio": "20261009T193500Z",
+    "fecha_fin": "20261009T212000Z",
+    "ubicacion": "Indianapolis Motor Speedway\\, United States of America",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
     "uid": "igtc-2026-Indianapolis%208%20Hour@motorsport-calendar-QUALIFYING",
     "categoria": "GT",
     "campeonato": "IGTC",
@@ -9452,6 +9793,17 @@
     "fecha_inicio": "20261010T130000Z",
     "fecha_fin": "20261010T140000Z",
     "ubicacion": "Singapore\\, Singapore",
+    "descripcion": "Reminder",
+    "prioridad": ""
+  },
+  {
+    "uid": "gtwc-america-2026-indianpolis-8-hour@motorsport-calendar-RACE",
+    "categoria": "GT",
+    "campeonato": "GT World Challenge America",
+    "tipo": "Carrera",
+    "fecha_inicio": "20261010T163000Z",
+    "fecha_fin": "20261011T003000Z",
+    "ubicacion": "Indianapolis Motor Speedway\\, United States of America",
     "descripcion": "Reminder",
     "prioridad": ""
   },
