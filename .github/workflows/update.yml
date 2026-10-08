@@ -11,6 +11,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v6
 
@@ -32,76 +33,8 @@ jobs:
       - name: Verificar motocal
         run: motocal version
 
-      - name: Descubrir estructura TC2000
+      - name: Actualizar TC2000
         run: python tc2000.py
-
-      - name: Ver estructura TC2000
-        run: |
-          python - <<'PY'
-          import json
-
-          with open("data/tc2000_events.json", encoding="utf-8") as f:
-              events = json.load(f)
-
-          print("Cantidad:", len(events))
-          print("Primer evento:")
-          print(json.dumps(events[0], ensure_ascii=False, indent=2))
-          PY
-
-      - name: Mostrar eventos TC2000
-        run: |
-          python - <<'PY'
-          import json
-
-          with open("data/tc2000_events.json", encoding="utf-8") as f:
-              events = json.load(f)
-
-          for event in events:
-              print(
-                  f"{event['fecha']} "
-                  f"{event['inicio']}-{event['fin']} | "
-                  f"{event['tipo']} | "
-                  f"{event['nombre']} | "
-                  f"{event['circuito']}"
-              )
-          PY
-
-      - name: Probar acceso TC2000
-        run: |
-          python - <<'PY'
-          import requests
-          from curl_cffi import requests as curl_requests
-
-          url = "https://www.tc2000.com.ar/"
-
-          print("=== REQUESTS NORMAL ===")
-          try:
-              r = requests.get(
-                  url,
-                  timeout=30,
-                  headers={
-                      "User-Agent": "Mozilla/5.0"
-                  },
-              )
-              print(f"HTTP: {r.status_code}")
-              print(f"URL final: {r.url}")
-          except Exception as exc:
-              print(f"ERROR: {exc}")
-
-          print()
-          print("=== CURL_CFFI / CHROME ===")
-          try:
-              r = curl_requests.get(
-                  url,
-                  impersonate="chrome",
-                  timeout=30,
-              )
-              print(f"HTTP: {r.status_code}")
-              print(f"URL final: {r.url}")
-              print(f"Bytes: {len(r.content)}")
-          except Exception as exc:
-              print(f"ERROR: {exc}")
-          PY
 
       - name: Actualizar ACTC
         run: python actc.py
@@ -109,7 +42,7 @@ jobs:
       - name: Actualizar IndyCar
         run: python indycar.py
 
-      - name: Actualizar calendarios
+      - name: Actualizar calendario general
         run: python update.py
 
       - name: Publicar calendario
