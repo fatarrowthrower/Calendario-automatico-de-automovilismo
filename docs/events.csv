@@ -2,42 +2,28 @@ uid,categoria,campeonato,tipo,fecha_inicio,fecha_fin,ubicacion,descripcion,prior
 f1calendar-fe-2026-1@motorsport-calendar-FP2,Fórmula,Formula E,Entrenamiento,20251206T101000Z,20251206T104000Z,"Sao Paulo ePrix\, Brazil",Reminder,
 f1calendar-fe-2026-1@motorsport-calendar-QUALIFYING,Fórmula,Formula E,Clasificación,20251206T124000Z,20251206T134000Z,"Sao Paulo ePrix\, Brazil",Reminder,
 f1calendar-fe-2026-1@motorsport-calendar-RACE,Fórmula,Formula E,Carrera,20251206T170500Z,20251206T175000Z,"Sao Paulo ePrix\, Brazil",Reminder,alta
-actc-tc-fecha-1,Argentina,TC,Carrera,2026-02-15T00:00:00,2026-02-15T23:59:00,CALAFATE,TC - Fecha 1 (horario pendiente),alta
 actc-tc-pista-fecha-1,Argentina,TC Pista,Carrera,2026-02-15T00:00:00,2026-02-15T23:59:00,CALAFATE,TC Pista - Fecha 1 (horario pendiente),alta
 actc-tc-pick-up-fecha-1,Argentina,TC Pick Up,Carrera,2026-02-22T00:00:00,2026-02-22T23:59:00,LA PLATA,TC Pick Up - Fecha 1 (horario pendiente),alta
-actc-tc-fecha-2,Argentina,TC,Carrera,2026-03-08T00:00:00,2026-03-08T23:59:00,VIEDMA,TC - Fecha 2 (horario pendiente),alta
 actc-tc-pista-fecha-2,Argentina,TC Pista,Carrera,2026-03-08T00:00:00,2026-03-08T23:59:00,VIEDMA,TC Pista - Fecha 2 (horario pendiente),alta
 actc-tc-pick-up-fecha-2,Argentina,TC Pick Up,Carrera,2026-03-22T00:00:00,2026-03-22T23:59:00,LA PLATA,TC Pick Up - Fecha 2 (horario pendiente),alta
-actc-tc-fecha-3,Argentina,TC,Carrera,2026-03-29T00:00:00,2026-03-29T23:59:00,CENTENARIO,TC - Fecha 3 (horario pendiente),alta
 actc-tc-pista-fecha-3,Argentina,TC Pista,Carrera,2026-03-29T00:00:00,2026-03-29T23:59:00,CENTENARIO,TC Pista - Fecha 3 (horario pendiente),alta
-actc-tc-fecha-4,Argentina,TC,Carrera,2026-04-19T00:00:00,2026-04-19T23:59:00,CONCEPCIÓN DEL URUGUAY,TC - Fecha 4 (horario pendiente),alta
 actc-tc-pista-fecha-4,Argentina,TC Pista,Carrera,2026-04-19T00:00:00,2026-04-19T23:59:00,CONCEPCIÓN DEL URUGUAY,TC Pista - Fecha 4 (horario pendiente),alta
 actc-tc-pick-up-fecha-3,Argentina,TC Pick Up,Carrera,2026-04-26T00:00:00,2026-04-26T23:59:00,LA PLATA,TC Pick Up - Fecha 3 (horario pendiente),alta
-actc-tc-fecha-5,Argentina,TC,Carrera,2026-05-10T00:00:00,2026-05-10T23:59:00,TERMAS DE RÍO HONDO,TC - Fecha 5 (horario pendiente),alta
 actc-tc-pista-fecha-5,Argentina,TC Pista,Carrera,2026-05-10T00:00:00,2026-05-10T23:59:00,TERMAS DE RÍO HONDO,TC Pista - Fecha 5 (horario pendiente),alta
 actc-tc-pick-up-fecha-4,Argentina,TC Pick Up,Carrera,2026-05-17T00:00:00,2026-05-17T23:59:00,LA PLATA,TC Pick Up - Fecha 4 (horario pendiente),alta
-actc-tc-fecha-6,Argentina,TC,Carrera,2026-05-31T00:00:00,2026-05-31T23:59:00,ALTA GRACIA,TC - Fecha 6 (horario pendiente),alta
 actc-tc-pista-fecha-6,Argentina,TC Pista,Carrera,2026-05-31T00:00:00,2026-05-31T23:59:00,ALTA GRACIA,TC Pista - Fecha 6 (horario pendiente),alta
-actc-tc-fecha-7,Argentina,TC,Carrera,2026-06-21T00:00:00,2026-06-21T23:59:00,RAFAELA,TC - Fecha 7 (horario pendiente),alta
 actc-tc-pista-fecha-7,Argentina,TC Pista,Carrera,2026-06-21T00:00:00,2026-06-21T23:59:00,RAFAELA,TC Pista - Fecha 7 (horario pendiente),alta
 actc-tc-pick-up-fecha-5,Argentina,TC Pick Up,Carrera,2026-06-28T00:00:00,2026-06-28T23:59:00,LA PLATA,TC Pick Up - Fecha 5 (horario pendiente),alta
-actc-tc-fecha-8,Argentina,TC,Carrera,2026-07-12T00:00:00,2026-07-12T23:59:00,POSADAS,TC - Fecha 8 (horario pendiente),alta
 actc-tc-pista-fecha-8,Argentina,TC Pista,Carrera,2026-07-12T00:00:00,2026-07-12T23:59:00,POSADAS,TC Pista - Fecha 8 (horario pendiente),alta
 actc-tc-pick-up-fecha-6,Argentina,TC Pick Up,Carrera,2026-07-26T00:00:00,2026-07-26T23:59:00,LA PLATA,TC Pick Up - Fecha 6 (horario pendiente),alta
-actc-tc-fecha-9,Argentina,TC,Carrera,2026-08-02T00:00:00,2026-08-02T23:59:00,ALBARDON,TC - Fecha 9 (horario pendiente),alta
 actc-tc-pista-fecha-9,Argentina,TC Pista,Carrera,2026-08-02T00:00:00,2026-08-02T23:59:00,ALBARDON,TC Pista - Fecha 9 (horario pendiente),alta
 actc-tc-pick-up-fecha-7,Argentina,TC Pick Up,Carrera,2026-08-16T00:00:00,2026-08-16T23:59:00,ROSARIO,TC Pick Up - Fecha 7 (horario pendiente),alta
-actc-tc-fecha-10,Argentina,TC,Carrera,2026-08-23T00:00:00,2026-08-23T23:59:00,PARANA,TC - Fecha 10 (horario pendiente),alta
 actc-tc-pista-fecha-10,Argentina,TC Pista,Carrera,2026-08-23T00:00:00,2026-08-23T23:59:00,PARANA,TC Pista - Fecha 10 (horario pendiente),alta
-actc-tc-fecha-12,Argentina,TC,Carrera,2026-10-04T00:00:00,2026-10-04T23:59:00,SAN NICOLAS,TC - Fecha 12 (horario pendiente),alta
 actc-tc-pista-fecha-12,Argentina,TC Pista,Carrera,2026-10-04T00:00:00,2026-10-04T23:59:00,SAN NICOLAS,TC Pista - Fecha 12 (horario pendiente),alta
 actc-tc-pick-up-fecha-9,Argentina,TC Pick Up,Carrera,2026-10-18T00:00:00,2026-10-18T23:59:00,LA PLATA,TC Pick Up - Fecha 9 (horario pendiente),alta
-actc-tc-fecha-13,Argentina,TC,Carrera,2026-10-25T00:00:00,2026-10-25T23:59:00,ROSARIO,TC - Fecha 13 (horario pendiente),alta
 actc-tc-pista-fecha-13,Argentina,TC Pista,Carrera,2026-10-25T00:00:00,2026-10-25T23:59:00,ROSARIO,TC Pista - Fecha 13 (horario pendiente),alta
 actc-tc-pick-up-fecha-10,Argentina,TC Pick Up,Carrera,2026-11-08T00:00:00,2026-11-08T23:59:00,LA PLATA,TC Pick Up - Fecha 10 (horario pendiente),alta
-actc-tc-fecha-14,Argentina,TC,Carrera,2026-11-15T00:00:00,2026-11-15T23:59:00,RIO CUARTO,TC - Fecha 14 (horario pendiente),alta
 actc-tc-pista-fecha-14,Argentina,TC Pista,Carrera,2026-11-15T00:00:00,2026-11-15T23:59:00,RIO CUARTO,TC Pista - Fecha 14 (horario pendiente),alta
-actc-tc-fecha-15,Argentina,TC,Carrera,2026-12-06T00:00:00,2026-12-06T23:59:00,LA PLATA,TC - Fecha 15 (horario pendiente),alta
 actc-tc-pista-fecha-15,Argentina,TC Pista,Carrera,2026-12-06T00:00:00,2026-12-06T23:59:00,LA PLATA,TC Pista - Fecha 15 (horario pendiente),alta
 actc-tc-pick-up-fecha-11,Argentina,TC Pick Up,Carrera,2026-12-13T00:00:00,2026-12-13T23:59:00,LA PLATA,TC Pick Up - Fecha 11 (horario pendiente),alta
 f1calendar-fe-2026-2@motorsport-calendar-FP1,Fórmula,Formula E,Entrenamiento,20260109T220000Z,20260109T223000Z,"Mexico City ePrix\, Mexico",Reminder,
@@ -1321,17 +1307,17 @@ gtwc-asia-2026-shanghai-international-circuit@motorsport-calendar-RACE,GT,GT Wor
 moto2-2026-d1aedfce-d7c8-4d4a-9532-99c82547baad@motorsport-calendar-RA,Motos,Moto2,Carrera,20261101T051500Z,20261101T055500Z,"Petronas Sepang International Circuit\, Malaysia",Reminder,
 motogp-2026-d1aedfce-d7c8-4d4a-9532-99c82547baad@motorsport-calendar-R,Motos,MotoGP,Evento,20261101T070000Z,20261101T074500Z,"Petronas Sepang International Circuit\, Malaysia",Reminder,
 openf1-meeting-1298@motorsport-calendar-RACE,Fórmula,F1,Carrera,20261101T200000Z,20261101T220000Z,"Mexico City\, Mexico",Reminder,alta
-wec-2026-8@motorsport-calendar-FP1,Endurance,WEC,Entrenamiento,20261106T100000Z,20261106T111500Z,"Monza\, Italy",Reminder,
+wec-2026-8@motorsport-calendar-FP1,Endurance,WEC,Entrenamiento,20261106T093000Z,20261106T104500Z,"Monza\, Italy",Reminder,
 moto3-2026-3f3d3f5e-851c-42d2-887a-8ce8b41fa908@motorsport-calendar-FP,Motos,Moto3,Entrenamiento,20261106T110000Z,20261106T113500Z,"Lusail International Circuit\, Qatar",Reminder,
 moto2-2026-3f3d3f5e-851c-42d2-887a-8ce8b41fa908@motorsport-calendar-FP,Motos,Moto2,Entrenamiento,20261106T115000Z,20261106T123000Z,"Lusail International Circuit\, Qatar",Reminder,
 motogp-2026-3f3d3f5e-851c-42d2-887a-8ce8b41fa908@motorsport-calendar-F,Motos,MotoGP,Entrenamiento,20261106T124500Z,20261106T133000Z,"Lusail International Circuit\, Qatar",Reminder,
-wec-2026-8@motorsport-calendar-FP2,Endurance,WEC,Entrenamiento,20261106T145000Z,20261106T160500Z,"Monza\, Italy",Reminder,
+wec-2026-8@motorsport-calendar-FP2,Endurance,WEC,Entrenamiento,20261106T133000Z,20261106T144500Z,"Monza\, Italy",Reminder,
 moto3-2026-3f3d3f5e-851c-42d2-887a-8ce8b41fa908@motorsport-calendar-FP,Motos,Moto3,Entrenamiento,20261106T151500Z,20261106T155000Z,"Lusail International Circuit\, Qatar",Reminder,
 openf1-meeting-1299@motorsport-calendar-FP1,Fórmula,F1,Entrenamiento,20261106T153000Z,20261106T163000Z,"Interlagos\, Brazil",Reminder,
 moto2-2026-3f3d3f5e-851c-42d2-887a-8ce8b41fa908@motorsport-calendar-FP,Motos,Moto2,Entrenamiento,20261106T160500Z,20261106T164500Z,"Lusail International Circuit\, Qatar",Reminder,
 motogp-2026-3f3d3f5e-851c-42d2-887a-8ce8b41fa908@motorsport-calendar-F,Motos,MotoGP,Entrenamiento,20261106T170000Z,20261106T180000Z,"Lusail International Circuit\, Qatar",Reminder,
 openf1-meeting-1299@motorsport-calendar-FP2,Fórmula,F1,Entrenamiento,20261106T190000Z,20261106T200000Z,"Interlagos\, Brazil",Reminder,
-wec-2026-8@motorsport-calendar-FP3,Endurance,WEC,Entrenamiento,20261107T091000Z,20261107T102500Z,"Monza\, Italy",Reminder,
+wec-2026-8@motorsport-calendar-FP3,Endurance,WEC,Entrenamiento,20261107T093000Z,20261107T104500Z,"Monza\, Italy",Reminder,
 moto3-2026-3f3d3f5e-851c-42d2-887a-8ce8b41fa908@motorsport-calendar-FP,Motos,Moto3,Entrenamiento,20261107T103000Z,20261107T110000Z,"Lusail International Circuit\, Qatar",Reminder,
 moto2-2026-3f3d3f5e-851c-42d2-887a-8ce8b41fa908@motorsport-calendar-FP,Motos,Moto2,Entrenamiento,20261107T111500Z,20261107T114500Z,"Lusail International Circuit\, Qatar",Reminder,
 motogp-2026-3f3d3f5e-851c-42d2-887a-8ce8b41fa908@motorsport-calendar-F,Motos,MotoGP,Entrenamiento,20261107T120000Z,20261107T123000Z,"Lusail International Circuit\, Qatar",Reminder,
