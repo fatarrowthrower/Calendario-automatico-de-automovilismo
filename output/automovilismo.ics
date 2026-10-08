@@ -118,30 +118,6 @@ LOCATION:Jeddah ePrix\\\, Saudi Arabia
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
-UID:igtc-2026-bathurst-12-hour@motorsport-calendar-FP1
-DTSTART:20260212T224500Z
-DTEND:20260212T234500Z
-SUMMARY:IGTC - Entrenamiento
-LOCATION:Mount Panorama Circuit\\\, Australia
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:igtc-2026-bathurst-12-hour@motorsport-calendar-FP2
-DTSTART:20260213T010000Z
-DTEND:20260213T020000Z
-SUMMARY:IGTC - Entrenamiento
-LOCATION:Mount Panorama Circuit\\\, Australia
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:igtc-2026-bathurst-12-hour@motorsport-calendar-FP3
-DTSTART:20260213T041000Z
-DTEND:20260214T010500Z
-SUMMARY:IGTC - Entrenamiento
-LOCATION:Mount Panorama Circuit\\\, Australia
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:openf1-meeting-1304@motorsport-calendar-FREE_PRACTICE
 DTSTART:20260213T070000Z
 DTEND:20260213T160000Z
@@ -174,14 +150,6 @@ LOCATION:Jeddah ePrix\\\, Saudi Arabia
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
-UID:igtc-2026-bathurst-12-hour@motorsport-calendar-QUALIFYING
-DTSTART:20260214T030500Z
-DTEND:20260214T071500Z
-SUMMARY:IGTC - Clasificación
-LOCATION:Mount Panorama Circuit\\\, Australia
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:f1calendar-fe-2026-5@motorsport-calendar-FP3
 DTSTART:20260214T103000Z
 DTEND:20260214T110000Z
@@ -203,14 +171,6 @@ DTSTART:20260214T170500Z
 DTEND:20260214T175000Z
 SUMMARY:Formula E - Carrera
 LOCATION:Jeddah ePrix\\\, Saudi Arabia
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:igtc-2026-bathurst-12-hour@motorsport-calendar-RACE
-DTSTART:20260214T194500Z
-DTEND:20260215T074500Z
-SUMMARY:IGTC - Carrera
-LOCATION:Mount Panorama Circuit\\\, Australia
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
@@ -2374,14 +2334,6 @@ LOCATION:Indianapolis Motor Speedway
 DESCRIPTION:110th Running of the Indianapolis 500 - Practice 2\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis-500
 END:VEVENT
 BEGIN:VEVENT
-UID:igtc-2026-adac-ravenol-24h-nuerburgring@motorsport-calendar-QUALIFYING
-DTSTART:20260514T111500Z
-DTEND:20260515T123500Z
-SUMMARY:IGTC - Clasificación
-LOCATION:Nürburgring Nordschleife\\\, Germany
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:indycar-2026-indianapolis-500-2026-05-14-1300-practice-3
 DTSTART;TZID=America/Argentina/Buenos_Aires:20260514T130000
 DTEND;TZID=America/Argentina/Buenos_Aires:20260514T140000
@@ -2539,14 +2491,6 @@ DTSTART:20260516T114000Z
 DTEND:20260516T122000Z
 SUMMARY:Moto2 - Clasificación
 LOCATION:Circuit de Barcelona-Catalunya\\\, Spain
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:igtc-2026-adac-ravenol-24h-nuerburgring@motorsport-calendar-RACE
-DTSTART:20260516T130000Z
-DTEND:20260516T143000Z
-SUMMARY:IGTC - Carrera
-LOCATION:Nürburgring Nordschleife\\\, Germany
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
@@ -3782,22 +3726,6 @@ LOCATION:Spa-Francorchamps\\\, Belgium
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
-UID:igtc-2026-crowdstrike-24-hours-of-spa@motorsport-calendar-FP1
-DTSTART:20260625T081000Z
-DTEND:20260625T091000Z
-SUMMARY:IGTC - Entrenamiento
-LOCATION:Spa-Francorchamps\\\, Belgium
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:igtc-2026-crowdstrike-24-hours-of-spa@motorsport-calendar-FP2
-DTSTART:20260625T120000Z
-DTEND:20260625T130000Z
-SUMMARY:IGTC - Entrenamiento
-LOCATION:Spa-Francorchamps\\\, Belgium
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:gtwc-europe-2026-crowdstrike-24-hours-of-spa@motorsport-calendar-FP2
 DTSTART:20260625T141000Z
 DTEND:20260625T151000Z
@@ -3810,22 +3738,6 @@ UID:gtwc-europe-2026-crowdstrike-24-hours-of-spa@motorsport-calendar-QUALI
 DTSTART:20260625T174500Z
 DTEND:20260625T214000Z
 SUMMARY:GT World Challenge Europe - Clasificación
-LOCATION:Spa-Francorchamps\\\, Belgium
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:igtc-2026-crowdstrike-24-hours-of-spa@motorsport-calendar-QUALIFYING
-DTSTART:20260625T174500Z
-DTEND:20260625T200500Z
-SUMMARY:IGTC - Clasificación
-LOCATION:Spa-Francorchamps\\\, Belgium
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:igtc-2026-crowdstrike-24-hours-of-spa@motorsport-calendar-FP3
-DTSTART:20260625T203000Z
-DTEND:20260625T213000Z
-SUMMARY:IGTC - Entrenamiento
 LOCATION:Spa-Francorchamps\\\, Belgium
 DESCRIPTION:Reminder
 END:VEVENT
@@ -4074,14 +3986,6 @@ UID:gtwc-europe-2026-crowdstrike-24-hours-of-spa@motorsport-calendar-RACE
 DTSTART:20260627T143000Z
 DTEND:20260628T143000Z
 SUMMARY:GT World Challenge Europe - Carrera
-LOCATION:Spa-Francorchamps\\\, Belgium
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:igtc-2026-crowdstrike-24-hours-of-spa@motorsport-calendar-RACE
-DTSTART:20260627T143000Z
-DTEND:20260628T143000Z
-SUMMARY:IGTC - Carrera
 LOCATION:Spa-Francorchamps\\\, Belgium
 DESCRIPTION:Reminder
 END:VEVENT
@@ -6182,14 +6086,6 @@ LOCATION:Misano World Circuit Marco Simoncelli\\\, Italy
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
-UID:igtc-2026-suzuka-1000km@motorsport-calendar-FP1
-DTSTART:20260911T085000Z
-DTEND:20260911T095000Z
-SUMMARY:IGTC - Entrenamiento
-LOCATION:Suzuka Circuit\\\, Japan
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:f1calendar-f2-2026-11@motorsport-calendar-FP1
 DTSTART:20260911T090500Z
 DTEND:20260911T095000Z
@@ -6318,14 +6214,6 @@ LOCATION:Misano World Circuit Marco Simoncelli\\\, Italy
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
-UID:igtc-2026-suzuka-1000km@motorsport-calendar-QUALIFYING
-DTSTART:20260912T084000Z
-DTEND:20260912T102500Z
-SUMMARY:IGTC - Clasificación
-LOCATION:Suzuka Circuit\\\, Japan
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:motogp-2026-537f71f7-25ea-4cb2-a259-70b0da576cc6@motorsport-calendar-Q
 DTSTART:20260912T085000Z
 DTEND:20260912T093000Z
@@ -6411,14 +6299,6 @@ DTSTART:20260912T151500Z
 DTEND:20260912T174000Z
 SUMMARY:Le Mans Cup - Carrera
 LOCATION:Silverstone\\\, United Kingdom
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:igtc-2026-suzuka-1000km@motorsport-calendar-RACE
-DTSTART:20260913T035000Z
-DTEND:20260913T052000Z
-SUMMARY:IGTC - Carrera
-LOCATION:Suzuka Circuit\\\, Japan
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
@@ -7198,14 +7078,6 @@ LOCATION:Indianapolis Motor Speedway\\\, United States of America
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
-UID:igtc-2026-Indianapolis%208%20Hour@motorsport-calendar-FP1
-DTSTART:20261008T230000Z
-DTEND:20261009T000000Z
-SUMMARY:IGTC - Entrenamiento
-LOCATION:Indianapolis 8 Hour\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:moto3-2026-877c27e8-70e0-4847-bacf-2290d7cc903c@motorsport-calendar-FP
 DTSTART:20261009T010000Z
 DTEND:20261009T013500Z
@@ -7299,14 +7171,6 @@ DTSTART:20261009T193500Z
 DTEND:20261009T212000Z
 SUMMARY:GT World Challenge America - Clasificación
 LOCATION:Indianapolis Motor Speedway\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:igtc-2026-Indianapolis%208%20Hour@motorsport-calendar-QUALIFYING
-DTSTART:20261009T193500Z
-DTEND:20261009T212000Z
-SUMMARY:IGTC - Clasificación
-LOCATION:Indianapolis 8 Hour\\\, United States of America
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
@@ -7459,14 +7323,6 @@ DTSTART:20261010T163000Z
 DTEND:20261011T003000Z
 SUMMARY:GT World Challenge America - Carrera
 LOCATION:Indianapolis Motor Speedway\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:igtc-2026-Indianapolis%208%20Hour@motorsport-calendar-RACE
-DTSTART:20261010T163000Z
-DTEND:20261011T123000Z
-SUMMARY:IGTC - Carrera
-LOCATION:Indianapolis 8 Hour\\\, United States of America
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT

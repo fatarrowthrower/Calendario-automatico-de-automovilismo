@@ -154,39 +154,6 @@
     "prioridad": ""
   },
   {
-    "uid": "igtc-2026-bathurst-12-hour@motorsport-calendar-FP1",
-    "categoria": "GT",
-    "campeonato": "IGTC",
-    "tipo": "Entrenamiento",
-    "fecha_inicio": "20260212T224500Z",
-    "fecha_fin": "20260212T234500Z",
-    "ubicacion": "Mount Panorama Circuit\\, Australia",
-    "descripcion": "Reminder",
-    "prioridad": ""
-  },
-  {
-    "uid": "igtc-2026-bathurst-12-hour@motorsport-calendar-FP2",
-    "categoria": "GT",
-    "campeonato": "IGTC",
-    "tipo": "Entrenamiento",
-    "fecha_inicio": "20260213T010000Z",
-    "fecha_fin": "20260213T020000Z",
-    "ubicacion": "Mount Panorama Circuit\\, Australia",
-    "descripcion": "Reminder",
-    "prioridad": ""
-  },
-  {
-    "uid": "igtc-2026-bathurst-12-hour@motorsport-calendar-FP3",
-    "categoria": "GT",
-    "campeonato": "IGTC",
-    "tipo": "Entrenamiento",
-    "fecha_inicio": "20260213T041000Z",
-    "fecha_fin": "20260214T010500Z",
-    "ubicacion": "Mount Panorama Circuit\\, Australia",
-    "descripcion": "Reminder",
-    "prioridad": ""
-  },
-  {
     "uid": "openf1-meeting-1304@motorsport-calendar-FREE_PRACTICE",
     "categoria": "Fórmula",
     "campeonato": "F1",
@@ -231,17 +198,6 @@
     "prioridad": "alta"
   },
   {
-    "uid": "igtc-2026-bathurst-12-hour@motorsport-calendar-QUALIFYING",
-    "categoria": "GT",
-    "campeonato": "IGTC",
-    "tipo": "Clasificación",
-    "fecha_inicio": "20260214T030500Z",
-    "fecha_fin": "20260214T071500Z",
-    "ubicacion": "Mount Panorama Circuit\\, Australia",
-    "descripcion": "Reminder",
-    "prioridad": ""
-  },
-  {
     "uid": "f1calendar-fe-2026-5@motorsport-calendar-FP3",
     "categoria": "Fórmula",
     "campeonato": "Formula E",
@@ -273,17 +229,6 @@
     "ubicacion": "Jeddah ePrix\\, Saudi Arabia",
     "descripcion": "Reminder",
     "prioridad": "alta"
-  },
-  {
-    "uid": "igtc-2026-bathurst-12-hour@motorsport-calendar-RACE",
-    "categoria": "GT",
-    "campeonato": "IGTC",
-    "tipo": "Carrera",
-    "fecha_inicio": "20260214T194500Z",
-    "fecha_fin": "20260215T074500Z",
-    "ubicacion": "Mount Panorama Circuit\\, Australia",
-    "descripcion": "Reminder",
-    "prioridad": ""
   },
   {
     "uid": "openf1-meeting-1305@motorsport-calendar-FREE_PRACTICE",
@@ -3322,17 +3267,6 @@
     "indycar_timezone": true
   },
   {
-    "uid": "igtc-2026-adac-ravenol-24h-nuerburgring@motorsport-calendar-QUALIFYING",
-    "categoria": "GT",
-    "campeonato": "IGTC",
-    "tipo": "Clasificación",
-    "fecha_inicio": "20260514T111500Z",
-    "fecha_fin": "20260515T123500Z",
-    "ubicacion": "Nürburgring Nordschleife\\, Germany",
-    "descripcion": "Reminder",
-    "prioridad": ""
-  },
-  {
     "uid": "indycar-2026-indianapolis-500-2026-05-14-1300-practice-3",
     "categoria": "IndyCar",
     "campeonato": "IndyCar",
@@ -3554,17 +3488,6 @@
     "fecha_inicio": "20260516T114000Z",
     "fecha_fin": "20260516T122000Z",
     "ubicacion": "Circuit de Barcelona-Catalunya\\, Spain",
-    "descripcion": "Reminder",
-    "prioridad": ""
-  },
-  {
-    "uid": "igtc-2026-adac-ravenol-24h-nuerburgring@motorsport-calendar-RACE",
-    "categoria": "GT",
-    "campeonato": "IGTC",
-    "tipo": "Carrera",
-    "fecha_inicio": "20260516T130000Z",
-    "fecha_fin": "20260516T143000Z",
-    "ubicacion": "Nürburgring Nordschleife\\, Germany",
     "descripcion": "Reminder",
     "prioridad": ""
   },
@@ -5295,28 +5218,6 @@
     "prioridad": ""
   },
   {
-    "uid": "igtc-2026-crowdstrike-24-hours-of-spa@motorsport-calendar-FP1",
-    "categoria": "GT",
-    "campeonato": "IGTC",
-    "tipo": "Entrenamiento",
-    "fecha_inicio": "20260625T081000Z",
-    "fecha_fin": "20260625T091000Z",
-    "ubicacion": "Spa-Francorchamps\\, Belgium",
-    "descripcion": "Reminder",
-    "prioridad": ""
-  },
-  {
-    "uid": "igtc-2026-crowdstrike-24-hours-of-spa@motorsport-calendar-FP2",
-    "categoria": "GT",
-    "campeonato": "IGTC",
-    "tipo": "Entrenamiento",
-    "fecha_inicio": "20260625T120000Z",
-    "fecha_fin": "20260625T130000Z",
-    "ubicacion": "Spa-Francorchamps\\, Belgium",
-    "descripcion": "Reminder",
-    "prioridad": ""
-  },
-  {
     "uid": "gtwc-europe-2026-crowdstrike-24-hours-of-spa@motorsport-calendar-FP2",
     "categoria": "GT",
     "campeonato": "GT World Challenge Europe",
@@ -5334,28 +5235,6 @@
     "tipo": "Clasificación",
     "fecha_inicio": "20260625T174500Z",
     "fecha_fin": "20260625T214000Z",
-    "ubicacion": "Spa-Francorchamps\\, Belgium",
-    "descripcion": "Reminder",
-    "prioridad": ""
-  },
-  {
-    "uid": "igtc-2026-crowdstrike-24-hours-of-spa@motorsport-calendar-QUALIFYING",
-    "categoria": "GT",
-    "campeonato": "IGTC",
-    "tipo": "Clasificación",
-    "fecha_inicio": "20260625T174500Z",
-    "fecha_fin": "20260625T200500Z",
-    "ubicacion": "Spa-Francorchamps\\, Belgium",
-    "descripcion": "Reminder",
-    "prioridad": ""
-  },
-  {
-    "uid": "igtc-2026-crowdstrike-24-hours-of-spa@motorsport-calendar-FP3",
-    "categoria": "GT",
-    "campeonato": "IGTC",
-    "tipo": "Entrenamiento",
-    "fecha_inicio": "20260625T203000Z",
-    "fecha_fin": "20260625T213000Z",
     "ubicacion": "Spa-Francorchamps\\, Belgium",
     "descripcion": "Reminder",
     "prioridad": ""
@@ -5699,17 +5578,6 @@
     "uid": "gtwc-europe-2026-crowdstrike-24-hours-of-spa@motorsport-calendar-RACE",
     "categoria": "GT",
     "campeonato": "GT World Challenge Europe",
-    "tipo": "Carrera",
-    "fecha_inicio": "20260627T143000Z",
-    "fecha_fin": "20260628T143000Z",
-    "ubicacion": "Spa-Francorchamps\\, Belgium",
-    "descripcion": "Reminder",
-    "prioridad": ""
-  },
-  {
-    "uid": "igtc-2026-crowdstrike-24-hours-of-spa@motorsport-calendar-RACE",
-    "categoria": "GT",
-    "campeonato": "IGTC",
     "tipo": "Carrera",
     "fecha_inicio": "20260627T143000Z",
     "fecha_fin": "20260628T143000Z",
@@ -8659,17 +8527,6 @@
     "prioridad": ""
   },
   {
-    "uid": "igtc-2026-suzuka-1000km@motorsport-calendar-FP1",
-    "categoria": "GT",
-    "campeonato": "IGTC",
-    "tipo": "Entrenamiento",
-    "fecha_inicio": "20260911T085000Z",
-    "fecha_fin": "20260911T095000Z",
-    "ubicacion": "Suzuka Circuit\\, Japan",
-    "descripcion": "Reminder",
-    "prioridad": ""
-  },
-  {
     "uid": "f1calendar-f2-2026-11@motorsport-calendar-FP1",
     "categoria": "Fórmula",
     "campeonato": "F2",
@@ -8846,17 +8703,6 @@
     "prioridad": ""
   },
   {
-    "uid": "igtc-2026-suzuka-1000km@motorsport-calendar-QUALIFYING",
-    "categoria": "GT",
-    "campeonato": "IGTC",
-    "tipo": "Clasificación",
-    "fecha_inicio": "20260912T084000Z",
-    "fecha_fin": "20260912T102500Z",
-    "ubicacion": "Suzuka Circuit\\, Japan",
-    "descripcion": "Reminder",
-    "prioridad": ""
-  },
-  {
     "uid": "motogp-2026-537f71f7-25ea-4cb2-a259-70b0da576cc6@motorsport-calendar-Q",
     "categoria": "Motos",
     "campeonato": "MotoGP",
@@ -8976,17 +8822,6 @@
     "ubicacion": "Silverstone\\, United Kingdom",
     "descripcion": "Reminder",
     "prioridad": "alta"
-  },
-  {
-    "uid": "igtc-2026-suzuka-1000km@motorsport-calendar-RACE",
-    "categoria": "GT",
-    "campeonato": "IGTC",
-    "tipo": "Carrera",
-    "fecha_inicio": "20260913T035000Z",
-    "fecha_fin": "20260913T052000Z",
-    "ubicacion": "Suzuka Circuit\\, Japan",
-    "descripcion": "Reminder",
-    "prioridad": ""
   },
   {
     "uid": "f1calendar-f3-2026-9@motorsport-calendar-RACE",
@@ -10067,17 +9902,6 @@
     "prioridad": ""
   },
   {
-    "uid": "igtc-2026-Indianapolis%208%20Hour@motorsport-calendar-FP1",
-    "categoria": "GT",
-    "campeonato": "IGTC",
-    "tipo": "Entrenamiento",
-    "fecha_inicio": "20261008T230000Z",
-    "fecha_fin": "20261009T000000Z",
-    "ubicacion": "Indianapolis 8 Hour\\, United States of America",
-    "descripcion": "Reminder",
-    "prioridad": ""
-  },
-  {
     "uid": "moto3-2026-877c27e8-70e0-4847-bacf-2290d7cc903c@motorsport-calendar-FP",
     "categoria": "Motos",
     "campeonato": "Moto3",
@@ -10206,17 +10030,6 @@
     "fecha_inicio": "20261009T193500Z",
     "fecha_fin": "20261009T212000Z",
     "ubicacion": "Indianapolis Motor Speedway\\, United States of America",
-    "descripcion": "Reminder",
-    "prioridad": ""
-  },
-  {
-    "uid": "igtc-2026-Indianapolis%208%20Hour@motorsport-calendar-QUALIFYING",
-    "categoria": "GT",
-    "campeonato": "IGTC",
-    "tipo": "Clasificación",
-    "fecha_inicio": "20261009T193500Z",
-    "fecha_fin": "20261009T212000Z",
-    "ubicacion": "Indianapolis 8 Hour\\, United States of America",
     "descripcion": "Reminder",
     "prioridad": ""
   },
@@ -10433,17 +10246,6 @@
     "fecha_inicio": "20261010T163000Z",
     "fecha_fin": "20261011T003000Z",
     "ubicacion": "Indianapolis Motor Speedway\\, United States of America",
-    "descripcion": "Reminder",
-    "prioridad": ""
-  },
-  {
-    "uid": "igtc-2026-Indianapolis%208%20Hour@motorsport-calendar-RACE",
-    "categoria": "GT",
-    "campeonato": "IGTC",
-    "tipo": "Carrera",
-    "fecha_inicio": "20261010T163000Z",
-    "fecha_fin": "20261011T123000Z",
-    "ubicacion": "Indianapolis 8 Hour\\, United States of America",
     "descripcion": "Reminder",
     "prioridad": ""
   },
