@@ -358,7 +358,7 @@
     "tipo": "Carrera",
     "fecha_inicio": "2026-09-27T12:00:00",
     "fecha_fin": "2026-09-27T23:59:00",
-    "ubicacion": "Juan Manuel Fangio-BALCARCE — Balcarce, Buenos Aires Ver resultados",
+    "ubicacion": "Juan Manuel Fangio-BALCARCE — Balcarce, Buenos Aires Ver resultados Fechas anteriores ↑ · Próxima ",
     "descripcion": "TC Pick Up - Fecha 8",
     "prioridad": "alta"
   },
@@ -369,7 +369,7 @@
     "tipo": "Carrera",
     "fecha_inicio": "2026-10-04T12:00:00",
     "fecha_fin": "2026-10-04T23:59:00",
-    "ubicacion": "Ciudad San Nicolas — San Nicolas, Buenos Aires Ver resultados",
+    "ubicacion": "Ciudad San Nicolas — San Nicolas, Buenos Aires Ver resultados Fechas anteriores ↑ · Próxima ",
     "descripcion": "TC - Fecha 12",
     "prioridad": "alta"
   },
@@ -380,7 +380,7 @@
     "tipo": "Carrera",
     "fecha_inicio": "2026-10-04T12:00:00",
     "fecha_fin": "2026-10-04T23:59:00",
-    "ubicacion": "Ciudad San Nicolas — San Nicolas, Buenos Aires Ver resultados",
+    "ubicacion": "Ciudad San Nicolas — San Nicolas, Buenos Aires Ver resultados Fechas anteriores ↑ · Próxima ",
     "descripcion": "TC Pista - Fecha 12",
     "prioridad": "alta"
   },
@@ -391,7 +391,7 @@
     "tipo": "Carrera",
     "fecha_inicio": "2026-10-18T12:00:00",
     "fecha_fin": "2026-10-18T23:59:00",
-    "ubicacion": "Roberto José Mouras — La Plata, Buenos Aires Faltan 11 días Próximamente a la venta Autódromo Robert",
+    "ubicacion": "Roberto José Mouras — La Plata, Buenos Aires Faltan 11 días Próximamente a la ",
     "descripcion": "TC Pick Up - Fecha 9",
     "prioridad": "alta"
   },
@@ -402,7 +402,7 @@
     "tipo": "Carrera",
     "fecha_inicio": "2026-10-25T12:00:00",
     "fecha_fin": "2026-10-25T23:59:00",
-    "ubicacion": "Juan Manuel Fangio-ROSARIO — Rosario, Santa Fe Faltan 18 días Próximamente a la venta Autódromo Juan",
+    "ubicacion": "Juan Manuel Fangio-ROSARIO — Rosario, Santa Fe Faltan 18 días Próximamente a la ",
     "descripcion": "TC - Fecha 13",
     "prioridad": "alta"
   },
@@ -413,7 +413,7 @@
     "tipo": "Carrera",
     "fecha_inicio": "2026-10-25T12:00:00",
     "fecha_fin": "2026-10-25T23:59:00",
-    "ubicacion": "Juan Manuel Fangio-ROSARIO — Rosario, Santa Fe Faltan 18 días Próximamente a la venta Autódromo Juan",
+    "ubicacion": "Juan Manuel Fangio-ROSARIO — Rosario, Santa Fe Faltan 18 días Próximamente a la ",
     "descripcion": "TC Pista - Fecha 13",
     "prioridad": "alta"
   },
@@ -424,7 +424,7 @@
     "tipo": "Carrera",
     "fecha_inicio": "2026-11-08T12:00:00",
     "fecha_fin": "2026-11-08T23:59:00",
-    "ubicacion": "A CONFIRMAR — A CONFIRMAR Próximamente a la venta Trazado animado pendiente",
+    "ubicacion": "A CONFIRMAR — A CONFIRMAR Próximamente a la ",
     "descripcion": "TC Pick Up - Fecha 10",
     "prioridad": "alta"
   },
@@ -435,7 +435,7 @@
     "tipo": "Carrera",
     "fecha_inicio": "2026-11-15T12:00:00",
     "fecha_fin": "2026-11-15T23:59:00",
-    "ubicacion": "Parque Ciudad de Rio Cuarto — Rio Cuarto, Cordoba Próximamente a la venta",
+    "ubicacion": "Parque Ciudad de Rio Cuarto — Rio Cuarto, Cordoba Próximamente a la ",
     "descripcion": "TC - Fecha 14",
     "prioridad": "alta"
   },
@@ -446,7 +446,7 @@
     "tipo": "Carrera",
     "fecha_inicio": "2026-11-15T12:00:00",
     "fecha_fin": "2026-11-15T23:59:00",
-    "ubicacion": "Parque Ciudad de Rio Cuarto — Rio Cuarto, Cordoba Próximamente a la venta",
+    "ubicacion": "Parque Ciudad de Rio Cuarto — Rio Cuarto, Cordoba Próximamente a la ",
     "descripcion": "TC Pista - Fecha 14",
     "prioridad": "alta"
   },
@@ -457,7 +457,7 @@
     "tipo": "Carrera",
     "fecha_inicio": "2026-12-06T12:00:00",
     "fecha_fin": "2026-12-06T23:59:00",
-    "ubicacion": "Roberto José Mouras — La Plata, Buenos Aires Próximamente a la venta $RC=function(b,c,e){c=document.",
+    "ubicacion": "Roberto José Mouras — La Plata, Buenos Aires Próximamente a la ",
     "descripcion": "TC - Fecha 15",
     "prioridad": "alta"
   },
@@ -468,7 +468,7 @@
     "tipo": "Carrera",
     "fecha_inicio": "2026-12-06T12:00:00",
     "fecha_fin": "2026-12-06T23:59:00",
-    "ubicacion": "Roberto José Mouras — La Plata, Buenos Aires Próximamente a la venta $RC=function(b,c,e){c=document.",
+    "ubicacion": "Roberto José Mouras — La Plata, Buenos Aires Próximamente a la ",
     "descripcion": "TC Pista - Fecha 15",
     "prioridad": "alta"
   },
@@ -479,7 +479,7 @@
     "tipo": "Carrera",
     "fecha_inicio": "2026-12-13T12:00:00",
     "fecha_fin": "2026-12-13T23:59:00",
-    "ubicacion": "A CONFIRMAR — A CONFIRMAR Próximamente a la venta Trazado animado pendiente $RC=function(b,c,e){c=do",
+    "ubicacion": "A CONFIRMAR — A CONFIRMAR Próximamente a la ",
     "descripcion": "TC Pick Up - Fecha 11",
     "prioridad": "alta"
   },
