@@ -1,1 +1,134 @@
-[]
+[
+  {
+    "uid": "tc2000-2026-01",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Carrera",
+    "fecha_inicio": "2026-03-15T12:00:00",
+    "fecha_fin": "2026-03-15T18:00:00",
+    "ubicacion": "Callejero de Buenos Aires",
+    "descripcion": "TC2000 - Fecha 1 - Callejero de Buenos Aires",
+    "prioridad": "alta"
+  },
+  {
+    "uid": "tc2000-2026-02",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Carrera",
+    "fecha_inicio": "2026-04-12T12:00:00",
+    "fecha_fin": "2026-04-12T18:00:00",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "TC2000 - Fecha 2 - El Zonda Eduardo Copello",
+    "prioridad": "alta"
+  },
+  {
+    "uid": "tc2000-2026-03",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Carrera",
+    "fecha_inicio": "2026-05-03T12:00:00",
+    "fecha_fin": "2026-05-03T18:00:00",
+    "ubicacion": "Concordia",
+    "descripcion": "TC2000 - Fecha 3 - Concordia",
+    "prioridad": "alta"
+  },
+  {
+    "uid": "tc2000-2026-04",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Carrera",
+    "fecha_inicio": "2026-05-24T12:00:00",
+    "fecha_fin": "2026-05-24T18:00:00",
+    "ubicacion": "Salta",
+    "descripcion": "TC2000 - Fecha 4 - Salta",
+    "prioridad": "alta"
+  },
+  {
+    "uid": "tc2000-2026-05",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Carrera",
+    "fecha_inicio": "2026-06-28T12:00:00",
+    "fecha_fin": "2026-06-28T18:00:00",
+    "ubicacion": "San Nicolás",
+    "descripcion": "TC2000 - Fecha 5 - San Nicolás",
+    "prioridad": "alta"
+  },
+  {
+    "uid": "tc2000-2026-06",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Carrera",
+    "fecha_inicio": "2026-08-09T12:00:00",
+    "fecha_fin": "2026-08-09T18:00:00",
+    "ubicacion": "La Pampa",
+    "descripcion": "TC2000 - Fecha 6 - La Pampa",
+    "prioridad": "alta"
+  },
+  {
+    "uid": "tc2000-2026-07",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Carrera",
+    "fecha_inicio": "2026-09-06T12:00:00",
+    "fecha_fin": "2026-09-06T18:00:00",
+    "ubicacion": "Junín",
+    "descripcion": "TC2000 - Fecha 7 - Junín",
+    "prioridad": "alta"
+  },
+  {
+    "uid": "tc2000-2026-08",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Carrera",
+    "fecha_inicio": "2026-09-27T12:00:00",
+    "fecha_fin": "2026-09-27T18:00:00",
+    "ubicacion": "El Zonda Eduardo Copello",
+    "descripcion": "TC2000 - Fecha 8 - El Zonda Eduardo Copello",
+    "prioridad": "alta"
+  },
+  {
+    "uid": "tc2000-2026-09",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Carrera",
+    "fecha_inicio": "2026-10-11T12:00:00",
+    "fecha_fin": "2026-10-11T18:00:00",
+    "ubicacion": "La Pampa",
+    "descripcion": "TC2000 - Fecha 9 - La Pampa",
+    "prioridad": "alta"
+  },
+  {
+    "uid": "tc2000-2026-10",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Carrera",
+    "fecha_inicio": "2026-11-01T12:00:00",
+    "fecha_fin": "2026-11-01T18:00:00",
+    "ubicacion": "A Confirmar",
+    "descripcion": "TC2000 - Fecha 10 - A Confirmar",
+    "prioridad": "alta"
+  },
+  {
+    "uid": "tc2000-2026-11",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Carrera",
+    "fecha_inicio": "2026-11-22T12:00:00",
+    "fecha_fin": "2026-11-22T18:00:00",
+    "ubicacion": "A Confirmar",
+    "descripcion": "TC2000 - Fecha 11 - A Confirmar",
+    "prioridad": "alta"
+  },
+  {
+    "uid": "tc2000-2026-12",
+    "categoria": "Argentina",
+    "campeonato": "TC2000",
+    "tipo": "Carrera",
+    "fecha_inicio": "2026-12-13T12:00:00",
+    "fecha_fin": "2026-12-13T18:00:00",
+    "ubicacion": "A Confirmar",
+    "descripcion": "TC2000 - Fecha 12 - A Confirmar",
+    "prioridad": "alta"
+  }
+]

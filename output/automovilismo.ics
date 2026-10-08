@@ -1214,14 +1214,6 @@ LOCATION:Circuit Of The Americas\\\, United States
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
-UID:gtwc-america-2026-sonoma-raceway@motorsport-calendar-FP1
-DTSTART:20260327T230000Z
-DTEND:20260328T000000Z
-SUMMARY:GT World Challenge America - Entrenamiento
-LOCATION:Sonoma Raceway\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:openf1-meeting-1281@motorsport-calendar-FP3
 DTSTART:20260328T023000Z
 DTEND:20260328T033000Z
@@ -1294,14 +1286,6 @@ LOCATION:Circuit Of The Americas\\\, United States
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
-UID:gtwc-america-2026-sonoma-raceway@motorsport-calendar-FP2
-DTSTART:20260328T180000Z
-DTEND:20260328T190000Z
-SUMMARY:GT World Challenge America - Entrenamiento
-LOCATION:Sonoma Raceway\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:moto2-2026-8c83648e-8ec9-40f1-9ba0-b0f19883e7d7@motorsport-calendar-QU
 DTSTART:20260328T184000Z
 DTEND:20260328T193200Z
@@ -1315,14 +1299,6 @@ DTSTART:20260328T201000Z
 DTEND:20260328T204000Z
 SUMMARY:MotoGP - Sprint
 LOCATION:Circuit Of The Americas\\\, United States
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:gtwc-america-2026-sonoma-raceway@motorsport-calendar-FP3
-DTSTART:20260328T211500Z
-DTEND:20260328T221500Z
-SUMMARY:GT World Challenge America - Entrenamiento
-LOCATION:Sonoma Raceway\\\, United States of America
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
@@ -1350,14 +1326,6 @@ LOCATION:Barber Motorsports Park
 DESCRIPTION:Children's of Alabama Indy Grand Prix - Race\nFuente oficial: https://www.indycar.com/Schedule/2026/Barber
 END:VEVENT
 BEGIN:VEVENT
-UID:gtwc-america-2026-sonoma-raceway@motorsport-calendar-QUALIFYING
-DTSTART:20260329T155000Z
-DTEND:20260329T165000Z
-SUMMARY:GT World Challenge America - Clasificación
-LOCATION:Sonoma Raceway\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:moto3-2026-8c83648e-8ec9-40f1-9ba0-b0f19883e7d7@motorsport-calendar-RA
 DTSTART:20260329T170000Z
 DTEND:20260329T173500Z
@@ -1379,14 +1347,6 @@ DTSTART:20260329T200000Z
 DTEND:20260329T204500Z
 SUMMARY:MotoGP - Evento
 LOCATION:Circuit Of The Americas\\\, United States
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:gtwc-america-2026-sonoma-raceway@motorsport-calendar-RACE
-DTSTART:20260329T204500Z
-DTEND:20260329T221500Z
-SUMMARY:GT World Challenge America - Carrera
-LOCATION:Sonoma Raceway\\\, United States of America
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
@@ -1758,14 +1718,6 @@ LOCATION:Circuito de Jerez - Ángel Nieto\\\, Spain
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
-UID:gtwc-america-2026-circuit-of-the-americas@motorsport-calendar-FP1
-DTSTART:20260424T212000Z
-DTEND:20260424T222000Z
-SUMMARY:GT World Challenge America - Entrenamiento
-LOCATION:Circuit of the Americas\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:moto3-2026-a24be69b-8472-4aa4-9e83-d3610e0f1d98@motorsport-calendar-FP
 DTSTART:20260425T064000Z
 DTEND:20260425T071000Z
@@ -1822,22 +1774,6 @@ LOCATION:Circuito de Jerez - Ángel Nieto\\\, Spain
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
-UID:gtwc-america-2026-circuit-of-the-americas@motorsport-calendar-FP2
-DTSTART:20260425T152500Z
-DTEND:20260425T162500Z
-SUMMARY:GT World Challenge America - Entrenamiento
-LOCATION:Circuit of the Americas\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:gtwc-america-2026-circuit-of-the-americas@motorsport-calendar-FP3
-DTSTART:20260425T193000Z
-DTEND:20260425T203000Z
-SUMMARY:GT World Challenge America - Entrenamiento
-LOCATION:Circuit of the Americas\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:moto3-2026-a24be69b-8472-4aa4-9e83-d3610e0f1d98@motorsport-calendar-RA
 DTSTART:20260426T090000Z
 DTEND:20260426T093500Z
@@ -1859,22 +1795,6 @@ DTSTART:20260426T120000Z
 DTEND:20260426T124500Z
 SUMMARY:MotoGP - Evento
 LOCATION:Circuito de Jerez - Ángel Nieto\\\, Spain
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:gtwc-america-2026-circuit-of-the-americas@motorsport-calendar-QUALIFYI
-DTSTART:20260426T134500Z
-DTEND:20260426T144500Z
-SUMMARY:GT World Challenge America - Clasificación
-LOCATION:Circuit of the Americas\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:gtwc-america-2026-circuit-of-the-americas@motorsport-calendar-RACE
-DTSTART:20260426T173000Z
-DTEND:20260426T190000Z
-SUMMARY:GT World Challenge America - Carrera
-LOCATION:Circuit of the Americas\\\, United States of America
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
@@ -2262,14 +2182,6 @@ LOCATION:IMS Road Course
 DESCRIPTION:Sonsio Grand Prix - Practice 2\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis
 END:VEVENT
 BEGIN:VEVENT
-UID:gtwc-america-2026-sebring-international-raceway@motorsport-calendar-FP
-DTSTART:20260508T230000Z
-DTEND:20260509T000000Z
-SUMMARY:GT World Challenge America - Entrenamiento
-LOCATION:Sebring International Raceway\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:moto3-2026-4237f175-c6a4-4d1e-b658-82962baf3fa3@motorsport-calendar-FP
 DTSTART:20260509T064000Z
 DTEND:20260509T071000Z
@@ -2342,14 +2254,6 @@ LOCATION:IMS Road Course
 DESCRIPTION:Sonsio Grand Prix - Qualifications\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis
 END:VEVENT
 BEGIN:VEVENT
-UID:gtwc-america-2026-sebring-international-raceway@motorsport-calendar-FP
-DTSTART:20260509T125000Z
-DTEND:20260509T135000Z
-SUMMARY:GT World Challenge America - Entrenamiento
-LOCATION:Sebring International Raceway\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:motogp-2026-4237f175-c6a4-4d1e-b658-82962baf3fa3@motorsport-calendar-S
 DTSTART:20260509T130000Z
 DTEND:20260509T133000Z
@@ -2364,22 +2268,6 @@ DTEND;TZID=America/Argentina/Buenos_Aires:20260509T193000
 SUMMARY:IndyCar - Carrera
 LOCATION:IMS Road Course
 DESCRIPTION:Sonsio Grand Prix - Race\nFuente oficial: https://www.indycar.com/Schedule/2026/Indianapolis
-END:VEVENT
-BEGIN:VEVENT
-UID:gtwc-america-2026-sebring-international-raceway@motorsport-calendar-QU
-DTSTART:20260509T181000Z
-DTEND:20260509T191000Z
-SUMMARY:GT World Challenge America - Clasificación
-LOCATION:Sebring International Raceway\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:gtwc-america-2026-sebring-international-raceway@motorsport-calendar-RA
-DTSTART:20260509T210000Z
-DTEND:20260509T223000Z
-SUMMARY:GT World Challenge America - Carrera
-LOCATION:Sebring International Raceway\\\, United States of America
-DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
 UID:moto3-2026-4237f175-c6a4-4d1e-b658-82962baf3fa3@motorsport-calendar-RA
@@ -3454,14 +3342,6 @@ LOCATION:Catalunya\\\, Spain
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
-UID:gtwc-america-2026-road-atlanta@motorsport-calendar-FP1
-DTSTART:20260612T210500Z
-DTEND:20260612T220500Z
-SUMMARY:GT World Challenge America - Entrenamiento
-LOCATION:Road Atlanta\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:f1calendar-f3-2026-3@motorsport-calendar-SPRINT
 DTSTART:20260613T080500Z
 DTEND:20260613T083500Z
@@ -3510,30 +3390,6 @@ LOCATION:Catalunya\\\, Spain
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
-UID:gtwc-america-2026-road-atlanta@motorsport-calendar-FP2
-DTSTART:20260613T144500Z
-DTEND:20260613T154500Z
-SUMMARY:GT World Challenge America - Entrenamiento
-LOCATION:Road Atlanta\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:gtwc-america-2026-road-atlanta@motorsport-calendar-FP3
-DTSTART:20260613T174500Z
-DTEND:20260613T184500Z
-SUMMARY:GT World Challenge America - Entrenamiento
-LOCATION:Road Atlanta\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:gtwc-america-2026-road-atlanta@motorsport-calendar-QUALIFYING
-DTSTART:20260613T212500Z
-DTEND:20260613T225000Z
-SUMMARY:GT World Challenge America - Clasificación
-LOCATION:Road Atlanta\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:f1calendar-f3-2026-3@motorsport-calendar-RACE
 DTSTART:20260614T064000Z
 DTEND:20260614T072000Z
@@ -3555,14 +3411,6 @@ DTSTART:20260614T130000Z
 DTEND:20260614T150000Z
 SUMMARY:F1 - Carrera
 LOCATION:Catalunya\\\, Spain
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:gtwc-america-2026-road-atlanta@motorsport-calendar-RACE
-DTSTART:20260614T183000Z
-DTEND:20260614T200000Z
-SUMMARY:GT World Challenge America - Carrera
-LOCATION:Road Atlanta\\\, United States of America
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
@@ -5502,14 +5350,6 @@ LOCATION:Milwaukee Mile
 DESCRIPTION:Snap-on Makers and Fixers 250 - Practice\nFuente oficial: https://www.indycar.com/Schedule/2026/Milwaukee-Race1
 END:VEVENT
 BEGIN:VEVENT
-UID:gtwc-america-2026-road-america@motorsport-calendar-FP1
-DTSTART:20260828T220000Z
-DTEND:20260828T230000Z
-SUMMARY:GT World Challenge America - Entrenamiento
-LOCATION:Road America\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:gtwc-asia-2026-okayama-international-circuit@motorsport-calendar-SPRIN
 DTSTART:20260829T000000Z
 DTEND:20260829T012200Z
@@ -5606,22 +5446,6 @@ LOCATION:Nürburgring\\\, Germany
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
-UID:gtwc-america-2026-road-america@motorsport-calendar-FP2
-DTSTART:20260829T155500Z
-DTEND:20260829T165500Z
-SUMMARY:GT World Challenge America - Entrenamiento
-LOCATION:Road America\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:gtwc-america-2026-road-america@motorsport-calendar-FP3
-DTSTART:20260829T192500Z
-DTEND:20260829T202500Z
-SUMMARY:GT World Challenge America - Entrenamiento
-LOCATION:Road America\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:gtwc-asia-2026-okayama-international-circuit@motorsport-calendar-RACE
 DTSTART:20260830T010000Z
 DTEND:20260830T023000Z
@@ -5678,28 +5502,12 @@ LOCATION:Milwaukee Mile
 DESCRIPTION:Snap-on Makers and Fixers 250 - Race 2\nFuente oficial: https://www.indycar.com/Schedule/2026/Milwaukee-Race1
 END:VEVENT
 BEGIN:VEVENT
-UID:gtwc-america-2026-road-america@motorsport-calendar-QUALIFYING
-DTSTART:20260830T141000Z
-DTEND:20260830T153000Z
-SUMMARY:GT World Challenge America - Clasificación
-LOCATION:Road America\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:indycar-2026-milwaukee-race1-2026-08-30-1900-race-1
 DTSTART;TZID=America/Argentina/Buenos_Aires:20260830T190000
 DTEND;TZID=America/Argentina/Buenos_Aires:20260830T210000
 SUMMARY:IndyCar - Carrera
 LOCATION:Milwaukee Mile
 DESCRIPTION:Snap-on Makers and Fixers 250 - Race 1\nFuente oficial: https://www.indycar.com/Schedule/2026/Milwaukee-Race1
-END:VEVENT
-BEGIN:VEVENT
-UID:gtwc-america-2026-road-america@motorsport-calendar-RACE
-DTSTART:20260830T190000Z
-DTEND:20260830T203000Z
-SUMMARY:GT World Challenge America - Carrera
-LOCATION:Road America\\\, United States of America
-DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
 UID:f1calendar-f3-2026-8@motorsport-calendar-FP1
@@ -6478,14 +6286,6 @@ LOCATION:Fuji Speedway\\\, Japan
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
-UID:gtwc-america-2026-barber-motorsports-park@motorsport-calendar-FP1
-DTSTART:20260925T214500Z
-DTEND:20260925T224500Z
-SUMMARY:GT World Challenge America - Entrenamiento
-LOCATION:Barber Motorsports Park\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:f1calendar-f2-2026-12@motorsport-calendar-RACE
 DTSTART:20260926T070000Z
 DTEND:20260926T080500Z
@@ -6526,43 +6326,11 @@ LOCATION:Fuji Speedway\\\, Japan
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
-UID:gtwc-america-2026-barber-motorsports-park@motorsport-calendar-FP2
-DTSTART:20260926T151500Z
-DTEND:20260926T161500Z
-SUMMARY:GT World Challenge America - Entrenamiento
-LOCATION:Barber Motorsports Park\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:gtwc-america-2026-barber-motorsports-park@motorsport-calendar-FP3
-DTSTART:20260926T195000Z
-DTEND:20260926T205000Z
-SUMMARY:GT World Challenge America - Entrenamiento
-LOCATION:Barber Motorsports Park\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:wec-2026-6@motorsport-calendar-RACE
 DTSTART:20260927T090000Z
 DTEND:20260927T150000Z
 SUMMARY:WEC - Carrera
 LOCATION:Fuji Speedway\\\, Japan
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:gtwc-america-2026-barber-motorsports-park@motorsport-calendar-QUALIFYI
-DTSTART:20260927T133000Z
-DTEND:20260927T145000Z
-SUMMARY:GT World Challenge America - Clasificación
-LOCATION:Barber Motorsports Park\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:gtwc-america-2026-barber-motorsports-park@motorsport-calendar-RACE
-DTSTART:20260927T173000Z
-DTEND:20260927T190000Z
-SUMMARY:GT World Challenge America - Carrera
-LOCATION:Barber Motorsports Park\\\, United States of America
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
@@ -6854,14 +6622,6 @@ LOCATION:Autódromo Internacional do Algarve\\\, Portugal
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
-UID:gtwc-america-2026-indianpolis-8-hour@motorsport-calendar-FP1
-DTSTART:20261008T230000Z
-DTEND:20261009T000000Z
-SUMMARY:GT World Challenge America - Entrenamiento
-LOCATION:Indianapolis Motor Speedway\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:igtc-2026-Indianapolis%208%20Hour@motorsport-calendar-FP1
 DTSTART:20261008T230000Z
 DTEND:20261009T000000Z
@@ -6958,14 +6718,6 @@ LOCATION:Autódromo Internacional do Algarve\\\, Portugal
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
-UID:gtwc-america-2026-indianpolis-8-hour@motorsport-calendar-QUALIFYING
-DTSTART:20261009T193500Z
-DTEND:20261009T212000Z
-SUMMARY:GT World Challenge America - Clasificación
-LOCATION:Indianapolis Motor Speedway\\\, United States of America
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
 UID:igtc-2026-Indianapolis%208%20Hour@motorsport-calendar-QUALIFYING
 DTSTART:20261009T193500Z
 DTEND:20261009T212000Z
@@ -7059,14 +6811,6 @@ DTSTART:20261010T130000Z
 DTEND:20261010T140000Z
 SUMMARY:F1 - Clasificación
 LOCATION:Singapore\\\, Singapore
-DESCRIPTION:Reminder
-END:VEVENT
-BEGIN:VEVENT
-UID:gtwc-america-2026-indianpolis-8-hour@motorsport-calendar-RACE
-DTSTART:20261010T163000Z
-DTEND:20261011T003000Z
-SUMMARY:GT World Challenge America - Carrera
-LOCATION:Indianapolis Motor Speedway\\\, United States of America
 DESCRIPTION:Reminder
 END:VEVENT
 BEGIN:VEVENT
