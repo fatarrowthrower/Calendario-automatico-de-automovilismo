@@ -3,7 +3,7 @@ import re
 import unicodedata
 from datetime import datetime, timedelta
 from pathlib import Path
-from urllib.parse import urljoin, urlparse, parse_qs, urlencode, urlunparse
+from urllib.parse import urljoin
 
 import pytz
 from playwright.sync_api import sync_playwright
@@ -14,8 +14,9 @@ TZ = pytz.timezone("America/Argentina/Buenos_Aires")
 
 OUTPUT = Path("data/actc_events.json")
 
-MAX_NEWS_PAGES = 20
-MAX_ARTICLES = 250
+# ACTC publica aproximadamente 12 noticias por página.
+# Recorremos suficiente historial para cubrir todo el año.
+MAX_NEWS_PAGES = 40
 
 
 CATEGORIES = [
@@ -219,7 +220,8 @@ def extract_calendar_events(page, category):
         current_round = None
         current_location = None
 
-    # Segunda pasada de seguridad.
+    # Segunda pasada por si cambia ligeramente
+    # la separación visual de la tarjeta.
     if not events:
         for index, line in enumerate(lines):
             normalized = normalize(line)
@@ -273,6 +275,42 @@ def extract_calendar_events(page, category):
     return events
 
 
+def article_is_schedule_candidate(
+    title,
+    category,
+):
+    text = normalize(title)
+
+    schedule_words = [
+        "HORARIOS",
+        "HORARIO",
+        "CRONOGRAMA",
+        "CRONOGRAMA",
+        "ACTIVIDAD",
+    ]
+
+    has_schedule_word = any(
+        word in text
+        for word in schedule_words
+    )
+
+    if not has_schedule_word:
+        return False
+
+    if category["name"] == "TC":
+        # En la sección TC puede aparecer TCP dentro
+        # de un título conjunto. Eso es válido.
+        return True
+
+    if category["name"] == "TC Pista":
+        return True
+
+    if category["name"] == "TC Pick Up":
+        return True
+
+    return False
+
+
 def extract_article_links(page):
     links = []
 
@@ -295,6 +333,9 @@ def extract_article_links(page):
 
             title = element.inner_text().strip()
 
+            if not title:
+                continue
+
             links.append(
                 {
                     "url": href,
@@ -313,187 +354,109 @@ def extract_article_links(page):
     return list(unique.values())
 
 
-def extract_pagination_links(page):
-    links = []
-
-    for element in page.locator("a").all():
-        try:
-            href = element.get_attribute(
-                "href"
-            )
-
-            if not href:
-                continue
-
-            href = urljoin(
-                "https://actc.org.ar",
-                href,
-            )
-
-            parsed = urlparse(href)
-
-            query = parse_qs(
-                parsed.query
-            )
-
-            page_values = query.get(
-                "page",
-                [],
-            )
-
-            if not page_values:
-                continue
-
-            try:
-                page_number = int(
-                    page_values[0]
-                )
-            except Exception:
-                continue
-
-            if page_number < 1:
-                continue
-
-            if page_number > MAX_NEWS_PAGES:
-                continue
-
-            links.append(href)
-
-        except Exception:
-            continue
-
-    return links
-
-
-def collect_all_news(page, category):
+def collect_schedule_links(
+    page,
+    category,
+):
     """
-    Recorre las páginas de noticias que ACTC expone
-    mediante su paginación.
+    ACTC tiene cientos de páginas de noticias.
 
-    Esto evita depender solamente de las 12 noticias
-    visibles en la primera página.
+    En lugar de intentar adivinar enlaces de paginación,
+    recorremos directamente:
+
+        /noticias?page=1
+        /noticias?page=2
+        /noticias?page=3
+        ...
+
+    y guardamos solamente títulos que parecen ser
+    cronogramas/horarios.
     """
 
     print(
-        f"  Buscando archivo de noticias: "
-        f"{category['news_url']}"
+        "  Buscando cronogramas en el "
+        "archivo de noticias..."
     )
 
-    pending = [
-        category["news_url"]
-    ]
+    schedule_links = {}
 
-    visited_pages = set()
-    articles = {}
+    empty_pages = 0
 
-    while pending:
-        page_url = pending.pop(0)
-
-        if page_url in visited_pages:
-            continue
-
-        if len(visited_pages) >= MAX_NEWS_PAGES:
-            break
-
-        visited_pages.add(page_url)
+    for page_number in range(
+        1,
+        MAX_NEWS_PAGES + 1,
+    ):
+        if page_number == 1:
+            url = category["news_url"]
+        else:
+            url = (
+                f"{category['news_url']}"
+                f"?page={page_number}"
+            )
 
         try:
             page.goto(
-                page_url,
+                url,
                 wait_until="domcontentloaded",
                 timeout=60000,
             )
 
-            page.wait_for_timeout(800)
+            page.wait_for_timeout(400)
 
         except Exception:
+            print(
+                f"    Página {page_number}: "
+                "error de carga"
+            )
             continue
 
-        page_articles = extract_article_links(
+        links = extract_article_links(
             page
         )
 
-        for article in page_articles:
-            articles[
+        found_this_page = 0
+
+        for article in links:
+            if not article_is_schedule_candidate(
+                article["title"],
+                category,
+            ):
+                continue
+
+            if article["url"] in schedule_links:
+                continue
+
+            schedule_links[
                 article["url"]
             ] = article
 
-        pagination = extract_pagination_links(
-            page
-        )
+            found_this_page += 1
 
-        for pagination_url in pagination:
-            if pagination_url not in visited_pages:
-                pending.append(
-                    pagination_url
-                )
-
-        # Si la página no tiene paginación explícita,
-        # probamos páginas consecutivas.
-        if not pagination:
-            current_query = parse_qs(
-                urlparse(page_url).query
+        if found_this_page:
+            print(
+                f"    Página {page_number}: "
+                f"{found_this_page} "
+                "cronograma(s)"
             )
+            empty_pages = 0
+        else:
+            empty_pages += 1
 
-            current_page = 1
-
-            if "page" in current_query:
-                try:
-                    current_page = int(
-                        current_query["page"][0]
-                    )
-                except Exception:
-                    current_page = 1
-
-            if current_page < MAX_NEWS_PAGES:
-                next_page = current_page + 1
-
-                parsed = urlparse(
-                    page_url
-                )
-
-                query = parse_qs(
-                    parsed.query
-                )
-
-                query["page"] = [
-                    str(next_page)
-                ]
-
-                next_url = urlunparse(
-                    (
-                        parsed.scheme,
-                        parsed.netloc,
-                        parsed.path,
-                        parsed.params,
-                        urlencode(
-                            query,
-                            doseq=True,
-                        ),
-                        parsed.fragment,
-                    )
-                )
-
-                if next_url not in visited_pages:
-                    pending.append(
-                        next_url
-                    )
+        # Después de muchas páginas sin ningún
+        # cronograma ya estamos fuera del período útil.
+        if empty_pages >= 12:
+            break
 
     result = list(
-        articles.values()
+        schedule_links.values()
     )
 
     print(
-        f"  Páginas de noticias consultadas: "
-        f"{len(visited_pages)}"
-    )
-
-    print(
-        f"  Noticias encontradas: "
+        f"  Cronogramas encontrados: "
         f"{len(result)}"
     )
 
-    return result[:MAX_ARTICLES]
+    return result
 
 
 def load_article(page, article):
@@ -520,7 +483,6 @@ def article_score(
     article_text,
     article_title,
     race,
-    category,
 ):
     text = normalize(
         article_text
@@ -534,21 +496,14 @@ def article_score(
         race["location"]
     )
 
-    # Las fechas futuras pueden decir
-    # "A confirmar", por lo que la ubicación puede
-    # estar vacía.
     if location and location in text:
-        score += 40
+        score += 100
 
     if (
         f"FECHA {race['round']}"
         in text
     ):
-        score += 40
-
-    # Algunas noticias dicen "quinta fecha",
-    # "undécima fecha", etc. La ubicación suele ser
-    # más fiable, por eso esto es solo un refuerzo.
+        score += 80
 
     if "HORARIOS" in text:
         score += 30
@@ -557,40 +512,7 @@ def article_score(
         score += 30
 
     if "HORARIO" in text:
-        score += 10
-
-    if category["name"] == "TC":
-        if "TURISMO CARRETERA" in text:
-            score += 15
-
-        if re.search(
-            r"\bTC\s*\|",
-            text,
-        ):
-            score += 15
-
-    elif category["name"] == "TC Pista":
-        if "TC PISTA" in text:
-            score += 15
-
-        if re.search(
-            r"\bTCP\s*\|",
-            text,
-        ):
-            score += 20
-
-    elif category["name"] == "TC Pick Up":
-        if (
-            "TC PICK UP" in text
-            or "TCPK" in text
-        ):
-            score += 15
-
-        if re.search(
-            r"\bTCPK\s*[:|]",
-            text,
-        ):
-            score += 20
+        score += 15
 
     return score
 
@@ -650,10 +572,9 @@ def extract_times(line):
     if result:
         return result
 
-    # 09:15 HS
-    # 09:15 Hs
-    # 09:15 horas
-    # 09:15
+    # 10:10 Hs.
+    # 10:10 horas.
+    # 10:10
     values = re.findall(
         r"\b(\d{1,2}[:.]\d{2})\s*(?:HS|HORA(?:S)?|H)?\b",
         text,
@@ -676,58 +597,60 @@ def extract_times(line):
 def get_session_type(line):
     text = normalize(line)
 
-    # Primero carrera/final.
+    # FINAL/CARRERA primero para no confundirla
+    # con otras actividades.
     if (
-        "CARRERA" in text
-        or "FINAL" in text
+        "FINAL" in text
+        or "CARRERA" in text
     ):
         return "Carrera"
 
-    if (
-        "SERIE" in text
-    ):
+    if "SERIE" in text:
         return "Serie"
 
-    if (
-        "CLASIFICACION" in text
-    ):
+    if "CLASIFICACION" in text:
         return "Clasificación"
 
     if (
         "ENTRENAMIENTO" in text
         or "PRACTICA" in text
-        or "PRÁCTICA" in text
     ):
         return "Entrenamiento"
 
     return None
 
 
-def category_marker(line, category):
+def extract_category_from_line(line):
     text = normalize(line)
 
-    if category["name"] == "TC":
-        return (
-            "TC" in text
-            and "TCP" not in text
-            and "TC PISTA" not in text
-            and "TCPK" not in text
-            and "TC PICK UP" not in text
+    if (
+        re.search(
+            r"\bTCPK\b",
+            text,
         )
+        or "TC PICK UP" in text
+    ):
+        return "TC Pick Up"
 
-    if category["name"] == "TC Pista":
-        return (
-            "TCP" in text
-            or "TC PISTA" in text
+    if (
+        re.search(
+            r"\bTCP\b",
+            text,
         )
+        or "TC PISTA" in text
+    ):
+        return "TC Pista"
 
-    if category["name"] == "TC Pick Up":
-        return (
-            "TCPK" in text
-            or "TC PICK UP" in text
+    if (
+        re.search(
+            r"\bTC\b",
+            text,
         )
+        or "TURISMO CARRETERA" in text
+    ):
+        return "TC"
 
-    return False
+    return None
 
 
 def extract_session_name(line):
@@ -746,23 +669,20 @@ def extract_session_name(line):
     )
 
     name = re.sub(
+        r"^(TC PISTA|TC PICK UP|TURISMO CARRETERA|TCPK|TCP|TC)\s*[\-:|]\s*",
+        "",
+        name,
+    )
+
+    name = re.sub(
         r"\s+",
         " ",
         name,
     )
 
-    name = name.strip(
+    return name.strip(
         " -|:;,.()"
-    )
-
-    # Quitamos marcas de categoría del comienzo.
-    name = re.sub(
-        r"^(TC|TCP|TCPK|TC PISTA|TC PICK UP)\s*[\|:\-]\s*",
-        "",
-        name,
-    )
-
-    return name or "Actividad"
+    ) or "Actividad"
 
 
 def determine_day(
@@ -771,20 +691,25 @@ def determine_day(
 ):
     text = normalize(line)
 
-    # Si la propia línea trae una fecha concreta,
-    # tiene prioridad.
-    date_match = re.search(
+    # Fecha explícita:
+    #
+    # SÁBADO 28
+    # DOMINGO 29
+    # SÁBADO 12 DE SEPTIEMBRE
+    #
+    # Primero buscamos día + mes.
+    explicit = re.search(
         r"\b(\d{1,2})\s+([A-Z]+)\b",
         text,
     )
 
-    if date_match:
+    if explicit:
         day = int(
-            date_match.group(1)
+            explicit.group(1)
         )
 
         month = MONTHS.get(
-            date_match.group(2)
+            explicit.group(2)
         )
 
         if month:
@@ -795,29 +720,31 @@ def determine_day(
                     day,
                 ).date()
 
-                # Solo aceptamos fechas cercanas a la
-                # fecha oficial de la carrera.
                 if abs(
                     (candidate - race_date).days
-                ) <= 2:
+                ) <= 3:
                     return candidate
+
             except Exception:
                 pass
 
-    # Para una carrera dominical:
+    # En ACTC la fecha del calendario es normalmente
+    # el domingo de la carrera.
     #
-    # viernes = -2
-    # sábado  = -1
-    # domingo = 0
-    #
-    # Si el evento oficial tuviera otro formato,
-    # estas líneas se detectan igual.
+    # Por eso:
+    # viernes -> -2
+    # sábado  -> -1
+    # domingo ->  0
 
     if "VIERNES" in text:
-        return race_date - timedelta(days=2)
+        return race_date - timedelta(
+            days=2
+        )
 
     if "SABADO" in text:
-        return race_date - timedelta(days=1)
+        return race_date - timedelta(
+            days=1
+        )
 
     if "DOMINGO" in text:
         return race_date
@@ -841,18 +768,15 @@ def parse_article(
         race["location"]
     )
 
-    # Si tenemos circuito/lugar, exigimos coincidencia
-    # salvo que la noticia mencione explícitamente
-    # la fecha de carrera.
-    if location:
-        if (
-            location not in normalized
-            and (
-                f"FECHA {race['round']}"
-                not in normalized
-            )
-        ):
-            return []
+    # La noticia debe pertenecer a la fecha.
+    if (
+        location not in normalized
+        and (
+            f"FECHA {race['round']}"
+            not in normalized
+        )
+    ):
+        return []
 
     lines = [
         line.strip()
@@ -864,12 +788,12 @@ def parse_article(
 
     current_day = None
 
-    for line in lines:
-        session = get_session_type(
-            line
-        )
+    # Categoría activa dentro de una noticia.
+    active_category = None
 
-        # Primero detectamos el día de la actividad.
+    for line in lines:
+        normalized_line = normalize(line)
+
         detected_day = determine_day(
             race["date"],
             line,
@@ -877,6 +801,21 @@ def parse_article(
 
         if detected_day:
             current_day = detected_day
+
+        detected_category = (
+            extract_category_from_line(
+                line
+            )
+        )
+
+        if detected_category:
+            active_category = (
+                detected_category
+            )
+
+        session = get_session_type(
+            line
+        )
 
         if not session:
             continue
@@ -886,53 +825,21 @@ def parse_article(
         if not times:
             continue
 
-        # Si todavía no sabemos el día, no inventamos.
-        if current_day is None:
+        # Si la línea trae categoría explícita,
+        # usamos esa categoría.
+        #
+        # Si no la trae, usamos la última sección
+        # de categoría detectada.
+        line_category = (
+            detected_category
+            or active_category
+        )
+
+        if line_category != category["name"]:
             continue
 
-        # Solo tomamos líneas de la categoría
-        # cuando la categoría aparece explícitamente.
-        #
-        # Algunas noticias separan primero:
-        # "Sábado (Turismo Carretera)"
-        # y luego las actividades.
-        #
-        # Para esos casos mantenemos la categoría activa.
-        if not category_marker(
-            line,
-            category,
-        ):
-            # Si la línea no tiene marcador, puede ser
-            # una sección específica de la categoría.
-            #
-            # Aceptamos solamente si el nombre de la
-            # noticia/artículo es claramente de esa
-            # categoría y no menciona otra categoría.
-            line_normalized = normalize(line)
-
-            if category["name"] == "TC":
-                if (
-                    "TCP" in line_normalized
-                    or "TC PISTA" in line_normalized
-                    or "TCPK" in line_normalized
-                    or "TC PICK UP" in line_normalized
-                ):
-                    continue
-
-            elif category["name"] == "TC Pista":
-                if (
-                    "TC " in line_normalized
-                    and "TCP" not in line_normalized
-                    and "TC PISTA" not in line_normalized
-                ):
-                    continue
-
-            elif category["name"] == "TC Pick Up":
-                if (
-                    "TCPK" not in line_normalized
-                    and "TC PICK UP" not in line_normalized
-                ):
-                    continue
+        if current_day is None:
+            continue
 
         name = extract_session_name(
             line
@@ -944,9 +851,9 @@ def parse_article(
             if end:
                 eh, em = end
             else:
-                # La noticia solo publicó la hora
-                # de inicio. Conservamos esa hora y
-                # damos 30 minutos técnicos de duración.
+                # ACTC publicó solamente hora de inicio.
+                # Para el calendario usamos 30 minutos
+                # como duración técnica.
                 eh = sh
                 em = sm + 30
 
@@ -1065,21 +972,35 @@ def process_category(
         category,
     )
 
+    print(
+        f"  Fechas encontradas: "
+        f"{len(races)}"
+    )
+
     expected = {
         "TC": 15,
         "TC Pista": 15,
         "TC Pick Up": 11,
     }[category["name"]]
 
-    print(
-        f"  Fechas encontradas: "
-        f"{len(races)}"
-    )
-
-    if len(races) != expected:
+    # TCPK puede tener fechas futuras "A confirmar"
+    # sin día/lugar publicado. No las inventamos.
+    if (
+        category["name"] != "TC Pick Up"
+        and len(races) != expected
+    ):
         print(
             f"  ADVERTENCIA: se esperaban "
             f"{expected} fechas."
+        )
+
+    if (
+        category["name"] == "TC Pick Up"
+        and len(races) < 9
+    ):
+        print(
+            "  ADVERTENCIA: faltan fechas "
+            "publicadas por ACTC."
         )
 
     if not races:
@@ -1087,6 +1008,7 @@ def process_category(
             "  ERROR: no se pudo leer "
             "el calendario."
         )
+
         return []
 
     for race in races:
@@ -1096,7 +1018,7 @@ def process_category(
             f"{race['location']}"
         )
 
-    articles_links = collect_all_news(
+    schedule_links = collect_schedule_links(
         page,
         category,
     )
@@ -1104,16 +1026,17 @@ def process_category(
     articles = []
 
     print(
-        "  Descargando contenido de noticias..."
+        "  Descargando cronogramas..."
     )
 
     for index, article in enumerate(
-        articles_links,
+        schedule_links,
         start=1,
     ):
         print(
-            f"    Leyendo noticia "
-            f"{index}/{len(articles_links)}"
+            f"    Cronograma "
+            f"{index}/{len(schedule_links)}: "
+            f"{article['title']}"
         )
 
         text = load_article(
@@ -1131,7 +1054,7 @@ def process_category(
             )
 
     print(
-        f"  Noticias cargadas: "
+        f"  Cronogramas cargados: "
         f"{len(articles)}"
     )
 
@@ -1145,7 +1068,6 @@ def process_category(
                 article["text"],
                 article["title"],
                 race,
-                category,
             )
 
             if score > 0:
@@ -1163,9 +1085,9 @@ def process_category(
 
         sessions = []
 
-        # Usamos más candidatos porque algunas fechas
-        # tienen una noticia general y otra específica.
-        for score, article in candidates[:12]:
+        # Normalmente el mejor artículo es el
+        # cronograma de la fecha.
+        for score, article in candidates[:6]:
             parsed = parse_article(
                 article,
                 race,
