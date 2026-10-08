@@ -84,7 +84,7 @@ def normalize(text):
     text = text.upper()
 
     text = re.sub(
-        r"[ \t]+",
+        r"\s+",
         " ",
         text,
     )
@@ -105,14 +105,6 @@ def slug(text):
 
 
 def parse_calendar_date(line):
-    """
-    ACTC actualmente muestra las fechas así:
-
-        dom, 15 feb 2026
-        dom, 08 mar 2026
-        dom, 13 sept 2026
-    """
-
     text = normalize(line)
 
     match = re.search(
@@ -169,14 +161,8 @@ def extract_calendar_events(page, category):
     current_round = None
     current_location = None
 
-    for index, line in enumerate(lines):
+    for line in lines:
         normalized = normalize(line)
-
-        # -------------------------------------------------
-        # Ejemplo:
-        #
-        # Fecha 1 — CALAFATE
-        # -------------------------------------------------
 
         match = re.match(
             r"^FECHA\s+(\d+)\s*[—–-]\s*(.+)$",
@@ -197,20 +183,7 @@ def extract_calendar_events(page, category):
         if current_round is None:
             continue
 
-        # -------------------------------------------------
-        # La línea siguiente relevante es:
-        #
-        # dom, 15 feb 2026
-        #
-        # También aceptamos:
-        #
-        # sáb, 12 sept 2026
-        # vie, 11 sept 2026
-        # -------------------------------------------------
-
-        date = parse_calendar_date(
-            line
-        )
+        date = parse_calendar_date(line)
 
         if not date:
             continue
@@ -241,14 +214,6 @@ def extract_calendar_events(page, category):
 
         current_round = None
         current_location = None
-
-    # -----------------------------------------------------
-    # Segunda pasada de seguridad:
-    #
-    # Si ACTC cambia ligeramente el HTML y la fecha no
-    # queda inmediatamente después de la tarjeta, buscamos
-    # Fecha N + fecha dentro de las siguientes líneas.
-    # -----------------------------------------------------
 
     if len(events) == 0:
         for index, line in enumerate(lines):
@@ -365,7 +330,7 @@ def load_article(page, article):
             timeout=60000,
         )
 
-        page.wait_for_timeout(400)
+        page.wait_for_timeout(500)
 
         text = page.locator(
             "body"
@@ -396,135 +361,128 @@ def article_score(
     )
 
     if location and location in text:
-        score += 30
+        score += 40
 
     if (
         f"FECHA {race['round']}"
         in text
     ):
-        score += 30
-
-    aliases = {
-        "SAN NICOLAS": [
-            "SAN NICOLAS",
-        ],
-        "RIO CUARTO": [
-            "RIO CUARTO",
-        ],
-        "PARANA": [
-            "PARANA",
-        ],
-        "ALBARDON": [
-            "ALBARDON",
-        ],
-        "CONCEPCION DEL URUGUAY": [
-            "CONCEPCION DEL URUGUAY",
-        ],
-        "TERMAS DE RIO HONDO": [
-            "TERMAS DE RIO HONDO",
-        ],
-    }
-
-    for alias in aliases.get(
-        location,
-        [location],
-    ):
-        if alias in text:
-            score += 15
-            break
+        score += 40
 
     if "HORARIOS" in text:
         score += 15
 
     if "CRONOGRAMA" in text:
-        score += 15
+        score += 20
+
+    if "ACTIVIDAD" in text:
+        score += 5
 
     if category["name"] == "TC":
-        if "TURISMO CARRETERA" in text:
-            score += 10
+        if (
+            "TURISMO CARRETERA"
+            in text
+        ):
+            score += 15
 
     elif category["name"] == "TC Pista":
         if "TC PISTA" in text:
-            score += 10
+            score += 15
 
     elif category["name"] == "TC Pick Up":
         if (
             "TC PICK UP" in text
             or "TCPK" in text
         ):
-            score += 10
+            score += 15
 
     return score
 
 
-def parse_time(value):
-    value = value.strip()
-    value = value.replace(".", ":")
-
-    match = re.fullmatch(
-        r"(\d{1,2}):(\d{2})",
-        value,
-    )
-
-    if not match:
-        return None
-
-    hour = int(match.group(1))
-    minute = int(match.group(2))
-
-    if hour > 23:
-        return None
-
-    if minute > 59:
-        return None
-
-    return hour, minute
-
-
 def extract_times(line):
-    line = normalize(line)
+    text = normalize(line)
 
-    result = []
+    results = []
 
-    # Ejemplo:
     # 10:15 A 10:45
     ranges = re.findall(
-        r"(\d{1,2}[:.]\d{2})\s+A\s+(\d{1,2}[:.]\d{2})",
-        line,
+        r"\b(\d{1,2}[:.]\d{2})\s*(?:A|-|–)\s*(\d{1,2}[:.]\d{2})\b",
+        text,
     )
 
     for start, end in ranges:
-        a = parse_time(start)
-        b = parse_time(end)
+        start = start.replace(".", ":")
+        end = end.replace(".", ":")
 
-        if a and b:
-            result.append(
-                (a, b)
+        try:
+            sh, sm = map(
+                int,
+                start.split(":"),
             )
 
-    # Ejemplo:
-    # 10:15 HS
-    if not result:
-        values = re.findall(
-            r"\b(\d{1,2}[:.]\d{2})\s*(?:HS|H)?\b",
-            line,
-        )
+            eh, em = map(
+                int,
+                end.split(":"),
+            )
 
-        for value in values:
-            a = parse_time(value)
-
-            if a:
-                result.append(
-                    (a, None)
+            if (
+                0 <= sh <= 23
+                and 0 <= eh <= 23
+                and 0 <= sm <= 59
+                and 0 <= em <= 59
+            ):
+                results.append(
+                    (
+                        (sh, sm),
+                        (eh, em),
+                    )
                 )
 
-    return result
+        except Exception:
+            pass
+
+    if results:
+        return results
+
+    # 10:15 HS
+    singles = re.findall(
+        r"\b(\d{1,2}[:.]\d{2})\s*(?:HS|H)?\b",
+        text,
+    )
+
+    for value in singles:
+        value = value.replace(".", ":")
+
+        try:
+            hour, minute = map(
+                int,
+                value.split(":"),
+            )
+
+            if (
+                0 <= hour <= 23
+                and 0 <= minute <= 59
+            ):
+                results.append(
+                    (
+                        (hour, minute),
+                        None,
+                    )
+                )
+
+        except Exception:
+            pass
+
+    return results
 
 
 def get_session_type(line):
     text = normalize(line)
 
-    if "CLASIFICACION" in text:
+    if (
+        "CLASIFICACION" in text
+        or "CLASIFICACIÓN" in text
+    ):
         return "Clasificación"
 
     if "ENTRENAMIENTO" in text:
@@ -542,44 +500,41 @@ def get_session_type(line):
     return None
 
 
-def line_matches_category(
-    line,
-    category,
-):
+def extract_session_name(line):
+    name = normalize(line)
+
+    name = re.sub(
+        r"\b\d{1,2}[:.]\d{2}\s*(?:A|-|–)\s*\d{1,2}[:.]\d{2}\b",
+        "",
+        name,
+    )
+
+    name = re.sub(
+        r"\b\d{1,2}[:.]\d{2}\s*(?:HS|H)?\b",
+        "",
+        name,
+    )
+
+    name = re.sub(
+        r"\s+",
+        " ",
+        name,
+    )
+
+    name = name.strip(
+        " -|:;,"
+    )
+
+    return name
+
+
+def line_has_activity(line):
     text = normalize(line)
 
-    if category["name"] == "TC":
-        return (
-            (
-                "TURISMO CARRETERA"
-                in text
-            )
-            or re.search(
-                r"\bTC\b",
-                text,
-            ) is not None
-        ) and not (
-            "TC PISTA" in text
-            or "TC PICK UP" in text
-            or "TCPK" in text
-        )
-
-    if category["name"] == "TC Pista":
-        return (
-            "TC PISTA" in text
-            or re.search(
-                r"\bTCP\b",
-                text,
-            ) is not None
-        )
-
-    if category["name"] == "TC Pick Up":
-        return (
-            "TC PICK UP" in text
-            or "TCPK" in text
-        )
-
-    return False
+    return (
+        get_session_type(line)
+        is not None
+    )
 
 
 def parse_article(
@@ -598,6 +553,8 @@ def parse_article(
         race["location"]
     )
 
+    # La noticia debe tener por lo menos
+    # una de estas señales.
     if (
         location not in normalized
         and f"FECHA {race['round']}"
@@ -613,25 +570,39 @@ def parse_article(
 
     events = []
 
-    current_day_offset = 0
+    current_day = race["date"]
 
     for line in lines:
         normalized_line = normalize(line)
 
-        if "SABADO" in normalized_line:
-            current_day_offset = 0
+        # --------------------------------------------------
+        # Detectamos el día independientemente de la
+        # categoría.
+        # --------------------------------------------------
 
-        elif "DOMINGO" in normalized_line:
-            current_day_offset = 1
-
-        elif "VIERNES" in normalized_line:
-            current_day_offset = -1
-
-        if not line_matches_category(
-            line,
-            category,
+        if re.search(
+            r"\bVIERNES\b",
+            normalized_line,
         ):
-            continue
+            current_day = (
+                race["date"]
+                - timedelta(days=1)
+            )
+
+        elif re.search(
+            r"\bSABADO\b",
+            normalized_line,
+        ):
+            current_day = race["date"]
+
+        elif re.search(
+            r"\bDOMINGO\b",
+            normalized_line,
+        ):
+            current_day = (
+                race["date"]
+                + timedelta(days=1)
+            )
 
         session = get_session_type(
             line
@@ -645,67 +616,57 @@ def parse_article(
         if not times:
             continue
 
+        name = extract_session_name(
+            line
+        )
+
+        if not name:
+            name = session
+
         for start, end in times:
-            start_hour, start_minute = start
+            sh, sm = start
 
             if end:
-                end_hour, end_minute = end
+                eh, em = end
             else:
-                end_hour = start_hour
-                end_minute = start_minute + 30
+                # Cuando ACTC solamente publica
+                # la hora de inicio, usamos 30 min
+                # como duración técnica del evento.
+                # NO modifica la hora de inicio.
+                eh = sh
+                em = sm + 30
 
-                if end_minute >= 60:
-                    end_hour += 1
-                    end_minute -= 60
+                if em >= 60:
+                    eh += 1
+                    em -= 60
 
-            date = (
-                race["date"]
-                + timedelta(
-                    days=current_day_offset
-                )
-            )
+                if eh >= 24:
+                    eh = 23
+                    em = 59
 
             start_dt = TZ.localize(
                 datetime(
-                    date.year,
-                    date.month,
-                    date.day,
-                    start_hour,
-                    start_minute,
+                    current_day.year,
+                    current_day.month,
+                    current_day.day,
+                    sh,
+                    sm,
                 )
             )
 
             end_dt = TZ.localize(
                 datetime(
-                    date.year,
-                    date.month,
-                    date.day,
-                    end_hour,
-                    end_minute,
+                    current_day.year,
+                    current_day.month,
+                    current_day.day,
+                    eh,
+                    em,
                 )
             )
 
-            name = re.sub(
-                r"\b\d{1,2}[:.]\d{2}\s*(?:A\s*\d{1,2}[:.]\d{2})?\s*(?:HS|H)?\b",
-                "",
-                line,
-                flags=re.I,
-            )
-
-            name = re.sub(
-                r"\s+",
-                " ",
-                name,
-            ).strip(
-                " -|:"
-            )
-
-            if not name:
-                name = session
-
             events.append(
                 {
-                    "date": date,
+                    "date": current_day,
                     "inicio": start_dt,
                     "fin": end_dt,
                     "tipo": session,
@@ -812,7 +773,6 @@ def process_category(
             "  ERROR: no se pudo leer "
             "el calendario."
         )
-
         return []
 
     for race in races:
@@ -834,17 +794,13 @@ def process_category(
 
     articles = []
 
-    limit = min(
-        len(links),
-        40,
-    )
-
-    for index in range(limit):
-        article = links[index]
-
+    for index, article in enumerate(
+        links[:40],
+        start=1,
+    ):
         print(
             f"    Leyendo noticia "
-            f"{index + 1}/{limit}"
+            f"{index}/{min(len(links), 40)}"
         )
 
         text = load_article(
@@ -894,7 +850,9 @@ def process_category(
 
         sessions = []
 
-        for score, article in candidates[:5]:
+        # Miramos hasta 8 noticias candidatas,
+        # no solamente 2 o 3.
+        for score, article in candidates[:8]:
             parsed = parse_article(
                 article,
                 race,
