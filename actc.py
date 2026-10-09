@@ -710,63 +710,81 @@ def parse_schedule_text(
     return list(unique.values())
 
 
-def discover_schedule(
-    browser,
-    category,
-    event,
-):
-    """
-    Busca el cronograma dinámicamente.
-
-    Estrategia:
-
-    1. abrir calendario
-    2. buscar enlace de resultados correspondiente
-    3. abrir resultados
-    4. buscar cronograma
-    5. abrir cronograma
-    6. extraer sesiones
-    """
-
+def discover_schedule(browser, category, event):
     slug = CATEGORIES[category]["slug"]
-
-    calendar_url = (
-        f"{BASE_URL}/{slug}/calendario"
-    )
+    calendar_url = f"{BASE_URL}/{slug}/calendario"
 
     page = browser.new_page(
-        viewport={
-            "width": 1440,
-            "height": 1200,
-        }
+        viewport={"width": 1440, "height": 1200}
     )
 
     try:
-
         page.goto(
             calendar_url,
             wait_until="domcontentloaded",
             timeout=60000,
         )
-
         page.wait_for_timeout(4000)
 
         print("\n--- DIAGNÓSTICO ACTC ---")
-print("URL:", page.url)
-print("TÍTULO:", page.title())
-print("ENLACES DE LA PÁGINA:")
+        print("URL:", page.url)
+        print("TÍTULO:", page.title())
+        print("FECHA BUSCADA:", event["round"], event["fecha"])
+        print("ENLACES DE LA PÁGINA:")
 
-for link in page.locator("a").all():
-    try:
-        href = link.get_attribute("href")
-        text = link.inner_text().strip()
+        for link in page.locator("a").all():
+            try:
+                href = link.get_attribute("href")
+                text = link.inner_text().strip()
 
-        if href:
-            print(f"{text[:100]} | {href}")
-    except Exception:
-        pass
+                if href:
+                    print(f"{text[:100]} | {href}")
+            except Exception:
+                pass
 
-print("--- FIN DIAGNÓSTICO ---\n")
+        print("--- FIN DIAGNÓSTICO ---\n")
+
+        result_links = discover_result_links(page)
+        schedule_links = find_schedule_links(page)
+
+        print("Enlaces de resultados:", len(result_links))
+        print("Enlaces de cronogramas:", len(schedule_links))
+
+        for url in schedule_links:
+            schedule_page = browser.new_page(
+                viewport={"width": 1440, "height": 1200}
+            )
+
+            try:
+                schedule_page.goto(
+                    url,
+                    wait_until="domcontentloaded",
+                    timeout=60000,
+                )
+                schedule_page.wait_for_timeout(4000)
+
+                body = schedule_page.locator("body").inner_text()
+                sessions = parse_schedule_text(body, category)
+
+                if sessions:
+                    print("Cronograma encontrado:", url)
+                    print("Sesiones:", len(sessions))
+                    return sessions, url
+
+            except Exception as exc:
+                print("Error leyendo cronograma:", url, exc)
+
+            finally:
+                schedule_page.close()
+
+        return [], None
+
+    except Exception as exc:
+        print("Error buscando cronograma:", exc)
+        return [], None
+
+    finally:
+        page.close()
 
         # ----------------------------------------------------
         # Buscar el bloque de la fecha.
