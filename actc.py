@@ -751,6 +751,23 @@ def discover_schedule(
 
         page.wait_for_timeout(4000)
 
+        print("\n--- DIAGNÓSTICO ACTC ---")
+print("URL:", page.url)
+print("TÍTULO:", page.title())
+print("ENLACES DE LA PÁGINA:")
+
+for link in page.locator("a").all():
+    try:
+        href = link.get_attribute("href")
+        text = link.inner_text().strip()
+
+        if href:
+            print(f"{text[:100]} | {href}")
+    except Exception:
+        pass
+
+print("--- FIN DIAGNÓSTICO ---\n")
+
         # ----------------------------------------------------
         # Buscar el bloque de la fecha.
         # ----------------------------------------------------
